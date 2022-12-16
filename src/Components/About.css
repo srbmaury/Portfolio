@@ -1,0 +1,45 @@
+.about{
+    margin: 0;
+    height:100vh;
+}
+.heading{
+    font-size: 40px;
+    margin:10px 50px;
+    color: white;
+}
+.card{
+    background: url('../Images/swe.png');
+    background-repeat: no-repeat;
+    background-position: 90% 20%;
+    background-size: 40%;
+    position: absolute;
+    width:50vw;
+    height:50vh;
+    margin-top:10vh;
+    margin-left: 25vw;
+    background-color:rgb(203, 214, 214);
+    border-radius: 10px;
+    z-index:900;
+}
+.rotate{
+    z-index: 0;
+    transform-origin: center center;
+    transform: rotate(5deg);
+}
+.color{
+    font-family: 'Indie Flower', cursive;
+    margin:4vmin 5vmin 0;
+    font-size:60px;
+}
+.introduction{
+    margin-left:25px;
+}
+
+@media only screen and (max-width:550px){
+    .card{
+        width:90vw;
+        background-position: 95% 5%;
+        background-size: 35%;
+        margin-left:5vw;
+    }
+}

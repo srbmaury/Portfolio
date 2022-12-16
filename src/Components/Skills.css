@@ -1,0 +1,41 @@
+.skills{
+    margin-top: 0;
+    height:80vh;
+}
+.groups{
+    margin-left: 13vw;
+    width:30%;
+    display:inline-block;
+}
+p{
+    color: white;
+}
+.progress-bar{
+    width:30vw;
+    height:18px;
+    border-radius: 2px;
+    background-color: white;
+}
+.bar-c, .bar-cpp, .bar-python, .bar-js, .bar-html, .bar-css, .bar-react, .bar-django{
+    height:100%;
+    border-radius: 2px;
+    animation-duration: 4s;
+}
+.bar-c{background-color: #2ab7ca; width:90%; animation-name:languagec;}
+.bar-cpp{background-color: #005b96; width:95%; animation-name:languagecpp;}
+.bar-python{background-color:  #ff3377; width:70%; animation-name:languagepython;}
+.bar-js{background-color: #e7d3d3; width:60%; animation-name:languagejs;}
+.bar-html{background-color:#f6cd61; width:85%; animation-name:languagehtml;}
+.bar-css{background-color:#7bc043; width:78%; animation-name:languagecss;}
+.bar-react{background-color: #ff6f69; width:67%; animation-name:languagereact;}
+.bar-django{background-color:blueviolet; width:72%; animation-name:languagedjango;}
+
+@keyframes  languagec{ 0%{width:0%;} 100%{width:90%;} }
+@keyframes  languagecpp{ 0%{width:0%;} 100%{width:95%;} }
+@keyframes  languagepython{ 0%{width:0%;} 100%{width:70%;} }
+@keyframes  languagejs{ 0%{width:0%;} 100%{width:60%;} }
+@keyframes  languagehtml{ 0%{width:0%;} 100%{width:85%;} }
+@keyframes  languagecss{ 0%{width:0%;} 100%{width:78%;} }
+@keyframes  languagereact{ 0%{width:0%;} 100%{width:67%;} }
+@keyframes  languagedjango{ 0%{width:0%;} 100%{width:72%;} }
+

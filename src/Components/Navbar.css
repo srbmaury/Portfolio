@@ -1,0 +1,56 @@
+.navBar{
+    width:100%;
+    padding-left: 50vw;
+    display:inline-flex;
+    overflow: hidden;
+    background-color: #121212;
+    position: fixed;
+    z-index: 1000;
+}
+.nav-item{
+    color: white;
+    margin: 20px 0;
+    margin-right: 60px;
+    font-size: 20px;
+}
+.nav-item:hover{
+    color: wheat;
+    cursor: pointer;
+}
+.hamburger{
+    width: 30px;
+    height:30px;
+    float: right;
+    margin-right: 20px;
+}
+.slice{
+    width:30px;
+    height:5px;
+    background-color: white;
+    margin-bottom: 4px;
+}
+.hamburger{
+    visibility: hidden;
+}
+@media only screen and (max-width:912px){
+    .navBar{
+        padding-left:0;
+        width:100%;
+        display:inline;
+        text-align: center;
+        height:50px;
+        /* margin-top: 30px; */
+    }
+    .nav-item{
+        margin: 50px 0;
+    }
+    .hamburger{
+        margin-top: 20px;
+        visibility: visible;
+    }
+}
+@media only screen and (max-width:1280px){
+    .navBar{
+        padding-left:0;
+    }
+}
