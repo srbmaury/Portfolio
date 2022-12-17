@@ -1,0 +1,22 @@
+.main-projects-div{
+    min-height:30vh;
+    margin: 120px;
+    display:inline-flex;
+}
+.see-all-projects{
+    background-color: rgb(245, 101, 57) !important;
+    width:230px !important;
+    height:60px !important;
+    float: right;
+    margin: 0 20px 200px;
+}
+.see-all-projects:hover{
+    background-color: black !important;
+}
+
+@media only screen and (max-width:912px){
+    .main-projects-div{
+        display: block;
+        margin:0;
+    }
+}

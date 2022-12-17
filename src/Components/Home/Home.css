@@ -1,7 +1,7 @@
 .home{
     padding-top:70px;
     height:100vh;
-    background: url('../Images/desktop.png');
+    background: url('../../Images/desktop.png');
     background-repeat: no-repeat;
     background-position: 90% 25%;
 }

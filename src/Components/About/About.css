@@ -2,13 +2,8 @@
     margin: 0;
     height:100vh;
 }
-.heading{
-    font-size: 40px;
-    margin:10px 50px;
-    color: white;
-}
 .card{
-    background: url('../Images/swe.png');
+    background: url('../../Images/swe.png');
     background-repeat: no-repeat;
     background-position: 90% 20%;
     background-size: 40%;

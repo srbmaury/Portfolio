@@ -24,7 +24,7 @@ export default function Skills(){
 
     return (
         <div ref={ref} className="skills">
-            <h3 className="heading">Skills:</h3>
+            <h3 className="heading">Skills</h3>
             <div className="groups">
                 <p>C</p>
                 <div className="progress-bar">

@@ -1,0 +1,76 @@
+.project-outer-box {
+  width: 350px;
+  height: 250px;
+  border-radius: 5px;
+  overflow: hidden;
+  background-color: rgb(245, 101, 57);
+  background-position: center;
+  margin-right: 50px;
+}
+.project-outer-box:hover {
+  background-color:azure;
+  box-shadow: inset 0px 0px 400px 110px rgba(0, 0, 0, .7);
+  background-image: none;
+}
+.project {
+  background-size: 180px 180px;
+  background-position: center 20px;
+  background-repeat: no-repeat;
+  text-align: center;
+  padding: 200px 0;
+  color: white;
+}
+.project-name {
+  font-size: 30px;
+}
+#project1{
+  background-image: url('../../Images/social-site.png');
+}
+#project2{
+  background-image: url('../../Images/tictactoe.png');
+}
+#project3{
+  background-image: url('../../Images/to-do-list.png');
+}
+.project:hover {
+  padding-top: 25px;
+  background: none !important;
+  animation-duration: 2s;
+  animation-name: slow;
+}
+@keyframes slow {
+  0% {
+    padding-top: 200px;
+  }
+  100% {
+    padding-top: 25px;
+  }
+}
+.visit-project {
+  cursor: pointer;
+  background-color: blueviolet;
+  color: white;
+  border: 2px solid white;
+  font-size: 20px;
+  width: 170px;
+  height: 50px;
+  margin: 10px 0;
+  margin-top:30px;
+  border-radius: 25px;
+}
+.visit-project:hover {
+  background: none;
+  background-color: black;
+}
+.gt {
+  font-size: 25px;
+}
+
+@media only screen and (max-width:912px){
+  .project-outer-box {
+    margin-left: 5vw;
+    margin-bottom: 30px;
+    width:90vw;
+    margin-right: 0;
+  }
+}

@@ -1,3 +1,8 @@
 #root{
     top:0 !important;
 }
+.heading{
+    font-size: 60px;
+    color: rgb(245, 101, 57);
+    margin:10px 50px;
+}
