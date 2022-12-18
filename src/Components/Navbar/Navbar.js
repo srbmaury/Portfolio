@@ -1,12 +1,14 @@
 import React from 'react'
 import './Navbar.css'
+import { NavLink } from 'react-router-dom'
 
-const Navbar = () => {
+const Navbar = ({scrollToSection, home, about, skills, projects, contact}) => {
+
     const displayNav = () => {
         let navBar = document.querySelector('.navBar');
         let slice = document.querySelector('.slice');
 
-        if(navBar.style.height === "500px"){
+        if (navBar.style.height === "500px") {
             navBar.style.height = "50px";
             slice.style.marginTop = "0px";
             slice.style.transform = "rotate(0deg)";
@@ -15,7 +17,7 @@ const Navbar = () => {
             slice = slice.nextSibling;
             slice.style.transform = "rotate(0deg)";
             slice.style.marginTop = "0px";
-        }else{
+        } else {
             navBar.style.height = "500px";
             slice.style.marginTop = "15px";
             slice.style.transform = "rotate(45deg)";
@@ -25,22 +27,21 @@ const Navbar = () => {
             slice.style.transform = "rotate(135deg)";
             slice.style.marginTop = "-18px";
         }
-        
     }
     return (
-        <div className='navBar'>
-            <div className="hamburger" onClick={displayNav}>
-                <div className="slice"></div>
-                <div className="slice"></div>
-                <div className="slice"></div>
-            </div>
-            <div className="nav-item">Home</div>
-            <div className="nav-item">About</div>
-            <div className="nav-item">Skills</div>
-            <div className="nav-item">Projects</div>
-            <div className="nav-item">Resume</div>
-            <div className="nav-item">Contact</div>
-        </div>
+        <nav className='navBar'>
+                <div className="hamburger" onClick={displayNav}>
+                    <div className="slice"></div>
+                    <div className="slice"></div>
+                    <div className="slice"></div>
+                </div>
+                <div onClick={() => scrollToSection(home)} className="nav-item active"><NavLink to="/Home">Home</NavLink></div>
+                <div onClick={() => scrollToSection(about)} className="nav-item"><NavLink to="/About">About</NavLink></div>
+                <div onClick={() => scrollToSection(skills)} className="nav-item"><NavLink to="/Skills">Skills</NavLink></div>
+                <div onClick={() => scrollToSection(projects)} className="nav-item"><NavLink to="/Projects">Projects</NavLink></div>
+                <div className="nav-item"><a href="#">Resume</a></div>
+                <div onClick={() => scrollToSection(contact)} className="nav-item"><NavLink to="/Contact">Contact</NavLink></div>
+        </nav>
     )
 }
 

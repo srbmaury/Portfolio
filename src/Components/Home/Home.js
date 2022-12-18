@@ -1,9 +1,9 @@
 import React from 'react'
 import './Home.css'
 
-const Home = () => {
+const Home = ({innerRef}) => {
   return (
-    <div className="home">
+    <div className="home" id="Home" ref={innerRef}>
       <div className="intro">
         <div className="intro1">
           <div className="letter">H</div>

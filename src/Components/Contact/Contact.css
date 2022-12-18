@@ -1,3 +1,10 @@
+#outer-box{
+    min-height: 100vh;
+    display: inline-flex;
+}
+.contact-section{
+    width:100%;
+}
 .form{
     margin-left: 200px;
     width:350px;
@@ -5,7 +12,7 @@
     padding:10px;
     border-radius: 5px;
 }
-input, textarea{
+input, textarea, button{
     width:350px;
     height:45px;
     margin: 15px 0;
@@ -26,16 +33,65 @@ textarea{
     color: black;
     font-size: 20px;
     border: none;
-    width:120px;
+    width:130px;
+    transition: transform .2s;
     background-color: rgb(245, 101, 57);
 }
 #submit:hover{
-    transform: scale(1.001); 
+    transform: scale(1.05); 
     background-color: white;
 }
-
+#sending{
+    width:20px;
+    height:20px;
+    margin-left: 6px;
+    transform: rotate(20deg);
+}
+#contacts{
+    margin:50px 140px 0;
+}
+.contact{
+    margin-top:30px;
+    display: flex;
+    color:white;
+}
+.icons-background{
+    height:40px;
+    width:50px;
+    text-align: center;
+    padding-top:10px;
+    background-color: rgb(245, 101, 57);
+    border-radius: 25px;
+    cursor: pointer;
+    transition: transform .2s;
+}
+.icons-background:hover{
+    transform: scale(1.05);
+    background-color: white;
+}
+.icons{
+    width:30px;
+    height:30px;
+    margin:0 10px; 
+}
+.name{
+    font-size: 30px;
+    margin-left:20px;
+}
 @media only screen and (max-width:912px){
+    .contact-heading{
+        margin-top:200px !important;
+    }
     .form{
         margin-left: 0;
+    }
+    #outer-box{
+        display: block;
+    }
+    #contacts{
+        margin:15px;
+    }
+    .name{
+        font-size: 25px;
     }
 }

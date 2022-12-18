@@ -1,3 +1,7 @@
+.projects-outer-box{
+    width:100%;
+    min-height:100vh;
+}
 .main-projects-div{
     min-height:30vh;
     margin: 120px;
@@ -8,7 +12,7 @@
     width:230px !important;
     height:60px !important;
     float: right;
-    margin: 0 20px 200px;
+    margin:-10px 20px 0 0;
 }
 .see-all-projects:hover{
     background-color: black !important;

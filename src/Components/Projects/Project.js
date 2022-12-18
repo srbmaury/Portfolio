@@ -1,10 +1,10 @@
 import React from 'react'
 import './Project.css'
 
-const Project = ({ project, images }) => {
+const Project = ({ project }) => {
 
   return (
-    <div className="project-outer-box">
+    <div className="project-outer-box" id="Projects">
       <div id={"project" + project.sno} className="project">
         <div className='project-name'>{project.name}</div>
         <hr />

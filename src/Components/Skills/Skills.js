@@ -1,5 +1,6 @@
-import React, { useEffect, useRef, useState, useMemo } from 'react'
+import React, { useRef } from 'react'
 import './Skills.css'
+import useIsInViewport from '../../useIsInViewport';
 
 export default function Skills(){
 
@@ -23,7 +24,7 @@ export default function Skills(){
     }
 
     return (
-        <div ref={ref} className="skills">
+        <div ref={ref} className="skills" id="Skills">
             <h3 className="heading">Skills</h3>
             <div className="groups">
                 <p>C</p>
@@ -63,26 +64,4 @@ export default function Skills(){
             </div>
         </div>
     )
-}
-
-function useIsInViewport(ref) {
-    const [isIntersecting, setIsIntersecting] = useState(false);
-
-    const observer = useMemo(
-        () =>
-            new IntersectionObserver(([entry]) =>
-                setIsIntersecting(entry.isIntersecting),
-            ),
-        [],
-    );
-
-    useEffect(() => {
-        observer.observe(ref.current);
-
-        return () => {
-            observer.disconnect();
-        };
-    }, [ref, observer]);
-
-    return isIntersecting;
 }

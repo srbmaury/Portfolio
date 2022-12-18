@@ -1,9 +1,9 @@
 import React from 'react'
 import './About.css'
 
-const About = () => {
+const About = ({innerRef}) => {
     return (
-        <div className="about">
+        <div className="about" id="About" ref={innerRef}>
             <h3 className='heading'>About Me</h3>
             <div className="card">
                 <div className="color">HEY</div>
