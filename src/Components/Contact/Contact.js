@@ -16,7 +16,7 @@ const Contact = ({innerRef}) => {
                         <input type="text" id="fname" name="fname" placeholder='Enter Your name' /><br />
                         <input type="text" id="lname" name="lname" placeholder='Enter your email' /><br />
                         <textarea id="message" name="message" rows="4" cols="50" placeholder='Enter your message' />
-                        <button id="submit">Send <img src={send} alt='send' id='sending' /></button>
+                        <button type="reset" id="submit">Send <img src={send} alt='send' id='sending' /></button>
                     </form>
                 </div>
                 <div id='contacts'>

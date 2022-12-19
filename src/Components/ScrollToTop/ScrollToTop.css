@@ -1,0 +1,11 @@
+.upArrow{
+    width:60px;
+    position: fixed;
+    bottom:0;
+    right:0;
+    margin-right: 15px;
+    margin-bottom: 15px;
+    cursor: pointer;
+    border: 4px solid white;
+    border-radius: 40px;
+}
