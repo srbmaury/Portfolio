@@ -3,7 +3,7 @@ import './Home.css'
 
 const Home = ({innerRef}) => {
   return (
-    <div className="home" id="Home" ref={innerRef}>
+    <div className="home" ref={innerRef}>
       <div className="intro">
         <div className="intro1">
           <div className="letter">H</div>

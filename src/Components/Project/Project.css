@@ -32,6 +32,18 @@
 #project3{
   background-image: url('../../Images/to-do-list.png');
 }
+#project4{
+  background-image: url('../../Images/quiz.png');
+}
+#project5{
+  background-image: url('../../Images/notes.png');
+}
+#project6{
+  background-image: url('../../Images/flappybird.png');
+}
+#project7{
+  background-image: url('../../Images/website.png');
+}
 .project:hover {
   padding-top: 25px;
   background: none !important;

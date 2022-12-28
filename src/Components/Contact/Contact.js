@@ -8,7 +8,7 @@ import location from '../../Images/location.png'
 
 const Contact = ({innerRef}) => {
     return (
-        <div className='contact-section' id="Contact">
+        <div className='contact-section'>
             <h3 className="heading contact-heading" ref={innerRef} >Contact</h3>
             <div id='outer-box'>
                 <div className="form">

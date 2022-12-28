@@ -11,12 +11,12 @@ const Navbar = ({displayNav, scrollToSection, home, about, skills, projects, con
                     <div className="slice"></div>
                     <div className="slice"></div>
                 </div>
-                <div onClick={() => scrollToSection(home)} className="nav-item active"><NavLink to="/Home">Home</NavLink></div>
-                <div onClick={() => scrollToSection(about)} className="nav-item"><NavLink to="/About">About</NavLink></div>
-                <div onClick={() => scrollToSection(skills)} className="nav-item"><NavLink to="/Skills">Skills</NavLink></div>
-                <div onClick={() => scrollToSection(projects)} className="nav-item"><NavLink to="/Projects">Projects</NavLink></div>
-                <div className="nav-item"><a href="#">Resume</a></div>
-                <div onClick={() => scrollToSection(contact)} className="nav-item"><NavLink to="/Contact">Contact</NavLink></div>
+                <div id="Home" onClick={() => scrollToSection(home, "Home")} className="nav-item active">Home</div>
+                <div id="About" onClick={() => scrollToSection(about, "About")} className="nav-item">About</div>
+                <div id="Skills" onClick={() => scrollToSection(skills, "Skills")} className="nav-item">Skills</div>
+                <div id="Projects" onClick={() => scrollToSection(projects, "Projects")} className="nav-item">Projects</div>
+                <div id="Resume" className="nav-item"><a href="#">Resume</a></div>
+                <div id="Contact" onClick={() => scrollToSection(contact, "Contact")} className="nav-item">Contact</div>
         </nav>
     )
 }

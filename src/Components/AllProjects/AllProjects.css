@@ -1,0 +1,36 @@
+.projects-outer-box{
+    width:100%;
+    min-height:100vh;
+}
+.all-projects-div{
+    margin-top: 100px;
+    float: right;
+    width: 96% !important;
+    display: flex !important;
+    justify-content: space-around !important;
+}
+.single-project{
+    margin-bottom:20px;
+}
+.return {
+    top:50vh;
+    left:10px;
+    width: 0; 
+    height: 0; 
+    position: fixed;
+    cursor: pointer;
+    border-top: 30px solid transparent;
+    border-bottom: 30px solid transparent; 
+    
+    border-right:30px solid rgb(245, 101, 57); 
+}
+
+@media only screen and (max-width:912px){
+    .all-projects-div{
+        width: 96% !important;
+        float: left;
+    }
+    .return{
+        visibility: hidden;
+    }
+}

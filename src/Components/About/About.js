@@ -3,7 +3,7 @@ import './About.css'
 
 const About = ({innerRef}) => {
     return (
-        <div className="about" id="About" ref={innerRef}>
+        <div className="about" ref={innerRef}>
             <h3 className='heading'>About Me</h3>
             <div className="card">
                 <div className="color">HEY</div>
