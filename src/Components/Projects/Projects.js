@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import Project from '../Project/Project'
 import './Projects.css'
 import projects from '../../projects'
@@ -11,10 +11,8 @@ const Projects = ({innerRef}) => {
       <h3 className="heading">Projects</h3>
       <div className='main-projects-div'>
         {
-          projects.map((project, index) => {
-            if(index <= 2){
-              return <Project project={project} key={index} />
-            }
+          projects.slice(0,3).map((project, index) => {
+            return <Project project={project} key={index} />
           })
         }
       </div>

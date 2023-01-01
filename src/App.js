@@ -85,13 +85,13 @@ function App() {
 
             setBackToTopVisible(window.pageYOffset > 0);
         });
-    }, []);
+    });
 
     return (
         <>
             <Router>
                 <Routes>
-                    <Route exact path="/" element={<>
+                    <Route exact path="/Portfolio" element={<>
                         <Navbar
                             displayNav={displayNav}
                             scrollToSection={scrollToSection}

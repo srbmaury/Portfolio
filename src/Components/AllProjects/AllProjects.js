@@ -9,7 +9,7 @@ const Projects = ({ innerRef }) => {
   return (
     <div className='all-projects-outer-box' id='AllProjects' ref={innerRef}>
       <h3 className="heading">All Projects</h3>
-      <Link to='/'>
+      <Link to='/Portfolio'>
         <div className="return"></div>
       </Link>
       <div className='all-projects-div row'>

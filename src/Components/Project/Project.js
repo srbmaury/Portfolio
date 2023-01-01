@@ -10,7 +10,7 @@ const Project = ({ project }) => {
         <hr />
         <div>{project.details}</div>
 
-        <a href={project.url} target="_blank"><button className="visit-project">Visit Project &nbsp;<span className="gt">&gt;</span> </button></a>
+        <a href={project.url} rel="noreferrer" target="_blank"><button className="visit-project">Visit Project &nbsp;<span className="gt">&gt;</span> </button></a>
       </div>
     </div>
   )
