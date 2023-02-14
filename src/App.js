@@ -11,6 +11,8 @@ import Footer from "./Components/Footer/Footer";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import React, { useRef, useState, useEffect } from "react";
 import ScrollToTop from "./Components/ScrollToTop/ScrollToTop";
+import Accounts from "./Components/Accounts/Accounts";
+import Contributions from "./Components/Contributions/Contributions";
 function App() {
     const home = useRef(null);
     const about = useRef(null);
@@ -106,6 +108,8 @@ function App() {
                         <SkillsDuel innerRef={skills} />
                         <Skills />
                         <Projects innerRef={projects} />
+                        <Accounts />
+                        <Contributions />
                         <Contact innerRef={contact} />
                         <Footer />
                     </>} />

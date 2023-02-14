@@ -1,0 +1,31 @@
+.contributions{
+  margin: 0 50px;
+  font-size: 30px;
+  color: rgb(245, 101, 57);
+  cursor: pointer;
+}
+
+#list {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-in-out;
+  color: white;
+}
+
+#list li{
+  margin-left: 100px;
+  font-size: 30px;
+}
+#list.open {
+  max-height: 500px;
+}
+
+@media only screen and (max-width:912px){
+    .contributions{
+        margin-left: 10px;
+        width: 100%;
+    }
+    #list li{
+      margin-left: 0;
+    }
+}

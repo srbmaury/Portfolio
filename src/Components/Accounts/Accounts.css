@@ -1,0 +1,19 @@
+.accounts{
+    margin: 0 50px 30px;
+    font-size: 30px;
+    color: rgb(245, 101, 57);
+}
+.prog-div{
+    margin-left: 20px;
+    display:flex;
+}
+@media only screen and (max-width:912px){
+    .accounts{
+        margin-top: 200px !important;
+        margin-left: 40px;
+    }
+    .prog-div{
+        margin-top:20px;
+        display: block;
+    }
+}
