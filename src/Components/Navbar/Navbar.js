@@ -14,7 +14,7 @@ const Navbar = ({displayNav, scrollToSection, home, about, skills, projects, con
                 <div id="About" onClick={() => scrollToSection(about, "About")} className="nav-item">About</div>
                 <div id="Skills" onClick={() => scrollToSection(skills, "Skills")} className="nav-item">Skills</div>
                 <div id="Projects" onClick={() => scrollToSection(projects, "Projects")} className="nav-item">Projects</div>
-                <div id="Resume" className="nav-item"><a href="../Portfolio/resume.pdf" target="_blank" rel="noreferrer">Resume</a></div>
+                <div id="Resume" className="nav-item"><a href="https://drive.google.com/file/d/19dXXiMoRTimehuujU_lH6iX4oiAh5dp4/view?usp=sharing" target="_blank" rel="noreferrer">Resume</a></div>
                 <div id="Contact" onClick={() => scrollToSection(contact, "Contact")} className="nav-item">Contact</div>
         </nav>
     )

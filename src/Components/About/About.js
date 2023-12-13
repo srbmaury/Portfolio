@@ -8,7 +8,7 @@ const About = ({innerRef}) => {
             <div className="card">
                 <div className="color">HEY</div>
                 <div className="introduction">
-                Myself <strong>Saurabh Maurya</strong>. <br/> Lorem ipsum dolor, sit amet <br/> consectetur adipisicing elit. Asperiores <br/> ipsum sit nisi magni sapiente nobis <br/> inventore praesentium atque totam qui <br/> velit perferendis explicabo ea, rerum <br/> reiciendis doloremque sint facere doloribus.
+                Myself <strong>Saurabh Maurya</strong>. <br/> My skills include Problem-Solving, <br/> Machine Learning and Web Development. <br/> I thrive on challenges and am passionate about <br/> leveraging technology to create innovative solutions. <br/> In Development I have worked with MERN stack and  <br/> Django web framework.
                 </div>
             </div>
             <div className="card rotate"></div>
