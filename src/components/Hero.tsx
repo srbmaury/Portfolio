@@ -1,7 +1,11 @@
 import { motion } from 'framer-motion';
-import { ArrowDown, Download, Mail } from 'lucide-react';
+import { ArrowDown, Mail, Eye } from 'lucide-react';
+import { useState } from 'react';
+import ResumeViewer from './ResumeViewer';
 
 const Hero = () => {
+  const [isResumeOpen, setIsResumeOpen] = useState(false);
+
   const scrollToAbout = () => {
     const element = document.querySelector('#about');
     if (element) {
@@ -76,15 +80,15 @@ const Hero = () => {
               Get In Touch
             </motion.a>
             
-            <motion.a
-              href="/resume.pdf"
+            <motion.button
+              onClick={() => setIsResumeOpen(true)}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               className="btn btn-secondary"
             >
-              <Download size={20} />
-              Download Resume
-            </motion.a>
+              <Eye size={20} />
+              View Resume
+            </motion.button>
           </motion.div>
 
           {/* Scroll Indicator */}
@@ -112,6 +116,12 @@ const Hero = () => {
           <div className="absolute top-40 left-40 w-80 h-80 bg-purple-200 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-4000"></div>
         </div>
       </div>
+      
+      {/* Resume Viewer Modal */}
+      <ResumeViewer 
+        isOpen={isResumeOpen} 
+        onClose={() => setIsResumeOpen(false)} 
+      />
     </section>
   );
 };
