@@ -1,7 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
-  Calendar, 
   MapPin, 
   Award, 
   Code, 
@@ -10,8 +9,6 @@ import {
   Star, 
   Play, 
   Pause, 
-  SkipBack, 
-  SkipForward,
   Volume2,
   VolumeX,
   ChevronLeft,
@@ -54,9 +51,6 @@ const CareerTimeline: React.FC<CareerTimelineProps> = ({ isOpen, onClose }) => {
   const [currentMilestone, setCurrentMilestone] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isMuted, setIsMuted] = useState(false);
-  const [showChoices, setShowChoices] = useState(false);
-  const [selectedPath, setSelectedPath] = useState<string[]>([]);
-  const [achievements, setAchievements] = useState<string[]>([]);
   const audioRef = useRef<HTMLAudioElement>(null);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
@@ -336,14 +330,10 @@ const CareerTimeline: React.FC<CareerTimelineProps> = ({ isOpen, onClose }) => {
   const handleMilestoneChange = (index: number) => {
     setCurrentMilestone(index);
     playSound('transition');
-    setShowChoices(false);
   };
 
-  const handleChoice = (choice: any) => {
+  const handleChoice = (choice: { label: string; nextMilestone: string; description: string }) => {
     playSound('achievement');
-    setSelectedPath(prev => [...prev, choice.label]);
-    setAchievements(prev => [...prev, choice.description]);
-    setShowChoices(false);
     
     // Find next milestone
     const nextIndex = timelineData.findIndex(m => m.id === choice.nextMilestone);
