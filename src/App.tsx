@@ -5,9 +5,11 @@ import Hero from './components/Hero';
 import About from './components/About';
 import Skills from './components/Skills';
 import Projects from './components/Projects';
+import GitHubStats from './components/GitHubStats';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 import CareerBot from './components/CareerBot';
+import ErrorPage from './components/ErrorPage';
 
 function App() {
   return (
@@ -26,9 +28,11 @@ function App() {
                 <About />
                 <Skills />
                 <Projects />
+                <GitHubStats username="srbmaury" />
                 <Contact />
               </motion.div>
             } />
+            <Route path="*" element={<ErrorPage />} />
           </Routes>
         </main>
         <Footer />

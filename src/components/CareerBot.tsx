@@ -15,7 +15,7 @@ const CareerBot: React.FC<CareerBotProps> = ({ className = '' }) => {
   const [messages, setMessages] = useState<Message[]>([
     {
       role: 'assistant',
-      content: "Hello! I'm an AI career assistant that can analyze job roles against Saurabh's resume to assess fit. Please share a job description or role you're interested in, and I'll provide a detailed analysis including skills match, experience relevance, and recommendations."
+      content: "Hello! I'm an AI assistant that can help you learn more about Saurabh's experience and expertise. Share a job description or role you're interested in, and I'll analyze how well it matches his skills, experience, and background. I can provide insights on his technical expertise, project experience, and career fit."
     }
   ]);
   const [input, setInput] = useState('');
@@ -97,7 +97,7 @@ const CareerBot: React.FC<CareerBotProps> = ({ className = '' }) => {
     setMessages([
       {
         role: 'assistant',
-        content: "Hello! I'm an AI career assistant that can analyze job roles against Saurabh's resume to assess fit. Please share a job description or role you're interested in, and I'll provide a detailed analysis including skills match, experience relevance, and recommendations."
+        content: "Hello! I'm an AI assistant that can help you learn more about Saurabh's experience and expertise. Share a job description or role you're interested in, and I'll analyze how well it matches his skills, experience, and background. I can provide insights on his technical expertise, project experience, and career fit."
       }
     ]);
   };
@@ -121,7 +121,7 @@ const CareerBot: React.FC<CareerBotProps> = ({ className = '' }) => {
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-2">
                 <Bot size={20} />
-                <h3 className="font-semibold">CareerBot AI</h3>
+                <h3 className="font-semibold">Saurabh's AI Assistant</h3>
               </div>
               <button
                 onClick={clearChat}
@@ -132,7 +132,7 @@ const CareerBot: React.FC<CareerBotProps> = ({ className = '' }) => {
               </button>
             </div>
             <p className="text-sm text-white/90 mt-1">
-              AI-powered career analysis
+              Learn about Saurabh's expertise
             </p>
           </div>
 

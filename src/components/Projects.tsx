@@ -272,14 +272,14 @@ const Projects = () => {
                     />
                   ) : null}
                   {/* Beautiful fallback placeholder */}
-                  <div className={`w-full h-32 bg-gradient-to-br ${project.fallbackGradient} flex items-center justify-center ${!project.image ? '' : 'hidden'} relative overflow-hidden`}>
+                  <div className={`w-full h-32 bg-gradient-to-br ${project.fallbackGradient} flex items-center justify-center ${!project.image ? '' : 'hidden'} relative overflow-hidden z-0`}>
                     {/* Animated background pattern */}
                     <div className="absolute inset-0 opacity-10">
                       <div className="absolute top-2 left-2 w-4 h-4 border border-white rounded-full"></div>
                       <div className="absolute top-6 right-4 w-2 h-2 bg-white rounded-full"></div>
                       <div className="absolute bottom-4 left-6 w-3 h-3 border border-white rounded"></div>
                     </div>
-                    <div className="text-white text-center z-10">
+                    <div className="text-white text-center z-0">
                       <div className="text-3xl mb-1 animate-pulse">{project.fallbackIcon}</div>
                       <p className="text-sm font-bold">{project.title}</p>
                     </div>
@@ -333,12 +333,13 @@ const Projects = () => {
                   </div>
 
                   {/* Project Links */}
-                  <div className="flex space-x-3">
+                  <div className="flex space-x-4 relative z-10" style={{ pointerEvents: 'auto' }}>
                     <a
                       href={project.liveUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center space-x-1 text-blue-600 hover:text-blue-700 font-medium transition-colors duration-200 text-sm"
+                      className="inline-flex items-center space-x-2 px-3 py-2 text-blue-600 hover:text-blue-700 font-medium transition-colors duration-200 text-sm hover:bg-blue-50 rounded-lg relative z-50"
+                      style={{ pointerEvents: 'auto' }}
                     >
                       <Eye size={14} />
                       <span>View</span>
@@ -347,7 +348,8 @@ const Projects = () => {
                       href={project.githubUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center space-x-1 text-gray-600 hover:text-gray-800 font-medium transition-colors duration-200 text-sm"
+                      className="inline-flex items-center space-x-2 px-3 py-2 text-gray-600 hover:text-gray-800 font-medium transition-colors duration-200 text-sm hover:bg-gray-50 rounded-lg relative z-50"
+                      style={{ pointerEvents: 'auto' }}
                     >
                       <Github size={14} />
                       <span>Code</span>
@@ -356,48 +358,6 @@ const Projects = () => {
                 </div>
               </motion.div>
             ))}
-          </div>
-        </motion.div>
-
-        {/* GitHub Stats */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-          viewport={{ once: true }}
-          className="mt-16 text-center"
-        >
-          <div className="bg-gray-50 rounded-2xl p-8">
-            <h3 className="text-2xl font-bold mb-4 gradient-text">GitHub Statistics</h3>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-              <div className="text-center">
-                <div className="text-3xl font-bold text-blue-600 mb-2">22</div>
-                <div className="text-gray-600">Repositories</div>
-              </div>
-              <div className="text-center">
-                <div className="text-3xl font-bold text-blue-600 mb-2">18</div>
-                <div className="text-gray-600">Stars</div>
-              </div>
-              <div className="text-center">
-                <div className="text-3xl font-bold text-blue-600 mb-2">4</div>
-                <div className="text-gray-600">Followers</div>
-              </div>
-              <div className="text-center">
-                <div className="text-3xl font-bold text-blue-600 mb-2">12</div>
-                <div className="text-gray-600">Following</div>
-              </div>
-            </div>
-            <div className="mt-6">
-              <a
-                href="https://github.com/srbmaury"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center space-x-2 bg-gray-900 text-white px-6 py-3 rounded-lg hover:bg-gray-800 transition-colors duration-200"
-              >
-                <Github size={20} />
-                <span>View My GitHub</span>
-              </a>
-            </div>
           </div>
         </motion.div>
       </div>

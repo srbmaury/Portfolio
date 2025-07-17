@@ -1,6 +1,5 @@
 import { motion } from 'framer-motion';
 import { useState } from 'react';
-import { Eye } from 'lucide-react';
 import ResumeViewer from './ResumeViewer';
 
 const About = () => {
@@ -107,22 +106,7 @@ const About = () => {
                 </div>
               </div>
 
-              {/* View Resume Button */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 1.2 }}
-                viewport={{ once: true }}
-                className="pt-6"
-              >
-                <button
-                  onClick={() => setIsResumeOpen(true)}
-                  className="inline-flex items-center space-x-2 px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg hover:from-blue-700 hover:to-purple-700 transition-all duration-300 hover:scale-105 shadow-lg"
-                >
-                  <Eye size={20} />
-                  <span>View Full Resume</span>
-                </button>
-              </motion.div>
+
             </div>
           </motion.div>
         </div>
