@@ -9,10 +9,13 @@ interface Message {
 
 interface CareerBotProps {
   className?: string;
+  isOpen?: boolean;
+  onClose?: () => void;
+  onOpen?: () => void;
 }
 
-const CareerBot: React.FC<CareerBotProps> = ({ className = '' }) => {
-  const [isOpen, setIsOpen] = useState(false);
+const CareerBot: React.FC<CareerBotProps> = ({ className = '', isOpen: externalIsOpen, onClose: externalOnClose, onOpen: externalOnOpen }) => {
+  const [internalIsOpen, setInternalIsOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
     {
       role: 'assistant',
@@ -21,6 +24,23 @@ const CareerBot: React.FC<CareerBotProps> = ({ className = '' }) => {
   ]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+
+  // Use external state if provided, otherwise use internal state
+  const isOpen = externalIsOpen !== undefined ? externalIsOpen : internalIsOpen;
+
+  const handleToggle = () => {
+    if (externalIsOpen !== undefined) {
+      // If externally controlled
+      if (isOpen) {
+        externalOnClose?.();
+      } else {
+        externalOnOpen?.();
+      }
+    } else {
+      // If internally controlled, toggle internal state
+      setInternalIsOpen(!internalIsOpen);
+    }
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -107,7 +127,7 @@ const CareerBot: React.FC<CareerBotProps> = ({ className = '' }) => {
     <>
       {/* Chat Toggle Button */}
       <button
-        onClick={() => setIsOpen(!isOpen)}
+        onClick={handleToggle}
         className={`fixed bottom-6 right-6 z-50 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white p-4 rounded-full shadow-lg transition-all duration-300 hover:scale-110 ${className}`}
         aria-label="Open career bot"
       >

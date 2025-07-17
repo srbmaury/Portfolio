@@ -2,10 +2,12 @@ import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Terminal as TerminalIcon, X, HelpCircle, Play } from 'lucide-react';
 import MatrixRain from './MatrixRain';
+import CareerTimeline from './CareerTimeline';
 
 interface TerminalProps {
   isOpen: boolean;
   onClose: () => void;
+  onOpenCareerBot?: () => void;
 }
 
 interface CommandHistory {
@@ -14,7 +16,7 @@ interface CommandHistory {
   timestamp: Date;
 }
 
-const Terminal: React.FC<TerminalProps> = ({ isOpen, onClose }) => {
+const Terminal: React.FC<TerminalProps> = ({ isOpen, onClose, onOpenCareerBot }) => {
   const [input, setInput] = useState('');
   const [history, setHistory] = useState<CommandHistory[]>([]);
   const [currentDirectory, setCurrentDirectory] = useState('~');
@@ -23,6 +25,7 @@ const Terminal: React.FC<TerminalProps> = ({ isOpen, onClose }) => {
   const [showWelcome, setShowWelcome] = useState(true);
   const [isDemoRunning, setIsDemoRunning] = useState(false);
   const [isMatrixActive, setIsMatrixActive] = useState(false);
+  const [isTimelineOpen, setIsTimelineOpen] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
   const terminalRef = useRef<HTMLDivElement>(null);
 
@@ -417,6 +420,8 @@ FUN STUFF:
   matrix           - Activate Matrix effect
   fortune          - Random developer quotes
   cowsay <text>    - ASCII art messages
+  ai               - Open AI bot
+  timeline         - Open Career Timeline
 
 SYSTEM:
   clear            - Clear terminal
@@ -480,6 +485,22 @@ Try these commands now! Type 'help' anytime for assistance.`;
         runAutoDemo();
         
         return 'Starting auto-demo mode...\nWatch as I demonstrate the terminal features!';
+      }
+    },
+    ai: {
+      description: 'Open the AI bot',
+      usage: 'ai',
+      execute: (_: string[]) => {
+        onOpenCareerBot?.(); // Trigger the callback to open the CareerBot
+        return 'Opening AI bot...';
+      }
+    },
+    timeline: {
+      description: 'Open the Career Timeline',
+      usage: 'timeline',
+      execute: (_: string[]) => {
+        setIsTimelineOpen(true);
+        return 'Opening Career Timeline...';
       }
     }
   };
@@ -695,6 +716,12 @@ visitor@portfolio:~$ `,
       <MatrixRain 
         isActive={isMatrixActive} 
         onClose={() => setIsMatrixActive(false)} 
+      />
+
+      {/* Career Timeline */}
+      <CareerTimeline 
+        isOpen={isTimelineOpen} 
+        onClose={() => setIsTimelineOpen(false)} 
       />
     </>
   );

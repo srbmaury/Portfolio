@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { motion } from 'framer-motion';
+
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import About from './components/About';
@@ -15,9 +15,15 @@ import { useState } from 'react';
 
 function App() {
   const [isTerminalOpen, setIsTerminalOpen] = useState(false);
+  const [isCareerBotOpen, setIsCareerBotOpen] = useState(false);
 
   const handleOpenTerminal = () => setIsTerminalOpen(true);
   const handleCloseTerminal = () => setIsTerminalOpen(false);
+  const handleOpenCareerBot = () => {
+    setIsCareerBotOpen(true);
+    setIsTerminalOpen(false); // Close terminal when opening CareerBot
+  };
+  const handleCloseCareerBot = () => setIsCareerBotOpen(false);
 
   return (
     <Router>
@@ -26,25 +32,29 @@ function App() {
         <main>
           <Routes>
             <Route path="/" element={
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.5 }}
-              >
+              <>
                 <Hero />
                 <About />
                 <Skills />
                 <Projects />
                 <GitHubStats username="srbmaury" />
                 <Contact />
-              </motion.div>
+              </>
             } />
             <Route path="*" element={<ErrorPage />} />
           </Routes>
         </main>
         <Footer />
-        <CareerBot />
-        <Terminal isOpen={isTerminalOpen} onClose={handleCloseTerminal} />
+        <CareerBot 
+          isOpen={isCareerBotOpen} 
+          onClose={handleCloseCareerBot}
+          onOpen={handleOpenCareerBot}
+        />
+        <Terminal 
+          isOpen={isTerminalOpen} 
+          onClose={handleCloseTerminal}
+          onOpenCareerBot={handleOpenCareerBot}
+        />
       </div>
     </Router>
   );
