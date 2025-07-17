@@ -1,8 +1,12 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Menu, X } from 'lucide-react';
+import { Terminal as TerminalIcon, Menu, X } from 'lucide-react';
 
-const Navbar = () => {
+interface NavbarProps {
+  onOpenTerminal: () => void;
+}
+
+const Navbar: React.FC<NavbarProps> = ({ onOpenTerminal }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
@@ -65,16 +69,37 @@ const Navbar = () => {
                 {item.name}
               </motion.button>
             ))}
+            {/* Terminal Button */}
+            <motion.button
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={onOpenTerminal}
+              className="flex items-center gap-2 px-3 py-2 bg-gray-900 text-green-400 rounded-lg hover:bg-green-900 hover:text-green-300 transition-colors duration-200 font-medium ml-4"
+              title="Open Terminal"
+            >
+              <TerminalIcon size={18} />
+              <span className="hidden sm:inline">Terminal</span>
+            </motion.button>
           </div>
 
           {/* Mobile menu button */}
-          <div className="md:hidden">
+          <div className="md:hidden flex items-center gap-2">
             <motion.button
               whileTap={{ scale: 0.95 }}
               onClick={() => setIsOpen(!isOpen)}
               className="text-gray-700 hover:text-blue-600 transition-colors duration-200"
             >
               {isOpen ? <X size={24} /> : <Menu size={24} />}
+            </motion.button>
+            {/* Terminal Button Mobile */}
+            <motion.button
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={onOpenTerminal}
+              className="flex items-center gap-1 px-2 py-2 bg-gray-900 text-green-400 rounded-lg hover:bg-green-900 hover:text-green-300 transition-colors duration-200 font-medium"
+              title="Open Terminal"
+            >
+              <TerminalIcon size={18} />
             </motion.button>
           </div>
         </div>

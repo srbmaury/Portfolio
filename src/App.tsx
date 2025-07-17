@@ -10,12 +10,19 @@ import Contact from './components/Contact';
 import Footer from './components/Footer';
 import CareerBot from './components/CareerBot';
 import ErrorPage from './components/ErrorPage';
+import Terminal from './components/Terminal';
+import { useState } from 'react';
 
 function App() {
+  const [isTerminalOpen, setIsTerminalOpen] = useState(false);
+
+  const handleOpenTerminal = () => setIsTerminalOpen(true);
+  const handleCloseTerminal = () => setIsTerminalOpen(false);
+
   return (
     <Router>
       <div className="App">
-        <Navbar />
+        <Navbar onOpenTerminal={handleOpenTerminal} />
         <main>
           <Routes>
             <Route path="/" element={
@@ -37,6 +44,7 @@ function App() {
         </main>
         <Footer />
         <CareerBot />
+        <Terminal isOpen={isTerminalOpen} onClose={handleCloseTerminal} />
       </div>
     </Router>
   );

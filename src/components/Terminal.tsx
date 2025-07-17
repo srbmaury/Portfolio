@@ -1,0 +1,703 @@
+import { useState, useEffect, useRef } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Terminal as TerminalIcon, X, HelpCircle, Play } from 'lucide-react';
+import MatrixRain from './MatrixRain';
+
+interface TerminalProps {
+  isOpen: boolean;
+  onClose: () => void;
+}
+
+interface CommandHistory {
+  command: string;
+  output: string | React.ReactNode;
+  timestamp: Date;
+}
+
+const Terminal: React.FC<TerminalProps> = ({ isOpen, onClose }) => {
+  const [input, setInput] = useState('');
+  const [history, setHistory] = useState<CommandHistory[]>([]);
+  const [currentDirectory, setCurrentDirectory] = useState('~');
+  const [commandIndex, setCommandIndex] = useState(-1);
+  const [isTyping, setIsTyping] = useState(false);
+  const [showWelcome, setShowWelcome] = useState(true);
+  const [isDemoRunning, setIsDemoRunning] = useState(false);
+  const [isMatrixActive, setIsMatrixActive] = useState(false);
+  const inputRef = useRef<HTMLInputElement>(null);
+  const terminalRef = useRef<HTMLDivElement>(null);
+
+  // Demo commands sequence
+  const demoCommands = [
+    'whoami',
+    'ls',
+    'cd projects',
+    'projects --list',
+    'fortune',
+    'date',
+    'pwd',
+    'cd about',
+    'matrix'
+  ];
+
+  // Auto-typing function
+  const autoType = async (text: string, speed: number = 50) => {
+    setIsTyping(true);
+    let currentText = '';
+    for (let i = 0; i < text.length; i++) {
+      currentText += text[i];
+      setInput(currentText);
+      await new Promise(resolve => setTimeout(resolve, speed));
+    }
+    setIsTyping(false);
+  };
+
+  // Auto-demo function
+  const runAutoDemo = async () => {
+    setIsDemoRunning(true);
+    
+    for (const command of demoCommands) {
+      // Auto-type the command
+      await autoType(command, 80);
+      
+      // Wait a moment
+      await new Promise(resolve => setTimeout(resolve, 500));
+      
+      // Execute the command
+      const output = executeCommand(command);
+      const newEntry: CommandHistory = {
+        command: command,
+        output: output,
+        timestamp: new Date()
+      };
+      
+      setHistory(prev => [...prev, newEntry]);
+      setInput('');
+      
+      // Wait before next command
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      
+      // Scroll to bottom
+      setTimeout(() => {
+        if (terminalRef.current) {
+          terminalRef.current.scrollTop = terminalRef.current.scrollHeight;
+        }
+      }, 100);
+    }
+    
+    setIsDemoRunning(false);
+    
+    // Add completion message
+    const completionEntry: CommandHistory = {
+      command: '',
+      output: '\n🎉 Demo completed! Try these commands yourself:\n• help - See all commands\n• tutorial - Interactive guide\n• whoami - Learn about me\n• projects --list - View projects\n• fortune - Random quotes',
+      timestamp: new Date()
+    };
+    setHistory(prev => [...prev, completionEntry]);
+  };
+
+  // Available sections
+  const sections = ['about', 'skills', 'projects', 'contact', 'github'];
+  
+  // Project data
+  const projects = [
+    'MERN Chat Application',
+    'Store Management System', 
+    'Kanban Board',
+    'Magic Notes',
+    'Quiz Application',
+    'Tic Tac Toe Game',
+    'Dictionary Application',
+    'Flappy Bird Game'
+  ];
+
+  // Project URLs mapping
+  const projectsData: Record<string, { github: string; live: string; demo?: string }> = {
+    'MERN Chat Application': {
+      github: 'https://github.com/srbmaury/MERN-Chat-App',
+      live: 'https://mern-chat-app-xlr3.onrender.com/',
+      demo: 'https://mern-chat-app-xlr3.onrender.com/'
+    },
+    'Store Management System': {
+      github: 'https://github.com/srbmaury/store-management',
+      live: 'https://store-management-frontend-x0e2.onrender.com/',
+      demo: 'https://store-management-frontend-x0e2.onrender.com/'
+    },
+    'Kanban Board': {
+      github: 'https://github.com/srbmaury/kanban-board',
+      live: 'https://kanban-board-silk-sigma.vercel.app/',
+      demo: 'https://kanban-board-silk-sigma.vercel.app/'
+    },
+    'Magic Notes': {
+      github: 'https://github.com/srbmaury/magic-notes',
+      live: 'https://magic-notes-silk-sigma.vercel.app/',
+      demo: 'https://magic-notes-silk-sigma.vercel.app/'
+    },
+    'Quiz Application': {
+      github: 'https://github.com/srbmaury/quiz-app',
+      live: 'https://quiz-app-silk-sigma.vercel.app/',
+      demo: 'https://quiz-app-silk-sigma.vercel.app/'
+    },
+    'Tic Tac Toe Game': {
+      github: 'https://github.com/srbmaury/tic-tac-toe',
+      live: 'https://tic-tac-toe-silk-sigma.vercel.app/',
+      demo: 'https://tic-tac-toe-silk-sigma.vercel.app/'
+    },
+    'Dictionary Application': {
+      github: 'https://github.com/srbmaury/dictionary',
+      live: 'https://srbmaury.github.io/dictionary/',
+      demo: 'https://srbmaury.github.io/dictionary/'
+    },
+    'Flappy Bird Game': {
+      github: 'https://github.com/srbmaury/flappyBird',
+      live: 'https://srbmaury.github.io/flappyBird/',
+      demo: 'https://srbmaury.github.io/flappyBird/'
+    }
+  };
+
+  // Helper function to find project by name (case-insensitive, partial match)
+  const findProject = (searchName: string): string | null => {
+    const normalizedSearch = searchName.toLowerCase();
+    const found = projects.find(project => 
+      project.toLowerCase().includes(normalizedSearch) ||
+      normalizedSearch.includes(project.toLowerCase())
+    );
+    return found || null;
+  };
+
+  // Command definitions
+  const commands: Record<string, {
+    description: string;
+    usage: string;
+    examples?: string[];
+    execute: (args: string[]) => string | null;
+  }> = {
+    // Navigation commands
+    cd: {
+      description: 'Change directory to portfolio sections',
+      usage: 'cd <section>',
+      examples: ['cd about', 'cd projects', 'cd skills'],
+      execute: (args: string[]) => {
+        const section = args[0];
+        if (!section) {
+          return 'Usage: cd <section>\nAvailable sections: about, skills, projects, contact, github';
+        }
+        if (sections.includes(section)) {
+          setCurrentDirectory(`~/${section}`);
+          // Scroll to section
+          const element = document.querySelector(`#${section}`);
+          if (element) {
+            element.scrollIntoView({ behavior: 'smooth' });
+          }
+          return `Changed directory to ~/${section}`;
+        }
+        return `Section '${section}' not found. Available sections: ${sections.join(', ')}`;
+      }
+    },
+    ls: {
+      description: 'List all portfolio sections',
+      usage: 'ls',
+      execute: (_: string[]) => {
+        return sections.map(section => `${section}/`).join('  ');
+      }
+    },
+    pwd: {
+      description: 'Print working directory',
+      usage: 'pwd',
+      execute: (_: string[]) => currentDirectory
+    },
+    
+    // Project commands
+    projects: {
+      description: 'Manage and view projects',
+      usage: 'projects [--list|--demo|--github|--live|--help] [project-name]',
+      examples: ['projects --list', 'projects --demo "MERN Chat Application"', 'projects --help'],
+      execute: (args: string[]) => {
+        const flag = args[0];
+        const projectName = args.slice(1).join(' ');
+        
+        // Handle --help flag
+        if (flag === '--help') {
+          return `PROJECTS COMMAND HELP:
+
+Description: Manage and view portfolio projects
+Usage: projects [--list|--demo|--github|--live|--help] [project-name]
+
+FLAGS:
+  --list              - Show all available projects
+  --demo [project]    - Open project demo (requires project name)
+  --github [project]  - Open GitHub repository (requires project name)
+  --live [project]    - Open live site (requires project name)
+  --help              - Show this help message
+
+EXAMPLES:
+  projects --list                    # List all projects
+  projects --demo "MERN Chat"        # Open MERN Chat demo
+  projects --github "Store Management" # Open Store Management GitHub
+  projects --live "Kanban Board"     # Open Kanban Board live site
+
+AVAILABLE PROJECTS:
+${projects.map((project, index) => `  ${index + 1}. ${project}`).join('\n')}`;
+        }
+        
+        if (!flag || flag === '--list') {
+          return projects.map((project, index) => `${index + 1}. ${project}`).join('\n');
+        }
+        
+        if (flag === '--demo') {
+          if (!projectName) {
+            return `Usage: projects --demo <project-name>
+
+Available projects for demo:
+${projects.map((project, index) => `  ${index + 1}. ${project}`).join('\n')}
+
+Example: projects --demo "MERN Chat Application"`;
+          }
+          
+          // Use fuzzy matching to find the project
+          const foundProject = findProject(projectName);
+          if (foundProject) {
+            const projectUrl = projectsData[foundProject]?.demo || projectsData[foundProject]?.live;
+            if (projectUrl) {
+              window.open(projectUrl, '_blank');
+              return `Opening demo for "${foundProject}" in a new tab...`;
+            }
+          }
+          return `Project '${projectName}' not found or does not have a demo URL.`;
+        }
+        
+        if (flag === '--github') {
+          if (!projectName) {
+            return `Usage: projects --github <project-name>
+
+Available projects:
+${projects.map((project, index) => `  ${index + 1}. ${project}`).join('\n')}
+
+Example: projects --github "MERN Chat Application"`;
+          }
+          
+          // Use fuzzy matching to find the project
+          const foundProject = findProject(projectName);
+          if (foundProject) {
+            const projectUrl = projectsData[foundProject]?.github;
+            if (projectUrl) {
+              window.open(projectUrl, '_blank');
+              return `Opening GitHub repository for "${foundProject}" in a new tab...`;
+            }
+          }
+          return `Project '${projectName}' not found or does not have a GitHub repository URL.`;
+        }
+        
+        if (flag === '--live') {
+          if (!projectName) {
+            return `Usage: projects --live <project-name>
+
+Available projects:
+${projects.map((project, index) => `  ${index + 1}. ${project}`).join('\n')}
+
+Example: projects --live "MERN Chat Application"`;
+          }
+          
+          // Use fuzzy matching to find the project
+          const foundProject = findProject(projectName);
+          if (foundProject) {
+            const projectUrl = projectsData[foundProject]?.live;
+            if (projectUrl) {
+              window.open(projectUrl, '_blank');
+              return `Opening live site for "${foundProject}" in a new tab...`;
+            }
+          }
+          return `Project '${projectName}' not found or does not have a live site URL.`;
+        }
+        
+        return `Unknown flag: ${flag}
+
+Usage: projects [--list|--demo|--github|--live|--help] [project-name]
+Type 'projects --help' for detailed information.`;
+      }
+    },
+    
+    // Information commands
+    whoami: {
+      description: 'Show information about me',
+      usage: 'whoami',
+      execute: (_: string[]) => {
+        return `Saurabh Maurya
+Full Stack Engineer
+Location: Hyderabad, India
+Experience: 2+ years
+Current: Associate Member of Technical Staff @ Salesforce
+Skills: React, Node.js, TypeScript, Python, Java, Salesforce`;
+      }
+    },
+    date: {
+      description: 'Show current date and time',
+      usage: 'date',
+      execute: (_: string[]) => new Date().toLocaleString()
+    },
+    weather: {
+      description: 'Show current weather (placeholder)',
+      usage: 'weather',
+      execute: (_: string[]) => 'Weather API integration would be here\nCurrently showing placeholder data'
+    },
+    
+    // Fun commands
+    matrix: {
+      description: 'Activate Matrix rain effect',
+      usage: 'matrix',
+      execute: (_: string[]) => {
+        setIsMatrixActive(true);
+        return 'Matrix rain effect activated! 🌊\nEntering the digital realm...\nPress ESC or click "Exit Matrix" to return.';
+      }
+    },
+    fortune: {
+      description: 'Show random developer quote',
+      usage: 'fortune',
+      execute: (_: string[]) => {
+        const quotes = [
+          '"The best error message is the one that never shows up." - Thomas Fuchs',
+          '"Code is like humor. When you have to explain it, it\'s bad." - Cory House',
+          '"First, solve the problem. Then, write the code." - John Johnson',
+          '"It\'s not a bug – it\'s an undocumented feature." - Anonymous',
+          '"The only way to learn a new programming language is by writing programs in it." - Dennis Ritchie'
+        ];
+        return quotes[Math.floor(Math.random() * quotes.length)];
+      }
+    },
+    cowsay: {
+      description: 'Display ASCII art with message',
+      usage: 'cowsay <message>',
+      examples: ['cowsay "Hello World"'],
+      execute: (args: string[]) => {
+        const message = args.join(' ') || 'Hello World!';
+        const length = message.length;
+        return ` ${'─'.repeat(length + 2)}
+< ${message} >
+ ${'─'.repeat(length + 2)}
+        \\   ^__^
+         \\  (oo)\\_______
+            (__)\\       )\\/\\
+                ||----w |
+                ||     ||`;
+      }
+    },
+    
+    // System commands
+    clear: {
+      description: 'Clear terminal screen',
+      usage: 'clear',
+      execute: (_: string[]) => {
+        setHistory([]);
+        return null;
+      }
+    },
+    help: {
+      description: 'Show help information',
+      usage: 'help [command]',
+      examples: ['help', 'help cd', 'help projects'],
+      execute: (args: string[]) => {
+        if (args.length === 0) {
+          return `Available Commands:
+
+NAVIGATION:
+  cd <section>     - Navigate to portfolio sections
+  ls               - List all sections
+  pwd              - Show current location
+
+PROJECTS:
+  projects --list  - Show all projects
+  projects --demo  - Open project demos
+  projects --help  - More project commands
+
+ABOUT ME:
+  whoami           - Show my information
+  date             - Show current date/time
+  weather          - Show weather (placeholder)
+
+FUN STUFF:
+  matrix           - Activate Matrix effect
+  fortune          - Random developer quotes
+  cowsay <text>    - ASCII art messages
+
+SYSTEM:
+  clear            - Clear terminal
+  help [command]   - Show help
+  tutorial         - Interactive tutorial
+  demo             - Auto-demo mode
+
+Type 'help <command>' for detailed help
+Type 'tutorial' for interactive guide`;
+        }
+        
+        const command = commands[args[0]];
+        if (command) {
+          return `${args[0].toUpperCase()} COMMAND:
+Description: ${command.description}
+Usage: ${command.usage}
+${command.examples ? `Examples:\n${(command.examples as string[]).map((ex: string) => `  ${ex}`).join('\n')}` : ''}`;
+        }
+        
+        return `Command '${args[0]}' not found. Type 'help' to see all commands.`;
+      }
+    },
+    tutorial: {
+      description: 'Start interactive tutorial',
+      usage: 'tutorial',
+      execute: (_: string[]) => {
+        return `Starting interactive tutorial...
+
+Step 1: Let's explore the portfolio
+Type: ls
+[This will show you all available sections]
+
+Step 2: Navigate to About section  
+Type: cd about
+[This will take you to the About section]
+
+Step 3: Learn about me
+Type: whoami
+[This will show my information]
+
+Step 4: View projects
+Type: projects --list
+[This will show all my projects]
+
+Step 5: Try something fun
+Type: fortune
+[This will show a random developer quote]
+
+Try these commands now! Type 'help' anytime for assistance.`;
+      }
+    },
+    demo: {
+      description: 'Run automatic demo mode',
+      usage: 'demo',
+      execute: (_: string[]) => {
+        if (isDemoRunning) {
+          return 'Demo is already running...';
+        }
+        
+        // Start the auto-demo
+        runAutoDemo();
+        
+        return 'Starting auto-demo mode...\nWatch as I demonstrate the terminal features!';
+      }
+    }
+  };
+
+  // Execute command
+  const executeCommand = (commandLine: string) => {
+    const parts = commandLine.trim().split(' ');
+    const command = parts[0];
+    const args = parts.slice(1);
+
+    if (!command) return '';
+
+    const commandFunc = commands[command as keyof typeof commands];
+    if (commandFunc) {
+      return commandFunc.execute(args);
+    }
+
+    return `Command '${command}' not found. Type 'help' to see available commands.`;
+  };
+
+  // Handle command submission
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!input.trim() || isTyping || isDemoRunning) return;
+
+    const output = executeCommand(input);
+    const newEntry: CommandHistory = {
+      command: input,
+      output: output,
+      timestamp: new Date()
+    };
+
+    setHistory(prev => [...prev, newEntry]);
+    setInput('');
+    setCommandIndex(-1);
+    
+    // Scroll to bottom
+    setTimeout(() => {
+      if (terminalRef.current) {
+        terminalRef.current.scrollTop = terminalRef.current.scrollHeight;
+      }
+    }, 100);
+  };
+
+  // Handle keyboard navigation
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (isTyping || isDemoRunning) {
+      e.preventDefault();
+      return;
+    }
+    
+    if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      const commands = history.map(h => h.command).reverse();
+      if (commandIndex < commands.length - 1) {
+        setCommandIndex(prev => prev + 1);
+        setInput(commands[commandIndex + 1] || '');
+      }
+    } else if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      if (commandIndex > 0) {
+        setCommandIndex(prev => prev - 1);
+        const commands = history.map(h => h.command).reverse();
+        setInput(commands[commandIndex - 1] || '');
+      } else if (commandIndex === 0) {
+        setCommandIndex(-1);
+        setInput('');
+      }
+    } else if (e.key === 'Tab') {
+      e.preventDefault();
+      // Auto-complete logic would go here
+    }
+  };
+
+  // Focus input when terminal opens
+  useEffect(() => {
+    if (isOpen && inputRef.current) {
+      setTimeout(() => inputRef.current?.focus(), 100);
+    }
+  }, [isOpen]);
+
+  // Welcome message
+  useEffect(() => {
+    if (showWelcome && isOpen) {
+      const welcomeEntry: CommandHistory = {
+        command: '',
+        output: `Welcome to Saurabh's Portfolio Terminal! 🚀
+
+Type 'help' to see all available commands
+Type 'tutorial' to start an interactive guide  
+Type 'demo' to see a quick demonstration
+
+visitor@portfolio:~$ `,
+        timestamp: new Date()
+      };
+      setHistory([welcomeEntry]);
+      setShowWelcome(false);
+    }
+  }, [isOpen, showWelcome]);
+
+  return (
+    <>
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm"
+            onClick={(e) => e.target === e.currentTarget && onClose()}
+          >
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0, y: 20 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.9, opacity: 0, y: 20 }}
+              transition={{ type: "spring", damping: 25, stiffness: 300 }}
+              className="bg-black text-green-400 rounded-lg shadow-2xl max-w-4xl w-full max-h-[80vh] overflow-hidden border border-green-500/30"
+            >
+              {/* Terminal Header */}
+              <div className="flex items-center justify-between p-3 bg-green-900/20 border-b border-green-500/30">
+                <div className="flex items-center space-x-2">
+                  <TerminalIcon size={16} className="text-green-400" />
+                  <span className="text-sm font-mono">Portfolio Terminal</span>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <button
+                    onClick={() => setHistory([{
+                      command: '',
+                      output: commands.help.execute([]),
+                      timestamp: new Date()
+                    }])}
+                    className="p-1 hover:bg-green-500/20 rounded transition-colors"
+                    title="Help"
+                  >
+                    <HelpCircle size={14} />
+                  </button>
+                  <button
+                    onClick={() => setHistory([{
+                      command: '',
+                      output: commands.tutorial.execute([]),
+                      timestamp: new Date()
+                    }])}
+                    className="p-1 hover:bg-green-500/20 rounded transition-colors"
+                    title="Tutorial"
+                  >
+                    <Play size={14} />
+                  </button>
+                  <button
+                    onClick={onClose}
+                    className="p-1 hover:bg-red-500/20 rounded transition-colors"
+                    title="Close"
+                  >
+                    <X size={14} />
+                  </button>
+                </div>
+              </div>
+
+              {/* Terminal Body */}
+              <div 
+                ref={terminalRef}
+                className="p-4 h-96 overflow-y-auto font-mono text-sm"
+              >
+                {history.map((entry, index) => (
+                  <div key={index} className="mb-2">
+                    {entry.command && (
+                      <div className="flex items-center mb-1">
+                        <span className="text-green-400">visitor@portfolio:{currentDirectory}$</span>
+                        <span className="ml-2">{entry.command}</span>
+                      </div>
+                    )}
+                    {entry.output && (
+                      <div className="text-green-300 whitespace-pre-wrap mb-2">
+                        {entry.output}
+                      </div>
+                    )}
+                  </div>
+                ))}
+                
+                {/* Current input line */}
+                <form onSubmit={handleSubmit} className="flex items-center">
+                  <span className="text-green-400">visitor@portfolio:{currentDirectory}$</span>
+                  <input
+                    ref={inputRef}
+                    type="text"
+                    value={input}
+                    onChange={(e) => setInput(e.target.value)}
+                    onKeyDown={handleKeyDown}
+                    className="ml-2 bg-transparent text-green-300 outline-none flex-1 caret-green-400"
+                    placeholder={isTyping ? "Typing..." : isDemoRunning ? "Demo running..." : "Type a command..."}
+                    autoComplete="off"
+                    spellCheck="false"
+                    disabled={isTyping || isDemoRunning}
+                  />
+                  <div className={`w-2 h-4 ml-1 ${isTyping ? 'bg-yellow-400 animate-pulse' : isDemoRunning ? 'bg-blue-400 animate-pulse' : 'bg-green-400 animate-pulse'}`}></div>
+                </form>
+              </div>
+
+              {/* Terminal Footer */}
+              <div className="p-2 bg-green-900/10 border-t border-green-500/30 text-xs text-green-400/60">
+                <div className="flex justify-between items-center">
+                  <span>
+                    {isTyping ? 'Typing...' : isDemoRunning ? 'Demo running...' : "Press 'help' for commands • 'tutorial' for guide • 'demo' for auto-demo"}
+                  </span>
+                  <span>Ctrl+T: Focus • ↑↓: History • Tab: Auto-complete</span>
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Matrix Rain Effect */}
+      <MatrixRain 
+        isActive={isMatrixActive} 
+        onClose={() => setIsMatrixActive(false)} 
+      />
+    </>
+  );
+};
+
+export default Terminal; 
