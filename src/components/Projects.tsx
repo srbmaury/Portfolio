@@ -1,7 +1,36 @@
+import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { ExternalLink, Github, Eye } from 'lucide-react';
+import { ExternalLink, Github, Eye, Play } from 'lucide-react';
+import ProjectModal from './ProjectModal';
+
+interface Project {
+  title: string;
+  description: string;
+  image?: string;
+  fallbackIcon: string;
+  fallbackGradient: string;
+  technologies: string[];
+  liveUrl: string;
+  githubUrl: string;
+  featured: boolean;
+  demoType?: 'iframe' | 'video' | 'image';
+  demoUrl?: string;
+}
 
 const Projects = () => {
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleProjectClick = (project: Project) => {
+    setSelectedProject(project);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setSelectedProject(null);
+  };
+
   const projects = [
     {
       title: 'MERN Chat Application',
@@ -12,7 +41,9 @@ const Projects = () => {
       technologies: ['React', 'Node.js', 'MongoDB', 'Socket.io', 'JWT', 'Express'],
       liveUrl: 'https://mern-chat-app-xlr3.onrender.com/',
       githubUrl: 'https://github.com/srbmaury/MERN-Chat-App',
-      featured: true
+      featured: true,
+      demoType: 'iframe' as const,
+      demoUrl: 'https://mern-chat-app-xlr3.onrender.com/'
     },
     {
       title: 'Store Management System',
@@ -23,7 +54,9 @@ const Projects = () => {
       technologies: ['JavaScript', 'HTML', 'CSS', 'Local Storage', 'Bootstrap'],
       liveUrl: 'https://store-management-frontend-x0e2.onrender.com/',
       githubUrl: 'https://github.com/srbmaury/store-management',
-      featured: true
+      featured: true,
+      demoType: 'iframe' as const,
+      demoUrl: 'https://store-management-frontend-x0e2.onrender.com/'
     },
     {
       title: 'Kanban Board',
@@ -34,7 +67,9 @@ const Projects = () => {
       technologies: ['JavaScript', 'HTML', 'CSS', 'Drag & Drop API', 'Local Storage'],
       liveUrl: 'https://saurabh-kanban-board.netlify.app/',
       githubUrl: 'https://github.com/srbmaury/saurabh-kanban-board',
-      featured: false
+      featured: false,
+      demoType: 'iframe' as const,
+      demoUrl: 'https://saurabh-kanban-board.netlify.app/'
     },
     {
       title: 'Notes Application',
@@ -45,7 +80,9 @@ const Projects = () => {
       technologies: ['JavaScript', 'HTML', 'CSS', 'Local Storage', 'Markdown'],
       liveUrl: 'https://srbmaury.github.io/notes/',
       githubUrl: 'https://github.com/srbmaury/notes',
-      featured: false
+      featured: false,
+      demoType: 'iframe' as const,
+      demoUrl: 'https://srbmaury.github.io/notes/'
     },
     {
       title: 'Quiz Application',
@@ -56,7 +93,9 @@ const Projects = () => {
       technologies: ['CSS', 'HTML', 'JavaScript', 'Quiz API', 'Responsive Design'],
       liveUrl: 'https://srbmaury.github.io/quiz1/',
       githubUrl: 'https://github.com/srbmaury/quiz1',
-      featured: false
+      featured: false,
+      demoType: 'iframe' as const,
+      demoUrl: 'https://srbmaury.github.io/quiz1/'
     },
     {
       title: 'Tic Tac Toe Game',
@@ -67,7 +106,9 @@ const Projects = () => {
       technologies: ['JavaScript', 'HTML', 'CSS', 'Game Logic', 'AI Algorithm'],
       liveUrl: 'https://tic-tac-toe-silk-sigma.vercel.app/',
       githubUrl: 'https://github.com/srbmaury/tic-tac-toe',
-      featured: false
+      featured: false,
+      demoType: 'iframe' as const,
+      demoUrl: 'https://tic-tac-toe-silk-sigma.vercel.app/'
     },
     {
       title: 'Dictionary Application',
@@ -78,7 +119,9 @@ const Projects = () => {
       technologies: ['JavaScript', 'HTML', 'CSS', 'API Integration', 'Responsive Design'],
       liveUrl: 'https://srbmaury.github.io/dictionary/',
       githubUrl: 'https://github.com/srbmaury/dictionary',
-      featured: false
+      featured: false,
+      demoType: 'iframe' as const,
+      demoUrl: 'https://srbmaury.github.io/dictionary/'
     },
     {
       title: 'Flappy Bird Game',
@@ -89,7 +132,9 @@ const Projects = () => {
       technologies: ['JavaScript', 'HTML5 Canvas', 'CSS', 'Game Development', 'Animation'],
       liveUrl: 'https://srbmaury.github.io/flappyBird/',
       githubUrl: 'https://github.com/srbmaury/flappyBird',
-      featured: false
+      featured: false,
+      demoType: 'iframe' as const,
+      demoUrl: 'https://srbmaury.github.io/flappyBird/'
     },
     {
       title: 'Codeforces Filter',
@@ -171,6 +216,15 @@ const Projects = () => {
                 </div>
                 <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-all duration-300 flex items-center justify-center">
                   <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex space-x-4">
+                    <motion.button
+                      onClick={() => handleProjectClick(project)}
+                      whileHover={{ scale: 1.1 }}
+                      whileTap={{ scale: 0.9 }}
+                      className="bg-white text-gray-800 p-3 rounded-full hover:bg-blue-600 hover:text-white transition-colors duration-200"
+                      title="View Demo"
+                    >
+                      <Play size={20} />
+                    </motion.button>
                     <motion.a
                       href={project.liveUrl}
                       target="_blank"
@@ -286,6 +340,15 @@ const Projects = () => {
                   </div>
                   <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-all duration-300 flex items-center justify-center">
                     <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex space-x-2">
+                      <motion.button
+                        onClick={() => handleProjectClick(project)}
+                        whileHover={{ scale: 1.1 }}
+                        whileTap={{ scale: 0.9 }}
+                        className="bg-white text-gray-800 p-2 rounded-full hover:bg-blue-600 hover:text-white transition-colors duration-200"
+                        title="View Demo"
+                      >
+                        <Play size={16} />
+                      </motion.button>
                       <motion.a
                         href={project.liveUrl}
                         target="_blank"
@@ -361,6 +424,13 @@ const Projects = () => {
           </div>
         </motion.div>
       </div>
+
+      {/* Project Modal */}
+      <ProjectModal
+        isOpen={isModalOpen}
+        onClose={closeModal}
+        project={selectedProject}
+      />
     </section>
   );
 };
