@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Send, Bot, User, Loader2, X } from 'lucide-react';
+import { API_ENDPOINTS } from '../config/api';
 
 interface Message {
   role: 'user' | 'assistant';
@@ -31,7 +32,7 @@ const CareerBot: React.FC<CareerBotProps> = ({ className = '' }) => {
     setIsLoading(true);
 
     try {
-      const response = await fetch('https://ominous-space-fiesta-wjrrj5gq6q63v654-3001.app.github.dev/api/analyze-career', {
+      const response = await fetch(API_ENDPOINTS.ANALYZE_CAREER, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
