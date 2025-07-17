@@ -31,7 +31,7 @@ const CareerBot: React.FC<CareerBotProps> = ({ className = '' }) => {
     setIsLoading(true);
 
     try {
-      const response = await fetch('http://localhost:3001/api/analyze-career', {
+      const response = await fetch('https://ominous-space-fiesta-wjrrj5gq6q63v654-3001.app.github.dev/api/analyze-career', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
