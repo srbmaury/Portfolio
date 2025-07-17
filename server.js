@@ -59,15 +59,15 @@ ${jobDescription}
 
 Please provide a detailed analysis including:
 
-1. **Fit Score (0-100)** - Rate how well the candidate matches this role
-2. **Overall Assessment** - Brief summary of fit
-3. **Strengths** - What makes the candidate a good fit
-4. **Skill Gaps** - Areas where the candidate may need improvement
-5. **Experience Relevance** - How their experience applies to this role
-6. **Recommendations** - Specific advice for the candidate
-7. **Next Steps** - What the candidate should focus on
+1. Fit Score (0-100) - Rate how well the candidate matches this role
+2. Overall Assessment - Brief summary of fit
+3. Strengths - What makes the candidate a good fit
+4. Skill Gaps - Areas where the candidate may need improvement
+5. Experience Relevance - How their experience applies to this role
+6. Recommendations - Specific advice for the candidate
+7. Next Steps - What the candidate should focus on
 
-Format your response in a clear, professional manner that would be helpful for a job seeker.
+IMPORTANT: Format your response in plain text without any markdown formatting (no **, ##, or other markdown symbols). Use clear headings and bullet points that will display properly in a chat interface.
 `;
 
     // Generate response using Gemini
