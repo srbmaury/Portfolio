@@ -1,22 +1,7 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, ExternalLink, Github, Play, ZoomIn, ZoomOut, RotateCcw } from 'lucide-react';
-
-interface ProjectModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-  project: {
-    title: string;
-    description: string;
-    image?: string;
-    liveUrl: string;
-    githubUrl: string;
-    technologies: string[];
-    demoType?: 'iframe' | 'video' | 'image';
-    demoUrl?: string;
-    fallbackIcon?: string;
-  } | null;
-}
+import type { ProjectModalProps } from '../types/project';
 
 const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, project }) => {
   const [zoom, setZoom] = useState(1);

@@ -2,20 +2,8 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { ExternalLink, Github, Eye, Play } from 'lucide-react';
 import ProjectModal from './ProjectModal';
-
-interface Project {
-  title: string;
-  description: string;
-  image?: string;
-  fallbackIcon: string;
-  fallbackGradient: string;
-  technologies: string[];
-  liveUrl: string;
-  githubUrl: string;
-  featured: boolean;
-  demoType?: 'iframe' | 'video' | 'image';
-  demoUrl?: string;
-}
+import projectsData from '../config/projects.json';
+import type { Project } from '../types/project';
 
 const Projects = () => {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
@@ -31,132 +19,7 @@ const Projects = () => {
     setSelectedProject(null);
   };
 
-  const projects = [
-    {
-      title: 'MERN Chat Application',
-      description: 'A real-time chat application built with MERN stack featuring JWT authentication, WhatsApp-like interface, and secure messaging capabilities. Includes user authentication and real-time communication.',
-      image: '/images/MernChatApp.png',
-      fallbackIcon: '💬',
-      fallbackGradient: 'from-green-400 to-blue-500',
-      technologies: ['React', 'Node.js', 'MongoDB', 'Socket.io', 'JWT', 'Express'],
-      liveUrl: 'https://mern-chat-app-xlr3.onrender.com/',
-      githubUrl: 'https://github.com/srbmaury/MERN-Chat-App',
-      featured: true,
-      demoType: 'iframe' as const,
-      demoUrl: 'https://mern-chat-app-xlr3.onrender.com/'
-    },
-    {
-      title: 'Store Management System',
-      description: 'A comprehensive store management application with inventory tracking, sales management, and reporting features. Built with modern JavaScript and responsive design.',
-      image: '/images/StoreManagement.png',
-      fallbackIcon: '🏪',
-      fallbackGradient: 'from-purple-400 to-pink-500',
-      technologies: ['JavaScript', 'HTML', 'CSS', 'Local Storage', 'Bootstrap'],
-      liveUrl: 'https://store-management-frontend-x0e2.onrender.com/',
-      githubUrl: 'https://github.com/srbmaury/store-management',
-      featured: true,
-      demoType: 'iframe' as const,
-      demoUrl: 'https://store-management-frontend-x0e2.onrender.com/'
-    },
-    {
-      title: 'Kanban Board',
-      description: 'A Trello-like kanban board application for task management and project organization. Features drag-and-drop functionality and real-time updates.',
-      image: '/images/KanbanBoard.png',
-      fallbackIcon: '📋',
-      fallbackGradient: 'from-blue-400 to-indigo-500',
-      technologies: ['JavaScript', 'HTML', 'CSS', 'Drag & Drop API', 'Local Storage'],
-      liveUrl: 'https://saurabh-kanban-board.netlify.app/',
-      githubUrl: 'https://github.com/srbmaury/saurabh-kanban-board',
-      featured: false,
-      demoType: 'iframe' as const,
-      demoUrl: 'https://saurabh-kanban-board.netlify.app/'
-    },
-    {
-      title: 'Notes Application',
-      description: 'A feature-rich notes application with CRUD operations, search functionality, and markdown support. Built for Hacktoberfest contribution.',
-      image: '/images/MagicNotes.png',
-      fallbackIcon: '📝',
-      fallbackGradient: 'from-yellow-400 to-orange-500',
-      technologies: ['JavaScript', 'HTML', 'CSS', 'Local Storage', 'Markdown'],
-      liveUrl: 'https://srbmaury.github.io/notes/',
-      githubUrl: 'https://github.com/srbmaury/notes',
-      featured: false,
-      demoType: 'iframe' as const,
-      demoUrl: 'https://srbmaury.github.io/notes/'
-    },
-    {
-      title: 'Quiz Application',
-      description: 'An interactive quiz application with multiple categories, scoring system, and result tracking. Features responsive design and user-friendly interface.',
-      image: '/images/Quiz.png',
-      fallbackIcon: '❓',
-      fallbackGradient: 'from-red-400 to-pink-500',
-      technologies: ['CSS', 'HTML', 'JavaScript', 'Quiz API', 'Responsive Design'],
-      liveUrl: 'https://srbmaury.github.io/quiz1/',
-      githubUrl: 'https://github.com/srbmaury/quiz1',
-      featured: false,
-      demoType: 'iframe' as const,
-      demoUrl: 'https://srbmaury.github.io/quiz1/'
-    },
-    {
-      title: 'Tic Tac Toe Game',
-      description: 'A classic Tic Tac Toe game with AI opponent, score tracking, and smooth animations. Features both single-player and two-player modes.',
-      image: '/images/TictacToe.png',
-      fallbackIcon: '⭕',
-      fallbackGradient: 'from-green-400 to-teal-500',
-      technologies: ['JavaScript', 'HTML', 'CSS', 'Game Logic', 'AI Algorithm'],
-      liveUrl: 'https://tic-tac-toe-silk-sigma.vercel.app/',
-      githubUrl: 'https://github.com/srbmaury/tic-tac-toe',
-      featured: false,
-      demoType: 'iframe' as const,
-      demoUrl: 'https://tic-tac-toe-silk-sigma.vercel.app/'
-    },
-    {
-      title: 'Dictionary Application',
-      description: 'A comprehensive dictionary application with word definitions, pronunciations, and example usage. Integrates with external dictionary APIs.',
-      image: '/images/Dictionary.png',
-      fallbackIcon: '📚',
-      fallbackGradient: 'from-indigo-400 to-purple-500',
-      technologies: ['JavaScript', 'HTML', 'CSS', 'API Integration', 'Responsive Design'],
-      liveUrl: 'https://srbmaury.github.io/dictionary/',
-      githubUrl: 'https://github.com/srbmaury/dictionary',
-      featured: false,
-      demoType: 'iframe' as const,
-      demoUrl: 'https://srbmaury.github.io/dictionary/'
-    },
-    {
-      title: 'Flappy Bird Game',
-      description: 'A recreation of the classic Flappy Bird game with smooth animations, score tracking, and responsive controls.',
-      image: '/images/FlappyBird.png',
-      fallbackIcon: '🐦',
-      fallbackGradient: 'from-yellow-400 to-green-500',
-      technologies: ['JavaScript', 'HTML5 Canvas', 'CSS', 'Game Development', 'Animation'],
-      liveUrl: 'https://srbmaury.github.io/flappyBird/',
-      githubUrl: 'https://github.com/srbmaury/flappyBird',
-      featured: false,
-      demoType: 'iframe' as const,
-      demoUrl: 'https://srbmaury.github.io/flappyBird/'
-    },
-    {
-      title: 'Codeforces Filter',
-      description: 'A chrome extension to filter and display blog entries from Codeforces users with specified minimum ratings and blog quality filters.',
-      fallbackIcon: '🔍',
-      fallbackGradient: 'from-gray-400 to-blue-500',
-      technologies: ['JavaScript', 'HTML', 'CSS', 'API Integration', 'Data Filtering'],
-      liveUrl: 'https://github.com/srbmaury/CF-Filter-Recent-Actions',
-      githubUrl: 'https://github.com/srbmaury/CF-Filter-Recent-Actions',
-      featured: false
-    },
-    {
-      title: 'Payment Flow Testing',
-      description: 'End-to-end testing implementation for payment flows using public API documentation. Comprehensive testing for merchant payment processing.',
-      fallbackIcon: '💳',
-      fallbackGradient: 'from-emerald-400 to-cyan-500',
-      technologies: ['HTML', 'JavaScript', 'API Testing', 'Payment Integration', 'E2E Testing'],
-      liveUrl: 'https://github.com/srbmaury/Flow-for-payments',
-      githubUrl: 'https://github.com/srbmaury/Flow-for-payments',
-      featured: false
-    }
-  ];
+  const projects = projectsData.projects as Project[];
 
   return (
     <section id="projects" className="section bg-white">

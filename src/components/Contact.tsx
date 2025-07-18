@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Mail, Phone, MapPin, Send, Linkedin, Github, Twitter } from 'lucide-react';
 import emailjs from '@emailjs/browser';
+import { emailConfig } from '../config/email';
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -28,18 +29,18 @@ const Contact = () => {
     
     try {
       // Initialize EmailJS with your public key
-      emailjs.init('djqfPT4z5ZkLOHsEu'); // Replace with your actual public key
+      emailjs.init(emailConfig.publicKey);
       
       const result = await emailjs.send(
-        'service_sg99rsv', // Replace with your EmailJS service ID
-        'template_udwm5xm', // Replace with your EmailJS template ID
+        emailConfig.serviceId,
+        emailConfig.templateId,
         {
           from_name: formData.name,
           from_email: formData.email,
           subject: formData.subject,
           message: formData.message,
-          to_name: 'Saurabh Maurya',
-          to_email: 'srbmaury@gmail.com'
+          to_name: emailConfig.toName,
+          to_email: emailConfig.toEmail
         }
       );
       
