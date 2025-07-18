@@ -126,19 +126,19 @@ const Terminal: React.FC<TerminalProps> = ({ isOpen, onClose, onOpenCareerBot })
       demo: 'https://store-management-frontend-x0e2.onrender.com/'
     },
     'Kanban Board': {
-      github: 'https://github.com/srbmaury/kanban-board',
-      live: 'https://kanban-board-silk-sigma.vercel.app/',
-      demo: 'https://kanban-board-silk-sigma.vercel.app/'
+      github: 'https://github.com/srbmaury/saurabh-kanban-board',
+      live: 'https://saurabh-kanban-board.netlify.app/',
+      demo: 'https://saurabh-kanban-board.netlify.app/'
     },
     'Magic Notes': {
-      github: 'https://github.com/srbmaury/magic-notes',
-      live: 'https://magic-notes-silk-sigma.vercel.app/',
-      demo: 'https://magic-notes-silk-sigma.vercel.app/'
+      github: 'https://github.com/srbmaury/notes',
+      live: 'https://srbmaury.github.io/notes/',
+      demo: 'https://srbmaury.github.io/notes/'
     },
     'Quiz Application': {
-      github: 'https://github.com/srbmaury/quiz-app',
-      live: 'https://quiz-app-silk-sigma.vercel.app/',
-      demo: 'https://quiz-app-silk-sigma.vercel.app/'
+      github: 'https://github.com/srbmaury/quiz1',
+      live: 'https://srbmaury.github.io/quiz1/',
+      demo: 'https://srbmaury.github.io/quiz1/'
     },
     'Tic Tac Toe Game': {
       github: 'https://github.com/srbmaury/tic-tac-toe',
