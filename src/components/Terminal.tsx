@@ -896,6 +896,26 @@ Try these commands now! Type 'help' anytime for assistance.`;
 
   // Execute command
   const executeCommand = (commandLine: string) => {
+    // Check for command chaining with &&
+    if (commandLine.includes('&&')) {
+      const commands = commandLine.split('&&').map(cmd => cmd.trim());
+      let combinedOutput = '';
+      
+      for (const cmd of commands) {
+        if (cmd) {
+          const output = executeSingleCommand(cmd);
+          combinedOutput += output + '\n';
+        }
+      }
+      
+      return combinedOutput.trim();
+    }
+    
+    // Single command execution
+    return executeSingleCommand(commandLine);
+  };
+
+  const executeSingleCommand = (commandLine: string) => {
     const parts = commandLine.trim().split(' ');
     const command = parts[0];
     const args = parts.slice(1);
@@ -963,7 +983,10 @@ Try these commands now! Type 'help' anytime for assistance.`;
 
   // Tab autocomplete function
   const handleTabComplete = () => {
-    const words = input.trim().split(' ');
+    // Handle command chaining - split by && and work on the last command
+    const parts = input.trim().split('&&');
+    const lastPart = parts[parts.length - 1].trim();
+    const words = lastPart.split(' ');
     const currentWord = words[words.length - 1] || '';
     const isFirstWord = words.length === 1;
     
@@ -1007,10 +1030,22 @@ Try these commands now! Type 'help' anytime for assistance.`;
       // Single match - complete it
       const completion = filteredCompletions[0];
       if (isFirstWord) {
-        setInput(completion + ' ');
+        // Handle command chaining
+        if (parts.length > 1) {
+          const prefix = parts.slice(0, -1).join('&&') + '&&';
+          setInput(prefix + completion + ' ');
+        } else {
+          setInput(completion + ' ');
+        }
       } else {
         const newWords = [...words.slice(0, -1), completion];
-        setInput(newWords.join(' ') + ' ');
+        const newLastPart = newWords.join(' ');
+        if (parts.length > 1) {
+          const prefix = parts.slice(0, -1).join('&&') + '&&';
+          setInput(prefix + newLastPart + ' ');
+        } else {
+          setInput(newLastPart + ' ');
+        }
       }
       setSuggestions([]);
       setSuggestionIndex(-1);
@@ -1029,6 +1064,24 @@ Try these commands now! Type 'help' anytime for assistance.`;
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (isTyping || isDemoRunning) {
       e.preventDefault();
+      return;
+    }
+    
+    // Handle Ctrl+C to cancel current command
+    if (e.ctrlKey && e.key === 'c') {
+      e.preventDefault();
+      setInput('');
+      setSuggestions([]);
+      setSuggestionIndex(-1);
+      setCommandIndex(-1);
+      
+      // Add cancellation message to history
+      const cancelEntry: CommandHistory = {
+        command: '',
+        output: '^C\nCommand cancelled.',
+        timestamp: new Date()
+      };
+      setHistory(prev => [...prev, cancelEntry]);
       return;
     }
     
@@ -1363,7 +1416,7 @@ visitor@portfolio:~$ `,
                   <span>
                     {isTyping ? 'Typing...' : isDemoRunning ? 'Demo running...' : "Press 'help' for commands • 'tutorial' for guide • 'demo' for auto-demo"}
                   </span>
-                  <span>Ctrl+T: Focus • ↑↓: History • Tab: Auto-complete</span>
+                  <span>Ctrl+C: Cancel • ↑↓: History • Tab: Auto-complete</span>
                 </div>
               </div>
             </motion.div>
