@@ -63,7 +63,21 @@ const Projects = () => {
                   />
                 ) : null}
                 {/* Beautiful fallback placeholder */}
-                <div className={`w-full h-48 bg-gradient-to-br ${project.fallbackGradient} flex items-center justify-center ${!project.image ? '' : 'hidden'} relative overflow-hidden`}>
+                <div 
+                  className={`w-full h-48 flex items-center justify-center ${!project.image ? '' : 'hidden'} relative overflow-hidden`}
+                  style={{
+                    background: project.fallbackGradient === 'from-gray-400 to-blue-500' ? 'linear-gradient(to bottom right, #9ca3af, #3b82f6)' :
+                             project.fallbackGradient === 'from-emerald-400 to-cyan-500' ? 'linear-gradient(to bottom right, #34d399, #06b6d4)' :
+                             project.fallbackGradient === 'from-purple-400 to-pink-500' ? 'linear-gradient(to bottom right, #a78bfa, #ec4899)' :
+                             project.fallbackGradient === 'from-blue-400 to-indigo-500' ? 'linear-gradient(to bottom right, #60a5fa, #6366f1)' :
+                             project.fallbackGradient === 'from-yellow-400 to-orange-500' ? 'linear-gradient(to bottom right, #fbbf24, #f97316)' :
+                             project.fallbackGradient === 'from-red-400 to-pink-500' ? 'linear-gradient(to bottom right, #f87171, #ec4899)' :
+                             project.fallbackGradient === 'from-green-400 to-teal-500' ? 'linear-gradient(to bottom right, #4ade80, #14b8a6)' :
+                             project.fallbackGradient === 'from-indigo-400 to-purple-500' ? 'linear-gradient(to bottom right, #818cf8, #a855f7)' :
+                             project.fallbackGradient === 'from-yellow-400 to-green-500' ? 'linear-gradient(to bottom right, #fbbf24, #22c55e)' :
+                             'linear-gradient(to bottom right, #9ca3af, #3b82f6)'
+                  }}
+                >
                   {/* Animated background pattern */}
                   <div className="absolute inset-0 opacity-10">
                     <div className="absolute top-4 left-4 w-8 h-8 border-2 border-white rounded-full"></div>
@@ -72,7 +86,7 @@ const Projects = () => {
                     <div className="absolute bottom-16 right-4 w-3 h-3 bg-white rounded-full"></div>
                   </div>
                   <div className="text-white text-center z-10">
-                    <div className="text-6xl mb-4 animate-pulse">{project.fallbackIcon}</div>
+                    <div className="text-6xl mb-4 animate-pulse">{project.fallbackIcon || '🚀'}</div>
                     <p className="text-xl font-bold mb-2">{project.title}</p>
                     <p className="text-sm opacity-90">Click to explore</p>
                   </div>
@@ -189,15 +203,29 @@ const Projects = () => {
                     />
                   ) : null}
                   {/* Beautiful fallback placeholder */}
-                  <div className={`w-full h-32 bg-gradient-to-br ${project.fallbackGradient} flex items-center justify-center ${!project.image ? '' : 'hidden'} relative overflow-hidden z-0`}>
+                  <div 
+                    className={`w-full h-32 flex items-center justify-center ${!project.image ? '' : 'hidden'} relative overflow-hidden z-0`}
+                    style={{
+                      background: project.fallbackGradient === 'from-gray-400 to-blue-500' ? 'linear-gradient(to bottom right, #9ca3af, #3b82f6)' :
+                               project.fallbackGradient === 'from-emerald-400 to-cyan-500' ? 'linear-gradient(to bottom right, #34d399, #06b6d4)' :
+                               project.fallbackGradient === 'from-purple-400 to-pink-500' ? 'linear-gradient(to bottom right, #a78bfa, #ec4899)' :
+                               project.fallbackGradient === 'from-blue-400 to-indigo-500' ? 'linear-gradient(to bottom right, #60a5fa, #6366f1)' :
+                               project.fallbackGradient === 'from-yellow-400 to-orange-500' ? 'linear-gradient(to bottom right, #fbbf24, #f97316)' :
+                               project.fallbackGradient === 'from-red-400 to-pink-500' ? 'linear-gradient(to bottom right, #f87171, #ec4899)' :
+                               project.fallbackGradient === 'from-green-400 to-teal-500' ? 'linear-gradient(to bottom right, #4ade80, #14b8a6)' :
+                               project.fallbackGradient === 'from-indigo-400 to-purple-500' ? 'linear-gradient(to bottom right, #818cf8, #a855f7)' :
+                               project.fallbackGradient === 'from-yellow-400 to-green-500' ? 'linear-gradient(to bottom right, #fbbf24, #22c55e)' :
+                               'linear-gradient(to bottom right, #9ca3af, #3b82f6)'
+                    }}
+                  >
                     {/* Animated background pattern */}
                     <div className="absolute inset-0 opacity-10">
                       <div className="absolute top-2 left-2 w-4 h-4 border border-white rounded-full"></div>
                       <div className="absolute top-6 right-4 w-2 h-2 bg-white rounded-full"></div>
                       <div className="absolute bottom-4 left-6 w-3 h-3 border border-white rounded"></div>
                     </div>
-                    <div className="text-white text-center z-0">
-                      <div className="text-3xl mb-1 animate-pulse">{project.fallbackIcon}</div>
+                    <div className="text-white text-center z-10">
+                      <div className="text-3xl mb-1 animate-pulse">{project.fallbackIcon || '🚀'}</div>
                       <p className="text-sm font-bold">{project.title}</p>
                     </div>
                   </div>
