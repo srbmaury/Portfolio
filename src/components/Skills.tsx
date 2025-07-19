@@ -54,7 +54,7 @@ const Skills = () => {
   ];
 
   return (
-    <section id="skills" className="section bg-gray-50">
+    <section id="skills" className="section" style={{ backgroundColor: 'var(--bg-secondary)' }}>
       <div className="container">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -79,7 +79,7 @@ const Skills = () => {
               className="card"
             >
               <div className="flex items-center mb-6">
-                <div className="text-blue-600 mr-3">{category.icon}</div>
+                <div className="mr-3" style={{ color: 'var(--primary-color)' }}>{category.icon}</div>
                 <h3 className="text-xl font-bold gradient-text">{category.title}</h3>
               </div>
               
@@ -91,9 +91,13 @@ const Skills = () => {
                     whileInView={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.5, delay: (categoryIndex * 0.1) + (skillIndex * 0.05) }}
                     viewport={{ once: true }}
-                    className="bg-white px-4 py-3 rounded-lg border border-gray-200 text-center hover:shadow-md transition-shadow duration-200"
+                    className="px-4 py-3 rounded-lg border text-center hover:shadow-md transition-shadow duration-200"
+                    style={{
+                      backgroundColor: 'var(--card-bg)',
+                      borderColor: 'var(--border-color)'
+                    }}
                   >
-                    <span className="text-sm font-medium text-gray-700">{skill}</span>
+                    <span className="text-sm font-medium" style={{ color: 'var(--text-primary)' }}>{skill}</span>
                   </motion.div>
                 ))}
               </div>
@@ -121,9 +125,13 @@ const Skills = () => {
                 whileInView={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.5, delay: 0.5 + index * 0.05 }}
                 viewport={{ once: true }}
-                className="bg-white px-4 py-3 rounded-lg border border-gray-200 text-center hover:shadow-md transition-shadow duration-200"
+                className="px-4 py-3 rounded-lg border text-center hover:shadow-md transition-shadow duration-200"
+                style={{
+                  backgroundColor: 'var(--card-bg)',
+                  borderColor: 'var(--border-color)'
+                }}
               >
-                <span className="text-sm font-medium text-gray-700">{skill}</span>
+                <span className="text-sm font-medium" style={{ color: 'var(--text-primary)' }}>{skill}</span>
               </motion.div>
             ))}
           </div>

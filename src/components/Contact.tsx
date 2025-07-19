@@ -86,7 +86,7 @@ const Contact = () => {
   ];
 
   return (
-    <section id="contact" className="section bg-gray-50">
+    <section id="contact" className="section" style={{ backgroundColor: 'var(--bg-secondary)' }}>
       <div className="container">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -119,12 +119,13 @@ const Contact = () => {
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: 0.4 + index * 0.1 }}
                   viewport={{ once: true }}
-                  className="flex items-center space-x-4 p-4 bg-white rounded-lg hover:shadow-md transition-shadow duration-200"
+                  className="flex items-center space-x-4 p-4 rounded-lg hover:shadow-md transition-shadow duration-200"
+                  style={{ backgroundColor: 'var(--card-bg)' }}
                 >
-                  <div className="text-blue-600">{info.icon}</div>
+                  <div style={{ color: 'var(--primary-color)' }}>{info.icon}</div>
                   <div>
-                    <h4 className="font-semibold text-gray-800">{info.title}</h4>
-                    <p className="text-gray-600">{info.value}</p>
+                    <h4 className="font-semibold" style={{ color: 'var(--text-primary)' }}>{info.title}</h4>
+                    <p style={{ color: 'var(--text-secondary)' }}>{info.value}</p>
                   </div>
                 </motion.a>
               ))}
@@ -132,7 +133,7 @@ const Contact = () => {
 
             {/* Social Links */}
             <div>
-              <h4 className="text-lg font-semibold mb-4 text-gray-800">Follow Me</h4>
+              <h4 className="text-lg font-semibold mb-4" style={{ color: 'var(--text-primary)' }}>Follow Me</h4>
               <div className="flex space-x-4">
                 {socialLinks.map((social, index) => (
                   <motion.a
@@ -144,7 +145,14 @@ const Contact = () => {
                     viewport={{ once: true }}
                     whileHover={{ scale: 1.1 }}
                     whileTap={{ scale: 0.9 }}
-                    className="w-12 h-12 bg-blue-600 text-white rounded-full flex items-center justify-center hover:bg-blue-700 transition-colors duration-200"
+                    className="w-12 h-12 text-white rounded-full flex items-center justify-center transition-colors duration-200"
+                    style={{ backgroundColor: 'var(--primary-color)' }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.backgroundColor = 'var(--secondary-color)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.backgroundColor = 'var(--primary-color)';
+                    }}
                   >
                     {social.icon}
                   </motion.a>
@@ -165,13 +173,13 @@ const Contact = () => {
               
               {/* Status Messages */}
               {submitStatus === 'success' && (
-                <div className="mb-6 p-4 bg-green-100 border border-green-400 text-green-700 rounded-lg">
+                <div className="mb-6 p-4 border rounded-lg" style={{ backgroundColor: 'rgba(34, 197, 94, 0.1)', borderColor: 'rgb(34, 197, 94)', color: 'rgb(21, 128, 61)' }}>
                   Thank you for your message! I will get back to you soon.
                 </div>
               )}
               
               {submitStatus === 'error' && (
-                <div className="mb-6 p-4 bg-red-100 border border-red-400 text-red-700 rounded-lg">
+                <div className="mb-6 p-4 border rounded-lg" style={{ backgroundColor: 'rgba(239, 68, 68, 0.1)', borderColor: 'rgb(239, 68, 68)', color: 'rgb(185, 28, 28)' }}>
                   Sorry, there was an error sending your message. Please try again or contact me directly via email.
                 </div>
               )}
@@ -179,7 +187,7 @@ const Contact = () => {
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid md:grid-cols-2 gap-6">
                   <div>
-                    <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
+                    <label htmlFor="name" className="block text-sm font-medium mb-2" style={{ color: 'var(--text-primary)' }}>
                       Your Name
                     </label>
                     <input
@@ -189,13 +197,26 @@ const Contact = () => {
                       value={formData.name}
                       onChange={handleChange}
                       required
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors duration-200"
+                      className="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:border-transparent transition-colors duration-200"
+                      style={{
+                        backgroundColor: 'var(--bg-primary)',
+                        borderColor: 'var(--border-color)',
+                        color: 'var(--text-primary)'
+                      }}
+                      onFocus={(e) => {
+                        e.target.style.borderColor = 'var(--primary-color)';
+                        e.target.style.boxShadow = '0 0 0 2px rgba(59, 130, 246, 0.1)';
+                      }}
+                      onBlur={(e) => {
+                        e.target.style.borderColor = 'var(--border-color)';
+                        e.target.style.boxShadow = 'none';
+                      }}
                       placeholder="John Doe"
                     />
                   </div>
                   
                   <div>
-                    <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
+                    <label htmlFor="email" className="block text-sm font-medium mb-2" style={{ color: 'var(--text-primary)' }}>
                       Your Email
                     </label>
                     <input
@@ -205,14 +226,27 @@ const Contact = () => {
                       value={formData.email}
                       onChange={handleChange}
                       required
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors duration-200"
+                      className="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:border-transparent transition-colors duration-200"
+                      style={{
+                        backgroundColor: 'var(--bg-primary)',
+                        borderColor: 'var(--border-color)',
+                        color: 'var(--text-primary)'
+                      }}
+                      onFocus={(e) => {
+                        e.target.style.borderColor = 'var(--primary-color)';
+                        e.target.style.boxShadow = '0 0 0 2px rgba(59, 130, 246, 0.1)';
+                      }}
+                      onBlur={(e) => {
+                        e.target.style.borderColor = 'var(--border-color)';
+                        e.target.style.boxShadow = 'none';
+                      }}
                       placeholder="john@example.com"
                     />
                   </div>
                 </div>
-
+                
                 <div>
-                  <label htmlFor="subject" className="block text-sm font-medium text-gray-700 mb-2">
+                  <label htmlFor="subject" className="block text-sm font-medium mb-2" style={{ color: 'var(--text-primary)' }}>
                     Subject
                   </label>
                   <input
@@ -222,13 +256,26 @@ const Contact = () => {
                     value={formData.subject}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors duration-200"
+                    className="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:border-transparent transition-colors duration-200"
+                    style={{
+                      backgroundColor: 'var(--bg-primary)',
+                      borderColor: 'var(--border-color)',
+                      color: 'var(--text-primary)'
+                    }}
+                    onFocus={(e) => {
+                      e.target.style.borderColor = 'var(--primary-color)';
+                      e.target.style.boxShadow = '0 0 0 2px rgba(59, 130, 246, 0.1)';
+                    }}
+                    onBlur={(e) => {
+                      e.target.style.borderColor = 'var(--border-color)';
+                      e.target.style.boxShadow = 'none';
+                    }}
                     placeholder="Project Inquiry"
                   />
                 </div>
-
+                
                 <div>
-                  <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-2">
+                  <label htmlFor="message" className="block text-sm font-medium mb-2" style={{ color: 'var(--text-primary)' }}>
                     Message
                   </label>
                   <textarea
@@ -237,30 +284,34 @@ const Contact = () => {
                     value={formData.message}
                     onChange={handleChange}
                     required
-                    rows={5}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors duration-200 resize-none"
-                    placeholder="Tell me about your project or how I can help you..."
+                    rows={6}
+                    className="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:border-transparent transition-colors duration-200 resize-none"
+                    style={{
+                      backgroundColor: 'var(--bg-primary)',
+                      borderColor: 'var(--border-color)',
+                      color: 'var(--text-primary)'
+                    }}
+                    onFocus={(e) => {
+                      e.target.style.borderColor = 'var(--primary-color)';
+                      e.target.style.boxShadow = '0 0 0 2px rgba(59, 130, 246, 0.1)';
+                    }}
+                    onBlur={(e) => {
+                      e.target.style.borderColor = 'var(--border-color)';
+                      e.target.style.boxShadow = 'none';
+                    }}
+                    placeholder="Tell me about your project..."
                   />
                 </div>
-
+                
                 <motion.button
                   type="submit"
                   disabled={isSubmitting}
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
-                  className="w-full bg-gradient-to-r from-blue-600 to-cyan-600 text-white py-3 px-6 rounded-lg font-medium hover:from-blue-700 hover:to-cyan-700 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center space-x-2"
+                  className="w-full btn btn-primary flex items-center justify-center space-x-2"
                 >
-                  {isSubmitting ? (
-                    <>
-                      <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                      <span>Sending...</span>
-                    </>
-                  ) : (
-                    <>
-                      <Send size={20} />
-                      <span>Send Message</span>
-                    </>
-                  )}
+                  <Send size={20} />
+                  <span>{isSubmitting ? 'Sending...' : 'Send Message'}</span>
                 </motion.button>
               </form>
             </div>

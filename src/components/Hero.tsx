@@ -14,7 +14,9 @@ const Hero = () => {
   };
 
   return (
-    <section id="home" className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 via-white to-cyan-50">
+    <section id="home" className="min-h-screen flex items-center justify-center" style={{ 
+      background: 'linear-gradient(to bottom right, var(--bg-secondary), var(--bg-primary), var(--bg-secondary))'
+    }}>
       <div className="container mx-auto px-4 text-center">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -26,7 +28,8 @@ const Hero = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.2 }}
-            className="text-lg text-blue-600 font-medium mb-4"
+            className="text-lg font-medium mb-4"
+            style={{ color: 'var(--primary-color)' }}
           >
             Hello, I'm
           </motion.p>
@@ -46,7 +49,8 @@ const Hero = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6 }}
-            className="text-2xl md:text-3xl text-gray-600 mb-8"
+            className="text-2xl md:text-3xl mb-8"
+            style={{ color: 'var(--text-secondary)' }}
           >
             Full Stack Engineer
           </motion.h2>
@@ -56,7 +60,8 @@ const Hero = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.8 }}
-            className="text-lg text-gray-600 max-w-2xl mx-auto mb-12 leading-relaxed"
+            className="text-lg max-w-2xl mx-auto mb-12 leading-relaxed"
+            style={{ color: 'var(--text-secondary)' }}
           >
             I build robust, scalable web applications from concept to deployment. 
             Passionate about clean code, efficient architecture, and creating seamless user experiences 
@@ -97,7 +102,14 @@ const Hero = () => {
             animate={{ opacity: 1 }}
             transition={{ delay: 1.2 }}
             onClick={scrollToAbout}
-            className="flex flex-col items-center text-gray-500 hover:text-blue-600 transition-colors duration-200"
+            className="flex flex-col items-center transition-colors duration-200"
+            style={{ color: 'var(--text-secondary)' }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.color = 'var(--primary-color)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.color = 'var(--text-secondary)';
+            }}
           >
             <span className="text-sm mb-2">Learn more about me</span>
             <motion.div
@@ -111,9 +123,9 @@ const Hero = () => {
 
         {/* Background decoration */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div className="absolute -top-40 -right-40 w-80 h-80 bg-blue-200 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob"></div>
-          <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-cyan-200 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-2000"></div>
-          <div className="absolute top-40 left-40 w-80 h-80 bg-purple-200 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-4000"></div>
+          <div className="absolute -top-40 -right-40 w-80 h-80 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob" style={{ backgroundColor: 'var(--primary-color)' }}></div>
+          <div className="absolute -bottom-40 -left-40 w-80 h-80 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-2000" style={{ backgroundColor: 'var(--accent-color)' }}></div>
+          <div className="absolute top-40 left-40 w-80 h-80 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-4000" style={{ backgroundColor: 'var(--secondary-color)' }}></div>
         </div>
       </div>
       

@@ -5,6 +5,7 @@
 @tailwind utilities;
 
 :root {
+  /* Light theme variables */
   --primary-color: #3b82f6;
   --secondary-color: #1e40af;
   --accent-color: #06b6d4;
@@ -17,6 +18,30 @@
   --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
   --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
   --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --card-bg: #ffffff;
+  --nav-bg: rgba(255, 255, 255, 0.95);
+  --nav-text: #374151;
+  --nav-hover: #3b82f6;
+}
+
+[data-theme="dark"] {
+  /* Dark theme variables */
+  --primary-color: #60a5fa;
+  --secondary-color: #3b82f6;
+  --accent-color: #22d3ee;
+  --text-primary: #f9fafb;
+  --text-secondary: #d1d5db;
+  --bg-primary: #0f172a;
+  --bg-secondary: #1e293b;
+  --bg-dark: #020617;
+  --border-color: #334155;
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.3);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.3), 0 2px 4px -2px rgb(0 0 0 / 0.3);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.3), 0 4px 6px -4px rgb(0 0 0 / 0.3);
+  --card-bg: #1e293b;
+  --nav-bg: rgba(15, 23, 42, 0.95);
+  --nav-text: #e2e8f0;
+  --nav-hover: #60a5fa;
 }
 
 * {
@@ -38,6 +63,7 @@ body {
   color: var(--text-primary);
   background-color: var(--bg-primary);
   line-height: 1.6;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .container {
@@ -108,7 +134,7 @@ body {
 }
 
 .card {
-  background: var(--bg-primary);
+  background: var(--card-bg);
   border-radius: 1rem;
   padding: 2rem;
   box-shadow: var(--shadow-md);
@@ -126,6 +152,26 @@ body {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+}
+
+/* Theme toggle button styles */
+.theme-toggle {
+  background: transparent;
+  border: 2px solid var(--border-color);
+  color: var(--text-primary);
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.theme-toggle:hover {
+  background: var(--bg-secondary);
+  border-color: var(--primary-color);
+  transform: scale(1.05);
 }
 
 /* Fallback gradient classes to ensure they're not purged */

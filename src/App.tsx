@@ -11,6 +11,7 @@ import Footer from './components/Footer';
 import CareerBot from './components/CareerBot';
 import ErrorPage from './components/ErrorPage';
 import Terminal from './components/Terminal';
+import { ThemeProvider } from './providers/ThemeProvider';
 import { useState } from 'react';
 
 function App() {
@@ -26,37 +27,39 @@ function App() {
   const handleCloseCareerBot = () => setIsCareerBotOpen(false);
 
   return (
-    <Router>
-      <div className="App">
-        <Navbar onOpenTerminal={handleOpenTerminal} />
-        <main>
-          <Routes>
-            <Route path="/" element={
-              <>
-                <Hero />
-                <About />
-                <Skills />
-                <Projects />
-                <GitHubStats username="srbmaury" />
-                <Contact />
-              </>
-            } />
-            <Route path="*" element={<ErrorPage />} />
-          </Routes>
-        </main>
-        <Footer />
-        <CareerBot 
-          isOpen={isCareerBotOpen} 
-          onClose={handleCloseCareerBot}
-          onOpen={handleOpenCareerBot}
-        />
-        <Terminal 
-          isOpen={isTerminalOpen} 
-          onClose={handleCloseTerminal}
-          onOpenCareerBot={handleOpenCareerBot}
-        />
-      </div>
-    </Router>
+    <ThemeProvider>
+      <Router>
+        <div className="App">
+          <Navbar onOpenTerminal={handleOpenTerminal} />
+          <main>
+            <Routes>
+              <Route path="/" element={
+                <>
+                  <Hero />
+                  <About />
+                  <Skills />
+                  <Projects />
+                  <GitHubStats username="srbmaury" />
+                  <Contact />
+                </>
+              } />
+              <Route path="*" element={<ErrorPage />} />
+            </Routes>
+          </main>
+          <Footer />
+          <CareerBot 
+            isOpen={isCareerBotOpen} 
+            onClose={handleCloseCareerBot}
+            onOpen={handleOpenCareerBot}
+          />
+          <Terminal 
+            isOpen={isTerminalOpen} 
+            onClose={handleCloseTerminal}
+            onOpenCareerBot={handleOpenCareerBot}
+          />
+        </div>
+      </Router>
+    </ThemeProvider>
   );
 }
 

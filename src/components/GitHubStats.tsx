@@ -112,11 +112,11 @@ const GitHubStats: React.FC<GitHubStatsProps> = ({ username, className = '' }) =
 
   if (loading) {
     return (
-      <section className={`section bg-gray-50 ${className}`}>
+      <section className={`section ${className}`} style={{ backgroundColor: 'var(--bg-secondary)' }}>
         <div className="container">
           <div className="text-center">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
-            <p className="mt-4 text-gray-600">Loading GitHub statistics...</p>
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 mx-auto" style={{ borderColor: 'var(--primary-color)' }}></div>
+            <p className="mt-4" style={{ color: 'var(--text-secondary)' }}>Loading GitHub statistics...</p>
           </div>
         </div>
       </section>
@@ -125,11 +125,11 @@ const GitHubStats: React.FC<GitHubStatsProps> = ({ username, className = '' }) =
 
   if (error) {
     return (
-      <section className={`section bg-gray-50 ${className}`}>
+      <section className={`section ${className}`} style={{ backgroundColor: 'var(--bg-secondary)' }}>
         <div className="container">
           <div className="text-center">
-            <p className="text-red-600">Error loading GitHub data: {error}</p>
-            <p className="text-sm text-gray-500 mt-2">
+            <p style={{ color: '#ef4444' }}>Error loading GitHub data: {error}</p>
+            <p className="text-sm mt-2" style={{ color: 'var(--text-secondary)' }}>
               This might be due to rate limiting or network issues.
             </p>
           </div>
@@ -143,7 +143,7 @@ const GitHubStats: React.FC<GitHubStatsProps> = ({ username, className = '' }) =
   }
 
   return (
-    <section id="github" className={`section bg-gray-50 ${className}`}>
+    <section id="github" className={`section ${className}`} style={{ backgroundColor: 'var(--bg-secondary)' }}>
       <div className="container">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -171,60 +171,61 @@ const GitHubStats: React.FC<GitHubStatsProps> = ({ username, className = '' }) =
               <img
                 src={user.avatar_url}
                 alt={user.name || user.login}
-                className="w-24 h-24 rounded-full border-4 border-blue-100"
+                className="w-24 h-24 rounded-full border-4"
+                style={{ borderColor: 'var(--primary-color)' }}
               />
             </div>
 
             {/* User Info */}
             <div className="flex-1 text-center md:text-left">
               <div className="flex items-center justify-center md:justify-start gap-2 mb-2">
-                <Github size={20} className="text-gray-600" />
+                <Github size={20} style={{ color: 'var(--text-secondary)' }} />
                 <h3 className="text-2xl font-bold gradient-text">
                   {user.name || user.login}
                 </h3>
               </div>
               
               {user.bio && (
-                <p className="text-gray-600 mb-4">{user.bio}</p>
+                <p className="mb-4" style={{ color: 'var(--text-secondary)' }}>{user.bio}</p>
               )}
 
               {/* User Details */}
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
                 <div className="text-center">
-                  <div className="text-2xl font-bold text-blue-600">{user.public_repos}</div>
-                  <div className="text-sm text-gray-500">Repositories</div>
+                  <div className="text-2xl font-bold" style={{ color: 'var(--primary-color)' }}>{user.public_repos}</div>
+                  <div className="text-sm" style={{ color: 'var(--text-secondary)' }}>Repositories</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-2xl font-bold text-green-600">{user.followers}</div>
-                  <div className="text-sm text-gray-500">Followers</div>
+                  <div className="text-2xl font-bold" style={{ color: '#22c55e' }}>{user.followers}</div>
+                  <div className="text-sm" style={{ color: 'var(--text-secondary)' }}>Followers</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-2xl font-bold text-purple-600">{user.following}</div>
-                  <div className="text-sm text-gray-500">Following</div>
+                  <div className="text-2xl font-bold" style={{ color: 'var(--accent-color)' }}>{user.following}</div>
+                  <div className="text-sm" style={{ color: 'var(--text-secondary)' }}>Following</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-2xl font-bold text-orange-600">{stats.totalStars}</div>
-                  <div className="text-sm text-gray-500">Total Stars</div>
+                  <div className="text-2xl font-bold" style={{ color: '#f59e0b' }}>{stats.totalStars}</div>
+                  <div className="text-sm" style={{ color: 'var(--text-secondary)' }}>Total Stars</div>
                 </div>
               </div>
 
-              {/* Location and Company */}
-              <div className="flex flex-wrap gap-4 text-sm text-gray-600">
+              {/* Additional Info */}
+              <div className="flex flex-wrap gap-4 text-sm" style={{ color: 'var(--text-secondary)' }}>
                 {user.location && (
                   <div className="flex items-center gap-1">
-                    <MapPin size={14} />
-                    {user.location}
+                    <MapPin size={16} />
+                    <span>{user.location}</span>
                   </div>
                 )}
                 {user.company && (
                   <div className="flex items-center gap-1">
-                    <Building size={14} />
-                    {user.company}
+                    <Building size={16} />
+                    <span>{user.company}</span>
                   </div>
                 )}
                 <div className="flex items-center gap-1">
-                  <Calendar size={14} />
-                  Joined {formatDate(user.created_at)}
+                  <Calendar size={16} />
+                  <span>Joined {formatDate(user.created_at)}</span>
                 </div>
               </div>
             </div>
@@ -238,80 +239,90 @@ const GitHubStats: React.FC<GitHubStatsProps> = ({ username, className = '' }) =
           transition={{ duration: 0.8, delay: 0.4 }}
           viewport={{ once: true }}
         >
-          <h3 className="text-2xl font-bold text-center mb-8 gradient-text">
-            Top Repositories
-          </h3>
-          
+          <h3 className="text-2xl font-bold text-center mb-8 gradient-text">Top Repositories</h3>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {repos.map((repo, index) => (
               <motion.div
                 key={repo.id}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.5, delay: 0.6 + index * 0.1 }}
                 viewport={{ once: true }}
-                className="card hover:shadow-lg transition-all duration-300"
+                className="card group"
               >
                 <div className="flex items-start justify-between mb-3">
-                  <h4 className="font-semibold text-lg text-blue-600 truncate">
+                  <h4 className="font-semibold" style={{ color: 'var(--text-primary)' }}>
                     {repo.name}
                   </h4>
                   <a
                     href={repo.html_url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-gray-400 hover:text-blue-600 transition-colors"
+                    className="opacity-0 group-hover:opacity-100 transition-opacity duration-200"
                   >
-                    <Github size={16} />
+                    <Github size={16} style={{ color: 'var(--primary-color)' }} />
                   </a>
                 </div>
                 
                 {repo.description && (
-                  <p className="text-gray-600 text-sm mb-4 line-clamp-2">
+                  <p className="text-sm mb-4 leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
                     {repo.description}
                   </p>
                 )}
 
                 {/* Repository Stats */}
-                <div className="flex items-center justify-between text-sm text-gray-500 mb-3">
+                <div className="flex items-center justify-between text-sm mb-3">
                   <div className="flex items-center gap-4">
                     <div className="flex items-center gap-1">
-                      <Star size={14} />
-                      {repo.stargazers_count}
+                      <Star size={14} style={{ color: '#f59e0b' }} />
+                      <span style={{ color: 'var(--text-secondary)' }}>{repo.stargazers_count}</span>
                     </div>
                     <div className="flex items-center gap-1">
-                      <GitFork size={14} />
-                      {repo.forks_count}
+                      <GitFork size={14} style={{ color: 'var(--text-secondary)' }} />
+                      <span style={{ color: 'var(--text-secondary)' }}>{repo.forks_count}</span>
                     </div>
                   </div>
-                  {repo.language && (
-                    <span className="px-2 py-1 bg-blue-100 text-blue-800 rounded-full text-xs">
-                      {repo.language}
-                    </span>
-                  )}
+                  <span className="text-xs" style={{ color: 'var(--text-secondary)' }}>
+                    {getTimeAgo(repo.updated_at)}
+                  </span>
                 </div>
 
-                {/* Topics */}
-                {repo.topics && repo.topics.length > 0 && (
-                  <div className="flex flex-wrap gap-1 mb-3">
-                    {repo.topics.slice(0, 3).map((topic) => (
-                      <span
-                        key={topic}
-                        className="px-2 py-1 bg-gray-100 text-gray-700 rounded-full text-xs"
-                      >
-                        {topic}
-                      </span>
-                    ))}
-                    {repo.topics.length > 3 && (
-                      <span className="px-2 py-1 bg-gray-100 text-gray-700 rounded-full text-xs">
-                        +{repo.topics.length - 3}
-                      </span>
-                    )}
-                  </div>
-                )}
-
-                <div className="text-xs text-gray-400">
-                  Updated {getTimeAgo(repo.updated_at)}
+                {/* Language and Topics */}
+                <div className="space-y-2">
+                  {repo.language && (
+                    <div className="flex items-center gap-2">
+                      <div className="w-3 h-3 rounded-full" style={{ backgroundColor: 'var(--primary-color)' }}></div>
+                      <span className="text-xs" style={{ color: 'var(--text-secondary)' }}>{repo.language}</span>
+                    </div>
+                  )}
+                  
+                  {repo.topics && repo.topics.length > 0 && (
+                    <div className="flex flex-wrap gap-1">
+                      {repo.topics.slice(0, 3).map((topic) => (
+                        <span
+                          key={topic}
+                          className="px-2 py-1 text-xs rounded-full"
+                          style={{
+                            backgroundColor: 'var(--bg-secondary)',
+                            color: 'var(--text-secondary)'
+                          }}
+                        >
+                          {topic}
+                        </span>
+                      ))}
+                      {repo.topics.length > 3 && (
+                        <span
+                          className="px-2 py-1 text-xs rounded-full"
+                          style={{
+                            backgroundColor: 'var(--bg-secondary)',
+                            color: 'var(--text-secondary)'
+                          }}
+                        >
+                          +{repo.topics.length - 3}
+                        </span>
+                      )}
+                    </div>
+                  )}
                 </div>
               </motion.div>
             ))}
@@ -330,7 +341,17 @@ const GitHubStats: React.FC<GitHubStatsProps> = ({ username, className = '' }) =
             href={`https://github.com/${username}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-6 py-3 bg-gray-800 hover:bg-gray-900 text-white rounded-lg transition-colors duration-300"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-lg transition-colors duration-300"
+            style={{ 
+              backgroundColor: 'var(--primary-color)', 
+              color: 'white' 
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.backgroundColor = 'var(--secondary-color)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.backgroundColor = 'var(--primary-color)';
+            }}
           >
             <Github size={20} />
             View Full Profile on GitHub

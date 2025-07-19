@@ -136,7 +136,10 @@ const CareerBot: React.FC<CareerBotProps> = ({ className = '', isOpen: externalI
 
       {/* Chat Window */}
       {isOpen && (
-        <div className="fixed bottom-24 right-6 z-40 w-96 h-[500px] bg-white rounded-lg shadow-2xl border border-gray-200 flex flex-col">
+        <div className="fixed bottom-24 right-6 z-40 w-96 h-[500px] rounded-lg shadow-2xl border flex flex-col" style={{ 
+          backgroundColor: 'var(--card-bg)',
+          borderColor: 'var(--border-color)'
+        }}>
           {/* Header */}
           <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white p-4 rounded-t-lg">
             <div className="flex items-center justify-between">
@@ -167,13 +170,21 @@ const CareerBot: React.FC<CareerBotProps> = ({ className = '', isOpen: externalI
                 <div
                   className={`max-w-[80%] p-3 rounded-lg ${
                     message.role === 'user'
-                      ? 'bg-blue-600 text-white'
-                      : 'bg-gray-100 text-gray-800'
+                      ? 'text-white'
+                      : ''
                   }`}
+                  style={{
+                    backgroundColor: message.role === 'user' 
+                      ? 'var(--primary-color)' 
+                      : 'var(--bg-secondary)',
+                    color: message.role === 'user' 
+                      ? 'white' 
+                      : 'var(--text-primary)'
+                  }}
                 >
                   <div className="flex items-start space-x-2">
                     {message.role === 'assistant' && (
-                      <Bot size={16} className="mt-0.5 text-blue-600 flex-shrink-0" />
+                      <Bot size={16} className="mt-0.5 flex-shrink-0" style={{ color: 'var(--primary-color)' }} />
                     )}
                     <div className="text-sm whitespace-pre-wrap">
                       {message.content}
@@ -187,10 +198,13 @@ const CareerBot: React.FC<CareerBotProps> = ({ className = '', isOpen: externalI
             ))}
             {isLoading && (
               <div className="flex justify-start">
-                <div className="bg-gray-100 text-gray-800 p-3 rounded-lg">
+                <div className="p-3 rounded-lg" style={{ 
+                  backgroundColor: 'var(--bg-secondary)',
+                  color: 'var(--text-primary)'
+                }}>
                   <div className="flex items-center space-x-2">
-                    <Bot size={16} className="text-blue-600" />
-                    <Loader2 size={16} className="animate-spin text-blue-600" />
+                    <Bot size={16} style={{ color: 'var(--primary-color)' }} />
+                    <Loader2 size={16} className="animate-spin" style={{ color: 'var(--primary-color)' }} />
                     <span className="text-sm">Analyzing...</span>
                   </div>
                 </div>
@@ -199,20 +213,46 @@ const CareerBot: React.FC<CareerBotProps> = ({ className = '', isOpen: externalI
           </div>
 
           {/* Input */}
-          <form onSubmit={handleSubmit} className="p-4 border-t border-gray-200">
+          <form onSubmit={handleSubmit} className="p-4 border-t" style={{ borderColor: 'var(--border-color)' }}>
             <div className="flex space-x-2">
               <input
                 type="text"
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 placeholder="Paste a job description here..."
-                className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
+                className="flex-1 px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:border-transparent text-sm"
+                style={{
+                  backgroundColor: 'var(--bg-primary)',
+                  borderColor: 'var(--border-color)',
+                  color: 'var(--text-primary)'
+                }}
+                onFocus={(e) => {
+                  e.target.style.borderColor = 'var(--primary-color)';
+                  e.target.style.boxShadow = '0 0 0 2px rgba(59, 130, 246, 0.1)';
+                }}
+                onBlur={(e) => {
+                  e.target.style.borderColor = 'var(--border-color)';
+                  e.target.style.boxShadow = 'none';
+                }}
                 disabled={isLoading}
               />
               <button
                 type="submit"
                 disabled={!input.trim() || isLoading}
-                className="bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 text-white p-2 rounded-lg transition-colors disabled:cursor-not-allowed"
+                className="text-white p-2 rounded-lg transition-colors disabled:cursor-not-allowed"
+                style={{ 
+                  backgroundColor: input.trim() && !isLoading ? 'var(--primary-color)' : 'var(--text-secondary)'
+                }}
+                onMouseEnter={(e) => {
+                  if (input.trim() && !isLoading) {
+                    e.currentTarget.style.backgroundColor = 'var(--secondary-color)';
+                  }
+                }}
+                onMouseLeave={(e) => {
+                  if (input.trim() && !isLoading) {
+                    e.currentTarget.style.backgroundColor = 'var(--primary-color)';
+                  }
+                }}
               >
                 <Send size={16} />
               </button>

@@ -23,7 +23,7 @@ const About = () => {
   ];
 
   return (
-    <section id="about" className="section bg-white min-h-screen flex items-center">
+    <section id="about" className="section min-h-screen flex items-center" style={{ backgroundColor: 'var(--bg-primary)' }}>
       <div className="container">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -71,8 +71,8 @@ const About = () => {
               </div>
               
               {/* Decorative elements */}
-              <div className="absolute -top-4 -right-4 w-24 h-24 bg-yellow-400 rounded-full opacity-20"></div>
-              <div className="absolute -bottom-4 -left-4 w-16 h-16 bg-pink-400 rounded-full opacity-20"></div>
+              <div className="absolute -top-4 -right-4 w-24 h-24 rounded-full opacity-20" style={{ backgroundColor: 'var(--accent-color)' }}></div>
+              <div className="absolute -bottom-4 -left-4 w-16 h-16 rounded-full opacity-20" style={{ backgroundColor: 'var(--primary-color)' }}></div>
             </div>
           </motion.div>
 
@@ -95,12 +95,13 @@ const About = () => {
                       whileInView={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.5, delay: 0.8 + index * 0.1 }}
                       viewport={{ once: true }}
-                      className="border-l-4 border-blue-500 pl-6"
+                      className="border-l-4 pl-6"
+                      style={{ borderColor: 'var(--primary-color)' }}
                     >
-                      <div className="text-sm text-blue-600 font-medium mb-1">{exp.year}</div>
-                      <h4 className="text-lg font-semibold mb-1">{exp.title}</h4>
-                      <p className="text-gray-600 font-medium mb-2">{exp.company} • {exp.location}</p>
-                      <p className="text-gray-600">{exp.description}</p>
+                      <div className="text-sm font-medium mb-1" style={{ color: 'var(--primary-color)' }}>{exp.year}</div>
+                      <h4 className="text-lg font-semibold mb-1" style={{ color: 'var(--text-primary)' }}>{exp.title}</h4>
+                      <p className="font-medium mb-2" style={{ color: 'var(--text-secondary)' }}>{exp.company} • {exp.location}</p>
+                      <p style={{ color: 'var(--text-secondary)' }}>{exp.description}</p>
                     </motion.div>
                   ))}
                 </div>

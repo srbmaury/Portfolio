@@ -22,7 +22,7 @@ const Projects = () => {
   const projects = projectsData.projects as Project[];
 
   return (
-    <section id="projects" className="section bg-white">
+    <section id="projects" className="section" style={{ backgroundColor: 'var(--bg-primary)' }}>
       <div className="container">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -129,14 +129,19 @@ const Projects = () => {
               {/* Project Content */}
               <div>
                 <h3 className="text-xl font-bold mb-3 gradient-text">{project.title}</h3>
-                <p className="text-gray-600 mb-4 leading-relaxed">{project.description}</p>
+                <p className="mb-4 leading-relaxed" style={{ color: 'var(--text-secondary)' }}>{project.description}</p>
                 
                 {/* Technologies */}
                 <div className="flex flex-wrap gap-2 mb-6">
                   {project.technologies.map((tech) => (
                     <span
                       key={tech}
-                      className="px-3 py-1 bg-blue-100 text-blue-700 text-sm rounded-full font-medium"
+                      className="px-3 py-1 text-sm rounded-full font-medium"
+                      style={{
+                        backgroundColor: 'var(--primary-color)',
+                        color: 'white',
+                        opacity: 0.9
+                      }}
                     >
                       {tech}
                     </span>
@@ -149,7 +154,14 @@ const Projects = () => {
                     href={project.liveUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center space-x-2 text-blue-600 hover:text-blue-700 font-medium transition-colors duration-200"
+                    className="flex items-center space-x-2 font-medium transition-colors duration-200"
+                    style={{ color: 'var(--primary-color)' }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.opacity = '0.8';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.opacity = '1';
+                    }}
                   >
                     <Eye size={16} />
                     <span>View Project</span>
@@ -158,7 +170,14 @@ const Projects = () => {
                     href={project.githubUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center space-x-2 text-gray-600 hover:text-gray-800 font-medium transition-colors duration-200"
+                    className="flex items-center space-x-2 font-medium transition-colors duration-200"
+                    style={{ color: 'var(--text-secondary)' }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.color = 'var(--text-primary)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.color = 'var(--text-secondary)';
+                    }}
                   >
                     <Github size={16} />
                     <span>Source Code</span>
@@ -267,20 +286,31 @@ const Projects = () => {
                 {/* Project Content */}
                 <div>
                   <h4 className="text-lg font-bold mb-2 gradient-text">{project.title}</h4>
-                  <p className="text-gray-600 mb-3 text-sm leading-relaxed">{project.description}</p>
+                  <p className="mb-3 text-sm leading-relaxed" style={{ color: 'var(--text-secondary)' }}>{project.description}</p>
                   
                   {/* Technologies */}
                   <div className="flex flex-wrap gap-1 mb-4">
                     {project.technologies.slice(0, 3).map((tech) => (
                       <span
                         key={tech}
-                        className="px-2 py-1 bg-blue-100 text-blue-700 text-xs rounded-full font-medium"
+                        className="px-2 py-1 text-xs rounded-full font-medium"
+                        style={{
+                          backgroundColor: 'var(--primary-color)',
+                          color: 'white',
+                          opacity: 0.9
+                        }}
                       >
                         {tech}
                       </span>
                     ))}
                     {project.technologies.length > 3 && (
-                      <span className="px-2 py-1 bg-gray-100 text-gray-600 text-xs rounded-full font-medium">
+                      <span 
+                        className="px-2 py-1 text-xs rounded-full font-medium"
+                        style={{
+                          backgroundColor: 'var(--bg-secondary)',
+                          color: 'var(--text-secondary)'
+                        }}
+                      >
                         +{project.technologies.length - 3} more
                       </span>
                     )}
@@ -292,8 +322,17 @@ const Projects = () => {
                       href={project.liveUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center space-x-2 px-3 py-2 text-blue-600 hover:text-blue-700 font-medium transition-colors duration-200 text-sm hover:bg-blue-50 rounded-lg relative z-50"
-                      style={{ pointerEvents: 'auto' }}
+                      className="inline-flex items-center space-x-2 px-3 py-2 font-medium transition-colors duration-200 text-sm rounded-lg relative z-50"
+                      style={{ 
+                        color: 'var(--primary-color)',
+                        pointerEvents: 'auto'
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.backgroundColor = 'var(--bg-secondary)';
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.backgroundColor = 'transparent';
+                      }}
                     >
                       <Eye size={14} />
                       <span>View</span>
@@ -302,8 +341,19 @@ const Projects = () => {
                       href={project.githubUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center space-x-2 px-3 py-2 text-gray-600 hover:text-gray-800 font-medium transition-colors duration-200 text-sm hover:bg-gray-50 rounded-lg relative z-50"
-                      style={{ pointerEvents: 'auto' }}
+                      className="inline-flex items-center space-x-2 px-3 py-2 font-medium transition-colors duration-200 text-sm rounded-lg relative z-50"
+                      style={{ 
+                        color: 'var(--text-secondary)',
+                        pointerEvents: 'auto'
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.backgroundColor = 'var(--bg-secondary)';
+                        e.currentTarget.style.color = 'var(--text-primary)';
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.backgroundColor = 'transparent';
+                        e.currentTarget.style.color = 'var(--text-secondary)';
+                      }}
                     >
                       <Github size={14} />
                       <span>Code</span>

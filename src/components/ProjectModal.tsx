@@ -72,26 +72,56 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, project })
     // Zoom functionality for content scaling
 
     const renderContent = (content: React.ReactNode) => (
-      <div className="w-full h-96 bg-white rounded-lg overflow-hidden relative">
+      <div className="w-full h-96 rounded-lg overflow-hidden relative" style={{ backgroundColor: 'var(--card-bg)' }}>
         {/* Zoom Controls */}
         <div className="absolute top-2 right-2 z-10 flex gap-2">
           <button
             onClick={handleZoomOut}
-            className="p-2 bg-white/90 hover:bg-white text-gray-700 rounded-lg shadow-lg transition-colors"
+            className="p-2 rounded-lg shadow-lg transition-colors"
+            style={{ 
+              backgroundColor: 'var(--card-bg)', 
+              color: 'var(--text-primary)' 
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.backgroundColor = 'var(--bg-secondary)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.backgroundColor = 'var(--card-bg)';
+            }}
             title="Zoom Out (-)"
           >
             <ZoomOut size={16} />
           </button>
           <button
             onClick={handleZoomIn}
-            className="p-2 bg-white/90 hover:bg-white text-gray-700 rounded-lg shadow-lg transition-colors"
+            className="p-2 rounded-lg shadow-lg transition-colors"
+            style={{ 
+              backgroundColor: 'var(--card-bg)', 
+              color: 'var(--text-primary)' 
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.backgroundColor = 'var(--bg-secondary)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.backgroundColor = 'var(--card-bg)';
+            }}
             title="Zoom In (+)"
           >
             <ZoomIn size={16} />
           </button>
           <button
             onClick={handleReset}
-            className="p-2 bg-white/90 hover:bg-white text-gray-700 rounded-lg shadow-lg transition-colors"
+            className="p-2 rounded-lg shadow-lg transition-colors"
+            style={{ 
+              backgroundColor: 'var(--card-bg)', 
+              color: 'var(--text-primary)' 
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.backgroundColor = 'var(--bg-secondary)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.backgroundColor = 'var(--card-bg)';
+            }}
             title="Reset (0)"
           >
             <RotateCcw size={16} />
@@ -146,17 +176,26 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, project })
 
     // Fallback for projects without images or demos
     return renderContent(
-      <div className="w-full h-full bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center">
+      <div className="w-full h-full flex items-center justify-center" style={{ 
+        background: 'linear-gradient(to bottom right, var(--bg-secondary), var(--bg-primary))'
+      }}>
         <div className="text-center">
           <div className="text-8xl mb-6 animate-pulse">{project.fallbackIcon}</div>
-          <h3 className="text-3xl font-bold text-gray-800 mb-4">{project.title}</h3>
-          <p className="text-lg text-gray-600 max-w-md mx-auto">{project.description}</p>
+          <h3 className="text-3xl font-bold mb-4" style={{ color: 'var(--text-primary)' }}>{project.title}</h3>
+          <p className="text-lg max-w-md mx-auto" style={{ color: 'var(--text-secondary)' }}>{project.description}</p>
           <div className="mt-6 flex justify-center gap-4">
             <a
               href={project.liveUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors"
+              className="inline-flex items-center gap-2 px-6 py-3 text-white rounded-lg transition-colors"
+              style={{ backgroundColor: 'var(--primary-color)' }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.backgroundColor = 'var(--secondary-color)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.backgroundColor = 'var(--primary-color)';
+              }}
             >
               <ExternalLink size={20} />
               View Project
@@ -165,7 +204,14 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, project })
               href={project.githubUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-6 py-3 bg-gray-800 hover:bg-gray-900 text-white rounded-lg transition-colors"
+              className="inline-flex items-center gap-2 px-6 py-3 text-white rounded-lg transition-colors"
+              style={{ backgroundColor: 'var(--bg-dark)' }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.backgroundColor = 'var(--text-primary)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.backgroundColor = 'var(--bg-dark)';
+              }}
             >
               <Github size={20} />
               View Code
@@ -183,7 +229,8 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, project })
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm"
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 backdrop-blur-sm"
+          style={{ backgroundColor: 'rgba(0, 0, 0, 0.8)' }}
           onClick={handleBackdropClick}
         >
           <motion.div
@@ -191,17 +238,25 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, project })
             animate={{ scale: 1, opacity: 1, y: 0 }}
             exit={{ scale: 0.9, opacity: 0, y: 20 }}
             transition={{ type: "spring", damping: 25, stiffness: 300 }}
-            className="bg-white rounded-xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-hidden"
+            className="rounded-xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-hidden"
+            style={{ backgroundColor: 'var(--card-bg)' }}
           >
             {/* Header */}
-            <div className="flex items-center justify-between p-6 border-b border-gray-200">
+            <div className="flex items-center justify-between p-6 border-b" style={{ borderColor: 'var(--border-color)' }}>
               <div>
-                <h2 className="text-2xl font-bold text-gray-900">{project.title}</h2>
-                <p className="text-gray-600 mt-1">{project.description}</p>
+                <h2 className="text-2xl font-bold" style={{ color: 'var(--text-primary)' }}>{project.title}</h2>
+                <p className="mt-1" style={{ color: 'var(--text-secondary)' }}>{project.description}</p>
               </div>
               <button
                 onClick={onClose}
-                className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+                className="p-2 rounded-lg transition-colors"
+                style={{ color: 'var(--text-primary)' }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.backgroundColor = 'var(--bg-secondary)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.backgroundColor = 'transparent';
+                }}
                 aria-label="Close modal"
               >
                 <X size={24} />
@@ -213,11 +268,11 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, project })
               {/* Demo Section */}
               <div className="mb-6">
                 <div className="flex items-center justify-between mb-4">
-                  <h3 className="text-lg font-semibold text-gray-900 flex items-center gap-2">
-                    <Play size={20} className="text-blue-600" />
+                  <h3 className="text-lg font-semibold flex items-center gap-2" style={{ color: 'var(--text-primary)' }}>
+                    <Play size={20} style={{ color: 'var(--primary-color)' }} />
                     Project Demo
                     {zoom !== 1 && (
-                      <span className="text-sm text-gray-500 ml-2">
+                      <span className="text-sm ml-2" style={{ color: 'var(--text-secondary)' }}>
                         (Zoom: {Math.round(zoom * 100)}%)
                       </span>
                     )}
@@ -227,7 +282,14 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, project })
                       href={project.liveUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 px-3 py-1.5 bg-blue-600 hover:bg-blue-700 text-white text-sm rounded-lg transition-colors"
+                      className="inline-flex items-center gap-2 px-3 py-1.5 text-white text-sm rounded-lg transition-colors"
+                      style={{ backgroundColor: 'var(--primary-color)' }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.backgroundColor = 'var(--secondary-color)';
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.backgroundColor = 'var(--primary-color)';
+                      }}
                     >
                       <ExternalLink size={16} />
                       Live Demo
@@ -236,7 +298,14 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, project })
                       href={project.githubUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 px-3 py-1.5 bg-gray-800 hover:bg-gray-900 text-white text-sm rounded-lg transition-colors"
+                      className="inline-flex items-center gap-2 px-3 py-1.5 text-white text-sm rounded-lg transition-colors"
+                      style={{ backgroundColor: 'var(--bg-dark)' }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.backgroundColor = 'var(--text-primary)';
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.backgroundColor = 'var(--bg-dark)';
+                      }}
                     >
                       <Github size={16} />
                       Code
@@ -246,19 +315,24 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, project })
                 {renderDemoContent()}
                 
                 {/* Zoom Instructions */}
-                <div className="mt-3 text-xs text-gray-500 text-center">
-                  Use <kbd className="px-1 py-0.5 bg-gray-200 rounded text-xs">+</kbd> <kbd className="px-1 py-0.5 bg-gray-200 rounded text-xs">-</kbd> <kbd className="px-1 py-0.5 bg-gray-200 rounded text-xs">0</kbd> keys or buttons to zoom
+                <div className="mt-3 text-xs text-center" style={{ color: 'var(--text-secondary)' }}>
+                  Use <kbd className="px-1 py-0.5 rounded text-xs" style={{ backgroundColor: 'var(--bg-secondary)' }}>+</kbd> <kbd className="px-1 py-0.5 rounded text-xs" style={{ backgroundColor: 'var(--bg-secondary)' }}>-</kbd> <kbd className="px-1 py-0.5 rounded text-xs" style={{ backgroundColor: 'var(--bg-secondary)' }}>0</kbd> keys or buttons to zoom
                 </div>
               </div>
 
               {/* Technologies */}
               <div className="mb-6">
-                <h3 className="text-lg font-semibold text-gray-900 mb-3">Technologies Used</h3>
+                <h3 className="text-lg font-semibold mb-3" style={{ color: 'var(--text-primary)' }}>Technologies Used</h3>
                 <div className="flex flex-wrap gap-2">
                   {project.technologies.map((tech, index) => (
                     <span
                       key={index}
-                      className="px-3 py-1 bg-blue-100 text-blue-800 text-sm rounded-full font-medium"
+                      className="px-3 py-1 text-sm rounded-full font-medium"
+                      style={{
+                        backgroundColor: 'var(--primary-color)',
+                        color: 'white',
+                        opacity: 0.9
+                      }}
                     >
                       {tech}
                     </span>
@@ -268,22 +342,22 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, project })
 
               {/* Features/Details */}
               <div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-3">Key Features</h3>
-                <ul className="space-y-2 text-gray-700">
+                <h3 className="text-lg font-semibold mb-3" style={{ color: 'var(--text-primary)' }}>Key Features</h3>
+                <ul className="space-y-2" style={{ color: 'var(--text-secondary)' }}>
                   <li className="flex items-start gap-2">
-                    <div className="w-2 h-2 bg-blue-600 rounded-full mt-2 flex-shrink-0"></div>
+                    <div className="w-2 h-2 rounded-full mt-2 flex-shrink-0" style={{ backgroundColor: 'var(--primary-color)' }}></div>
                     <span>Responsive design that works on all devices</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <div className="w-2 h-2 bg-blue-600 rounded-full mt-2 flex-shrink-0"></div>
+                    <div className="w-2 h-2 rounded-full mt-2 flex-shrink-0" style={{ backgroundColor: 'var(--primary-color)' }}></div>
                     <span>Modern UI/UX with smooth animations</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <div className="w-2 h-2 bg-blue-600 rounded-full mt-2 flex-shrink-0"></div>
+                    <div className="w-2 h-2 rounded-full mt-2 flex-shrink-0" style={{ backgroundColor: 'var(--primary-color)' }}></div>
                     <span>Optimized performance and accessibility</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <div className="w-2 h-2 bg-blue-600 rounded-full mt-2 flex-shrink-0"></div>
+                    <div className="w-2 h-2 rounded-full mt-2 flex-shrink-0" style={{ backgroundColor: 'var(--primary-color)' }}></div>
                     <span>Clean, maintainable code structure</span>
                   </li>
                 </ul>
