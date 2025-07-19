@@ -28,14 +28,15 @@ const ResumeViewer: React.FC<ResumeViewerProps> = ({ isOpen, onClose }) => {
     <div className="fixed inset-0 z-50 flex items-center justify-center">
       {/* Backdrop */}
       <div 
-        className="absolute inset-0 bg-black/50 backdrop-blur-sm"
+        className="absolute inset-0 backdrop-blur-sm"
+        style={{ backgroundColor: 'rgba(0, 0, 0, 0.8)' }}
         onClick={onClose}
       />
       
       {/* Modal */}
-      <div className="relative bg-white rounded-lg shadow-2xl w-[90vw] h-[90vh] max-w-6xl flex flex-col">
+      <div className="relative rounded-lg shadow-2xl w-[90vw] h-[90vh] max-w-6xl flex flex-col" style={{ backgroundColor: 'var(--card-bg)' }}>
         {/* Header */}
-        <div className="flex items-center justify-between p-4 border-b border-gray-200 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-t-lg">
+        <div className="flex items-center justify-between p-4 border-b rounded-t-lg bg-gradient-to-r from-blue-600 to-purple-600 text-white" style={{ borderColor: 'var(--border-color)' }}>
           <div className="flex items-center space-x-2">
             <FileText size={20} />
             <h2 className="text-lg font-semibold">Saurabh Maurya - Resume</h2>
@@ -43,7 +44,8 @@ const ResumeViewer: React.FC<ResumeViewerProps> = ({ isOpen, onClose }) => {
           <div className="flex items-center space-x-2">
             <button
               onClick={handleDownload}
-              className="flex items-center space-x-1 px-3 py-1.5 bg-white/20 hover:bg-white/30 rounded-md transition-colors"
+              className="flex items-center space-x-1 px-3 py-1.5 hover:bg-white/30 rounded-md transition-colors"
+              style={{ backgroundColor: 'rgba(255, 255, 255, 0.2)' }}
               title="Download Resume"
             >
               <Download size={16} />
@@ -62,10 +64,10 @@ const ResumeViewer: React.FC<ResumeViewerProps> = ({ isOpen, onClose }) => {
         {/* PDF Viewer */}
         <div className="flex-1 relative">
           {isLoading && (
-            <div className="absolute inset-0 flex items-center justify-center bg-gray-50">
+            <div className="absolute inset-0 flex items-center justify-center" style={{ backgroundColor: 'var(--bg-secondary)' }}>
               <div className="flex items-center space-x-2">
-                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
-                <span className="text-gray-600">Loading resume...</span>
+                <div className="animate-spin rounded-full h-8 w-8 border-b-2" style={{ borderColor: 'var(--primary-color)' }}></div>
+                <span style={{ color: 'var(--text-secondary)' }}>Loading resume...</span>
               </div>
             </div>
           )}
@@ -75,6 +77,7 @@ const ResumeViewer: React.FC<ResumeViewerProps> = ({ isOpen, onClose }) => {
             className="w-full h-full rounded-b-lg"
             onLoad={handleIframeLoad}
             title="Saurabh Maurya Resume"
+            style={{ backgroundColor: 'var(--bg-primary)' }}
           />
         </div>
       </div>
