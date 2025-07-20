@@ -1,11 +1,7 @@
 import { motion } from 'framer-motion';
-import { Heart, ArrowUp } from 'lucide-react';
+import { Heart } from 'lucide-react';
 
 const Footer = () => {
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
   return (
     <footer style={{ backgroundColor: 'var(--bg-dark)', color: 'var(--text-primary)' }}>
       <div className="container mx-auto px-4 py-12">
@@ -87,26 +83,6 @@ const Footer = () => {
             © {new Date().getFullYear()} Saurabh Maurya. Made with{' '}
             <Heart size={16} className="inline" style={{ color: '#ef4444' }} /> and React.
           </motion.p>
-
-          <motion.button
-            onClick={scrollToTop}
-            initial={{ opacity: 0, scale: 0.8 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8, delay: 0.8 }}
-            viewport={{ once: true }}
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
-            className="text-white p-3 rounded-full transition-colors duration-200"
-            style={{ backgroundColor: 'var(--primary-color)' }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.backgroundColor = 'var(--secondary-color)';
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.backgroundColor = 'var(--primary-color)';
-            }}
-          >
-            <ArrowUp size={20} />
-          </motion.button>
         </div>
       </div>
     </footer>

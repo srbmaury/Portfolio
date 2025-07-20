@@ -91,7 +91,12 @@ const Skills = () => {
                     whileInView={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.5, delay: (categoryIndex * 0.1) + (skillIndex * 0.05) }}
                     viewport={{ once: true }}
-                    className="px-4 py-3 rounded-lg border text-center hover:shadow-md transition-shadow duration-200"
+                    whileHover={{ 
+                      scale: 1.05, 
+                      y: -5,
+                      boxShadow: '0 10px 25px rgba(0, 0, 0, 0.2)'
+                    }}
+                    className="px-4 py-3 rounded-lg border text-center transition-all duration-300 cursor-pointer"
                     style={{
                       backgroundColor: 'var(--card-bg)',
                       borderColor: 'var(--border-color)'
@@ -125,7 +130,12 @@ const Skills = () => {
                 whileInView={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.5, delay: 0.5 + index * 0.05 }}
                 viewport={{ once: true }}
-                className="px-4 py-3 rounded-lg border text-center hover:shadow-md transition-shadow duration-200"
+                whileHover={{ 
+                  scale: 1.05, 
+                  y: -3,
+                  boxShadow: '0 8px 20px rgba(0, 0, 0, 0.15)'
+                }}
+                className="px-4 py-3 rounded-lg border text-center transition-all duration-300 cursor-pointer"
                 style={{
                   backgroundColor: 'var(--card-bg)',
                   borderColor: 'var(--border-color)'
