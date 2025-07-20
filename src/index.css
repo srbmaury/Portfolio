@@ -222,13 +222,21 @@ html {
   scroll-behavior: smooth;
 }
 
-/* Improved focus styles for accessibility */
-button:focus,
-input:focus,
-textarea:focus,
-select:focus {
+/* Improved focus styles for accessibility - only for keyboard users */
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
   outline: 2px solid var(--primary-color);
   outline-offset: 2px;
+}
+
+/* Remove focus outline for mouse users */
+button:focus:not(:focus-visible),
+input:focus:not(:focus-visible),
+textarea:focus:not(:focus-visible),
+select:focus:not(:focus-visible) {
+  outline: none;
 }
 
 /* Better text selection for terminal */
