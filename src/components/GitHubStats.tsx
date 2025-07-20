@@ -303,7 +303,7 @@ const GitHubStats: React.FC<GitHubStatsProps> = ({ username, className = '' }) =
                           key={topic}
                           className="px-2 py-1 text-xs rounded-full"
                           style={{
-                            backgroundColor: 'var(--bg-secondary)',
+                            backgroundColor: 'var(--tag-bg)',
                             color: 'var(--text-secondary)'
                           }}
                         >
@@ -314,7 +314,7 @@ const GitHubStats: React.FC<GitHubStatsProps> = ({ username, className = '' }) =
                         <span
                           className="px-2 py-1 text-xs rounded-full"
                           style={{
-                            backgroundColor: 'var(--bg-secondary)',
+                            backgroundColor: 'var(--tag-bg)',
                             color: 'var(--text-secondary)'
                           }}
                         >

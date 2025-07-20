@@ -307,7 +307,7 @@ const Projects = () => {
                       <span 
                         className="px-2 py-1 text-xs rounded-full font-medium"
                         style={{
-                          backgroundColor: 'var(--bg-secondary)',
+                          backgroundColor: 'var(--tag-bg)',
                           color: 'var(--text-secondary)'
                         }}
                       >

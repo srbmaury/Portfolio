@@ -316,7 +316,7 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, project })
                 
                 {/* Zoom Instructions */}
                 <div className="mt-3 text-xs text-center" style={{ color: 'var(--text-secondary)' }}>
-                  Use <kbd className="px-1 py-0.5 rounded text-xs" style={{ backgroundColor: 'var(--bg-secondary)' }}>+</kbd> <kbd className="px-1 py-0.5 rounded text-xs" style={{ backgroundColor: 'var(--bg-secondary)' }}>-</kbd> <kbd className="px-1 py-0.5 rounded text-xs" style={{ backgroundColor: 'var(--bg-secondary)' }}>0</kbd> keys or buttons to zoom
+                  Use <kbd className="px-1 py-0.5 rounded text-xs" style={{ backgroundColor: 'var(--tag-bg)' }}>+</kbd> <kbd className="px-1 py-0.5 rounded text-xs" style={{ backgroundColor: 'var(--tag-bg)' }}>-</kbd> <kbd className="px-1 py-0.5 rounded text-xs" style={{ backgroundColor: 'var(--tag-bg)' }}>0</kbd> keys or buttons to zoom
                 </div>
               </div>
 

@@ -120,7 +120,7 @@ const Contact = () => {
                   transition={{ duration: 0.5, delay: 0.4 + index * 0.1 }}
                   viewport={{ once: true }}
                   className="flex items-center space-x-4 p-4 rounded-lg hover:shadow-md transition-shadow duration-200"
-                  style={{ backgroundColor: 'var(--card-bg)' }}
+                  style={{ backgroundColor: 'var(--tag-bg)' }}
                 >
                   <div style={{ color: 'var(--primary-color)' }}>{info.icon}</div>
                   <div>

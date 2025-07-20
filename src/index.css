@@ -19,6 +19,7 @@
   --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
   --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
   --card-bg: #ffffff;
+  --tag-bg: #f1f5f9;
   --nav-bg: rgba(255, 255, 255, 0.95);
   --nav-text: #374151;
   --nav-hover: #3b82f6;
@@ -39,6 +40,7 @@
   --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.3), 0 2px 4px -2px rgb(0 0 0 / 0.3);
   --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.3), 0 4px 6px -4px rgb(0 0 0 / 0.3);
   --card-bg: #1e293b;
+  --tag-bg: #334155;
   --nav-bg: rgba(15, 23, 42, 0.95);
   --nav-text: #e2e8f0;
   --nav-hover: #60a5fa;
