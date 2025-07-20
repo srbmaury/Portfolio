@@ -57,84 +57,84 @@ const CareerTimeline: React.FC<CareerTimelineProps> = ({ isOpen, onClose }) => {
   const timelineData: TimelineMilestone[] = [
     {
       id: 'education-start',
-      year: '2020',
-      title: 'Computer Science Journey Begins',
-      subtitle: 'Bachelor of Technology',
-      description: 'Started my journey in Computer Science, learning the fundamentals of programming, data structures, and algorithms.',
-      location: 'University',
+      year: '2021',
+      title: 'Programming Journey Begins',
+      subtitle: 'First Coding Projects',
+      description: 'Started my programming journey with basic projects, learning fundamentals of web development and JavaScript.',
+      location: 'Self-Learning',
       type: 'education',
       icon: <GraduationCap size={24} />,
       color: 'bg-blue-500',
       gradient: 'from-blue-500 to-cyan-500',
       achievements: [
-        'Started learning programming fundamentals',
-        'Completed first coding project',
-        'Joined coding clubs and communities'
+        'Created interactive quiz applications',
+        'Built classic games like Tic Tac Toe and Flappy Bird',
+        'Developed basic web applications',
+        'Started learning HTML, CSS, and JavaScript'
       ],
-      skills: ['Programming Fundamentals', 'Data Structures', 'Algorithms'],
+      skills: ['HTML', 'CSS', 'JavaScript', 'Game Development', 'DOM Manipulation'],
       choices: [
         {
           label: 'Focus on Web Development',
           nextMilestone: 'web-dev',
-          description: 'Dive deep into HTML, CSS, and JavaScript'
+          description: 'Dive deep into modern web technologies'
         },
         {
-          label: 'Explore Data Science',
-          nextMilestone: 'data-science',
-          description: 'Learn Python, statistics, and machine learning'
+          label: 'Explore More Games',
+          nextMilestone: 'game-dev',
+          description: 'Create more interactive games'
         }
       ]
     },
     {
       id: 'web-dev',
-      year: '2021',
-      title: 'Web Development Discovery',
-      subtitle: 'Frontend & Backend Learning',
-      description: 'Discovered my passion for web development, building responsive websites and learning modern frameworks.',
-      location: 'Self-Learning',
+      year: '2021-2022',
+      title: 'Web Development Growth',
+      subtitle: 'Building Interactive Applications',
+      description: 'Expanded my web development skills, creating dictionary applications and learning modern frameworks.',
+      location: 'Personal Projects',
       type: 'project',
       icon: <Code size={24} />,
       color: 'bg-green-500',
       gradient: 'from-green-500 to-emerald-500',
-      image: '/images/web-dev.jpg',
       achievements: [
-        'Built first responsive website',
-        'Learned React and Node.js',
-        'Created portfolio projects'
+        'Built dictionary and reference applications',
+        'Created productivity tools and todo lists',
+        'Learned React and modern JavaScript',
+        'Started exploring backend development'
       ],
-      skills: ['HTML', 'CSS', 'JavaScript', 'React', 'Node.js'],
+      skills: ['React', 'JavaScript', 'API Integration', 'Responsive Design', 'Local Storage'],
       choices: [
         {
-          label: 'Build Real Projects',
-          nextMilestone: 'first-projects',
-          description: 'Create portfolio projects to showcase skills'
+          label: 'Build Real Applications',
+          nextMilestone: 'mern-projects',
+          description: 'Create full-stack applications with MERN stack'
         },
         {
-          label: 'Learn Advanced Concepts',
-          nextMilestone: 'advanced-dev',
-          description: 'Study advanced topics like state management'
+          label: 'Learn Backend Development',
+          nextMilestone: 'backend-dev',
+          description: 'Focus on server-side development'
         }
       ]
     },
     {
-      id: 'first-projects',
+      id: 'mern-projects',
       year: '2022',
-      title: 'First Portfolio Projects',
-      subtitle: 'Building Real Applications',
-      description: 'Created my first portfolio projects including a chat application, store management system, and various web apps.',
+      title: 'MERN Stack Development',
+      subtitle: 'Full-Stack Applications',
+      description: 'Started building full-stack applications using the MERN stack, including chat applications and real-time features.',
       location: 'Personal Projects',
       type: 'project',
       icon: <Code size={24} />,
       color: 'bg-purple-500',
       gradient: 'from-purple-500 to-pink-500',
-      image: '/images/projects.jpg',
       achievements: [
-        'Built MERN Chat Application',
-        'Created Store Management System',
-        'Developed multiple web applications',
-        'Learned deployment and hosting'
+        'Built real-time chat applications',
+        'Created multiple communication platforms',
+        'Learned Socket.io for real-time communication',
+        'Mastered MongoDB and Express.js'
       ],
-      skills: ['MongoDB', 'Express.js', 'React', 'Node.js', 'Socket.io'],
+      skills: ['MongoDB', 'Express.js', 'React', 'Node.js', 'Socket.io', 'JWT'],
       choices: [
         {
           label: 'Apply for Internships',
@@ -143,8 +143,8 @@ const CareerTimeline: React.FC<CareerTimelineProps> = ({ isOpen, onClose }) => {
         },
         {
           label: 'Continue Building',
-          nextMilestone: 'more-projects',
-          description: 'Create more advanced projects'
+          nextMilestone: 'advanced-projects',
+          description: 'Create more advanced applications'
         }
       ]
     },
@@ -159,7 +159,6 @@ const CareerTimeline: React.FC<CareerTimelineProps> = ({ isOpen, onClose }) => {
       icon: <Briefcase size={24} />,
       color: 'bg-orange-500',
       gradient: 'from-orange-500 to-red-500',
-      image: '/images/razorpay.jpg',
       achievements: [
         'Crafted 20+ Interactive Grafana Dashboards',
         'Configured dynamic alert rules',
@@ -170,8 +169,8 @@ const CareerTimeline: React.FC<CareerTimelineProps> = ({ isOpen, onClose }) => {
       choices: [
         {
           label: 'Focus on Full-Stack',
-          nextMilestone: 'fullstack-growth',
-          description: 'Develop full-stack development skills'
+          nextMilestone: 'advanced-projects',
+          description: 'Develop advanced full-stack skills'
         },
         {
           label: 'Explore DevOps',
@@ -181,22 +180,22 @@ const CareerTimeline: React.FC<CareerTimelineProps> = ({ isOpen, onClose }) => {
       ]
     },
     {
-      id: 'fullstack-growth',
+      id: 'advanced-projects',
       year: '2023-2024',
-      title: 'Full-Stack Development Growth',
-      subtitle: 'Advanced Projects & Skills',
-      description: 'Expanded my full-stack development skills, building complex applications with modern technologies.',
+      title: 'Advanced Project Development',
+      subtitle: 'Complex Applications & New Technologies',
+      description: 'Built advanced applications including Kanban boards, notes apps, and explored new technologies like Go and Flask.',
       location: 'Personal & Professional',
       type: 'project',
       icon: <Code size={24} />,
       color: 'bg-indigo-500',
       gradient: 'from-indigo-500 to-purple-500',
-      image: '/images/fullstack.jpg',
       achievements: [
-        'Built Kanban Board with drag-and-drop',
-        'Created Magic Notes with rich text editing',
-        'Developed Quiz Application',
-        'Mastered TypeScript and advanced React'
+        'Built project management tools with drag-and-drop',
+        'Created note-taking and productivity applications',
+        'Explored Go programming language',
+        'Developed API projects with Flask',
+        'Created browser extensions and utilities'
       ],
       skills: ['TypeScript', 'React', 'Tailwind CSS', 'Advanced JavaScript'],
       choices: [
@@ -223,7 +222,6 @@ const CareerTimeline: React.FC<CareerTimelineProps> = ({ isOpen, onClose }) => {
       icon: <Briefcase size={24} />,
       color: 'bg-blue-600',
       gradient: 'from-blue-600 to-cyan-600',
-      image: '/images/salesforce.jpg',
       achievements: [
         'Engineered interactive dependency graphs using D3.js',
         'Developed AI-driven test data generators',
@@ -233,9 +231,9 @@ const CareerTimeline: React.FC<CareerTimelineProps> = ({ isOpen, onClose }) => {
       skills: ['SOQL', 'Java', 'Apex', 'Git', 'UTAM', 'Selenium', 'LWC', 'Salesforce DB'],
       choices: [
         {
-          label: 'Continue Growing',
-          nextMilestone: 'future-goals',
-          description: 'Set future career goals and aspirations'
+          label: 'Continue Building Projects',
+          nextMilestone: 'store-management-2025',
+          description: 'Create new innovative projects'
         },
         {
           label: 'Explore Leadership',
@@ -245,8 +243,39 @@ const CareerTimeline: React.FC<CareerTimelineProps> = ({ isOpen, onClose }) => {
       ]
     },
     {
+      id: 'store-management-2025',
+      year: '2025',
+      title: 'Business Management Applications',
+      subtitle: 'Advanced Full-Stack Projects',
+      description: 'Built comprehensive business management applications with inventory tracking, sales management, and reporting features using modern technologies.',
+      location: 'Personal Projects',
+      type: 'project',
+      icon: <Code size={24} />,
+      color: 'bg-emerald-500',
+      gradient: 'from-emerald-500 to-teal-500',
+      achievements: [
+        'Created comprehensive inventory management systems',
+        'Implemented sales tracking and reporting features',
+        'Built responsive UI with modern design',
+        'Integrated with backend APIs and databases'
+      ],
+      skills: ['JavaScript', 'HTML', 'CSS', 'Bootstrap', 'Local Storage', 'Responsive Design'],
+      choices: [
+        {
+          label: 'Continue Growing',
+          nextMilestone: 'future-goals',
+          description: 'Set future career goals and aspirations'
+        },
+        {
+          label: 'Explore New Technologies',
+          nextMilestone: 'tech-exploration',
+          description: 'Learn emerging technologies'
+        }
+      ]
+    },
+    {
       id: 'future-goals',
-      year: '2024+',
+      year: '2025+',
       title: 'Future Aspirations',
       subtitle: 'Continuous Learning & Growth',
       description: 'Looking forward to continuous learning, building innovative solutions, and contributing to impactful projects.',
@@ -376,7 +405,8 @@ const CareerTimeline: React.FC<CareerTimelineProps> = ({ isOpen, onClose }) => {
             animate={{ scale: 1, opacity: 1, y: 0 }}
             exit={{ scale: 0.9, opacity: 0, y: 20 }}
             transition={{ type: "spring", damping: 25, stiffness: 300 }}
-            className="bg-white rounded-xl shadow-2xl max-w-6xl w-full max-h-[90vh] overflow-hidden"
+            className="rounded-xl shadow-2xl max-w-6xl w-full max-h-[90vh] overflow-hidden"
+            style={{ backgroundColor: 'var(--card-bg)' }}
           >
             {/* Header */}
             <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white p-6">
@@ -396,7 +426,7 @@ const CareerTimeline: React.FC<CareerTimelineProps> = ({ isOpen, onClose }) => {
 
             <div className="flex h-[calc(90vh-120px)]">
               {/* Timeline Navigation */}
-              <div className="w-80 bg-gray-50 p-6 overflow-y-auto border-r border-gray-200">
+              <div className="w-80 p-6 overflow-y-auto border-r" style={{ backgroundColor: 'var(--bg-secondary)', borderColor: 'var(--border-color)' }}>
                 <div className="space-y-4">
                   {timelineData.map((milestone, index) => (
                     <motion.div
@@ -407,8 +437,12 @@ const CareerTimeline: React.FC<CareerTimelineProps> = ({ isOpen, onClose }) => {
                       className={`cursor-pointer p-4 rounded-lg transition-all duration-200 ${
                         currentMilestone === index
                           ? 'bg-gradient-to-r from-blue-500 to-purple-500 text-white shadow-lg'
-                          : 'bg-white hover:bg-gray-100 border border-gray-200'
+                          : 'hover:bg-gray-100 border'
                       }`}
+                      style={{
+                        backgroundColor: currentMilestone === index ? undefined : 'var(--card-bg)',
+                        borderColor: currentMilestone === index ? undefined : 'var(--border-color)'
+                      }}
                       onClick={() => handleMilestoneChange(index)}
                     >
                       <div className="flex items-center space-x-3">
@@ -416,8 +450,8 @@ const CareerTimeline: React.FC<CareerTimelineProps> = ({ isOpen, onClose }) => {
                           {milestone.icon}
                         </div>
                         <div className="flex-1">
-                          <div className="font-semibold">{milestone.year}</div>
-                          <div className="text-sm opacity-80">{milestone.title}</div>
+                          <div className="font-semibold" style={{ color: currentMilestone === index ? 'white' : 'var(--text-primary)' }}>{milestone.year}</div>
+                          <div className="text-sm opacity-80" style={{ color: currentMilestone === index ? 'white' : 'var(--text-secondary)' }}>{milestone.title}</div>
                         </div>
                       </div>
                     </motion.div>
@@ -442,22 +476,22 @@ const CareerTimeline: React.FC<CareerTimelineProps> = ({ isOpen, onClose }) => {
                         {currentMilestoneData.icon}
                         <span className="text-2xl font-bold">{currentMilestoneData.year}</span>
                       </div>
-                      <h3 className="text-3xl font-bold text-gray-900 mb-2">{currentMilestoneData.title}</h3>
-                      <p className="text-xl text-gray-600 mb-1">{currentMilestoneData.subtitle}</p>
-                      <div className="flex items-center justify-center space-x-2 text-gray-500">
+                      <h3 className="text-3xl font-bold mb-2" style={{ color: 'var(--text-primary)' }}>{currentMilestoneData.title}</h3>
+                      <p className="text-xl mb-1" style={{ color: 'var(--text-secondary)' }}>{currentMilestoneData.subtitle}</p>
+                      <div className="flex items-center justify-center space-x-2" style={{ color: 'var(--text-secondary)' }}>
                         <MapPin size={16} />
                         <span>{currentMilestoneData.location}</span>
                       </div>
                     </div>
 
                     {/* Description */}
-                    <div className="bg-gray-50 p-6 rounded-lg">
-                      <p className="text-lg text-gray-700 leading-relaxed">{currentMilestoneData.description}</p>
+                    <div className="p-6 rounded-lg" style={{ backgroundColor: 'var(--bg-secondary)' }}>
+                      <p className="text-lg leading-relaxed" style={{ color: 'var(--text-primary)' }}>{currentMilestoneData.description}</p>
                     </div>
 
                     {/* Achievements */}
                     <div>
-                      <h4 className="text-xl font-semibold mb-4 flex items-center space-x-2">
+                      <h4 className="text-xl font-semibold mb-4 flex items-center space-x-2" style={{ color: 'var(--text-primary)' }}>
                         <Award size={20} className="text-yellow-500" />
                         <span>Key Achievements</span>
                       </h4>
@@ -468,10 +502,11 @@ const CareerTimeline: React.FC<CareerTimelineProps> = ({ isOpen, onClose }) => {
                             initial={{ opacity: 0, x: -20 }}
                             animate={{ opacity: 1, x: 0 }}
                             transition={{ delay: index * 0.1 }}
-                            className="flex items-start space-x-3 p-3 bg-green-50 rounded-lg border border-green-200"
+                            className="flex items-start space-x-3 p-3 rounded-lg border"
+                            style={{ backgroundColor: 'var(--tag-bg)', borderColor: 'var(--border-color)' }}
                           >
                             <Star size={16} className="text-green-500 mt-1 flex-shrink-0" />
-                            <span className="text-gray-700">{achievement}</span>
+                            <span style={{ color: 'var(--text-primary)' }}>{achievement}</span>
                           </motion.div>
                         ))}
                       </div>
@@ -479,7 +514,7 @@ const CareerTimeline: React.FC<CareerTimelineProps> = ({ isOpen, onClose }) => {
 
                     {/* Skills */}
                     <div>
-                      <h4 className="text-xl font-semibold mb-4 flex items-center space-x-2">
+                      <h4 className="text-xl font-semibold mb-4 flex items-center space-x-2" style={{ color: 'var(--text-primary)' }}>
                         <Code size={20} className="text-blue-500" />
                         <span>Skills Developed</span>
                       </h4>
@@ -490,7 +525,8 @@ const CareerTimeline: React.FC<CareerTimelineProps> = ({ isOpen, onClose }) => {
                             initial={{ opacity: 0, scale: 0.8 }}
                             animate={{ opacity: 1, scale: 1 }}
                             transition={{ delay: index * 0.05 }}
-                            className="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm font-medium"
+                            className="px-3 py-1 rounded-full text-sm font-medium"
+                            style={{ backgroundColor: 'var(--tag-bg)', color: 'var(--primary-color)' }}
                           >
                             {skill}
                           </motion.span>
@@ -501,7 +537,7 @@ const CareerTimeline: React.FC<CareerTimelineProps> = ({ isOpen, onClose }) => {
                     {/* Choices */}
                     {currentMilestoneData.choices && (
                       <div>
-                        <h4 className="text-xl font-semibold mb-4">Choose Your Path</h4>
+                        <h4 className="text-xl font-semibold mb-4" style={{ color: 'var(--text-primary)' }}>Choose Your Path</h4>
                         <div className="grid gap-3">
                           {currentMilestoneData.choices.map((choice, index) => (
                             <motion.button
@@ -521,12 +557,12 @@ const CareerTimeline: React.FC<CareerTimelineProps> = ({ isOpen, onClose }) => {
                     )}
 
                     {/* Progress */}
-                    <div className="bg-gray-50 p-4 rounded-lg">
+                    <div className="p-4 rounded-lg" style={{ backgroundColor: 'var(--tag-bg)' }}>
                       <div className="flex items-center justify-between mb-2">
-                        <span className="text-sm font-medium text-gray-700">Journey Progress</span>
-                        <span className="text-sm text-gray-500">{currentMilestone + 1} of {timelineData.length}</span>
+                        <span className="text-sm font-medium" style={{ color: 'var(--text-primary)' }}>Journey Progress</span>
+                        <span className="text-sm" style={{ color: 'var(--text-secondary)' }}>{currentMilestone + 1} of {timelineData.length}</span>
                       </div>
-                      <div className="w-full bg-gray-200 rounded-full h-2">
+                      <div className="w-full rounded-full h-2" style={{ backgroundColor: 'var(--border-color)' }}>
                         <motion.div
                           initial={{ width: 0 }}
                           animate={{ width: `${((currentMilestone + 1) / timelineData.length) * 100}%` }}
@@ -540,26 +576,47 @@ const CareerTimeline: React.FC<CareerTimelineProps> = ({ isOpen, onClose }) => {
             </div>
 
             {/* Controls */}
-            <div className="bg-gray-100 p-4 border-t border-gray-200">
+            <div className="p-4 border-t" style={{ backgroundColor: 'var(--bg-secondary)', borderColor: 'var(--border-color)' }}>
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-4">
                   <button
                     onClick={handlePrevious}
                     disabled={currentMilestone === 0}
-                    className="p-2 bg-white rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="p-2 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed"
+                    style={{ backgroundColor: 'var(--card-bg)' }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.backgroundColor = 'var(--bg-secondary)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.backgroundColor = 'var(--card-bg)';
+                    }}
                   >
                     <ChevronLeft size={20} />
                   </button>
                   <button
                     onClick={handlePlayPause}
-                    className="p-2 bg-white rounded-lg hover:bg-gray-50"
+                    className="p-2 rounded-lg"
+                    style={{ backgroundColor: 'var(--card-bg)' }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.backgroundColor = 'var(--bg-secondary)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.backgroundColor = 'var(--card-bg)';
+                    }}
                   >
                     {isPlaying ? <Pause size={20} /> : <Play size={20} />}
                   </button>
                   <button
                     onClick={handleNext}
                     disabled={currentMilestone === timelineData.length - 1}
-                    className="p-2 bg-white rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="p-2 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed"
+                    style={{ backgroundColor: 'var(--card-bg)' }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.backgroundColor = 'var(--bg-secondary)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.backgroundColor = 'var(--card-bg)';
+                    }}
                   >
                     <ChevronRight size={20} />
                   </button>
@@ -567,7 +624,14 @@ const CareerTimeline: React.FC<CareerTimelineProps> = ({ isOpen, onClose }) => {
                 <div className="flex items-center space-x-2">
                   <button
                     onClick={() => setIsMuted(!isMuted)}
-                    className="p-2 bg-white rounded-lg hover:bg-gray-50"
+                    className="p-2 rounded-lg"
+                    style={{ backgroundColor: 'var(--card-bg)' }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.backgroundColor = 'var(--bg-secondary)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.backgroundColor = 'var(--card-bg)';
+                    }}
                   >
                     {isMuted ? <VolumeX size={20} /> : <Volume2 size={20} />}
                   </button>

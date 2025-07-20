@@ -135,6 +135,11 @@ const Terminal: React.FC<TerminalProps> = ({ isOpen, onClose, onOpenCareerBot })
   const [suggestions, setSuggestions] = useState<string[]>([]);
   const [suggestionIndex, setSuggestionIndex] = useState(-1);
   
+  // Mobile detection utility
+  const isMobile = () => {
+    return window.innerWidth <= 768 || /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+  };
+  
   // New customizable features
   const [currentTheme, setCurrentTheme] = useState('matrix');
   const [aliases, setAliases] = useState<Record<string, string>>({
@@ -792,7 +797,7 @@ FUN STUFF:
   fortune          - Random developer quotes
   cowsay <text>    - ASCII art messages
   ai               - Open AI bot
-  timeline         - Open Career Timeline
+  timeline         - Open Career Timeline${isMobile() ? ' (Desktop only)' : ''}
 
 ${enabledPlugins.length > 0 ? `🔌 PLUGINS:\n${pluginCommands}\n` : ''}
 SYSTEM:
@@ -885,9 +890,12 @@ Try these commands now! Type 'help' anytime for assistance.`;
       }
     },
     timeline: {
-      description: 'Open the Career Timeline',
+      description: isMobile() ? 'Open the Career Timeline (Desktop only)' : 'Open the Career Timeline',
       usage: 'timeline',
       execute: () => {
+        if (isMobile()) {
+          return '❌ Timeline command is not available on mobile devices due to limited screen space. Please use a desktop or tablet for the best experience.';
+        }
         setIsTimelineOpen(true);
         return 'Opening Career Timeline...';
       }

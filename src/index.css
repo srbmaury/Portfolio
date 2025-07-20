@@ -50,6 +50,10 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 html {
@@ -213,6 +217,92 @@ body {
   background: linear-gradient(to bottom right, #fbbf24, #22c55e);
 }
 
+/* Custom Cursor Styles */
+body {
+  cursor: none; /* Hide default cursor */
+}
+
+/* Main cursor dot */
+.cursor-dot {
+  width: 8px;
+  height: 8px;
+  background: var(--primary-color);
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  z-index: 9999;
+  transition: transform 0.1s ease;
+}
+
+/* Cursor ring */
+.cursor-ring {
+  width: 32px;
+  height: 32px;
+  border: 2px solid var(--primary-color);
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  z-index: 9998;
+  transition: all 0.15s ease;
+  opacity: 0.5;
+}
+
+/* Cursor effects for different elements */
+.cursor-dot.hover,
+.cursor-ring.hover {
+  transform: scale(1.5);
+  background: var(--accent-color);
+  border-color: var(--accent-color);
+}
+
+/* Cursor effects for buttons */
+.cursor-dot.button-hover,
+.cursor-ring.button-hover {
+  transform: scale(2);
+  background: var(--secondary-color);
+  border-color: var(--secondary-color);
+}
+
+/* Cursor effects for links */
+.cursor-dot.link-hover,
+.cursor-ring.link-hover {
+  transform: scale(1.8);
+  background: var(--accent-color);
+  border-color: var(--accent-color);
+}
+
+/* Cursor effects for terminal */
+.cursor-dot.terminal-hover,
+.cursor-ring.terminal-hover {
+  transform: scale(1.3);
+  background: #10b981;
+  border-color: #10b981;
+}
+
+/* Cursor trail effect */
+.cursor-trail {
+  width: 4px;
+  height: 4px;
+  background: var(--primary-color);
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  z-index: 9997;
+  opacity: 0.6;
+  transition: opacity 0.3s ease;
+}
+
+/* Allow text selection in terminal for copying commands */
+.terminal-content,
+.terminal-input,
+.terminal-output {
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
+  user-select: text;
+  cursor: text; /* Show text cursor in terminal */
+}
+
 @media (max-width: 768px) {
   .section {
     padding: 3rem 0;
@@ -224,5 +314,16 @@ body {
   
   .container {
     padding: 0 1.5rem;
+  }
+  
+  /* Disable custom cursor on mobile */
+  body {
+    cursor: auto;
+  }
+  
+  .cursor-dot,
+  .cursor-ring,
+  .cursor-trail {
+    display: none;
   }
 }

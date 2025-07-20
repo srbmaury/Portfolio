@@ -11,6 +11,7 @@ import Footer from './components/Footer';
 import CareerBot from './components/CareerBot';
 import ErrorPage from './components/ErrorPage';
 import Terminal from './components/Terminal';
+import CustomCursor from './components/CustomCursor';
 import { ThemeProvider } from './providers/ThemeProvider';
 import { useState } from 'react';
 
@@ -30,6 +31,7 @@ function App() {
     <ThemeProvider>
       <Router>
         <div className="App">
+          <CustomCursor />
           <Navbar onOpenTerminal={handleOpenTerminal} />
           <main>
             <Routes>
