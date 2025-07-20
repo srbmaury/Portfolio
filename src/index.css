@@ -239,6 +239,13 @@ select:focus:not(:focus-visible) {
   outline: none;
 }
 
+/* Terminal input specific focus styles */
+.terminal input:focus,
+.terminal input:focus-visible {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
 /* Better text selection for terminal */
 .terminal-content *,
 .terminal-input,

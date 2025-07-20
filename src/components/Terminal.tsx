@@ -1178,7 +1178,7 @@ visitor@portfolio:~$ `,
               animate={{ scale: 1, opacity: 1, y: 0 }}
               exit={{ scale: 0.9, opacity: 0, y: 20 }}
               transition={{ type: "spring", damping: 25, stiffness: 300 }}
-              className="rounded-lg shadow-2xl max-w-4xl w-full max-h-[80vh] overflow-hidden border"
+              className="terminal rounded-lg shadow-2xl max-w-4xl w-full max-h-[80vh] overflow-hidden border"
               style={{
                 backgroundColor: currentThemeData.background,
                 color: currentThemeData.text,
