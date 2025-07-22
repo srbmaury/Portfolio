@@ -1159,6 +1159,13 @@ visitor@portfolio:~$ `,
     }
   }, [isOpen, showWelcome]);
 
+  // Auto-scroll to bottom when history changes
+  useEffect(() => {
+    if (terminalRef.current) {
+      terminalRef.current.scrollTop = terminalRef.current.scrollHeight;
+    }
+  }, [history]);
+
   // Get current theme
   const currentThemeData = terminalThemes[currentTheme];
 
