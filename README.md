@@ -167,6 +167,4 @@ npm run lint         # ESLint
 
 **Made with ❤️ by Saurabh Maurya**
 
-[🌐 Portfolio](https://your-portfolio-url.onrender.com) • [📧 Email](mailto:your-email@example.com) • [🐙 GitHub](https://github.com/srbmaury)
-
 </div>
