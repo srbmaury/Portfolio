@@ -6,8 +6,6 @@ const API_BASE_URL = isProduction
 
 export const API_ENDPOINTS = {
   ANALYZE_CAREER: `${API_BASE_URL}/api/analyze-career`,
-  CONTACT: `${API_BASE_URL}/api/contact`,
-  HEALTH: `${API_BASE_URL}/api/health`,
 };
 
 export default API_BASE_URL; 
