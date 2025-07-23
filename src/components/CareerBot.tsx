@@ -180,7 +180,7 @@ const CareerBot: React.FC<CareerBotProps> = ({ className = '', isOpen: externalI
                   style={{
                     backgroundColor: message.role === 'user' 
                       ? 'var(--primary-color)' 
-                      : 'var(--bg-secondary)',
+                      : 'var(--tag-bg)',
                     color: message.role === 'user' 
                       ? 'white' 
                       : 'var(--text-primary)'
@@ -203,7 +203,7 @@ const CareerBot: React.FC<CareerBotProps> = ({ className = '', isOpen: externalI
             {isLoading && (
               <div className="flex justify-start">
                 <div className="p-3 rounded-lg" style={{ 
-                  backgroundColor: 'var(--bg-secondary)',
+                  backgroundColor: 'var(--tag-bg)',
                   color: 'var(--text-primary)'
                 }}>
                   <div className="flex items-center space-x-2">
