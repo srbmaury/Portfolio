@@ -24,6 +24,8 @@
   --nav-text: #374151;
   --nav-hover: #3b82f6;
   --github-bg: #0f172a;
+  --footer-text-primary: #f9fafb;
+  --footer-text-secondary: #d1d5db;
 }
 
 [data-theme="dark"] {
@@ -46,6 +48,8 @@
   --nav-text: #e2e8f0;
   --nav-hover: #60a5fa;
   --github-bg: #0f172a;
+  --footer-text-primary: #f9fafb;
+  --footer-text-secondary: #d1d5db;
 }
 
 * {

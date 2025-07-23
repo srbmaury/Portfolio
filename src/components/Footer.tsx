@@ -3,7 +3,7 @@ import { Heart } from 'lucide-react';
 
 const Footer = () => {
   return (
-    <footer style={{ backgroundColor: 'var(--bg-dark)', color: 'var(--text-primary)' }}>
+    <footer style={{ backgroundColor: 'var(--bg-dark)', color: 'var(--footer-text-primary)' }}>
       <div className="container mx-auto px-4 py-12">
         <div className="grid md:grid-cols-3 gap-8 items-center">
           {/* Logo and Description */}
@@ -15,7 +15,7 @@ const Footer = () => {
             className="text-center md:text-left"
           >
             <h3 className="text-2xl font-bold gradient-text mb-4">Saurabh Maurya</h3>
-            <p className="leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
+            <p className="leading-relaxed" style={{ color: 'var(--footer-text-secondary)' }}>
               Software Development Engineer passionate about building scalable applications 
               and solving complex technical challenges.
             </p>
@@ -29,19 +29,19 @@ const Footer = () => {
             viewport={{ once: true }}
             className="text-center"
           >
-            <h4 className="text-lg font-semibold mb-4" style={{ color: 'var(--text-primary)' }}>Quick Links</h4>
+            <h4 className="text-lg font-semibold mb-4" style={{ color: 'var(--footer-text-primary)' }}>Quick Links</h4>
             <div className="space-y-2">
               {['Home', 'About', 'Skills', 'Projects', 'Contact'].map((link) => (
                 <a
                   key={link}
                   href={`#${link.toLowerCase()}`}
                   className="block transition-colors duration-200"
-                  style={{ color: 'var(--text-secondary)' }}
+                  style={{ color: 'var(--footer-text-secondary)' }}
                   onMouseEnter={(e) => {
-                    e.currentTarget.style.color = 'var(--text-primary)';
+                    e.currentTarget.style.color = 'var(--footer-text-primary)';
                   }}
                   onMouseLeave={(e) => {
-                    e.currentTarget.style.color = 'var(--text-secondary)';
+                    e.currentTarget.style.color = 'var(--footer-text-secondary)';
                   }}
                 >
                   {link}
@@ -58,8 +58,8 @@ const Footer = () => {
             viewport={{ once: true }}
             className="text-center md:text-right"
           >
-            <h4 className="text-lg font-semibold mb-4" style={{ color: 'var(--text-primary)' }}>Contact</h4>
-            <div className="space-y-2" style={{ color: 'var(--text-secondary)' }}>
+            <h4 className="text-lg font-semibold mb-4" style={{ color: 'var(--footer-text-primary)' }}>Contact</h4>
+            <div className="space-y-2" style={{ color: 'var(--footer-text-secondary)' }}>
               <p>srbmaury@gmail.com</p>
               <p>+91 7355069174</p>
               <p>Chandauli, UP</p>
@@ -78,7 +78,7 @@ const Footer = () => {
             transition={{ duration: 0.8, delay: 0.6 }}
             viewport={{ once: true }}
             className="text-center md:text-left"
-            style={{ color: 'var(--text-secondary)' }}
+            style={{ color: 'var(--footer-text-secondary)' }}
           >
             © {new Date().getFullYear()} Saurabh Maurya. Made with{' '}
             <Heart size={16} className="inline" style={{ color: '#ef4444' }} /> and React.
