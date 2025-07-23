@@ -4,19 +4,23 @@ import { ExternalLink, Github, Eye, Play } from 'lucide-react';
 import ProjectModal from './ProjectModal';
 import projectsData from '../config/projects.json';
 import type { Project } from '../types/project';
+import { useModal } from '../hooks/useModal';
 
 const Projects = () => {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const { setIsProjectModalOpen } = useModal();
 
   const handleProjectClick = (project: Project) => {
     setSelectedProject(project);
     setIsModalOpen(true);
+    setIsProjectModalOpen(true);
   };
 
   const closeModal = () => {
     setIsModalOpen(false);
     setSelectedProject(null);
+    setIsProjectModalOpen(false);
   };
 
   const projects = projectsData.projects as Project[];

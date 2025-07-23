@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Terminal as TerminalIcon, Menu, X } from 'lucide-react';
 import ThemeToggle from './ThemeToggle';
+import { useModal } from '../hooks/useModal';
 
 interface NavbarProps {
   onOpenTerminal: () => void;
@@ -10,6 +11,7 @@ interface NavbarProps {
 const Navbar: React.FC<NavbarProps> = ({ onOpenTerminal }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const { isProjectModalOpen } = useModal();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -86,16 +88,18 @@ const Navbar: React.FC<NavbarProps> = ({ onOpenTerminal }) => {
             <ThemeToggle />
             
             {/* Terminal Button */}
-            <motion.button
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.95 }}
-              onClick={onOpenTerminal}
-              className="flex items-center gap-2 px-3 py-2 bg-gray-900 text-green-400 rounded-lg hover:bg-green-900 hover:text-green-300 transition-colors duration-200 font-medium ml-4 dark:bg-green-900 dark:text-green-300 dark:hover:bg-green-800"
-              title="Open Terminal"
-            >
-              <TerminalIcon size={18} />
-              <span className="hidden sm:inline">Terminal</span>
-            </motion.button>
+            {!isProjectModalOpen && (
+              <motion.button
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={onOpenTerminal}
+                className="flex items-center gap-2 px-3 py-2 bg-gray-900 text-green-400 rounded-lg hover:bg-green-900 hover:text-green-300 transition-colors duration-200 font-medium ml-4 dark:bg-green-900 dark:text-green-300 dark:hover:bg-green-800"
+                title="Open Terminal"
+              >
+                <TerminalIcon size={18} />
+                <span className="hidden sm:inline">Terminal</span>
+              </motion.button>
+            )}
           </div>
 
           {/* Mobile menu button */}
@@ -112,15 +116,17 @@ const Navbar: React.FC<NavbarProps> = ({ onOpenTerminal }) => {
               {isOpen ? <X size={24} /> : <Menu size={24} />}
             </motion.button>
             {/* Terminal Button Mobile */}
-            <motion.button
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.95 }}
-              onClick={onOpenTerminal}
-              className="flex items-center gap-1 px-2 py-2 bg-gray-900 text-green-400 rounded-lg hover:bg-green-900 hover:text-green-300 transition-colors duration-200 font-medium dark:bg-green-900 dark:text-green-300 dark:hover:bg-green-800"
-              title="Open Terminal"
-            >
-              <TerminalIcon size={18} />
-            </motion.button>
+            {!isProjectModalOpen && (
+              <motion.button
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={onOpenTerminal}
+                className="flex items-center gap-1 px-2 py-2 bg-gray-900 text-green-400 rounded-lg hover:bg-green-900 hover:text-green-300 transition-colors duration-200 font-medium dark:bg-green-900 dark:text-green-300 dark:hover:bg-green-800"
+                title="Open Terminal"
+              >
+                <TerminalIcon size={18} />
+              </motion.button>
+            )}
           </div>
         </div>
 

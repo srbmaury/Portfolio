@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Send, Bot, User, Loader2, X } from 'lucide-react';
 import { API_ENDPOINTS } from '../config/api';
+import { useModal } from '../hooks/useModal';
 
 interface Message {
   role: 'user' | 'assistant';
@@ -24,6 +25,7 @@ const CareerBot: React.FC<CareerBotProps> = ({ className = '', isOpen: externalI
   ]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const { isProjectModalOpen } = useModal();
 
   // Use external state if provided, otherwise use internal state
   const isOpen = externalIsOpen !== undefined ? externalIsOpen : internalIsOpen;
@@ -126,16 +128,18 @@ const CareerBot: React.FC<CareerBotProps> = ({ className = '', isOpen: externalI
   return (
     <>
       {/* Chat Toggle Button */}
-      <button
-        onClick={handleToggle}
-        className={`fixed bottom-6 right-6 z-50 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white p-4 rounded-full shadow-lg transition-all duration-300 hover:scale-110 ${className}`}
-        aria-label="Open career bot"
-      >
-        {isOpen ? <X size={24} /> : <Bot size={24} />}
-      </button>
+      {!isProjectModalOpen && (
+        <button
+          onClick={handleToggle}
+          className={`fixed bottom-6 right-6 z-50 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white p-4 rounded-full shadow-lg transition-all duration-300 hover:scale-110 ${className}`}
+          aria-label="Open career bot"
+        >
+          {isOpen ? <X size={24} /> : <Bot size={24} />}
+        </button>
+      )}
 
       {/* Chat Window */}
-      {isOpen && (
+      {isOpen && !isProjectModalOpen && (
         <div className="fixed bottom-24 right-6 z-40 w-96 h-[500px] rounded-lg shadow-2xl border flex flex-col" style={{ 
           backgroundColor: 'var(--card-bg)',
           borderColor: 'var(--border-color)'

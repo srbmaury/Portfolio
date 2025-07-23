@@ -16,6 +16,7 @@ import LoadingScreen from './components/LoadingScreen';
 import ScrollProgress from './components/ScrollProgress';
 import BackToTop from './components/BackToTop';
 import { ThemeProvider } from './providers/ThemeProvider';
+import { ModalProvider } from './contexts/ModalContext';
 import { useState } from 'react';
 
 function App() {
@@ -34,41 +35,43 @@ function App() {
 
   return (
     <ThemeProvider>
-      <Router>
-        <div className="App">
-          {isLoading && <LoadingScreen onLoadingComplete={handleLoadingComplete} />}
-          <CustomCursor />
-          <ScrollProgress />
-          <Navbar onOpenTerminal={handleOpenTerminal} />
-          <main>
-            <Routes>
-              <Route path="/" element={
-                <>
-                  <Hero />
-                  <About />
-                  <Skills />
-                  <Projects />
-                  <GitHubStats username="srbmaury" />
-                  <Contact />
-                </>
-              } />
-              <Route path="*" element={<ErrorPage />} />
-            </Routes>
-          </main>
-          <Footer />
-          <BackToTop />
-          <CareerBot 
-            isOpen={isCareerBotOpen} 
-            onClose={handleCloseCareerBot}
-            onOpen={handleOpenCareerBot}
-          />
-          <Terminal 
-            isOpen={isTerminalOpen} 
-            onClose={handleCloseTerminal}
-            onOpenCareerBot={handleOpenCareerBot}
-          />
-        </div>
-      </Router>
+      <ModalProvider>
+        <Router>
+          <div className="App">
+            {isLoading && <LoadingScreen onLoadingComplete={handleLoadingComplete} />}
+            <CustomCursor />
+            <ScrollProgress />
+            <Navbar onOpenTerminal={handleOpenTerminal} />
+            <main>
+              <Routes>
+                <Route path="/" element={
+                  <>
+                    <Hero />
+                    <About />
+                    <Skills />
+                    <Projects />
+                    <GitHubStats username="srbmaury" />
+                    <Contact />
+                  </>
+                } />
+                <Route path="*" element={<ErrorPage />} />
+              </Routes>
+            </main>
+            <Footer />
+            <BackToTop />
+            <CareerBot 
+              isOpen={isCareerBotOpen} 
+              onClose={handleCloseCareerBot}
+              onOpen={handleOpenCareerBot}
+            />
+            <Terminal 
+              isOpen={isTerminalOpen} 
+              onClose={handleCloseTerminal}
+              onOpenCareerBot={handleOpenCareerBot}
+            />
+          </div>
+        </Router>
+      </ModalProvider>
     </ThemeProvider>
   );
 }

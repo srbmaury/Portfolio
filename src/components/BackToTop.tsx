@@ -1,9 +1,11 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronUp } from 'lucide-react';
 import { useState, useEffect } from 'react';
+import { useModal } from '../hooks/useModal';
 
 const BackToTop: React.FC = () => {
   const [isVisible, setIsVisible] = useState(false);
+  const { isProjectModalOpen } = useModal();
 
   useEffect(() => {
     const toggleVisibility = () => {
@@ -27,7 +29,7 @@ const BackToTop: React.FC = () => {
 
   return (
     <AnimatePresence>
-      {isVisible && (
+      {isVisible && !isProjectModalOpen && (
         <motion.button
           initial={{ opacity: 0, scale: 0 }}
           animate={{ opacity: 1, scale: 1 }}

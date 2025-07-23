@@ -207,7 +207,7 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, project })
               className="inline-flex items-center gap-2 px-6 py-3 text-white rounded-lg transition-colors"
               style={{ backgroundColor: 'var(--bg-dark)' }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.backgroundColor = 'var(--text-primary)';
+                e.currentTarget.style.backgroundColor = 'var(--github-bg)';
               }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.backgroundColor = 'var(--bg-dark)';
@@ -301,7 +301,7 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, project })
                       className="inline-flex items-center gap-2 px-3 py-1.5 text-white text-sm rounded-lg transition-colors"
                       style={{ backgroundColor: 'var(--bg-dark)' }}
                       onMouseEnter={(e) => {
-                        e.currentTarget.style.backgroundColor = 'var(--text-primary)';
+                        e.currentTarget.style.backgroundColor = 'var(--github-bg)';
                       }}
                       onMouseLeave={(e) => {
                         e.currentTarget.style.backgroundColor = 'var(--bg-dark)';
