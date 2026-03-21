@@ -71,7 +71,8 @@ IMPORTANT: Format your response in plain text without any markdown formatting (n
 `;
 
     // Generate response using Gemini
-    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+    const modelName = process.env.GEMINI_MODEL || "gemini-1.5-flash";
+    const model = genAI.getGenerativeModel({ model: modelName });
     const result = await model.generateContent(prompt);
     const response = await result.response;
     const analysis = response.text();
@@ -79,9 +80,9 @@ IMPORTANT: Format your response in plain text without any markdown formatting (n
     res.json({ analysis });
   } catch (error) {
     console.error('Error analyzing career:', error);
-    res.status(500).json({ 
+    res.status(500).json({
       error: 'Failed to analyze career',
-      details: error.message 
+      details: error.message
     });
   }
 });

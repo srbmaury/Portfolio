@@ -11,20 +11,20 @@ const Skills = () => {
         'System Design',
         'Object-Oriented Programming',
         'Problem Solving',
-        'Code Review',
-        'Testing & Debugging'
+        'Operating Systems',
+        'DBMS'
       ]
     },
     {
       title: 'Languages & Frameworks',
       icon: <Code size={24} />,
       skills: [
-        'C++',
-        'Java',
-        'Python',
         'JavaScript',
-        'Node.js',
-        'React.js'
+        'Python',
+        'Java',
+        'C++',
+        'React.js',
+        'Node.js'
       ]
     },
     {
@@ -32,23 +32,23 @@ const Skills = () => {
       icon: <Cloud size={24} />,
       skills: [
         'RESTful APIs',
-        'Docker',
-        'AWS (EC2, Lambda)',
         'GraphQL',
         'Microservices',
-        'CI/CD'
+        'AWS (EC2, Lambda)',
+        'Redis',
+        'API Design'
       ]
     },
     {
       title: 'Databases & Testing',
       icon: <Database size={24} />,
       skills: [
-        'MySQL',
         'MongoDB',
+        'PostgreSQL',
         'Jest',
         'Selenium',
-        'UTAM',
-        'Prometheus'
+        'Integration Testing',
+        'Test Automation',
       ]
     }
   ];
@@ -82,7 +82,7 @@ const Skills = () => {
                 <div className="mr-3" style={{ color: 'var(--primary-color)' }}>{category.icon}</div>
                 <h3 className="text-xl font-bold gradient-text">{category.title}</h3>
               </div>
-              
+
               <div className="grid grid-cols-2 gap-3">
                 {category.skills.map((skill, skillIndex) => (
                   <motion.div
@@ -91,8 +91,8 @@ const Skills = () => {
                     whileInView={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.5, delay: (categoryIndex * 0.1) + (skillIndex * 0.05) }}
                     viewport={{ once: true }}
-                    whileHover={{ 
-                      scale: 1.05, 
+                    whileHover={{
+                      scale: 1.05,
                       y: -5,
                       boxShadow: '0 10px 25px rgba(0, 0, 0, 0.2)'
                     }}
@@ -121,17 +121,16 @@ const Skills = () => {
           <h3 className="text-2xl font-bold text-center mb-8 gradient-text">Tools & Technologies</h3>
           <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
             {[
-              'Git', 'Grafana', 'PromQL', 'AlertManager', 'PHP', 'SOQL', 'Apex', 'LWC', 
-              'Salesforce DB', 'D3.js', 'Connect REST APIs', 'UI APIs', 'GraphQL'
-            ].map((skill, index) => (
+              'Git', 'GitHub', 'Postman', 'VS Code', 'Cursor', 'Docker', 'Kubernetes',
+              'Chrome DevTools', 'Prometheus', 'Grafana', 'Alertmanager', 'Swagger'].map((skill, index) => (
               <motion.div
                 key={skill}
                 initial={{ opacity: 0, scale: 0.8 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.5, delay: 0.5 + index * 0.05 }}
                 viewport={{ once: true }}
-                whileHover={{ 
-                  scale: 1.05, 
+                whileHover={{
+                  scale: 1.05,
                   y: -3,
                   boxShadow: '0 8px 20px rgba(0, 0, 0, 0.15)'
                 }}

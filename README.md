@@ -132,6 +132,7 @@ npm run lint         # ESLint
 ## 🔐 Environment Variables
 
 - `GEMINI_API_KEY` (required): Google Gemini API key
+- `GEMINI_MODEL` (required): gemini-3-flash-preview
 - `PORT` (optional): Server port (default: 3001)
 - `NODE_ENV` (optional): Environment (development/production)
 
