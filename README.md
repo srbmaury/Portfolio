@@ -169,3 +169,9 @@ npm run lint         # ESLint
 **Made with ❤️ by Saurabh Maurya**
 
 </div>
+
+
+1. Text selection is still not happening in terminal
+2. I see 2 empty lines in start.
+3. On phone there is a little empty scrollable space on right for whole app
+4. On phone matrix rain goes out of screen rdesw

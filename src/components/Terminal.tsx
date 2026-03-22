@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
+import projectsConfig from '../config/projects.json';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Terminal as TerminalIcon, X, HelpCircle, Play, Palette, Settings, Zap } from 'lucide-react';
 import MatrixRain from './MatrixRain';
@@ -134,12 +135,12 @@ const Terminal: React.FC<TerminalProps> = ({ isOpen, onClose, onOpenCareerBot })
   const [isTimelineOpen, setIsTimelineOpen] = useState(false);
   const [suggestions, setSuggestions] = useState<string[]>([]);
   const [suggestionIndex, setSuggestionIndex] = useState(-1);
-  
+
   // Mobile detection utility
   const isMobile = () => {
     return window.innerWidth <= 768 || /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
   };
-  
+
   // New customizable features
   const [currentTheme, setCurrentTheme] = useState('matrix');
   const [aliases, setAliases] = useState<Record<string, string>>({
@@ -239,7 +240,7 @@ const Terminal: React.FC<TerminalProps> = ({ isOpen, onClose, onOpenCareerBot })
       enabled: true
     }
   ]);
-  
+
   const inputRef = useRef<HTMLInputElement>(null);
   const terminalRef = useRef<HTMLDivElement>(null);
 
@@ -271,14 +272,14 @@ const Terminal: React.FC<TerminalProps> = ({ isOpen, onClose, onOpenCareerBot })
   // Auto-demo function
   const runAutoDemo = async () => {
     setIsDemoRunning(true);
-    
+
     for (const command of demoCommands) {
       // Auto-type the command
       await autoType(command, 80);
-      
+
       // Wait a moment
       await new Promise(resolve => setTimeout(resolve, 500));
-      
+
       // Execute the command
       const output = executeCommand(command);
       const newEntry: CommandHistory = {
@@ -286,13 +287,13 @@ const Terminal: React.FC<TerminalProps> = ({ isOpen, onClose, onOpenCareerBot })
         output: output,
         timestamp: new Date()
       };
-      
+
       setHistory(prev => [...prev, newEntry]);
       setInput('');
-      
+
       // Wait before next command
       await new Promise(resolve => setTimeout(resolve, 1000));
-      
+
       // Scroll to bottom
       setTimeout(() => {
         if (terminalRef.current) {
@@ -300,9 +301,9 @@ const Terminal: React.FC<TerminalProps> = ({ isOpen, onClose, onOpenCareerBot })
         }
       }, 100);
     }
-    
+
     setIsDemoRunning(false);
-    
+
     // Add completion message
     const completionEntry: CommandHistory = {
       command: '',
@@ -314,67 +315,21 @@ const Terminal: React.FC<TerminalProps> = ({ isOpen, onClose, onOpenCareerBot })
 
   // Available sections
   const sections = ['about', 'skills', 'projects', 'contact', 'github'];
-  
-  // Project data
-  const projects = [
-    'MERN Chat Application',
-    'Store Management System', 
-    'Kanban Board',
-    'Magic Notes',
-    'Quiz Application',
-    'Tic Tac Toe Game',
-    'Dictionary Application',
-    'Flappy Bird Game'
-  ];
-
-  // Project URLs mapping
-  const projectsData: Record<string, { github: string; live: string; demo?: string }> = {
-    'MERN Chat Application': {
-      github: 'https://github.com/srbmaury/MERN-Chat-App',
-      live: 'https://mern-chat-app-xlr3.onrender.com/',
-      demo: 'https://mern-chat-app-xlr3.onrender.com/'
-    },
-    'Store Management System': {
-      github: 'https://github.com/srbmaury/store-management',
-      live: 'https://store-management-frontend-x0e2.onrender.com/',
-      demo: 'https://store-management-frontend-x0e2.onrender.com/'
-    },
-    'Kanban Board': {
-      github: 'https://github.com/srbmaury/saurabh-kanban-board',
-      live: 'https://saurabh-kanban-board.netlify.app/',
-      demo: 'https://saurabh-kanban-board.netlify.app/'
-    },
-    'Magic Notes': {
-      github: 'https://github.com/srbmaury/notes',
-      live: 'https://srbmaury.github.io/notes/',
-      demo: 'https://srbmaury.github.io/notes/'
-    },
-    'Quiz Application': {
-      github: 'https://github.com/srbmaury/quiz1',
-      live: 'https://srbmaury.github.io/quiz1/',
-      demo: 'https://srbmaury.github.io/quiz1/'
-    },
-    'Tic Tac Toe Game': {
-      github: 'https://github.com/srbmaury/tic-tac-toe',
-      live: 'https://tic-tac-toe-silk-sigma.vercel.app/',
-      demo: 'https://tic-tac-toe-silk-sigma.vercel.app/'
-    },
-    'Dictionary Application': {
-      github: 'https://github.com/srbmaury/dictionary',
-      live: 'https://srbmaury.github.io/dictionary/',
-      demo: 'https://srbmaury.github.io/dictionary/'
-    },
-    'Flappy Bird Game': {
-      github: 'https://github.com/srbmaury/flappyBird',
-      live: 'https://srbmaury.github.io/flappyBird/',
-      demo: 'https://srbmaury.github.io/flappyBird/'
-    }
-  };
+  // Centralized project data from projects.json
+  const projects = projectsConfig.projects.map((p) => p.title);
+  const projectsData: Record<string, { github?: string; live?: string; demo?: string }> = {};
+  projectsConfig.projects.forEach((p) => {
+    projectsData[p.title] = {
+      github: p.githubUrl,
+      live: p.liveUrl,
+      demo: p.demoUrl || p.liveUrl
+    };
+  });
 
   // Helper function to find project by name (case-insensitive, partial match)
   const findProject = (searchName: string): string | null => {
     const normalizedSearch = searchName.toLowerCase();
-    const found = projects.find(project => 
+    const found = projects.find(project =>
       project.toLowerCase().includes(normalizedSearch) ||
       normalizedSearch.includes(project.toLowerCase())
     );
@@ -403,13 +358,13 @@ const Terminal: React.FC<TerminalProps> = ({ isOpen, onClose, onOpenCareerBot })
       examples: ['theme list', 'theme set dracula', 'theme random'],
       execute: (args: string[]) => {
         const action = args[0];
-        
+
         if (!action || action === 'list') {
-          return `Available themes:\n${Object.entries(terminalThemes).map(([key, theme]) => 
+          return `Available themes:\n${Object.entries(terminalThemes).map(([key, theme]) =>
             `  ${key}${key === currentTheme ? ' (current)' : ''} - ${theme.name}`
           ).join('\n')}\n\nUsage: theme set <theme-name>`;
         }
-        
+
         if (action === 'set') {
           const themeName = args[1];
           if (!themeName) {
@@ -421,22 +376,22 @@ const Terminal: React.FC<TerminalProps> = ({ isOpen, onClose, onOpenCareerBot })
           }
           return `Theme "${themeName}" not found. Type "theme list" to see available themes.`;
         }
-        
+
         if (action === 'random') {
           const themeNames = Object.keys(terminalThemes);
           const randomTheme = themeNames[Math.floor(Math.random() * themeNames.length)];
           setCurrentTheme(randomTheme);
           return `Random theme applied: "${randomTheme}"! 🎲`;
         }
-        
+
         if (action === 'current') {
           return `Current theme: "${currentTheme}" (${terminalThemes[currentTheme]?.name})`;
         }
-        
+
         return `Unknown action: ${action}\nUsage: theme [list|set|random|current] [theme-name]`;
       }
     },
-    
+
     // Alias management commands
     alias: {
       description: 'Manage command aliases',
@@ -444,14 +399,14 @@ const Terminal: React.FC<TerminalProps> = ({ isOpen, onClose, onOpenCareerBot })
       examples: ['alias list', 'alias set me whoami', 'alias remove me'],
       execute: (args: string[]) => {
         const action = args[0];
-        
+
         if (!action || action === 'list') {
-          const aliasList = Object.entries(aliases).map(([alias, command]) => 
+          const aliasList = Object.entries(aliases).map(([alias, command]) =>
             `  ${alias} -> ${command}`
           ).join('\n');
           return `Current aliases:\n${aliasList}\n\nUsage: alias set <alias> <command>`;
         }
-        
+
         if (action === 'set') {
           const alias = args[1];
           const command = args.slice(2).join(' ');
@@ -461,7 +416,7 @@ const Terminal: React.FC<TerminalProps> = ({ isOpen, onClose, onOpenCareerBot })
           setAliases(prev => ({ ...prev, [alias]: command }));
           return `Alias "${alias}" set to "${command}"! ⚡`;
         }
-        
+
         if (action === 'remove') {
           const alias = args[1];
           if (!alias) {
@@ -477,11 +432,11 @@ const Terminal: React.FC<TerminalProps> = ({ isOpen, onClose, onOpenCareerBot })
           }
           return `Alias "${alias}" not found.`;
         }
-        
+
         return `Unknown action: ${action}\nUsage: alias [list|set|remove] [alias] [command]`;
       }
     },
-    
+
     // Plugin management commands
     plugin: {
       description: 'Manage terminal plugins',
@@ -489,14 +444,14 @@ const Terminal: React.FC<TerminalProps> = ({ isOpen, onClose, onOpenCareerBot })
       examples: ['plugin list', 'plugin enable joke', 'plugin disable weather'],
       execute: (args: string[]) => {
         const action = args[0];
-        
+
         if (!action || action === 'list') {
-          const pluginList = plugins.map(plugin => 
+          const pluginList = plugins.map(plugin =>
             `  ${plugin.command}${plugin.enabled ? ' ✅' : ' ❌'} - ${plugin.description}`
           ).join('\n');
           return `Available plugins:\n${pluginList}\n\nUsage: plugin enable <plugin-name>`;
         }
-        
+
         if (action === 'enable') {
           const pluginName = args[1];
           if (!pluginName) {
@@ -504,14 +459,14 @@ const Terminal: React.FC<TerminalProps> = ({ isOpen, onClose, onOpenCareerBot })
           }
           const plugin = plugins.find(p => p.command === pluginName);
           if (plugin) {
-            setPlugins(prev => prev.map(p => 
+            setPlugins(prev => prev.map(p =>
               p.command === pluginName ? { ...p, enabled: true } : p
             ));
             return `Plugin "${pluginName}" enabled! ✅`;
           }
           return `Plugin "${pluginName}" not found. Type "plugin list" to see available plugins.`;
         }
-        
+
         if (action === 'disable') {
           const pluginName = args[1];
           if (!pluginName) {
@@ -519,14 +474,14 @@ const Terminal: React.FC<TerminalProps> = ({ isOpen, onClose, onOpenCareerBot })
           }
           const plugin = plugins.find(p => p.command === pluginName);
           if (plugin) {
-            setPlugins(prev => prev.map(p => 
+            setPlugins(prev => prev.map(p =>
               p.command === pluginName ? { ...p, enabled: false } : p
             ));
             return `Plugin "${pluginName}" disabled! ❌`;
           }
           return `Plugin "${pluginName}" not found. Type "plugin list" to see available plugins.`;
         }
-        
+
         if (action === 'info') {
           const pluginName = args[1];
           if (!pluginName) {
@@ -542,11 +497,11 @@ ${plugin.examples ? `Examples:\n${plugin.examples.map(ex => `  ${ex}`).join('\n'
           }
           return `Plugin "${pluginName}" not found. Type "plugin list" to see available plugins.`;
         }
-        
+
         return `Unknown action: ${action}\nUsage: plugin [list|enable|disable|info] [plugin-name]`;
       }
     },
-    
+
     // Navigation commands
     cd: {
       description: 'Change directory to portfolio sections',
@@ -581,7 +536,7 @@ ${plugin.examples ? `Examples:\n${plugin.examples.map(ex => `  ${ex}`).join('\n'
       usage: 'pwd',
       execute: () => currentDirectory
     },
-    
+
     // Project commands
     projects: {
       description: 'Manage and view projects',
@@ -590,7 +545,7 @@ ${plugin.examples ? `Examples:\n${plugin.examples.map(ex => `  ${ex}`).join('\n'
       execute: (args: string[]) => {
         const flag = args[0];
         const projectName = args.slice(1).join(' ');
-        
+
         // Handle --help flag
         if (flag === '--help') {
           return `PROJECTS COMMAND HELP:
@@ -614,11 +569,11 @@ EXAMPLES:
 AVAILABLE PROJECTS:
 ${projects.map((project, index) => `  ${index + 1}. ${project}`).join('\n')}`;
         }
-        
+
         if (!flag || flag === '--list') {
           return projects.map((project, index) => `${index + 1}. ${project}`).join('\n');
         }
-        
+
         if (flag === '--demo') {
           if (!projectName) {
             return `Usage: projects --demo <project-name>
@@ -628,7 +583,7 @@ ${projects.map((project, index) => `  ${index + 1}. ${project}`).join('\n')}
 
 Example: projects --demo "MERN Chat Application"`;
           }
-          
+
           // Use fuzzy matching to find the project
           const foundProject = findProject(projectName);
           if (foundProject) {
@@ -640,7 +595,7 @@ Example: projects --demo "MERN Chat Application"`;
           }
           return `Project '${projectName}' not found or does not have a demo URL.`;
         }
-        
+
         if (flag === '--github') {
           if (!projectName) {
             return `Usage: projects --github <project-name>
@@ -650,7 +605,7 @@ ${projects.map((project, index) => `  ${index + 1}. ${project}`).join('\n')}
 
 Example: projects --github "MERN Chat Application"`;
           }
-          
+
           // Use fuzzy matching to find the project
           const foundProject = findProject(projectName);
           if (foundProject) {
@@ -662,7 +617,7 @@ Example: projects --github "MERN Chat Application"`;
           }
           return `Project '${projectName}' not found or does not have a GitHub repository URL.`;
         }
-        
+
         if (flag === '--live') {
           if (!projectName) {
             return `Usage: projects --live <project-name>
@@ -672,7 +627,7 @@ ${projects.map((project, index) => `  ${index + 1}. ${project}`).join('\n')}
 
 Example: projects --live "MERN Chat Application"`;
           }
-          
+
           // Use fuzzy matching to find the project
           const foundProject = findProject(projectName);
           if (foundProject) {
@@ -684,14 +639,14 @@ Example: projects --live "MERN Chat Application"`;
           }
           return `Project '${projectName}' not found or does not have a live site URL.`;
         }
-        
+
         return `Unknown flag: ${flag}
 
 Usage: projects [--list|--demo|--github|--live|--help] [project-name]
 Type 'projects --help' for detailed information.`;
       }
     },
-    
+
     // Information commands
     whoami: {
       description: 'Show information about me',
@@ -711,7 +666,7 @@ Skills: React, Node.js, TypeScript, Python, Java, Salesforce`;
       execute: () => new Date().toLocaleString()
     },
 
-    
+
     // Fun commands
     matrix: {
       description: 'Activate Matrix rain effect',
@@ -752,7 +707,7 @@ Skills: React, Node.js, TypeScript, Python, Java, Salesforce`;
                 ||     ||`;
       }
     },
-    
+
     // System commands
     clear: {
       description: 'Clear terminal screen',
@@ -770,7 +725,7 @@ Skills: React, Node.js, TypeScript, Python, Java, Salesforce`;
         if (args.length === 0) {
           const enabledPlugins = getEnabledPlugins();
           const pluginCommands = enabledPlugins.map(p => `  ${p.command}           - ${p.description}`).join('\n');
-          
+
           return `Available Commands:
 
 🎨 CUSTOMIZATION:
@@ -815,7 +770,7 @@ SYSTEM:
 Type 'help <command>' for detailed help
 Type 'tutorial' for interactive guide`;
         }
-        
+
         // Check built-in commands first
         const command = commands[args[0]];
         if (command) {
@@ -824,7 +779,7 @@ Description: ${command.description}
 Usage: ${command.usage}
 ${command.examples ? `Examples:\n${(command.examples as string[]).map((ex: string) => `  ${ex}`).join('\n')}` : ''}`;
         }
-        
+
         // Check plugins
         const enabledPlugins = getEnabledPlugins();
         const plugin = enabledPlugins.find(p => p.command === args[0]);
@@ -834,7 +789,7 @@ Description: ${plugin.description}
 Usage: ${plugin.command} [args]
 ${plugin.examples ? `Examples:\n${plugin.examples.map(ex => `  ${ex}`).join('\n')}` : ''}`;
         }
-        
+
         return `Command '${args[0]}' not found. Type 'help' to see all commands.`;
       }
     },
@@ -874,10 +829,10 @@ Try these commands now! Type 'help' anytime for assistance.`;
         if (isDemoRunning) {
           return 'Demo is already running...';
         }
-        
+
         // Start the auto-demo
         runAutoDemo();
-        
+
         return 'Starting auto-demo mode...\nWatch as I demonstrate the terminal features!';
       }
     },
@@ -908,17 +863,17 @@ Try these commands now! Type 'help' anytime for assistance.`;
     if (commandLine.includes('&&')) {
       const commands = commandLine.split('&&').map(cmd => cmd.trim());
       let combinedOutput = '';
-      
+
       for (const cmd of commands) {
         if (cmd) {
           const output = executeSingleCommand(cmd);
           combinedOutput += output + '\n';
         }
       }
-      
+
       return combinedOutput.trim();
     }
-    
+
     // Single command execution
     return executeSingleCommand(commandLine);
   };
@@ -958,7 +913,7 @@ Try these commands now! Type 'help' anytime for assistance.`;
     if (!input.trim() || isTyping || isDemoRunning) return;
 
     const output = executeCommand(input);
-    
+
     // Special handling for clear command
     if (input.trim() === 'clear') {
       setHistory([]);
@@ -968,7 +923,7 @@ Try these commands now! Type 'help' anytime for assistance.`;
       setSuggestionIndex(-1);
       return;
     }
-    
+
     const newEntry: CommandHistory = {
       command: input,
       output: output,
@@ -980,7 +935,7 @@ Try these commands now! Type 'help' anytime for assistance.`;
     setCommandIndex(-1);
     setSuggestions([]);
     setSuggestionIndex(-1);
-    
+
     // Scroll to bottom
     setTimeout(() => {
       if (terminalRef.current) {
@@ -997,21 +952,21 @@ Try these commands now! Type 'help' anytime for assistance.`;
     const words = lastPart.split(' ');
     const currentWord = words[words.length - 1] || '';
     const isFirstWord = words.length === 1;
-    
+
     // Get all possible completions
     let completions: string[] = [];
-    
+
     if (isFirstWord) {
       // First word - complete commands, aliases, and plugins
       const allCommands = Object.keys(commands);
       const allAliases = Object.keys(aliases);
       const enabledPlugins = getEnabledPlugins().map(p => p.command);
-      
+
       completions = [...allCommands, ...allAliases, ...enabledPlugins];
     } else {
       // Subsequent words - context-aware completion
       const command = words[0];
-      
+
       if (command === 'cd') {
         completions = sections;
       } else if (command === 'projects') {
@@ -1028,12 +983,12 @@ Try these commands now! Type 'help' anytime for assistance.`;
         completions = ['Hello World!', 'Welcome!', 'Hello from Terminal!'];
       }
     }
-    
+
     // Filter completions based on current input
-    const filteredCompletions = completions.filter(completion => 
+    const filteredCompletions = completions.filter(completion =>
       completion.toLowerCase().startsWith(currentWord.toLowerCase())
     );
-    
+
     if (filteredCompletions.length === 1) {
       // Single match - complete it
       const completion = filteredCompletions[0];
@@ -1074,7 +1029,7 @@ Try these commands now! Type 'help' anytime for assistance.`;
       e.preventDefault();
       return;
     }
-    
+
     // Handle Ctrl+C to cancel current command
     if (e.ctrlKey && e.key === 'c') {
       e.preventDefault();
@@ -1082,7 +1037,7 @@ Try these commands now! Type 'help' anytime for assistance.`;
       setSuggestions([]);
       setSuggestionIndex(-1);
       setCommandIndex(-1);
-      
+
       // Add cancellation message to history
       const cancelEntry: CommandHistory = {
         command: '',
@@ -1092,7 +1047,7 @@ Try these commands now! Type 'help' anytime for assistance.`;
       setHistory(prev => [...prev, cancelEntry]);
       return;
     }
-    
+
     if (e.key === 'ArrowUp') {
       e.preventDefault();
       const commands = history.map(h => h.command).reverse();
@@ -1116,11 +1071,11 @@ Try these commands now! Type 'help' anytime for assistance.`;
         // Cycle through suggestions
         const nextIndex = (suggestionIndex + 1) % suggestions.length;
         setSuggestionIndex(nextIndex);
-        
+
         const words = input.trim().split(' ');
         const isFirstWord = words.length === 1;
         const selectedSuggestion = suggestions[nextIndex];
-        
+
         if (isFirstWord) {
           setInput(selectedSuggestion + ' ');
         } else {
@@ -1149,9 +1104,7 @@ Try these commands now! Type 'help' anytime for assistance.`;
 
 Type 'help' to see all available commands
 Type 'tutorial' to start an interactive guide  
-Type 'demo' to see a quick demonstration
-
-visitor@portfolio:~$ `,
+Type 'demo' to see a quick demonstration`,
         timestamp: new Date()
       };
       setHistory([welcomeEntry]);
@@ -1193,7 +1146,7 @@ visitor@portfolio:~$ `,
               }}
             >
               {/* Terminal Header */}
-              <div 
+              <div
                 className="flex items-center justify-between p-3 border-b"
                 style={{
                   backgroundColor: currentThemeData.headerBg,
@@ -1217,7 +1170,7 @@ visitor@portfolio:~$ `,
                       }]);
                     }}
                     className="p-1 rounded transition-colors"
-                    style={{ 
+                    style={{
                       color: currentThemeData.headerText,
                       backgroundColor: 'transparent'
                     }}
@@ -1237,7 +1190,7 @@ visitor@portfolio:~$ `,
                       }]);
                     }}
                     className="p-1 rounded transition-colors"
-                    style={{ 
+                    style={{
                       color: currentThemeData.headerText,
                       backgroundColor: 'transparent'
                     }}
@@ -1257,7 +1210,7 @@ visitor@portfolio:~$ `,
                       }]);
                     }}
                     className="p-1 rounded transition-colors"
-                    style={{ 
+                    style={{
                       color: currentThemeData.headerText,
                       backgroundColor: 'transparent'
                     }}
@@ -1274,7 +1227,7 @@ visitor@portfolio:~$ `,
                       timestamp: new Date()
                     }])}
                     className="p-1 rounded transition-colors"
-                    style={{ 
+                    style={{
                       color: currentThemeData.headerText,
                       backgroundColor: 'transparent'
                     }}
@@ -1291,7 +1244,7 @@ visitor@portfolio:~$ `,
                       timestamp: new Date()
                     }])}
                     className="p-1 rounded transition-colors"
-                    style={{ 
+                    style={{
                       color: currentThemeData.headerText,
                       backgroundColor: 'transparent'
                     }}
@@ -1304,7 +1257,7 @@ visitor@portfolio:~$ `,
                   <button
                     onClick={onClose}
                     className="p-1 rounded transition-colors"
-                    style={{ 
+                    style={{
                       color: currentThemeData.headerText,
                       backgroundColor: 'transparent'
                     }}
@@ -1318,10 +1271,16 @@ visitor@portfolio:~$ `,
               </div>
 
               {/* Terminal Body */}
-              <div 
+              <div
                 ref={terminalRef}
                 className="p-4 h-96 overflow-y-auto font-mono text-sm"
-                style={{ color: currentThemeData.text }}
+                style={{
+                  color: currentThemeData.text,
+                  userSelect: 'text',
+                  WebkitUserSelect: 'text',
+                  msUserSelect: 'text',
+                  MozUserSelect: 'text'
+                }}
               >
                 {history.map((entry, index) => (
                   <div key={index} className="mb-2">
@@ -1333,12 +1292,15 @@ visitor@portfolio:~$ `,
                     )}
                     {entry.output && (
                       <div className="whitespace-pre-wrap mb-2" style={{ color: currentThemeData.text }}>
-                        {entry.output}
+                        {/* Remove leading empty lines from output */}
+                        {typeof entry.output === 'string'
+                          ? entry.output.replace(/^(\s*\n){1,2}/, '')
+                          : entry.output}
                       </div>
                     )}
                   </div>
                 ))}
-                
+
                 {/* Current input line */}
                 <form onSubmit={handleSubmit} className="flex items-center">
                   <span style={{ color: currentThemeData.prompt }}>visitor@portfolio:{currentDirectory}$</span>
@@ -1354,7 +1316,7 @@ visitor@portfolio:~$ `,
                     }}
                     onKeyDown={handleKeyDown}
                     className="ml-2 bg-transparent outline-none flex-1"
-                    style={{ 
+                    style={{
                       color: currentThemeData.text,
                       caretColor: currentThemeData.cursor
                     }}
@@ -1363,17 +1325,17 @@ visitor@portfolio:~$ `,
                     spellCheck="false"
                     disabled={isTyping || isDemoRunning}
                   />
-                  <div 
+                  <div
                     className="w-2 h-4 ml-1 animate-pulse"
-                    style={{ 
-                      backgroundColor: isTyping ? '#fbbf24' : isDemoRunning ? '#3b82f6' : currentThemeData.cursor 
+                    style={{
+                      backgroundColor: isTyping ? '#fbbf24' : isDemoRunning ? '#3b82f6' : currentThemeData.cursor
                     }}
                   ></div>
                 </form>
-                
+
                 {/* Tab completion suggestions */}
                 {suggestions.length > 0 && (
-                  <div className="mt-2 p-2 rounded border" style={{ 
+                  <div className="mt-2 p-2 rounded border" style={{
                     backgroundColor: currentThemeData.selection + '20',
                     borderColor: currentThemeData.border,
                     color: currentThemeData.text
@@ -1385,21 +1347,20 @@ visitor@portfolio:~$ `,
                       {suggestions.map((suggestion, index) => (
                         <span
                           key={index}
-                          className={`px-2 py-1 rounded text-xs cursor-pointer transition-colors ${
-                            index === suggestionIndex ? 'font-bold' : ''
-                          }`}
+                          className={`px-2 py-1 rounded text-xs cursor-pointer transition-colors ${index === suggestionIndex ? 'font-bold' : ''
+                            }`}
                           style={{
-                            backgroundColor: index === suggestionIndex 
-                              ? currentThemeData.prompt 
+                            backgroundColor: index === suggestionIndex
+                              ? currentThemeData.prompt
                               : currentThemeData.selection + '40',
-                            color: index === suggestionIndex 
+                            color: index === suggestionIndex
                               ? currentThemeData.background
                               : currentThemeData.prompt
                           }}
                           onClick={() => {
                             const words = input.trim().split(' ');
                             const isFirstWord = words.length === 1;
-                            
+
                             if (isFirstWord) {
                               setInput(suggestion + ' ');
                             } else {
@@ -1419,7 +1380,7 @@ visitor@portfolio:~$ `,
               </div>
 
               {/* Terminal Footer */}
-              <div 
+              <div
                 className="p-2 text-xs border-t"
                 style={{
                   backgroundColor: currentThemeData.footerBg,
@@ -1440,15 +1401,15 @@ visitor@portfolio:~$ `,
       </AnimatePresence>
 
       {/* Matrix Rain Effect */}
-      <MatrixRain 
-        isActive={isMatrixActive} 
-        onClose={() => setIsMatrixActive(false)} 
+      <MatrixRain
+        isActive={isMatrixActive}
+        onClose={() => setIsMatrixActive(false)}
       />
 
       {/* Career Timeline */}
-      <CareerTimeline 
-        isOpen={isTimelineOpen} 
-        onClose={() => setIsTimelineOpen(false)} 
+      <CareerTimeline
+        isOpen={isTimelineOpen}
+        onClose={() => setIsTimelineOpen(false)}
       />
     </>
   );
