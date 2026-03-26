@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, ExternalLink, Github, Play, ZoomIn, ZoomOut, RotateCcw } from 'lucide-react';
 import type { ProjectModalProps } from '../types/project';
@@ -6,6 +6,8 @@ import type { ProjectModalProps } from '../types/project';
 const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, project }) => {
   const [zoom, setZoom] = useState(1);
   const [rotation, setRotation] = useState(0);
+  const closeBtnRef = useRef<HTMLButtonElement>(null);
+  const modalRef = useRef<HTMLDivElement>(null);
 
   const handleBackdropClick = (e: React.MouseEvent) => {
     if (e.target === e.currentTarget) {
@@ -28,7 +30,7 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, project })
 
   const handleKeyDown = (e: KeyboardEvent) => {
     if (!isOpen) return;
-    
+
     switch (e.key) {
       case '=':
       case '+':
@@ -49,10 +51,39 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, project })
     }
   };
 
-  // Add keyboard event listeners
+  // Add keyboard event listeners and focus trap
   useEffect(() => {
+    if (!isOpen) return;
+    closeBtnRef.current?.focus();
+    const handleTrap = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        onClose();
+      } else if (e.key === 'Tab') {
+        const focusable = modalRef.current?.querySelectorAll<HTMLElement>(
+          'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+        );
+        if (!focusable || focusable.length === 0) return;
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+        if (e.shiftKey) {
+          if (document.activeElement === first) {
+            e.preventDefault();
+            last.focus();
+          }
+        } else {
+          if (document.activeElement === last) {
+            e.preventDefault();
+            first.focus();
+          }
+        }
+      }
+    };
     document.addEventListener('keydown', handleKeyDown);
-    return () => document.removeEventListener('keydown', handleKeyDown);
+    document.addEventListener('keydown', handleTrap);
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+      document.removeEventListener('keydown', handleTrap);
+    };
   }, [isOpen]);
 
   if (!project) return null;
@@ -61,7 +92,7 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, project })
     // Calculate dimensions to fill available space when zoomed out
     const containerWidth = 800; // Approximate modal width
     const containerHeight = 384; // h-96 = 24rem = 384px
-    
+
     const demoStyle = {
       transform: `scale(${zoom}) rotate(${rotation}deg)`,
       transition: 'transform 0.2s ease-in-out',
@@ -78,9 +109,9 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, project })
           <button
             onClick={handleZoomOut}
             className="p-2 rounded-lg shadow-lg transition-colors"
-            style={{ 
-              backgroundColor: 'var(--card-bg)', 
-              color: 'var(--text-primary)' 
+            style={{
+              backgroundColor: 'var(--card-bg)',
+              color: 'var(--text-primary)'
             }}
             onMouseEnter={(e) => {
               e.currentTarget.style.backgroundColor = 'var(--bg-secondary)';
@@ -95,9 +126,9 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, project })
           <button
             onClick={handleZoomIn}
             className="p-2 rounded-lg shadow-lg transition-colors"
-            style={{ 
-              backgroundColor: 'var(--card-bg)', 
-              color: 'var(--text-primary)' 
+            style={{
+              backgroundColor: 'var(--card-bg)',
+              color: 'var(--text-primary)'
             }}
             onMouseEnter={(e) => {
               e.currentTarget.style.backgroundColor = 'var(--bg-secondary)';
@@ -112,9 +143,9 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, project })
           <button
             onClick={handleReset}
             className="p-2 rounded-lg shadow-lg transition-colors"
-            style={{ 
-              backgroundColor: 'var(--card-bg)', 
-              color: 'var(--text-primary)' 
+            style={{
+              backgroundColor: 'var(--card-bg)',
+              color: 'var(--text-primary)'
             }}
             onMouseEnter={(e) => {
               e.currentTarget.style.backgroundColor = 'var(--bg-secondary)';
@@ -176,7 +207,7 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, project })
 
     // Fallback for projects without images or demos
     return renderContent(
-      <div className="w-full h-full flex items-center justify-center" style={{ 
+      <div className="w-full h-full flex items-center justify-center" style={{
         background: 'linear-gradient(to bottom right, var(--bg-secondary), var(--bg-primary))'
       }}>
         <div className="text-center">
@@ -232,8 +263,12 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, project })
           className="fixed inset-0 z-50 flex items-center justify-center p-4 backdrop-blur-sm"
           style={{ backgroundColor: 'rgba(0, 0, 0, 0.8)' }}
           onClick={handleBackdropClick}
+          role="dialog"
+          aria-modal="true"
+          aria-label={project?.title ? `${project.title} Project Modal` : 'Project Modal'}
         >
           <motion.div
+            ref={modalRef}
             initial={{ scale: 0.9, opacity: 0, y: 20 }}
             animate={{ scale: 1, opacity: 1, y: 0 }}
             exit={{ scale: 0.9, opacity: 0, y: 20 }}
@@ -248,8 +283,9 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, project })
                 <p className="mt-1" style={{ color: 'var(--text-secondary)' }}>{project.description}</p>
               </div>
               <button
+                ref={closeBtnRef}
                 onClick={onClose}
-                className="p-2 rounded-lg transition-colors"
+                className="p-2 rounded-lg transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400"
                 style={{ color: 'var(--text-primary)' }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.backgroundColor = 'var(--bg-secondary)';
@@ -257,7 +293,7 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, project })
                 onMouseLeave={(e) => {
                   e.currentTarget.style.backgroundColor = 'transparent';
                 }}
-                aria-label="Close modal"
+                aria-label="Close project modal"
               >
                 <X size={24} />
               </button>
@@ -313,7 +349,7 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, project })
                   </div>
                 </div>
                 {renderDemoContent()}
-                
+
                 {/* Zoom Instructions */}
                 <div className="mt-3 text-xs text-center" style={{ color: 'var(--text-secondary)' }}>
                   Use <kbd className="px-1 py-0.5 rounded text-xs" style={{ backgroundColor: 'var(--tag-bg)' }}>+</kbd> <kbd className="px-1 py-0.5 rounded text-xs" style={{ backgroundColor: 'var(--tag-bg)' }}>-</kbd> <kbd className="px-1 py-0.5 rounded text-xs" style={{ backgroundColor: 'var(--tag-bg)' }}>0</kbd> keys or buttons to zoom

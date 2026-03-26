@@ -8,21 +8,31 @@ import Projects from './components/Projects';
 import GitHubStats from './components/GitHubStats';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
-import CareerBot from './components/CareerBot';
 import ErrorPage from './components/ErrorPage';
-import Terminal from './components/Terminal';
+import { Suspense, lazy, useState } from 'react';
+
+const CareerBot = lazy(() => import('./components/CareerBot'));
+const Terminal = lazy(() => import('./components/Terminal'));
+const MatrixRain = lazy(() => import('./components/MatrixRain'));
 import CustomCursor from './components/CustomCursor';
 import LoadingScreen from './components/LoadingScreen';
 import ScrollProgress from './components/ScrollProgress';
 import BackToTop from './components/BackToTop';
 import { ThemeProvider } from './providers/ThemeProvider';
 import { ModalProvider } from './contexts/ModalContext';
-import { useState } from 'react';
+
 
 function App() {
   const [isTerminalOpen, setIsTerminalOpen] = useState(false);
   const [isCareerBotOpen, setIsCareerBotOpen] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
+  // Only show loading screen if not visited before
+  const [isLoading, setIsLoading] = useState(() => {
+    try {
+      return !localStorage.getItem('visited');
+    } catch {
+      return true;
+    }
+  });
 
   const handleOpenTerminal = () => setIsTerminalOpen(true);
   const handleCloseTerminal = () => setIsTerminalOpen(false);
@@ -31,7 +41,14 @@ function App() {
     setIsTerminalOpen(false); // Close terminal when opening CareerBot
   };
   const handleCloseCareerBot = () => setIsCareerBotOpen(false);
-  const handleLoadingComplete = () => setIsLoading(false);
+  const handleLoadingComplete = () => {
+    setIsLoading(false);
+    try {
+      localStorage.setItem('visited', 'true');
+    } catch {
+      // Ignore errors from localStorage (e.g., private mode)
+    }
+  };
 
   return (
     <ThemeProvider>
@@ -42,6 +59,10 @@ function App() {
             <CustomCursor />
             <ScrollProgress />
             <Navbar onOpenTerminal={handleOpenTerminal} />
+            {/* MatrixRain effect, code-split */}
+            <Suspense fallback={null}>
+              <MatrixRain isActive={false} onClose={() => { }} />
+            </Suspense>
             <main>
               <Routes>
                 <Route path="/" element={
@@ -59,16 +80,18 @@ function App() {
             </main>
             <Footer />
             <BackToTop />
-            <CareerBot 
-              isOpen={isCareerBotOpen} 
-              onClose={handleCloseCareerBot}
-              onOpen={handleOpenCareerBot}
-            />
-            <Terminal 
-              isOpen={isTerminalOpen} 
-              onClose={handleCloseTerminal}
-              onOpenCareerBot={handleOpenCareerBot}
-            />
+            <Suspense fallback={null}>
+              <CareerBot
+                isOpen={isCareerBotOpen}
+                onClose={handleCloseCareerBot}
+                onOpen={handleOpenCareerBot}
+              />
+              <Terminal
+                isOpen={isTerminalOpen}
+                onClose={handleCloseTerminal}
+                onOpenCareerBot={handleOpenCareerBot}
+              />
+            </Suspense>
           </div>
         </Router>
       </ModalProvider>

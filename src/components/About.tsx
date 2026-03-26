@@ -1,10 +1,11 @@
 import { motion } from 'framer-motion';
 import { useState } from 'react';
 import ResumeViewer from './ResumeViewer';
+import LazyImage from './LazyImage';
 
 const About = () => {
   const [isResumeOpen, setIsResumeOpen] = useState(false);
-  
+
   const experiences = [
     {
       year: 'June 2024 - Present',
@@ -22,8 +23,9 @@ const About = () => {
     }
   ];
 
+
   return (
-    <section id="about" className="section min-h-screen flex items-center" style={{ backgroundColor: 'var(--bg-primary)' }}>
+    <section id="about" className="section min-h-screen flex items-center" style={{ backgroundColor: 'var(--bg-primary)' }} aria-label="About section" role="region">
       <div className="container">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -31,8 +33,8 @@ const About = () => {
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
         >
-          <h2 className="section-title">About Me</h2>
-          <p className="section-subtitle">
+          <h2 className="section-title" tabIndex={0}>About Me</h2>
+          <p className="section-subtitle" tabIndex={0} style={{ color: 'var(--text-secondary)', textShadow: '0 1px 2px #fff, 0 0 0 #000' }}>
             Get to know me better - my journey, experience, and what drives me to build exceptional software solutions.
           </p>
         </motion.div>
@@ -49,27 +51,25 @@ const About = () => {
             <div className="relative">
               {/* Profile image */}
               <div className="w-full h-96 rounded-2xl overflow-hidden">
-                <img
-                  src="/images/profile.jpg"
-                  alt="Saurabh Maurya"
-                  className="w-full h-full object-cover"
-                  onError={(e) => {
-                    // Fallback to placeholder if image doesn't exist
-                    const target = e.target as HTMLImageElement;
-                    target.style.display = 'none';
-                    target.nextElementSibling?.classList.remove('hidden');
-                  }}
-                />
-                {/* Fallback placeholder */}
-                <div className="w-full h-full bg-gradient-to-br from-blue-400 to-cyan-400 flex items-center justify-center">
-                  <div className="text-white text-center">
-                    <div className="text-6xl mb-4">👨‍💻</div>
-                    <p className="text-xl font-medium">Saurabh Maurya</p>
-                    <p className="text-sm opacity-80">Add your photo to /public/images/profile.jpg</p>
-                  </div>
+                <div className="profile-img-container group w-full h-full rounded-2xl overflow-hidden transition-all duration-300 border-4 border-transparent hover:border-blue-400 hover:shadow-xl relative">
+                  <LazyImage
+                    src="/images/profile.jpg"
+                    alt="Saurabh Maurya"
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                    fallback={
+                      <div className="profile-fallback absolute inset-0 w-full h-full bg-gradient-to-br from-blue-400 to-cyan-400 flex items-center justify-center transition-opacity duration-500 opacity-100 pointer-events-auto">
+                        <div className="text-white text-center">
+                          <div className="text-6xl mb-4">👨‍💻</div>
+                          <p className="text-xl font-medium">Saurabh Maurya</p>
+                          <p className="text-sm opacity-80">Add your photo to /public/images/profile.jpg</p>
+                        </div>
+                      </div>
+                    }
+                    spinnerClassName="profile-spinner"
+                  />
                 </div>
               </div>
-              
+
               {/* Decorative elements */}
               <div className="absolute -top-4 -right-4 w-24 h-24 rounded-full opacity-20" style={{ backgroundColor: 'var(--accent-color)' }}></div>
               <div className="absolute -bottom-4 -left-4 w-16 h-16 rounded-full opacity-20" style={{ backgroundColor: 'var(--primary-color)' }}></div>
@@ -112,11 +112,11 @@ const About = () => {
           </motion.div>
         </div>
       </div>
-      
+
       {/* Resume Viewer Modal */}
-      <ResumeViewer 
-        isOpen={isResumeOpen} 
-        onClose={() => setIsResumeOpen(false)} 
+      <ResumeViewer
+        isOpen={isResumeOpen}
+        onClose={() => setIsResumeOpen(false)}
       />
     </section>
   );

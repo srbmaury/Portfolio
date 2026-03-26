@@ -31,7 +31,6 @@ const MatrixRain: React.FC<MatrixRainProps> = ({ isActive, onClose }) => {
     const initDrops = () => {
       const columns = Math.floor(canvas.width / fontSize);
       drops = [];
-
       for (let i = 0; i < columns; i++) {
         drops.push({
           x: i * fontSize,
@@ -43,15 +42,27 @@ const MatrixRain: React.FC<MatrixRainProps> = ({ isActive, onClose }) => {
       }
     };
 
+    // Robust canvas sizing for mobile: use ResizeObserver if available
     const resizeCanvas = () => {
-      const rect = canvas.getBoundingClientRect();
-      canvas.width = rect.width;
-      canvas.height = rect.height;
+      // Use up-to-date viewport width/height
+      const width = window.innerWidth;
+      // Use --vh for height if set, else fallback
+      const vh = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--vh'));
+      const height = vh ? vh * 100 : window.innerHeight;
+      canvas.width = width;
+      canvas.height = height;
       initDrops();
     };
 
     resizeCanvas();
+
+    let resizeObserver: ResizeObserver | null = null;
+    if ('ResizeObserver' in window) {
+      resizeObserver = new ResizeObserver(resizeCanvas);
+      resizeObserver.observe(document.body);
+    }
     window.addEventListener('resize', resizeCanvas);
+    window.addEventListener('orientationchange', resizeCanvas);
 
     const animate = () => {
       if (!isActive) return;
@@ -91,10 +102,12 @@ const MatrixRain: React.FC<MatrixRainProps> = ({ isActive, onClose }) => {
 
     return () => {
       window.removeEventListener('resize', resizeCanvas);
+      window.removeEventListener('orientationchange', resizeCanvas);
+      if (resizeObserver) resizeObserver.disconnect();
     };
   }, [isActive]);
 
-  // Mobile-safe viewport height fix
+  // Mobile-safe viewport height fix (listen to resize and orientationchange)
   useEffect(() => {
     const setVH = () => {
       document.documentElement.style.setProperty(
@@ -102,10 +115,13 @@ const MatrixRain: React.FC<MatrixRainProps> = ({ isActive, onClose }) => {
         `${window.innerHeight * 0.01}px`
       );
     };
-
     setVH();
     window.addEventListener('resize', setVH);
-    return () => window.removeEventListener('resize', setVH);
+    window.addEventListener('orientationchange', setVH);
+    return () => {
+      window.removeEventListener('resize', setVH);
+      window.removeEventListener('orientationchange', setVH);
+    };
   }, []);
 
   // Escape key handler
@@ -135,14 +151,16 @@ const MatrixRain: React.FC<MatrixRainProps> = ({ isActive, onClose }) => {
           className="fixed inset-0 z-[60] pointer-events-none w-full"
           style={{
             height: 'calc(var(--vh) * 100)',
+            width: '100vw',
             overflow: 'hidden',
+            maxWidth: '100vw',
           }}
         >
           {/* Canvas */}
           <canvas
             ref={canvasRef}
             className="w-full h-full"
-            style={{ display: 'block' }}
+            style={{ display: 'block', maxWidth: '100vw' }}
           />
 
           {/* Exit Button */}
@@ -177,33 +195,39 @@ const MatrixRain: React.FC<MatrixRainProps> = ({ isActive, onClose }) => {
           </motion.div>
 
           {/* Floating Code */}
-          <div className="absolute inset-0 pointer-events-none">
-            {[...Array(20)].map((_, i) => (
-              <motion.div
-                key={i}
-                initial={{
-                  x: Math.random() * window.innerWidth,
-                  y: -50,
-                  opacity: 0,
-                }}
-                animate={{
-                  y: window.innerHeight + 50,
-                  opacity: [0, 1, 1, 0],
-                }}
-                transition={{
-                  duration: 3 + Math.random() * 2,
-                  delay: Math.random() * 2,
-                  repeat: Infinity,
-                  repeatDelay: Math.random() * 3,
-                }}
-                className="absolute text-green-400/30 text-xs font-mono"
-                style={{
-                  left: `${Math.random() * 100}%`,
-                }}
-              >
-                {Math.random().toString(16).substring(2, 8).toUpperCase()}
-              </motion.div>
-            ))}
+          <div className="absolute inset-0 pointer-events-none w-full h-full" style={{ maxWidth: '100vw' }}>
+            {[...Array(20)].map((_, i) => {
+              // Use up-to-date viewport width/height for each floating code
+              const vw = window.innerWidth;
+              const vh = window.innerHeight;
+              return (
+                <motion.div
+                  key={i}
+                  initial={{
+                    x: Math.random() * vw,
+                    y: -50,
+                    opacity: 0,
+                  }}
+                  animate={{
+                    y: vh + 50,
+                    opacity: [0, 1, 1, 0],
+                  }}
+                  transition={{
+                    duration: 3 + Math.random() * 2,
+                    delay: Math.random() * 2,
+                    repeat: Infinity,
+                    repeatDelay: Math.random() * 3,
+                  }}
+                  className="absolute text-green-400/30 text-xs font-mono"
+                  style={{
+                    left: `${Math.random() * 100}%`,
+                    maxWidth: '100vw',
+                  }}
+                >
+                  {Math.random().toString(16).substring(2, 8).toUpperCase()}
+                </motion.div>
+              );
+            })}
           </div>
         </motion.div>
       )}

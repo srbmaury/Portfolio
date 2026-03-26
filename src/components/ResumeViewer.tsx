@@ -27,12 +27,12 @@ const ResumeViewer: React.FC<ResumeViewerProps> = ({ isOpen, onClose }) => {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center">
       {/* Backdrop */}
-      <div 
+      <div
         className="absolute inset-0 backdrop-blur-sm"
         style={{ backgroundColor: 'rgba(0, 0, 0, 0.8)' }}
         onClick={onClose}
       />
-      
+
       {/* Modal */}
       <div className="relative rounded-lg shadow-2xl w-[90vw] h-[90vh] max-w-6xl flex flex-col" style={{ backgroundColor: 'var(--card-bg)' }}>
         {/* Header */}
@@ -44,17 +44,19 @@ const ResumeViewer: React.FC<ResumeViewerProps> = ({ isOpen, onClose }) => {
           <div className="flex items-center space-x-2">
             <button
               onClick={handleDownload}
-              className="flex items-center space-x-1 px-3 py-1.5 hover:bg-white/30 rounded-md transition-colors"
+              className="flex items-center space-x-1 px-3 py-1.5 hover:bg-white/30 rounded-md transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400"
               style={{ backgroundColor: 'rgba(255, 255, 255, 0.2)' }}
               title="Download Resume"
+              aria-label="Download Resume as PDF"
             >
               <Download size={16} />
               <span className="text-sm">Download</span>
             </button>
             <button
               onClick={onClose}
-              className="p-1.5 hover:bg-white/20 rounded-md transition-colors"
+              className="p-1.5 hover:bg-white/20 rounded-md transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400"
               title="Close"
+              aria-label="Close Resume Viewer"
             >
               <X size={20} />
             </button>
@@ -71,7 +73,7 @@ const ResumeViewer: React.FC<ResumeViewerProps> = ({ isOpen, onClose }) => {
               </div>
             </div>
           )}
-          
+
           <iframe
             src="/resume.pdf"
             className="w-full h-full rounded-b-lg"

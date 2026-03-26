@@ -1,10 +1,13 @@
+
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { ExternalLink, Github, Eye, Play } from 'lucide-react';
 import ProjectModal from './ProjectModal';
+import LazyImage from './LazyImage';
 import projectsData from '../config/projects.json';
 import type { Project } from '../types/project';
 import { useModal } from '../hooks/useModal';
+import { fallbackGradientMap, defaultFallbackGradient } from '../config/gradientMap';
 
 const Projects = () => {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
@@ -54,47 +57,56 @@ const Projects = () => {
               {/* Project Image */}
               <div className="relative overflow-hidden rounded-lg mb-6">
                 {project.image ? (
-                  <img
+                  <LazyImage
                     src={project.image}
                     alt={project.title}
                     className="w-full h-48 object-cover object-top"
-                    onError={(e) => {
-                      // Fallback to beautiful placeholder if image doesn't load
-                      const target = e.target as HTMLImageElement;
-                      target.style.display = 'none';
-                      target.nextElementSibling?.classList.remove('hidden');
-                    }}
+                    spinnerClassName="profile-spinner"
+                    fallback={
+                      <div
+                        className="w-full h-48 flex items-center justify-center relative overflow-hidden"
+                        style={{
+                          background:
+                            fallbackGradientMap[project.fallbackGradient] || defaultFallbackGradient
+                        }}
+                      >
+                        {/* Animated background pattern */}
+                        <div className="absolute inset-0 opacity-10">
+                          <div className="absolute top-4 left-4 w-8 h-8 border-2 border-white rounded-full"></div>
+                          <div className="absolute top-12 right-8 w-4 h-4 bg-white rounded-full"></div>
+                          <div className="absolute bottom-8 left-12 w-6 h-6 border-2 border-white rounded-lg"></div>
+                          <div className="absolute bottom-16 right-4 w-3 h-3 bg-white rounded-full"></div>
+                        </div>
+                        <div className="text-white text-center z-10">
+                          <div className="text-6xl mb-4 animate-pulse">{project.fallbackIcon || '🚀'}</div>
+                          <p className="text-xl font-bold mb-2">{project.title}</p>
+                          <p className="text-sm opacity-90">Click to explore</p>
+                        </div>
+                      </div>
+                    }
                   />
-                ) : null}
-                {/* Beautiful fallback placeholder */}
-                <div 
-                  className={`w-full h-48 flex items-center justify-center ${!project.image ? '' : 'hidden'} relative overflow-hidden`}
-                  style={{
-                    background: project.fallbackGradient === 'from-gray-400 to-blue-500' ? 'linear-gradient(to bottom right, #9ca3af, #3b82f6)' :
-                             project.fallbackGradient === 'from-emerald-400 to-cyan-500' ? 'linear-gradient(to bottom right, #34d399, #06b6d4)' :
-                             project.fallbackGradient === 'from-purple-400 to-pink-500' ? 'linear-gradient(to bottom right, #a78bfa, #ec4899)' :
-                             project.fallbackGradient === 'from-blue-400 to-indigo-500' ? 'linear-gradient(to bottom right, #60a5fa, #6366f1)' :
-                             project.fallbackGradient === 'from-yellow-400 to-orange-500' ? 'linear-gradient(to bottom right, #fbbf24, #f97316)' :
-                             project.fallbackGradient === 'from-red-400 to-pink-500' ? 'linear-gradient(to bottom right, #f87171, #ec4899)' :
-                             project.fallbackGradient === 'from-green-400 to-teal-500' ? 'linear-gradient(to bottom right, #4ade80, #14b8a6)' :
-                             project.fallbackGradient === 'from-indigo-400 to-purple-500' ? 'linear-gradient(to bottom right, #818cf8, #a855f7)' :
-                             project.fallbackGradient === 'from-yellow-400 to-green-500' ? 'linear-gradient(to bottom right, #fbbf24, #22c55e)' :
-                             'linear-gradient(to bottom right, #9ca3af, #3b82f6)'
-                  }}
-                >
-                  {/* Animated background pattern */}
-                  <div className="absolute inset-0 opacity-10">
-                    <div className="absolute top-4 left-4 w-8 h-8 border-2 border-white rounded-full"></div>
-                    <div className="absolute top-12 right-8 w-4 h-4 bg-white rounded-full"></div>
-                    <div className="absolute bottom-8 left-12 w-6 h-6 border-2 border-white rounded-lg"></div>
-                    <div className="absolute bottom-16 right-4 w-3 h-3 bg-white rounded-full"></div>
+                ) : (
+                  <div
+                    className="w-full h-48 flex items-center justify-center relative overflow-hidden"
+                    style={{
+                      background:
+                        fallbackGradientMap[project.fallbackGradient] || defaultFallbackGradient
+                    }}
+                  >
+                    {/* Animated background pattern */}
+                    <div className="absolute inset-0 opacity-10">
+                      <div className="absolute top-4 left-4 w-8 h-8 border-2 border-white rounded-full"></div>
+                      <div className="absolute top-12 right-8 w-4 h-4 bg-white rounded-full"></div>
+                      <div className="absolute bottom-8 left-12 w-6 h-6 border-2 border-white rounded-lg"></div>
+                      <div className="absolute bottom-16 right-4 w-3 h-3 bg-white rounded-full"></div>
+                    </div>
+                    <div className="text-white text-center z-10">
+                      <div className="text-6xl mb-4 animate-pulse">{project.fallbackIcon || '🚀'}</div>
+                      <p className="text-xl font-bold mb-2">{project.title}</p>
+                      <p className="text-sm opacity-90">Click to explore</p>
+                    </div>
                   </div>
-                  <div className="text-white text-center z-10">
-                    <div className="text-6xl mb-4 animate-pulse">{project.fallbackIcon || '🚀'}</div>
-                    <p className="text-xl font-bold mb-2">{project.title}</p>
-                    <p className="text-sm opacity-90">Click to explore</p>
-                  </div>
-                </div>
+                )}
                 <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-all duration-300 flex items-center justify-center">
                   <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex space-x-4">
                     <motion.button
@@ -134,7 +146,7 @@ const Projects = () => {
               <div>
                 <h3 className="text-xl font-bold mb-3 gradient-text">{project.title}</h3>
                 <p className="mb-4 leading-relaxed" style={{ color: 'var(--text-secondary)' }}>{project.description}</p>
-                
+
                 {/* Technologies */}
                 <div className="flex flex-wrap gap-2 mb-6">
                   {project.technologies.map((tech) => (
@@ -226,19 +238,11 @@ const Projects = () => {
                     />
                   ) : null}
                   {/* Beautiful fallback placeholder */}
-                  <div 
+                  <div
                     className={`w-full h-32 flex items-center justify-center ${!project.image ? '' : 'hidden'} relative overflow-hidden z-0`}
                     style={{
-                      background: project.fallbackGradient === 'from-gray-400 to-blue-500' ? 'linear-gradient(to bottom right, #9ca3af, #3b82f6)' :
-                               project.fallbackGradient === 'from-emerald-400 to-cyan-500' ? 'linear-gradient(to bottom right, #34d399, #06b6d4)' :
-                               project.fallbackGradient === 'from-purple-400 to-pink-500' ? 'linear-gradient(to bottom right, #a78bfa, #ec4899)' :
-                               project.fallbackGradient === 'from-blue-400 to-indigo-500' ? 'linear-gradient(to bottom right, #60a5fa, #6366f1)' :
-                               project.fallbackGradient === 'from-yellow-400 to-orange-500' ? 'linear-gradient(to bottom right, #fbbf24, #f97316)' :
-                               project.fallbackGradient === 'from-red-400 to-pink-500' ? 'linear-gradient(to bottom right, #f87171, #ec4899)' :
-                               project.fallbackGradient === 'from-green-400 to-teal-500' ? 'linear-gradient(to bottom right, #4ade80, #14b8a6)' :
-                               project.fallbackGradient === 'from-indigo-400 to-purple-500' ? 'linear-gradient(to bottom right, #818cf8, #a855f7)' :
-                               project.fallbackGradient === 'from-yellow-400 to-green-500' ? 'linear-gradient(to bottom right, #fbbf24, #22c55e)' :
-                               'linear-gradient(to bottom right, #9ca3af, #3b82f6)'
+                      background:
+                        fallbackGradientMap[project.fallbackGradient] || defaultFallbackGradient
                     }}
                   >
                     {/* Animated background pattern */}
@@ -291,7 +295,7 @@ const Projects = () => {
                 <div>
                   <h4 className="text-lg font-bold mb-2 gradient-text">{project.title}</h4>
                   <p className="mb-3 text-sm leading-relaxed" style={{ color: 'var(--text-secondary)' }}>{project.description}</p>
-                  
+
                   {/* Technologies */}
                   <div className="flex flex-wrap gap-1 mb-4">
                     {project.technologies.slice(0, 3).map((tech) => (
@@ -308,7 +312,7 @@ const Projects = () => {
                       </span>
                     ))}
                     {project.technologies.length > 3 && (
-                      <span 
+                      <span
                         className="px-2 py-1 text-xs rounded-full font-medium"
                         style={{
                           backgroundColor: 'var(--tag-bg)',
@@ -327,7 +331,7 @@ const Projects = () => {
                       target="_blank"
                       rel="noopener noreferrer"
                       className="inline-flex items-center space-x-2 px-3 py-2 font-medium transition-colors duration-200 text-sm rounded-lg relative z-50"
-                      style={{ 
+                      style={{
                         color: 'var(--primary-color)',
                         pointerEvents: 'auto'
                       }}
@@ -346,7 +350,7 @@ const Projects = () => {
                       target="_blank"
                       rel="noopener noreferrer"
                       className="inline-flex items-center space-x-2 px-3 py-2 font-medium transition-colors duration-200 text-sm rounded-lg relative z-50"
-                      style={{ 
+                      style={{
                         color: 'var(--text-secondary)',
                         pointerEvents: 'auto'
                       }}

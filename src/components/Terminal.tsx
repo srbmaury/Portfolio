@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
+import { safeEval } from '../utils/safeEval';
 import projectsConfig from '../config/projects.json';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Terminal as TerminalIcon, X, HelpCircle, Play, Palette, Settings, Zap } from 'lucide-react';
@@ -143,6 +144,7 @@ const Terminal: React.FC<TerminalProps> = ({ isOpen, onClose, onOpenCareerBot })
 
   // New customizable features
   const [currentTheme, setCurrentTheme] = useState('matrix');
+
   const [aliases, setAliases] = useState<Record<string, string>>({
     'me': 'whoami',
     'list': 'projects --list',
@@ -227,12 +229,10 @@ const Terminal: React.FC<TerminalProps> = ({ isOpen, onClose, onOpenCareerBot })
       command: 'calc',
       execute: (args) => {
         const expression = args.join(' ');
-        try {
-          // Safe evaluation - only allow basic math
-          const sanitized = expression.replace(/[^0-9+\-*/().\s]/g, '');
-          const result = eval(sanitized);
+        const result = safeEval(expression);
+        if (typeof result === 'number') {
           return `🧮 ${expression} = ${result}`;
-        } catch {
+        } else {
           return `❌ Invalid expression: ${expression}\n💡 Try: calc 2 + 2, calc 10 * 5`;
         }
       },
@@ -1273,7 +1273,7 @@ Type 'demo' to see a quick demonstration`,
               {/* Terminal Body */}
               <div
                 ref={terminalRef}
-                className="p-4 h-96 overflow-y-auto font-mono text-sm"
+                className="p-4 h-96 overflow-y-auto font-mono text-sm terminal-content"
                 style={{
                   color: currentThemeData.text,
                   userSelect: 'text',
@@ -1291,10 +1291,10 @@ Type 'demo' to see a quick demonstration`,
                       </div>
                     )}
                     {entry.output && (
-                      <div className="whitespace-pre-wrap mb-2" style={{ color: currentThemeData.text }}>
-                        {/* Remove leading empty lines from output */}
+                      <div className="whitespace-pre-wrap mb-2 terminal-output" style={{ color: currentThemeData.text }}>
+                        {/* Remove all leading empty lines from output */}
                         {typeof entry.output === 'string'
-                          ? entry.output.replace(/^(\s*\n){1,2}/, '')
+                          ? entry.output.replace(/^[\s\n]+/, '')
                           : entry.output}
                       </div>
                     )}
@@ -1324,6 +1324,7 @@ Type 'demo' to see a quick demonstration`,
                     autoComplete="off"
                     spellCheck="false"
                     disabled={isTyping || isDemoRunning}
+                    aria-label="Terminal command input"
                   />
                   <div
                     className="w-2 h-4 ml-1 animate-pulse"
