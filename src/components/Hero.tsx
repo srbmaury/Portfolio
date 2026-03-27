@@ -14,9 +14,15 @@ const Hero = () => {
   };
 
   return (
-    <section id="home" className="min-h-screen flex items-center justify-center" style={{ 
-      background: 'linear-gradient(to bottom right, var(--bg-secondary), var(--bg-primary), var(--bg-secondary))'
-    }}>
+    <section
+      id="home"
+      className="min-h-screen flex flex-col md:flex-row md:items-center md:justify-center pt-16 md:pt-0"
+      style={{
+        background: 'linear-gradient(to bottom right, var(--bg-secondary), var(--bg-primary), var(--bg-secondary))'
+      }}
+      role="region"
+      aria-label="Hero section"
+    >
       <div className="container mx-auto px-4 text-center">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -63,8 +69,8 @@ const Hero = () => {
             className="text-lg max-w-2xl mx-auto mb-12 leading-relaxed"
             style={{ color: 'var(--text-secondary)' }}
           >
-            I build robust, scalable web applications from concept to deployment. 
-            Passionate about clean code, efficient architecture, and creating seamless user experiences 
+            I build robust, scalable web applications from concept to deployment.
+            Passionate about clean code, efficient architecture, and creating seamless user experiences
             that solve real-world problems.
           </motion.p>
 
@@ -84,7 +90,7 @@ const Hero = () => {
               <Mail size={20} />
               Get In Touch
             </motion.a>
-            
+
             <motion.button
               onClick={() => setIsResumeOpen(true)}
               whileHover={{ scale: 1.05 }}
@@ -128,11 +134,11 @@ const Hero = () => {
           <div className="absolute top-40 left-40 w-80 h-80 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-4000" style={{ backgroundColor: 'var(--secondary-color)' }}></div>
         </div>
       </div>
-      
+
       {/* Resume Viewer Modal */}
-      <ResumeViewer 
-        isOpen={isResumeOpen} 
-        onClose={() => setIsResumeOpen(false)} 
+      <ResumeViewer
+        isOpen={isResumeOpen}
+        onClose={() => setIsResumeOpen(false)}
       />
     </section>
   );

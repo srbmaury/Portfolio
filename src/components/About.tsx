@@ -25,7 +25,7 @@ const About = () => {
 
 
   return (
-    <section id="about" className="section min-h-screen flex items-center" style={{ backgroundColor: 'var(--bg-primary)' }} aria-label="About section" role="region">
+    <section id="about" className="section min-h-screen flex items-center" style={{ backgroundColor: 'var(--bg-primary)' }} aria-label="About section" role="region" tabIndex={-1}>
       <div className="container">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -33,7 +33,7 @@ const About = () => {
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
         >
-          <h2 className="section-title" tabIndex={0}>About Me</h2>
+          <h2 className="section-title" tabIndex={0} aria-label="About Me">About Me</h2>
           <p className="section-subtitle" tabIndex={0} style={{ color: 'var(--text-secondary)', textShadow: '0 1px 2px #fff, 0 0 0 #000' }}>
             Get to know me better - my journey, experience, and what drives me to build exceptional software solutions.
           </p>
@@ -59,9 +59,13 @@ const About = () => {
                     fallback={
                       <div className="profile-fallback absolute inset-0 w-full h-full bg-gradient-to-br from-blue-400 to-cyan-400 flex items-center justify-center transition-opacity duration-500 opacity-100 pointer-events-auto">
                         <div className="text-white text-center">
-                          <div className="text-6xl mb-4">👨‍💻</div>
+                          <div className="text-6xl mb-4">👤</div>
                           <p className="text-xl font-medium">Saurabh Maurya</p>
-                          <p className="text-sm opacity-80">Add your photo to /public/images/profile.jpg</p>
+                          <p className="text-sm opacity-80">
+                            {typeof window !== 'undefined' && !navigator.onLine
+                              ? 'Profile photo unavailable offline'
+                              : 'Profile photo unavailable'}
+                          </p>
                         </div>
                       </div>
                     }
@@ -86,7 +90,7 @@ const About = () => {
             <div className="space-y-8">
               {/* Experience */}
               <div>
-                <h3 className="text-2xl font-bold mb-6 gradient-text">Experience</h3>
+                <h3 className="text-2xl font-bold mb-6 gradient-text" tabIndex={0} aria-label="Experience">Experience</h3>
                 <div className="space-y-6">
                   {experiences.map((exp, index) => (
                     <motion.div

@@ -54,7 +54,7 @@ const Skills = () => {
   ];
 
   return (
-    <section id="skills" className="section" style={{ backgroundColor: 'var(--bg-secondary)' }}>
+    <section id="skills" className="section" style={{ backgroundColor: 'var(--bg-secondary)' }} aria-label="Skills section" role="region" tabIndex={-1}>
       <div className="container">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -62,7 +62,7 @@ const Skills = () => {
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
         >
-          <h2 className="section-title">Skills & Expertise</h2>
+          <h2 className="section-title" tabIndex={0} aria-label="Skills and Expertise">Skills & Expertise</h2>
           <p className="section-subtitle">
             My technical skills and expertise across various technologies and tools.
           </p>
@@ -123,26 +123,26 @@ const Skills = () => {
             {[
               'Git', 'GitHub', 'Postman', 'VS Code', 'Cursor', 'Docker', 'Kubernetes',
               'Chrome DevTools', 'Prometheus', 'Grafana', 'Alertmanager', 'Swagger'].map((skill, index) => (
-              <motion.div
-                key={skill}
-                initial={{ opacity: 0, scale: 0.8 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.5, delay: 0.5 + index * 0.05 }}
-                viewport={{ once: true }}
-                whileHover={{
-                  scale: 1.05,
-                  y: -3,
-                  boxShadow: '0 8px 20px rgba(0, 0, 0, 0.15)'
-                }}
-                className="px-4 py-3 rounded-lg border text-center transition-all duration-300 cursor-pointer"
-                style={{
-                  backgroundColor: 'var(--card-bg)',
-                  borderColor: 'var(--border-color)'
-                }}
-              >
-                <span className="text-sm font-medium" style={{ color: 'var(--text-primary)' }}>{skill}</span>
-              </motion.div>
-            ))}
+                <motion.div
+                  key={skill}
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.5, delay: 0.5 + index * 0.05 }}
+                  viewport={{ once: true }}
+                  whileHover={{
+                    scale: 1.05,
+                    y: -3,
+                    boxShadow: '0 8px 20px rgba(0, 0, 0, 0.15)'
+                  }}
+                  className="px-4 py-3 rounded-lg border text-center transition-all duration-300 cursor-pointer"
+                  style={{
+                    backgroundColor: 'var(--card-bg)',
+                    borderColor: 'var(--border-color)'
+                  }}
+                >
+                  <span className="text-sm font-medium" style={{ color: 'var(--text-primary)' }}>{skill}</span>
+                </motion.div>
+              ))}
           </div>
         </motion.div>
       </div>

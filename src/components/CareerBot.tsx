@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Send, Bot, User, Loader2, X } from 'lucide-react';
+import { Send, Bot, User, Loader2, X, Trash2 } from 'lucide-react';
 import { API_ENDPOINTS } from '../config/api';
 import { useModal } from '../hooks/useModal';
 
@@ -107,9 +107,9 @@ const CareerBot: React.FC<CareerBotProps> = ({ className = '', isOpen: externalI
       setMessages(prev => [...prev, { role: 'assistant', content: data.analysis }]);
     } catch (error) {
       console.error('Error analyzing career:', error);
-      setMessages(prev => [...prev, { 
-        role: 'assistant', 
-        content: "I'm sorry, I encountered an error while analyzing the job description. Please try again or check your API configuration." 
+      setMessages(prev => [...prev, {
+        role: 'assistant',
+        content: "I'm sorry, I encountered an error while analyzing the job description. Please try again or check your API configuration."
       }]);
     } finally {
       setIsLoading(false);
@@ -132,7 +132,7 @@ const CareerBot: React.FC<CareerBotProps> = ({ className = '', isOpen: externalI
         <button
           onClick={handleToggle}
           className={`fixed bottom-6 right-6 z-50 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white p-4 rounded-full shadow-lg transition-all duration-300 hover:scale-110 ${className}`}
-          aria-label="Open career bot"
+          aria-label={isOpen ? 'Close career bot' : 'Open career bot'}
         >
           {isOpen ? <X size={24} /> : <Bot size={24} />}
         </button>
@@ -140,12 +140,18 @@ const CareerBot: React.FC<CareerBotProps> = ({ className = '', isOpen: externalI
 
       {/* Chat Window */}
       {isOpen && !isProjectModalOpen && (
-        <div className="fixed bottom-24 right-6 z-40 w-96 h-[500px] rounded-lg shadow-2xl border flex flex-col" style={{ 
-          backgroundColor: 'var(--card-bg)',
-          borderColor: 'var(--border-color)'
-        }}>
+        <div
+          className="fixed bottom-20 left-0 right-0 mx-auto z-40 w-[calc(100vw-1rem)] max-w-[100vw] mx-2 h-[70vh] sm:bottom-24 sm:right-6 sm:left-auto sm:w-96 sm:max-w-[420px] sm:mx-0 sm:h-[500px] rounded-lg sm:rounded-lg shadow-2xl border flex flex-col"
+          style={{
+            backgroundColor: 'var(--card-bg)',
+            borderColor: 'var(--border-color)'
+          }}
+          role="dialog"
+          aria-modal="true"
+          aria-label="Career chat window"
+        >
           {/* Header */}
-          <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white p-4 rounded-t-lg">
+          <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white p-4 rounded-t-lg" role="banner">
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-2">
                 <Bot size={20} />
@@ -155,8 +161,9 @@ const CareerBot: React.FC<CareerBotProps> = ({ className = '', isOpen: externalI
                 onClick={clearChat}
                 className="text-white/80 hover:text-white transition-colors"
                 title="Clear chat"
+                aria-label="Clear chat messages"
               >
-                <X size={16} />
+                <Trash2 size={16} />
               </button>
             </div>
             <p className="text-sm text-white/90 mt-1">
@@ -165,24 +172,23 @@ const CareerBot: React.FC<CareerBotProps> = ({ className = '', isOpen: externalI
           </div>
 
           {/* Messages */}
-          <div className="flex-1 overflow-y-auto p-4 space-y-4">
+          <div className="flex-1 overflow-y-auto p-4 space-y-4" aria-live="polite" aria-atomic="false">
             {messages.map((message, index) => (
               <div
                 key={index}
                 className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}
               >
                 <div
-                  className={`max-w-[80%] p-3 rounded-lg ${
-                    message.role === 'user'
-                      ? 'text-white'
-                      : ''
-                  }`}
+                  className={`max-w-[80%] p-3 rounded-lg ${message.role === 'user'
+                    ? 'text-white'
+                    : ''
+                    }`}
                   style={{
-                    backgroundColor: message.role === 'user' 
-                      ? 'var(--primary-color)' 
+                    backgroundColor: message.role === 'user'
+                      ? 'var(--primary-color)'
                       : 'var(--tag-bg)',
-                    color: message.role === 'user' 
-                      ? 'white' 
+                    color: message.role === 'user'
+                      ? 'white'
                       : 'var(--text-primary)'
                   }}
                 >
@@ -202,7 +208,7 @@ const CareerBot: React.FC<CareerBotProps> = ({ className = '', isOpen: externalI
             ))}
             {isLoading && (
               <div className="flex justify-start">
-                <div className="p-3 rounded-lg" style={{ 
+                <div className="p-3 rounded-lg" style={{
                   backgroundColor: 'var(--tag-bg)',
                   color: 'var(--text-primary)'
                 }}>
@@ -244,7 +250,7 @@ const CareerBot: React.FC<CareerBotProps> = ({ className = '', isOpen: externalI
                 type="submit"
                 disabled={!input.trim() || isLoading}
                 className="text-white p-2 rounded-lg transition-colors disabled:cursor-not-allowed"
-                style={{ 
+                style={{
                   backgroundColor: input.trim() && !isLoading ? 'var(--primary-color)' : 'var(--text-secondary)'
                 }}
                 onMouseEnter={(e) => {

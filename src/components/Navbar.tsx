@@ -56,6 +56,8 @@ const Navbar: React.FC<NavbarProps> = ({ onOpenTerminal }) => {
           <motion.div
             whileHover={{ scale: 1.05 }}
             className="text-2xl font-bold gradient-text"
+            tabIndex={0}
+            aria-label="Portfolio Home"
           >
             Portfolio
           </motion.div>
@@ -78,6 +80,7 @@ const Navbar: React.FC<NavbarProps> = ({ onOpenTerminal }) => {
                 onMouseLeave={(e) => {
                   e.currentTarget.style.color = 'var(--nav-text)';
                 }}
+                aria-label={`Go to ${item.name} section`}
               >
                 {item.name}
               </motion.button>

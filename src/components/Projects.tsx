@@ -29,7 +29,7 @@ const Projects = () => {
   const projects = projectsData.projects as Project[];
 
   return (
-    <section id="projects" className="section" style={{ backgroundColor: 'var(--bg-primary)' }}>
+    <section id="projects" className="section" style={{ backgroundColor: 'var(--bg-primary)' }} aria-label="Projects section" role="region" tabIndex={-1}>
       <div className="container">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -37,7 +37,7 @@ const Projects = () => {
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
         >
-          <h2 className="section-title">Featured Projects</h2>
+          <h2 className="section-title" tabIndex={0} aria-label="Featured Projects">Featured Projects</h2>
           <p className="section-subtitle">
             Here are some of my projects that showcase my skills in full-stack development, game development, and API integration.
           </p>
@@ -115,6 +115,7 @@ const Projects = () => {
                       whileTap={{ scale: 0.9 }}
                       className="bg-white text-gray-800 p-3 rounded-full hover:bg-blue-600 hover:text-white transition-colors duration-200"
                       title="View Demo"
+                      aria-label={`View demo for ${project.title}`}
                     >
                       <Play size={20} />
                     </motion.button>
