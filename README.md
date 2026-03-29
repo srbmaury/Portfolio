@@ -16,48 +16,21 @@ A modern, interactive portfolio website built with React, TypeScript, and AI-pow
 
 ## ✨ Features
 
-- 🎨 Modern, responsive UI with smooth animations  
-- 🤖 AI Career Assistant (Google Gemini powered)  
-- 📊 Real-time GitHub stats integration  
-- 🧩 Project showcase with live demos  
-- 💻 Interactive terminal interface  
-- 📩 Contact form (EmailJS integration)  
-- 📄 Built-in resume viewer  
-- 🌙 Dark / Light theme toggle  
-- ⚡ Elegant loading screen  
-- 🟢 Matrix rain terminal effect  
-- 📶 Offline support (PWA)
-
 ---
 
 ## 🛠️ Tech Stack
 
 ### Frontend
-- React 19  
-- TypeScript  
-- Vite  
-- Tailwind CSS  
-- Framer Motion  
 
 ### Backend
-- Node.js  
-- Express.js  
 
 ### Integrations & Services
-- Google Gemini AI  
-- GitHub API  
-- EmailJS  
 
 ### Deployment
-- Render  
-- Netlify
----
 
 ## 🚀 Quick Start
 
 ### Prerequisites
-- Node.js 20+  
-- Google Gemini API key  
 
 ### Installation
 
@@ -90,7 +63,6 @@ npm run dev:full
 Open:  
 http://localhost:3001  
 
----
 
 ## 📴 Offline Support (PWA)
 
@@ -103,24 +75,12 @@ npm run build
 npx vite preview
 ```
 
-- Open DevTools → Application → Service Workers  
-- Enable "Offline" in Network tab  
-- Refresh → App should still work  
 
 ---
 
 ## 🎨 Components Overview
 
-- **Hero** → Animated intro section  
-- **About** → Timeline & profile  
-- **Skills** → Categorized skill sets  
-- **Projects** → Showcase cards  
-- **GitHub Stats** → Live data  
-- **AI Career Bot** → Resume/job analysis  
-- **Contact** → Form + social links  
-- **Terminal** → Command interface  
 
----
 
 ## 🚀 Deployment (Render)
 
@@ -139,7 +99,6 @@ npm start
 GEMINI_API_KEY
 ```
 
----
 
 ## 🔧 Customization
 
@@ -154,7 +113,6 @@ Update these files:
 | GitHub | `App.tsx` |
 | Contact | `src/components/Contact.tsx` |
 
----
 
 ## 🛠️ Scripts
 
@@ -166,7 +124,6 @@ npm run build        # Production build
 npm run lint         # Linting
 ```
 
----
 
 ## 🔐 Environment Variables
 
@@ -177,7 +134,6 @@ npm run lint         # Linting
 | PORT | Default: 3001 |
 | NODE_ENV | dev / production |
 
----
 
 ## 📝 API Endpoints
 
@@ -185,7 +141,6 @@ npm run lint         # Linting
 POST /api/analyze-career
 ```
 
----
 
 ## 🤝 Contributing
 
@@ -197,17 +152,10 @@ git push origin feature/amazing-feature
 
 Then open a Pull Request 🚀  
 
----
 
 ## 🙏 Acknowledgments
 
-- Lucide Icons  
-- Framer Motion  
-- Tailwind CSS  
-- Google Gemini  
-- EmailJS  
 
----
 
 <div align="center">
 
