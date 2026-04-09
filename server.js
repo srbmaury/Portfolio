@@ -2,6 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import { GoogleGenerativeAI } from '@google/generative-ai';
+import OpenAI from 'openai';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import fs from 'fs';
@@ -24,8 +25,63 @@ app.use(express.json());
 // Serve static files from the React app build directory
 app.use(express.static(path.join(__dirname, 'dist')));
 
-// Initialize Gemini AI
+// Initialize AI clients
+const openai = new OpenAI({
+  apiKey: process.env.OPENAI_API_KEY,
+});
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+
+/**
+ * Generate AI response with OpenAI first, fallback to Gemini
+ * @param {string} prompt - The prompt to send to the AI
+ * @returns {Promise<string>} The AI response
+ */
+async function generateAIResponse(prompt) {
+  // Try OpenAI first
+  try {
+    console.log('[AI] Attempting to use OpenAI...');
+    const modelName = process.env.OPENAI_MODEL || "gpt-4o-mini";
+
+    const completion = await openai.chat.completions.create({
+      model: modelName,
+      messages: [
+        {
+          role: "system",
+          content: "You are a helpful AI assistant that provides accurate and informative responses."
+        },
+        {
+          role: "user",
+          content: prompt
+        }
+      ],
+      temperature: 0.7,
+      max_tokens: 1000,
+    });
+
+    const response = completion.choices[0]?.message?.content;
+    if (response) {
+      console.log('[AI] OpenAI response successful');
+      return response;
+    }
+    throw new Error('No response from OpenAI');
+  } catch (openaiError) {
+    console.log('[AI] OpenAI failed, falling back to Gemini...', openaiError.message);
+
+    // Fallback to Gemini
+    try {
+      const modelName = process.env.GEMINI_MODEL || "gemini-1.5-flash";
+      const model = genAI.getGenerativeModel({ model: modelName });
+      const result = await model.generateContent(prompt);
+      const response = await result.response;
+      const text = response.text();
+      console.log('[AI] Gemini response successful');
+      return text;
+    } catch (geminiError) {
+      console.error('[AI] Both OpenAI and Gemini failed');
+      throw new Error(`AI generation failed. OpenAI: ${openaiError.message}, Gemini: ${geminiError.message}`);
+    }
+  }
+}
 
 app.post('/api/analyze-career', async (req, res) => {
   try {
@@ -99,12 +155,8 @@ IMPORTANT: Format your response in plain text without any markdown formatting (n
 `;
     }
 
-    // Generate response using Gemini
-    const modelName = process.env.GEMINI_MODEL || "gemini-1.5-flash";
-    const model = genAI.getGenerativeModel({ model: modelName });
-    const result = await model.generateContent(prompt);
-    const response = await result.response;
-    const analysis = response.text();
+    // Generate response using OpenAI (with Gemini fallback)
+    const analysis = await generateAIResponse(prompt);
 
     res.json({ analysis });
   } catch (error) {
@@ -117,7 +169,7 @@ IMPORTANT: Format your response in plain text without any markdown formatting (n
 });
 
 // Health check endpoint for waking up the server
-app.get('/api/health', (req, res) => {
+app.get('/api/health', (_req, res) => {
   res.status(200).json({
     status: 'ok',
     timestamp: new Date().toISOString(),
@@ -126,7 +178,7 @@ app.get('/api/health', (req, res) => {
 });
 
 // Handle React routing, return all requests to React app
-app.get('*', (req, res) => {
+app.get('*', (_req, res) => {
   res.sendFile(path.join(__dirname, 'dist', 'index.html'));
 });
 
