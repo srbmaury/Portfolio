@@ -35,7 +35,7 @@
       "technologies": ["React", "Node.js", "D3.js", "MongoDB", "JavaScript", "CSS"],
       "liveUrl": "https://yaml-visualizer.netlify.app/",
       "githubUrl": "https://github.com/srbmaury/YAML-Visualizer",
-      "featured": false,
+      "featured": true,
       "demoType": "iframe",
       "demoUrl": "https://yaml-visualizer.netlify.app/"
     },
@@ -48,7 +48,7 @@
       "technologies": ["React", "Node.js", "Express", "MongoDB", "JavaScript"],
       "liveUrl": "https://hackathon-portal-sepia.vercel.app",
       "githubUrl": "https://github.com/srbmaury/Hackathon-Portal",
-      "featured": true,
+      "featured": false,
       "demoType": "iframe",
       "demoUrl": "https://hackathon-portal-sepia.vercel.app"
     },
