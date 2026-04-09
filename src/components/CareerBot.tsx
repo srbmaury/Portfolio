@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import { Send, Bot, User, Loader2, X, Trash2 } from 'lucide-react';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
+import rehypeSanitize from 'rehype-sanitize';
 import { API_ENDPOINTS } from '../config/api';
 import knowledgeBase from '../config/knowledgeBase.json';
 import { useModal } from '../hooks/useModal';
@@ -121,39 +124,6 @@ const CareerBot: React.FC<CareerBotProps> = ({ className = '', isOpen: externalI
     ]);
   };
 
-  // Utility: Parse URLs in text and return an array of text and anchor elements
-  const parseLinks = (text: string) => {
-    const urlRegex = /(https?:\/\/[\w\-._~:/?#[\]@!$&'()*+,;=%]+)|(www\.[\w\-._~:/?#[\]@!$&'()*+,;=%]+)/gi;
-    const parts = [];
-    let lastIndex = 0;
-    let match;
-    let key = 0;
-    while ((match = urlRegex.exec(text)) !== null) {
-      if (match.index > lastIndex) {
-        parts.push(text.slice(lastIndex, match.index));
-      }
-      let url = match[0];
-      if (!url.startsWith('http')) url = 'https://' + url;
-      parts.push(
-        <a
-          key={key++}
-          href={url}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-blue-600 underline hover:text-blue-800 transition-colors"
-          title={url}
-          tabIndex={0}
-        >
-          {match[0]}
-        </a>
-      );
-      lastIndex = match.index + match[0].length;
-    }
-    if (lastIndex < text.length) {
-      parts.push(text.slice(lastIndex));
-    }
-    return parts;
-  }
 
   return (
     <>
@@ -226,13 +196,61 @@ const CareerBot: React.FC<CareerBotProps> = ({ className = '', isOpen: externalI
                       <Bot size={16} className="mt-0.5 flex-shrink-0" style={{ color: 'var(--primary-color)' }} />
                     )}
                     <div
-                      className="text-sm whitespace-pre-wrap break-words max-w-full"
-                      style={{ width: '100%', userSelect: 'text', cursor: 'text', wordBreak: 'break-word', overflowWrap: 'anywhere' }}
+                      className="text-sm max-w-full"
+                      style={{
+                        width: '100%',
+                        userSelect: 'text',
+                        cursor: 'text',
+                        color: message.role === 'user' ? 'white' : 'var(--text-primary)'
+                      }}
                       tabIndex={0}
                     >
-                      {message.role === 'assistant'
-                        ? parseLinks(message.content)
-                        : message.content}
+                      {message.role === 'assistant' ? (
+                        <ReactMarkdown
+                          remarkPlugins={[remarkGfm]}
+                          rehypePlugins={[rehypeSanitize]}
+                          components={{
+                            // Custom link styling
+                            a: ({ ...props }) => (
+                              <a
+                                {...props}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="text-blue-600 underline hover:text-blue-800 transition-colors"
+                              />
+                            ),
+                            // Custom heading styling
+                            h1: ({ ...props }) => <h1 {...props} className="text-lg font-bold mt-2 mb-1" />,
+                            h2: ({ ...props }) => <h2 {...props} className="text-base font-bold mt-2 mb-1" />,
+                            h3: ({ ...props }) => <h3 {...props} className="text-sm font-bold mt-1 mb-1" />,
+                            // Custom list styling
+                            ul: ({ ...props }) => <ul {...props} className="list-disc pl-4 my-2 space-y-1" />,
+                            ol: ({ ...props }) => <ol {...props} className="list-decimal pl-4 my-2 space-y-1" />,
+                            li: ({ ...props }) => <li {...props} className="ml-0" />,
+                            // Custom paragraph styling
+                            p: ({ ...props }) => <p {...props} className="my-1" />,
+                            // Custom code styling
+                            code: ({ className, children, ...props }) => {
+                              const isInline = !className?.includes('language-');
+                              return isInline ? (
+                                <code {...props} className="bg-gray-200 dark:bg-gray-700 px-1 py-0.5 rounded text-xs">
+                                  {children}
+                                </code>
+                              ) : (
+                                <code {...props} className={`block bg-gray-200 dark:bg-gray-700 p-2 rounded my-2 text-xs overflow-x-auto ${className || ''}`}>
+                                  {children}
+                                </code>
+                              );
+                            },
+                            // Custom strong/bold styling
+                            strong: ({ ...props }) => <strong {...props} className="font-bold" />,
+                          }}
+                        >
+                          {message.content}
+                        </ReactMarkdown>
+                      ) : (
+                        message.content
+                      )}
                     </div>
                     {message.role === 'user' && (
                       <User size={16} className="mt-0.5 text-white/80 flex-shrink-0" />

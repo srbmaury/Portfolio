@@ -115,7 +115,14 @@ app.post('/api/analyze-career', async (req, res) => {
     - If asked about skills, provide concrete examples of how those skills were applied
     - If you don't have specific information, suggest contacting Saurabh directly
     - Keep responses concise but informative (2-3 paragraphs max)
-    - Format responses in plain text without markdown symbols`;
+    - Format responses using MARKDOWN for better readability:
+      * Use **bold** for important terms and technologies
+      * Use [text](url) format for links to projects
+      * Use bullet points (- or *) for lists
+      * Use ### for section headings if needed
+      * Use \`code\` for technical terms or code snippets
+    - When mentioning project URLs, use proper markdown links: [Project Name](https://url.com)
+    - Structure your response with clear formatting to make it easy to read`;
     } else {
       // Original job analysis functionality
       prompt = `
@@ -143,15 +150,20 @@ ${jobDescription}
 
 Please provide a detailed analysis including:
 
-1. Fit Score (0-100) - Rate how well the candidate matches this role
-2. Overall Assessment - Brief summary of fit
-3. Strengths - What makes the candidate a good fit
-4. Skill Gaps - Areas where the candidate may need improvement
-5. Experience Relevance - How their experience applies to this role
-6. Recommendations - Specific advice for the candidate
-7. Next Steps - What the candidate should focus on
+1. **Fit Score (0-100)** - Rate how well the candidate matches this role
+2. **Overall Assessment** - Brief summary of fit
+3. **Strengths** - What makes the candidate a good fit
+4. **Skill Gaps** - Areas where the candidate may need improvement
+5. **Experience Relevance** - How their experience applies to this role
+6. **Recommendations** - Specific advice for the candidate
+7. **Next Steps** - What the candidate should focus on
 
-IMPORTANT: Format your response in plain text without any markdown formatting (no **, ##, or other markdown symbols). Use clear headings and bullet points that will display properly in a chat interface.
+IMPORTANT: Format your response using MARKDOWN for better readability:
+- Use **bold** for section headings and important terms
+- Use bullet points (- or *) for lists
+- Use ### for main section titles
+- Structure the response clearly with proper spacing
+- Make it easy to scan and read
 `;
     }
 
