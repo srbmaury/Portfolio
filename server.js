@@ -116,6 +116,15 @@ IMPORTANT: Format your response in plain text without any markdown formatting (n
   }
 });
 
+// Health check endpoint for waking up the server
+app.get('/api/health', (req, res) => {
+  res.status(200).json({
+    status: 'ok',
+    timestamp: new Date().toISOString(),
+    message: 'Server is awake and ready'
+  });
+});
+
 // Handle React routing, return all requests to React app
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'dist', 'index.html'));

@@ -9,7 +9,8 @@ import GitHubStats from './components/GitHubStats';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 import ErrorPage from './components/ErrorPage';
-import { Suspense, lazy, useState } from 'react';
+import { Suspense, lazy, useState, useEffect } from 'react';
+import { wakeUpBackend } from './utils/backendWakeup';
 
 const CareerBot = lazy(() => import('./components/CareerBot'));
 const Terminal = lazy(() => import('./components/Terminal'));
@@ -49,6 +50,11 @@ function App() {
       // Ignore errors from localStorage (e.g., private mode)
     }
   };
+
+  // Wake up backend on app load
+  useEffect(() => {
+    wakeUpBackend();
+  }, []);
 
   return (
     <ThemeProvider>
