@@ -2,13 +2,17 @@
 
 <div align="center">
 
+<div align="center">
+    
+  [![Portfolio](https://img.shields.io/badge/Visit-Portfolio-blue?style=for-the-badge)](https://saurabh-maurya-portfolio.netlify.app/)
+  
+</div>
+
 ![React](https://img.shields.io/badge/React-19.1.0-61DAFB?style=for-the-badge&logo=react)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.8.3-3178C6?style=for-the-badge&logo=typescript)
 ![Node.js](https://img.shields.io/badge/Node.js-20+-339933?style=for-the-badge&logo=nodedotjs)
 
-**Modern portfolio showcasing full-stack development expertise with AI-powered career assistant**
-
-[View Live Portfolio](https://your-portfolio-url.com) • [Contact Me](mailto:srbmaury@gmail.com)
+**Modern portfolio showcasing full-stack development, scalable systems, and an intelligent career assistant**
 
 </div>
 
@@ -18,49 +22,36 @@
 
 Software Engineer at **Salesforce** specializing in scalable systems, observability, and full-stack development. Passionate about performance optimization, clean architecture, and solving complex engineering problems.
 
-### Current Role
-**Associate Member of Technical Staff** at Salesforce (June 2024 - Present)
-- Reduced deployment time by 90% through metadata dependency extraction
-- Optimized cache architecture achieving 50-70% memory savings
-- Enhanced accessibility compliance for enterprise UI components
-
-### Previous Experience
-**Software Development Intern** at Razorpay (May 2023 - July 2023)
-- Built 20+ Grafana dashboards for high-volume payment monitoring
-- Reduced incident detection time to under 10 minutes
-- Integrated custom Prometheus metrics for real-time observability
 
 ---
 
 ## ✨ Portfolio Features
 
-### 🤖 AI Career Assistant
-Interactive AI-powered bot that answers questions about my experience, projects, and skills:
-- **Smart Conversations** - Understands context and provides detailed responses
-- **Dual AI Engine** - Powered by OpenAI GPT-4o-mini with Google Gemini backup
-- **Rich Formatting** - Beautiful markdown-formatted responses with links and code examples
+### 🤖 Intelligent Career Assistant
+Interactive chatbot trained on my experience and projects:
+- Context-aware responses about skills, projects, and experience  
+- Powered by OpenAI and Google Gemini APIs  
+- Supports rich markdown responses with links and code snippets  
 
 ### 🎨 Modern Design
-- **Dark/Light Mode** - Toggle between themes with persistent preference
-- **Fully Responsive** - Optimized for desktop, tablet, and mobile devices
-- **Smooth Animations** - Engaging transitions and interactive elements
-- **Custom Cursor** - Unique cursor effects for desktop experience
+- Dark/Light mode with persistent preferences  
+- Fully responsive across desktop, tablet, and mobile  
+- Smooth animations and interactive UI  
+- Custom cursor for enhanced desktop experience  
 
 ### 📊 Project Showcase
-Featured projects with live demos:
-- **Ecommerce Search Engine** - ML-powered product search and recommendations
-- **YAML Visualizer** - Interactive tree diagrams with D3.js and AI insights
-- **Hackathon Platform** - Full-stack event management with AI evaluation
+- **Ecommerce Search Engine** — ML-based product search with improved relevance  
+- **YAML Visualizer** — Interactive tree diagrams with D3.js  
+- **Hackathon Platform** — Full-stack event platform with automated evaluation  
 
 ### 📱 Progressive Web App
-- **Offline Access** - Browse portfolio without internet connection
-- **Install as App** - Add to home screen on mobile or desktop
-- **Fast Loading** - Optimized performance with smart caching
+- Offline access with service worker caching  
+- Optimized for fast loading and performance  
 
 ### 📈 GitHub Integration
-- Real-time GitHub statistics and contribution graphs
-- Direct links to all project repositories
-- Active contribution tracking
+- Live GitHub statistics via API  
+- Direct repository links  
+- Contribution activity tracking  
 
 ---
 
@@ -68,28 +59,36 @@ Featured projects with live demos:
 
 **Frontend:** React, JavaScript, TypeScript, LWC, Tailwind CSS  
 **Backend:** Java, Node.js, Python, Apex, GraphQL, REST APIs  
-**Databases:** PostgreSQL, MongoDB, Redis, Salesforce DB  
-**DevOps:** Prometheus, Grafana, Alertmanager, Git, Docker  
-**Other:** Machine Learning, Distributed Systems, Performance Optimization
+**Databases:** PostgreSQL, MongoDB, Redis, SOQL (Salesforce)  
+**DevOps:** Prometheus, Grafana, Alertmanager, Docker, Git  
+**Other:** Machine Learning, Distributed Systems, Performance Optimization  
+
+---
+
+## ⚡ Why This Portfolio Stands Out
+
+- Intelligent assistant trained on real project data (not a generic chatbot)  
+- Strong focus on performance, scalability, and system design  
+- Built with production-grade architecture and best practices  
 
 ---
 
 ## 🏆 Achievements
 
-- All India Rank 2669 in JEE Main
-- Codeforces Specialist (Max Rating: 1586)
-- LeetCode Knight (Max Rating: 1931)
-- Ranked 862 globally in Google Kick Start 2022
+- AIR **2669** in JEE Main  
+- Codeforces Specialist (**Top ~10% globally**)  
+- LeetCode Knight (**Max Rating: 1931**)  
+- Ranked **862 globally** in Google Kick Start 2022  
 
 ---
 
 ## 📬 Get In Touch
 
-- **Email:** [srbmaury@gmail.com](mailto:srbmaury@gmail.com)
-- **GitHub:** [@srbmaury](https://github.com/srbmaury)
-- **Location:** India
+- **Email:** [srbmaury@gmail.com](mailto:srbmaury@gmail.com)  
+- **GitHub:** [@srbmaury](https://github.com/srbmaury)  
+- **Location:** India  
 
-Feel free to ask the AI Career Bot anything about my experience, or reach out directly via email!
+🚀 **Try the portfolio and interact with the career assistant, or reach out for opportunities!**
 
 ---
 
