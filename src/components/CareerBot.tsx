@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Send, Bot, User, Loader2, X, Trash2 } from 'lucide-react';
 import { API_ENDPOINTS } from '../config/api';
+import knowledgeBase from '../config/knowledgeBase.json';
 import { useModal } from '../hooks/useModal';
 
 interface Message {
@@ -20,7 +21,7 @@ const CareerBot: React.FC<CareerBotProps> = ({ className = '', isOpen: externalI
   const [messages, setMessages] = useState<Message[]>([
     {
       role: 'assistant',
-      content: "Hello! I'm an AI assistant that can help you learn more about Saurabh's experience and expertise. Share a job description or role you're interested in, and I'll analyze how well it matches his skills, experience, and background. I can provide insights on his technical expertise, project experience, and career fit."
+      content: "Hi there! 👋 I'm Saurabh's AI assistant. I can answer any questions about Saurabh's experience, projects, technical skills, and background. Feel free to ask me about:\n\n• His professional experience and current role at Salesforce\n• His projects (YAML Visualizer, MERN Chat, ML-based Ecommerce Search, etc.)\n• His technical skills and expertise\n• How to reach him or collaborate\n• Anything else about his background and journey!\n\nWhat would you like to know?"
     }
   ]);
   const [input, setInput] = useState('');
@@ -54,62 +55,57 @@ const CareerBot: React.FC<CareerBotProps> = ({ className = '', isOpen: externalI
     setIsLoading(true);
 
     try {
+      // Build conversation context from previous messages (to help AI understand the conversation flow)
+      const conversationContext = messages
+        .slice(-4) // Last 4 messages for context
+        .map(msg => `${msg.role === 'user' ? 'User' : 'Assistant'}: ${msg.content}`)
+        .join('\n\n');
+
       const response = await fetch(API_ENDPOINTS.ANALYZE_CAREER, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          jobDescription: userMessage,
+          question: userMessage,
+          conversationContext: conversationContext,
+          // Still support job descriptions for backward compatibility
+          jobDescription: userMessage.toLowerCase().includes('job') || userMessage.toLowerCase().includes('role') || userMessage.toLowerCase().includes('position') ? userMessage : null,
           resume: {
-            name: 'Saurabh Maurya',
-            title: 'Full Stack Engineer',
-            experience: [
-              {
-                company: 'Salesforce',
-                role: 'Software Engineer',
-                duration: '2022 - Present',
-                highlights: [
-                  'Developed and maintained scalable web applications using React, Node.js, and TypeScript',
-                  'Collaborated with cross-functional teams to deliver high-quality software solutions',
-                  'Implemented CI/CD pipelines and automated testing processes'
-                ]
-              },
-              {
-                company: 'Razorpay',
-                role: 'Software Engineer',
-                duration: '2021 - 2022',
-                highlights: [
-                  'Built payment processing systems and financial technology solutions',
-                  'Worked with microservices architecture and cloud platforms',
-                  'Optimized application performance and database queries'
-                ]
-              }
-            ],
+            name: knowledgeBase.personalInfo.name,
+            title: knowledgeBase.personalInfo.title,
+            experience: knowledgeBase.experience.map(exp => ({
+              company: exp.company,
+              role: exp.title,
+              duration: exp.duration,
+              highlights: exp.highlights
+            })),
             skills: [
-              'React', 'TypeScript', 'Node.js', 'Python', 'Java', 'PostgreSQL',
-              'MongoDB', 'AWS', 'Docker', 'Kubernetes', 'GraphQL', 'REST APIs',
-              'Microservices', 'CI/CD', 'Git', 'Agile/Scrum'
+              ...(knowledgeBase.skills.frontend || []),
+              ...(knowledgeBase.skills.backend || []),
+              ...(knowledgeBase.skills.databases || []),
+              ...(knowledgeBase.skills.devops || []),
+              ...(knowledgeBase.skills.other || [])
             ],
-            education: 'Bachelor of Technology in Computer Science',
-            location: 'Bangalore, India',
-            email: 'saurabh.maurya@example.com',
-            github: 'https://github.com/saurabhmaurya'
+            education: `${knowledgeBase.education.degree} in ${knowledgeBase.education.field}`,
+            location: knowledgeBase.personalInfo.location,
+            email: knowledgeBase.personalInfo.email,
+            github: knowledgeBase.personalInfo.github
           }
         }),
       });
 
       if (!response.ok) {
-        throw new Error('Failed to analyze career');
+        throw new Error('Failed to get response');
       }
 
       const data = await response.json();
       setMessages(prev => [...prev, { role: 'assistant', content: data.analysis }]);
     } catch (error) {
-      console.error('Error analyzing career:', error);
+      console.error('Error:', error);
       setMessages(prev => [...prev, {
         role: 'assistant',
-        content: "I'm sorry, I encountered an error while analyzing the job description. Please try again or check your API configuration."
+        content: "I'm sorry, I encountered an error processing your request. Please try again or check your internet connection."
       }]);
     } finally {
       setIsLoading(false);
@@ -120,7 +116,7 @@ const CareerBot: React.FC<CareerBotProps> = ({ className = '', isOpen: externalI
     setMessages([
       {
         role: 'assistant',
-        content: "Hello! I'm an AI assistant that can help you learn more about Saurabh's experience and expertise. Share a job description or role you're interested in, and I'll analyze how well it matches his skills, experience, and background. I can provide insights on his technical expertise, project experience, and career fit."
+        content: "Hi there! 👋 I'm Saurabh's AI assistant. I can answer any questions about Saurabh's experience, projects, technical skills, and background. Feel free to ask me about:\n\n• His professional experience and current role at Salesforce\n• His projects (YAML Visualizer, MERN Chat, ML-based Ecommerce Search, etc.)\n• His technical skills and expertise\n• How to reach him or collaborate\n• Anything else about his background and journey!\n\nWhat would you like to know?"
       }
     ]);
   };
@@ -155,7 +151,7 @@ const CareerBot: React.FC<CareerBotProps> = ({ className = '', isOpen: externalI
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-2">
                 <Bot size={20} />
-                <h3 className="font-semibold">Saurabh's AI Assistant</h3>
+                <h3 className="font-semibold">Ask About Saurabh</h3>
               </div>
               <button
                 onClick={clearChat}
@@ -167,7 +163,7 @@ const CareerBot: React.FC<CareerBotProps> = ({ className = '', isOpen: externalI
               </button>
             </div>
             <p className="text-sm text-white/90 mt-1">
-              Learn about Saurabh's expertise
+              Questions about experience, projects & skills
             </p>
           </div>
 
@@ -229,7 +225,7 @@ const CareerBot: React.FC<CareerBotProps> = ({ className = '', isOpen: externalI
                 type="text"
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
-                placeholder="Paste a job description here..."
+                placeholder="Ask anything about Saurabh..."
                 className="flex-1 px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:border-transparent text-sm"
                 style={{
                   backgroundColor: 'var(--bg-primary)',

@@ -4,6 +4,8 @@ import dotenv from 'dotenv';
 import { GoogleGenerativeAI } from '@google/generative-ai';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import fs from 'fs';
+const knowledgeBase = JSON.parse(fs.readFileSync(new URL('./src/config/knowledgeBase.json', import.meta.url)));
 
 // Load environment variables
 dotenv.config();
@@ -27,14 +29,40 @@ const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 
 app.post('/api/analyze-career', async (req, res) => {
   try {
-    const { jobDescription, resume } = req.body;
+    const { jobDescription, resume, question, conversationContext } = req.body;
 
-    if (!jobDescription || !resume) {
-      return res.status(400).json({ error: 'Job description and resume are required' });
+    // Determine if this is a job analysis or general question
+    const isGeneralQuestion = question && !jobDescription;
+
+    if (!isGeneralQuestion && (!jobDescription || !resume)) {
+      return res.status(400).json({ error: 'Job description and resume, or a question is required' });
     }
 
-    // Create the prompt for Gemini
-    const prompt = `
+    let prompt;
+
+    if (isGeneralQuestion) {
+      // General conversation about Saurabh's profile, projects, and expertise
+      prompt = `You are a helpful AI assistant representing Saurabh Maurya, a Full Stack Engineer. You have complete knowledge about his experience, projects, skills, education, and background. Answer the user's question in a friendly, conversational manner while being accurate and informative.
+
+    SAURABH'S PROFILE:
+    ${JSON.stringify(knowledgeBase, null, 2)}
+
+    User's Question: ${question}
+
+    ${conversationContext ? `Previous conversation context:\n${conversationContext}\n\n` : ''}
+
+    Guidelines:
+    - Be friendly and conversational
+    - Use "Saurabh" or "I" when appropriate
+    - Provide specific examples from his projects and experience
+    - If the question is about projects, mention relevant technologies and achievements
+    - If asked about skills, provide concrete examples of how those skills were applied
+    - If you don't have specific information, suggest contacting Saurabh directly
+    - Keep responses concise but informative (2-3 paragraphs max)
+    - Format responses in plain text without markdown symbols`;
+    } else {
+      // Original job analysis functionality
+      prompt = `
 You are an expert career advisor and resume analyst. Analyze the following job description against the candidate's resume and provide a comprehensive assessment.
 
 CANDIDATE RESUME:
@@ -69,6 +97,7 @@ Please provide a detailed analysis including:
 
 IMPORTANT: Format your response in plain text without any markdown formatting (no **, ##, or other markdown symbols). Use clear headings and bullet points that will display properly in a chat interface.
 `;
+    }
 
     // Generate response using Gemini
     const modelName = process.env.GEMINI_MODEL || "gemini-1.5-flash";
@@ -81,7 +110,7 @@ IMPORTANT: Format your response in plain text without any markdown formatting (n
   } catch (error) {
     console.error('Error analyzing career:', error);
     res.status(500).json({
-      error: 'Failed to analyze career',
+      error: 'Failed to process request',
       details: error.message
     });
   }

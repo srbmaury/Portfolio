@@ -1,0 +1,300 @@
+{
+  "personalInfo": {
+    "name": "Saurabh Maurya",
+    "title": "Software Engineer",
+    "location": "India",
+    "email": "srbmaury@gmail.com",
+    "github": "https://github.com/srbmaury",
+    "portfolio": "",
+    "bio": "Software engineer specializing in scalable systems, observability, and full-stack development. Passionate about performance optimization, clean architecture, and solving complex engineering problems."
+  },
+  "currentRole": {
+    "title": "Associate Member of Technical Staff",
+    "company": "Salesforce",
+    "duration": "June 2024 - Present",
+    "location": "India",
+    "responsibilities": [
+      "Engineered a dependency extraction system for OmniStudio metadata, reducing deployment time by 90%",
+      "Implemented lean Vega Cache architecture, reducing cache size by 50–70% without impacting performance",
+      "Improved accessibility of OmniStudio components to meet compliance standards",
+      "Developed scalable backend and frontend solutions using modern frameworks"
+    ],
+    "technologies": [
+      "Java",
+      "JavaScript",
+      "Apex",
+      "GraphQL",
+      "LWC",
+      "UTAM",
+      "Git"
+    ]
+  },
+  "experience": [
+    {
+      "title": "Associate Member of Technical Staff",
+      "company": "Salesforce",
+      "duration": "June 2024 - Present",
+      "location": "India",
+      "highlights": [
+        "Built dependency extraction system enabling automated resolution of inter-component dependencies",
+        "Reduced deployment time by 90% through metadata system improvements",
+        "Optimized caching architecture achieving significant memory savings",
+        "Enhanced accessibility and usability of enterprise UI components"
+      ]
+    },
+    {
+      "title": "Software Development Intern",
+      "company": "Razorpay Software Pvt. Ltd.",
+      "duration": "May 2023 - July 2023",
+      "location": "India",
+      "highlights": [
+        "Designed 20+ Grafana dashboards for monitoring high-volume payment systems",
+        "Implemented Alertmanager pipelines with Slack integration reducing detection time to under 10 minutes",
+        "Integrated 6+ custom Prometheus metrics improving observability",
+        "Enhanced real-time system reliability through monitoring improvements"
+      ]
+    }
+  ],
+  "education": {
+    "degree": "Bachelor of Technology",
+    "field": "Electronics and Communication Engineering",
+    "university": "Indian Institute of Technology (IIT BHU), Varanasi",
+    "year": "2024",
+    "cgpa": "8.35/10"
+  },
+  "skills": {
+    "frontend": [
+      "React",
+      "JavaScript",
+      "LWC"
+    ],
+    "backend": [
+      "Java",
+      "Python",
+      "Node.js",
+      "REST APIs",
+      "GraphQL"
+    ],
+    "databases": [
+      "PostgreSQL",
+      "MongoDB",
+      "Redis"
+    ],
+    "devops": [
+      "Prometheus",
+      "Grafana",
+      "Alertmanager",
+      "Git"
+    ],
+    "other": [
+      "Apex",
+      "UTAM",
+      "Monitoring Systems",
+      "Distributed Systems"
+    ]
+  },
+  "featuredProjects": [
+    {
+      "featuredProjects": [
+        {
+          "title": "Ecommerce Search Engine",
+          "description": "Production-ready ML-powered ecommerce search engine with personalized ranking, intelligent recommendations, and real-world search system simulation.",
+          "technologies": [
+            "Python",
+            "JavaScript",
+            "Machine Learning",
+            "HTML",
+            "CSS"
+          ],
+          "url": "https://ecommerce-search.onrender.com/",
+          "github": "https://github.com/srbmaury/Ecommerce-Search",
+          "highlights": [
+            "Implemented personalized ranking and recommendation system",
+            "Simulated real-world ecommerce search architecture",
+            "Optimized search relevance and user experience",
+            "Handled large-scale product and event data efficiently"
+          ]
+        },
+        {
+          "title": "YAML Data Visualizer",
+          "description": "Advanced full-stack platform for converting YAML into interactive tree diagrams with collaboration, versioning, and AI-assisted insights.",
+          "technologies": [
+            "React",
+            "Node.js",
+            "D3.js",
+            "MongoDB",
+            "JavaScript"
+          ],
+          "url": "https://yaml-visualizer.netlify.app/",
+          "github": "https://github.com/srbmaury/YAML-Visualizer",
+          "highlights": [
+            "Interactive D3.js-based tree visualization",
+            "Real-time collaboration and presence tracking",
+            "Diff comparison and time-travel versioning",
+            "AI-assisted YAML generation and parsing"
+          ]
+        },
+        {
+          "title": "Hackathon Management Platform",
+          "description": "Full-stack hackathon platform with RBAC, AI-based evaluation workflows, and end-to-end event lifecycle management.",
+          "technologies": [
+            "React",
+            "Node.js",
+            "MongoDB",
+            "OpenAI APIs"
+          ],
+          "url": "https://hackathon-portal-sepia.vercel.app",
+          "github": "https://github.com/srbmaury/Hackathon-Portal",
+          "highlights": [
+            "Designed multi-role RBAC system (6 roles)",
+            "Automated evaluation using AI APIs",
+            "Managed submissions, teams, and scoring workflows",
+            "Improved platform efficiency and UX"
+          ]
+        }
+      ],
+      "allProjects": [
+        {
+          "title": "MERN Chat Application",
+          "tech": [
+            "React",
+            "Node.js",
+            "MongoDB",
+            "Socket.io"
+          ],
+          "link": "https://mern-chat-app-xlr3.onrender.com/"
+        },
+        {
+          "title": "Store Management System",
+          "tech": [
+            "JavaScript",
+            "Bootstrap",
+            "Local Storage"
+          ],
+          "link": "https://store-management-frontend-x0e2.onrender.com/"
+        },
+        {
+          "title": "Kanban Board",
+          "tech": [
+            "JavaScript",
+            "Drag & Drop API"
+          ],
+          "link": "https://saurabh-kanban-board.netlify.app/"
+        },
+        {
+          "title": "Notes Application",
+          "tech": [
+            "JavaScript",
+            "Markdown"
+          ],
+          "link": "https://srbmaury.github.io/notes/"
+        },
+        {
+          "title": "Quiz Application",
+          "tech": [
+            "JavaScript",
+            "API Integration"
+          ],
+          "link": "https://srbmaury.github.io/quiz1/"
+        },
+        {
+          "title": "Tic Tac Toe Game",
+          "tech": [
+            "JavaScript",
+            "Game Logic",
+            "AI"
+          ],
+          "link": "https://tic-tac-toe-silk-sigma.vercel.app/"
+        },
+        {
+          "title": "Dictionary Application",
+          "tech": [
+            "JavaScript",
+            "API Integration"
+          ],
+          "link": "https://srbmaury.github.io/dictionary/"
+        },
+        {
+          "title": "Flappy Bird Game",
+          "tech": [
+            "JavaScript",
+            "Canvas",
+            "Animation"
+          ],
+          "link": "https://srbmaury.github.io/flappyBird/"
+        },
+        {
+          "title": "Codeforces Filter Chrome Extension",
+          "tech": [
+            "JavaScript",
+            "Chrome Extension APIs"
+          ],
+          "link": "https://github.com/srbmaury/CF-Filter-Recent-Actions"
+        }
+      ]
+    },
+    {
+      "title": "Ecommerce Search & Recommendation Engine",
+      "description": "Full-stack system implementing personalized ranking and recommendation pipelines.",
+      "technologies": [
+        "PostgreSQL",
+        "Redis",
+        "Python",
+        "JavaScript"
+      ],
+      "url": "",
+      "github": "",
+      "highlights": [
+        "Handled 1,000+ products and 10,000+ user events",
+        "Reduced query latency by 40%",
+        "Implemented full-text search and caching",
+        "Built A/B testing pipelines"
+      ]
+    },
+    {
+      "title": "Hackathon Management Platform",
+      "description": "Scalable platform for managing hackathons with AI-driven evaluation workflows.",
+      "technologies": [
+        "React",
+        "Node.js",
+        "MongoDB",
+        "OpenAI APIs"
+      ],
+      "url": "",
+      "github": "",
+      "highlights": [
+        "Multi-tier RBAC system with 6 roles",
+        "Automated evaluation and scoring using AI",
+        "Improved platform efficiency and UX",
+        "End-to-end hackathon lifecycle management"
+      ]
+    }
+  ],
+  "allProjects": [
+    "YAML Data Visualizer",
+    "Ecommerce Search & Recommendation Engine",
+    "Hackathon Management Platform"
+  ],
+  "achievements": [
+    "All India Rank 2669 in JEE Main",
+    "All India Rank 4997 in JEE Advanced",
+    "Codeforces Specialist (Max Rating: 1586)",
+    "LeetCode Knight (Max Rating: 1931)",
+    "Ranked 862 globally in Google Kick Start 2022 Round G"
+  ],
+  "interests": [
+    "System Design",
+    "Distributed Systems",
+    "Full-stack Development",
+    "Observability and Monitoring",
+    "Performance Optimization",
+    "Competitive Programming"
+  ],
+  "quickAnswers": {
+    "whatDo": "I build scalable systems, monitoring platforms, and full-stack applications with a focus on performance and reliability.",
+    "experience": "I have experience at Salesforce and Razorpay working on large-scale systems, observability, and backend infrastructure.",
+    "contact": "You can reach me at srbmaury@gmail.com or via GitHub at https://github.com/srbmaury",
+    "currentFocus": "Currently working at Salesforce on metadata systems, dependency resolution, and caching optimizations.",
+    "techStack": "Java, JavaScript, React, GraphQL, PostgreSQL, Redis, Prometheus, Grafana"
+  }
+}
