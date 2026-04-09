@@ -21,7 +21,7 @@ const CareerBot: React.FC<CareerBotProps> = ({ className = '', isOpen: externalI
   const [messages, setMessages] = useState<Message[]>([
     {
       role: 'assistant',
-      content: "Hi there! 👋 I'm Saurabh's AI assistant. I can answer any questions about Saurabh's experience, projects, technical skills, and background. Feel free to ask me about:\n\n• His professional experience and current role at Salesforce\n• His projects (YAML Visualizer, MERN Chat, ML-based Ecommerce Search, etc.)\n• His technical skills and expertise\n• How to reach him or collaborate\n• Anything else about his background and journey!\n\nWhat would you like to know?"
+      content: "Hi there! 👋 This is Saurabh's AI assistant. You can ask about Saurabh's experience, projects, technical skills, and background. Feel free to ask about:\n\n• Saurabh's professional experience and current role at Salesforce\n• His projects (YAML Visualizer, MERN Chat, ML-based Ecommerce Search, etc.)\n• His technical skills and expertise\n• How to reach him or collaborate\n• Anything else about his background and journey!\n\nWhat would you like to know?"
     }
   ]);
   const [input, setInput] = useState('');
@@ -105,7 +105,7 @@ const CareerBot: React.FC<CareerBotProps> = ({ className = '', isOpen: externalI
       console.error('Error:', error);
       setMessages(prev => [...prev, {
         role: 'assistant',
-        content: "I'm sorry, I encountered an error processing your request. Please try again or check your internet connection."
+        content: "Sorry, Saurabh's assistant encountered an error processing your request. Please try again or check your internet connection."
       }]);
     } finally {
       setIsLoading(false);
@@ -116,10 +116,44 @@ const CareerBot: React.FC<CareerBotProps> = ({ className = '', isOpen: externalI
     setMessages([
       {
         role: 'assistant',
-        content: "Hi there! 👋 I'm Saurabh's AI assistant. I can answer any questions about Saurabh's experience, projects, technical skills, and background. Feel free to ask me about:\n\n• His professional experience and current role at Salesforce\n• His projects (YAML Visualizer, MERN Chat, ML-based Ecommerce Search, etc.)\n• His technical skills and expertise\n• How to reach him or collaborate\n• Anything else about his background and journey!\n\nWhat would you like to know?"
+        content: "Hi there! 👋 This is Saurabh's AI assistant. You can ask about Saurabh's experience, projects, technical skills, and background. Feel free to ask about:\n\n• Saurabh's professional experience and current role at Salesforce\n• His projects (YAML Visualizer, MERN Chat, ML-based Ecommerce Search, etc.)\n• His technical skills and expertise\n• How to reach him or collaborate\n• Anything else about his background and journey!\n\nWhat would you like to know?"
       }
     ]);
   };
+
+  // Utility: Parse URLs in text and return an array of text and anchor elements
+  const parseLinks = (text: string) => {
+    const urlRegex = /(https?:\/\/[\w\-._~:/?#[\]@!$&'()*+,;=%]+)|(www\.[\w\-._~:/?#[\]@!$&'()*+,;=%]+)/gi;
+    const parts = [];
+    let lastIndex = 0;
+    let match;
+    let key = 0;
+    while ((match = urlRegex.exec(text)) !== null) {
+      if (match.index > lastIndex) {
+        parts.push(text.slice(lastIndex, match.index));
+      }
+      let url = match[0];
+      if (!url.startsWith('http')) url = 'https://' + url;
+      parts.push(
+        <a
+          key={key++}
+          href={url}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-blue-600 underline hover:text-blue-800 transition-colors"
+          title={url}
+          tabIndex={0}
+        >
+          {match[0]}
+        </a>
+      );
+      lastIndex = match.index + match[0].length;
+    }
+    if (lastIndex < text.length) {
+      parts.push(text.slice(lastIndex));
+    }
+    return parts;
+  }
 
   return (
     <>
@@ -175,25 +209,30 @@ const CareerBot: React.FC<CareerBotProps> = ({ className = '', isOpen: externalI
                 className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}
               >
                 <div
-                  className={`max-w-[80%] p-3 rounded-lg ${message.role === 'user'
-                    ? 'text-white'
-                    : ''
-                    }`}
+                  className={`max-w-[80%] max-w-full p-3 rounded-lg break-words ${message.role === 'user' ? 'text-white' : ''}`}
                   style={{
                     backgroundColor: message.role === 'user'
                       ? 'var(--primary-color)'
                       : 'var(--tag-bg)',
                     color: message.role === 'user'
                       ? 'white'
-                      : 'var(--text-primary)'
+                      : 'var(--text-primary)',
+                    wordBreak: 'break-word',
+                    overflowWrap: 'anywhere',
                   }}
                 >
                   <div className="flex items-start space-x-2">
                     {message.role === 'assistant' && (
                       <Bot size={16} className="mt-0.5 flex-shrink-0" style={{ color: 'var(--primary-color)' }} />
                     )}
-                    <div className="text-sm whitespace-pre-wrap">
-                      {message.content}
+                    <div
+                      className="text-sm whitespace-pre-wrap break-words max-w-full"
+                      style={{ width: '100%', userSelect: 'text', cursor: 'text', wordBreak: 'break-word', overflowWrap: 'anywhere' }}
+                      tabIndex={0}
+                    >
+                      {message.role === 'assistant'
+                        ? parseLinks(message.content)
+                        : message.content}
                     </div>
                     {message.role === 'user' && (
                       <User size={16} className="mt-0.5 text-white/80 flex-shrink-0" />
