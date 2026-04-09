@@ -1,164 +1,102 @@
-# 🚀 Saurabh Maurya - Portfolio Website
+# 🚀 Saurabh Maurya - Portfolio
 
 <div align="center">
 
-![React](https://img.shields.io/badge/React-19.1.0-61DAFB?style=for-the-badge&logo=react)  
-![TypeScript](https://img.shields.io/badge/TypeScript-5.8.3-3178C6?style=for-the-badge&logo=typescript)  
-![Vite](https://img.shields.io/badge/Vite-7.0.4-646CFF?style=for-the-badge&logo=vite)  
-![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3.4.17-06B6D4?style=for-the-badge&logo=tailwindcss)  
+![React](https://img.shields.io/badge/React-19.1.0-61DAFB?style=for-the-badge&logo=react)
+![TypeScript](https://img.shields.io/badge/TypeScript-5.8.3-3178C6?style=for-the-badge&logo=typescript)
 ![Node.js](https://img.shields.io/badge/Node.js-20+-339933?style=for-the-badge&logo=nodedotjs)
 
-A modern, interactive portfolio website built with React, TypeScript, and AI-powered career analysis.
+**Modern portfolio showcasing full-stack development expertise with AI-powered career assistant**
+
+[View Live Portfolio](https://your-portfolio-url.com) • [Contact Me](mailto:srbmaury@gmail.com)
 
 </div>
 
 ---
 
-## ✨ Features
+## 👨‍💻 About
+
+Software Engineer at **Salesforce** specializing in scalable systems, observability, and full-stack development. Passionate about performance optimization, clean architecture, and solving complex engineering problems.
+
+### Current Role
+**Associate Member of Technical Staff** at Salesforce (June 2024 - Present)
+- Reduced deployment time by 90% through metadata dependency extraction
+- Optimized cache architecture achieving 50-70% memory savings
+- Enhanced accessibility compliance for enterprise UI components
+
+### Previous Experience
+**Software Development Intern** at Razorpay (May 2023 - July 2023)
+- Built 20+ Grafana dashboards for high-volume payment monitoring
+- Reduced incident detection time to under 10 minutes
+- Integrated custom Prometheus metrics for real-time observability
 
 ---
 
-## 🛠️ Tech Stack
+## ✨ Portfolio Features
 
-### Frontend
+### 🤖 AI Career Assistant
+Interactive AI-powered bot that answers questions about my experience, projects, and skills:
+- **Smart Conversations** - Understands context and provides detailed responses
+- **Dual AI Engine** - Powered by OpenAI GPT-4o-mini with Google Gemini backup
+- **Rich Formatting** - Beautiful markdown-formatted responses with links and code examples
 
-### Backend
+### 🎨 Modern Design
+- **Dark/Light Mode** - Toggle between themes with persistent preference
+- **Fully Responsive** - Optimized for desktop, tablet, and mobile devices
+- **Smooth Animations** - Engaging transitions and interactive elements
+- **Custom Cursor** - Unique cursor effects for desktop experience
 
-### Integrations & Services
+### 📊 Project Showcase
+Featured projects with live demos:
+- **Ecommerce Search Engine** - ML-powered product search and recommendations
+- **YAML Visualizer** - Interactive tree diagrams with D3.js and AI insights
+- **Hackathon Platform** - Full-stack event management with AI evaluation
 
-### Deployment
+### 📱 Progressive Web App
+- **Offline Access** - Browse portfolio without internet connection
+- **Install as App** - Add to home screen on mobile or desktop
+- **Fast Loading** - Optimized performance with smart caching
 
-## 🚀 Quick Start
-
-### Prerequisites
-
-### Installation
-
-```
-git clone https://github.com/srbmaury/portfolio.git
-cd portfolio
-npm install
-```
-
-### Environment Setup
-
-```
-touch .env
-```
-
-Add:
-
-```
-GEMINI_API_KEY=your_gemini_api_key_here
-PORT=3001
-NODE_ENV=development
-```
-
-### Run the App
-
-```
-npm run dev:full
-```
-
-Open:  
-http://localhost:3001  
-
-
-## 📴 Offline Support (PWA)
-
-Offline mode works only in production build.
-
-### Steps to test:
-
-```
-npm run build
-npx vite preview
-```
-
+### 📈 GitHub Integration
+- Real-time GitHub statistics and contribution graphs
+- Direct links to all project repositories
+- Active contribution tracking
 
 ---
 
-## 🎨 Components Overview
+## 🛠️ Technical Skills
 
+**Frontend:** React, JavaScript, TypeScript, LWC, Tailwind CSS  
+**Backend:** Java, Node.js, Python, Apex, GraphQL, REST APIs  
+**Databases:** PostgreSQL, MongoDB, Redis, Salesforce DB  
+**DevOps:** Prometheus, Grafana, Alertmanager, Git, Docker  
+**Other:** Machine Learning, Distributed Systems, Performance Optimization
 
+---
 
-## 🚀 Deployment (Render)
+## 🏆 Achievements
 
-1. Push code to GitHub  
-2. Create Web Service on Render  
-3. Configure:
+- All India Rank 2669 in JEE Main
+- Codeforces Specialist (Max Rating: 1586)
+- LeetCode Knight (Max Rating: 1931)
+- Ranked 862 globally in Google Kick Start 2022
 
-```
-npm install && npm run build
-npm start
-```
+---
 
-4. Add environment variable:
+## 📬 Get In Touch
 
-```
-GEMINI_API_KEY
-```
+- **Email:** [srbmaury@gmail.com](mailto:srbmaury@gmail.com)
+- **GitHub:** [@srbmaury](https://github.com/srbmaury)
+- **Location:** India
 
+Feel free to ask the AI Career Bot anything about my experience, or reach out directly via email!
 
-## 🔧 Customization
-
-Update these files:
-
-| Section | File |
-|--------|------|
-| Hero | `src/components/Hero.tsx` |
-| About | `src/components/About.tsx` |
-| Skills | `src/components/Skills.tsx` |
-| Projects | `src/config/projects.json` |
-| GitHub | `App.tsx` |
-| Contact | `src/components/Contact.tsx` |
-
-
-## 🛠️ Scripts
-
-```
-npm run dev          # Frontend only
-npm run start        # Backend / production
-npm run dev:full     # Full stack
-npm run build        # Production build
-npm run lint         # Linting
-```
-
-
-## 🔐 Environment Variables
-
-| Variable | Description |
-|----------|------------|
-| GEMINI_API_KEY | Required API key |
-| GEMINI_MODEL | gemini-3-flash-preview |
-| PORT | Default: 3001 |
-| NODE_ENV | dev / production |
-
-
-## 📝 API Endpoints
-
-```
-POST /api/analyze-career
-```
-
-
-## 🤝 Contributing
-
-```
-git checkout -b feature/amazing-feature
-git commit -m "Add amazing feature"
-git push origin feature/amazing-feature
-```
-
-Then open a Pull Request 🚀  
-
-
-## 🙏 Acknowledgments
-
-
+---
 
 <div align="center">
 
-**Made with ❤️ by Saurabh Maurya**
+**Built with React, TypeScript, and AI • Hosted on Render**
+
+Made with ❤️ by [Saurabh Maurya](https://github.com/srbmaury)
 
 </div>

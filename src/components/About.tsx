@@ -12,14 +12,14 @@ const About = () => {
       title: 'Associate Member of Technical Staff',
       company: 'Salesforce',
       location: 'Hyderabad',
-      description: 'Engineered interactive dependency graphs using D3.js, developed AI-driven test data generators, and automated frontend testing achieving 90% test coverage. Technologies: SOQL, Java, Apex, Git, UTAM, Selenium, LWC, Salesforce DB, JavaScript.'
+      description: 'Engineered a dependency extraction system for OmniStudio metadata, reducing deployment time by 90%. Implemented lean Vega Cache architecture, reducing cache size by 50–70%. Improved accessibility of OmniStudio components to meet compliance standards. Technologies: Java, JavaScript, Apex, GraphQL, LWC, UTAM, Git.'
     },
     {
       year: 'May 2023 - July 2023',
       title: 'Software Development Intern',
       company: 'Razorpay Software Pvt. Ltd.',
       location: 'Bengaluru',
-      description: 'Crafted 20+ Interactive Grafana Dashboards for payment monitoring, configured dynamic alert rules, and implemented metrics integration into Prometheus. Technologies: Grafana, PromQL, Prometheus, AlertManager, PHP.'
+      description: 'Designed 20+ Grafana dashboards for monitoring high-volume payment systems. Implemented Alertmanager pipelines with Slack integration reducing detection time to under 10 minutes. Integrated 6+ custom Prometheus metrics improving observability and enhanced real-time system reliability.'
     }
   ];
 
