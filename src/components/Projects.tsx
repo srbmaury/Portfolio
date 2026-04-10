@@ -8,6 +8,7 @@ import projectsData from '../config/projects.json';
 import type { Project } from '../types/project';
 import { useModal } from '../hooks/useModal';
 import { fallbackGradientMap, defaultFallbackGradient } from '../config/gradientMap';
+import { trackProjectEvent } from '../utils/analytics';
 
 const Projects = () => {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
@@ -15,6 +16,9 @@ const Projects = () => {
   const { setIsProjectModalOpen } = useModal();
 
   const handleProjectClick = (project: Project) => {
+    // Track project view
+    trackProjectEvent('view', project.title);
+
     setSelectedProject(project);
     setIsModalOpen(true);
     setIsProjectModalOpen(true);
@@ -123,6 +127,7 @@ const Projects = () => {
                       href={project.liveUrl}
                       target="_blank"
                       rel="noopener noreferrer"
+                      onClick={() => trackProjectEvent('live_demo_click', project.title)}
                       whileHover={{ scale: 1.1 }}
                       whileTap={{ scale: 0.9 }}
                       className="bg-white text-gray-800 p-3 rounded-full hover:bg-blue-600 hover:text-white transition-colors duration-200"
@@ -133,6 +138,7 @@ const Projects = () => {
                       href={project.githubUrl}
                       target="_blank"
                       rel="noopener noreferrer"
+                      onClick={() => trackProjectEvent('github_click', project.title)}
                       whileHover={{ scale: 1.1 }}
                       whileTap={{ scale: 0.9 }}
                       className="bg-white text-gray-800 p-3 rounded-full hover:bg-blue-600 hover:text-white transition-colors duration-200"

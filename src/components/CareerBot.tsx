@@ -6,6 +6,7 @@ import rehypeSanitize from 'rehype-sanitize';
 import { API_ENDPOINTS } from '../config/api';
 import knowledgeBase from '../config/knowledgeBase.json';
 import { useModal } from '../hooks/useModal';
+import { trackCareerBotEvent } from '../utils/analytics';
 
 interface Message {
   role: 'user' | 'assistant';
@@ -55,6 +56,11 @@ const CareerBot: React.FC<CareerBotProps> = ({ className = '', isOpen: externalI
   }, [isExpanded, isOpen]);
 
   const handleToggle = () => {
+    const willBeOpen = !isOpen;
+
+    // Track bot open/close
+    trackCareerBotEvent(willBeOpen ? 'open' : 'close');
+
     if (externalIsOpen !== undefined) {
       // If externally controlled
       if (isOpen) {
@@ -76,6 +82,9 @@ const CareerBot: React.FC<CareerBotProps> = ({ className = '', isOpen: externalI
     setInput('');
     setMessages(prev => [...prev, { role: 'user', content: userMessage }]);
     setIsLoading(true);
+
+    // Track question asked
+    trackCareerBotEvent('question_asked', userMessage.substring(0, 100));
 
     try {
       // Build conversation context from previous messages (to help AI understand the conversation flow)
@@ -148,6 +157,9 @@ const CareerBot: React.FC<CareerBotProps> = ({ className = '', isOpen: externalI
   };
 
   const clearChat = () => {
+    // Track chat clear
+    trackCareerBotEvent('clear_chat');
+
     setMessages([
       {
         role: 'assistant',
@@ -167,6 +179,9 @@ const CareerBot: React.FC<CareerBotProps> = ({ className = '', isOpen: externalI
     }
 
     if (!userMessage) return;
+
+    // Track regenerate
+    trackCareerBotEvent('regenerate_response', userMessage.substring(0, 100));
 
     // Mark message as regenerating
     setMessages(prev => prev.map((msg, idx) =>
@@ -291,7 +306,11 @@ const CareerBot: React.FC<CareerBotProps> = ({ className = '', isOpen: externalI
               </div>
               <div className="flex items-center space-x-2">
                 <button
-                  onClick={() => setIsExpanded(!isExpanded)}
+                  onClick={() => {
+                    const willBeExpanded = !isExpanded;
+                    trackCareerBotEvent(willBeExpanded ? 'expand' : 'minimize');
+                    setIsExpanded(willBeExpanded);
+                  }}
                   className="hidden sm:block text-white/80 hover:text-white transition-colors"
                   title={isExpanded ? "Minimize" : "Expand"}
                   aria-label={isExpanded ? "Minimize chat" : "Expand chat"}

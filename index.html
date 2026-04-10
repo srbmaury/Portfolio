@@ -1,17 +1,37 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Saurabh Maurya - Software Development Engineer at Salesforce. Specializing in frontend development, automation, and system design with experience in React, Node.js, and cloud platforms." />
-    <meta name="keywords" content="Saurabh Maurya, Software Development Engineer, Salesforce, React, Node.js, JavaScript, Python, Java, C++, AWS, Docker, Testing, Automation" />
-    <meta name="author" content="Saurabh Maurya" />
-    <title>Saurabh Maurya - Software Development Engineer</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description"
+    content="Saurabh Maurya - Software Development Engineer at Salesforce. Specializing in frontend development, automation, and system design with experience in React, Node.js, and cloud platforms." />
+  <meta name="keywords"
+    content="Saurabh Maurya, Software Development Engineer, Salesforce, React, Node.js, JavaScript, Python, Java, C++, AWS, Docker, Testing, Automation" />
+  <meta name="author" content="Saurabh Maurya" />
+  <title>Saurabh Maurya - Software Development Engineer</title>
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-748H92YW8C"></script>
+  <script>
+    // Only enable analytics in production (not localhost)
+    if (window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+      gtag('js', new Date());
+      gtag('config', 'G-748H92YW8C', {
+        'anonymize_ip': true,
+        'send_page_view': true
+      });
+    }
+  </script>
+</head>
+
+<body>
+  <div id="root"></div>
+  <script type="module" src="/src/main.tsx"></script>
+</body>
+
 </html>

@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { Mail, Phone, MapPin, Send, Linkedin, Github, Twitter } from 'lucide-react';
 import emailjs from '@emailjs/browser';
 import { emailConfig } from '../config/email';
+import { trackContactFormSubmit } from '../utils/analytics';
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -47,12 +48,15 @@ const Contact = () => {
       if (result.status === 200) {
         setSubmitStatus('success');
         setFormData({ name: '', email: '', subject: '', message: '' });
+        trackContactFormSubmit(true);
       } else {
         setSubmitStatus('error');
+        trackContactFormSubmit(false);
       }
     } catch (error) {
       console.error('Email sending failed:', error);
       setSubmitStatus('error');
+      trackContactFormSubmit(false);
     } finally {
       setIsSubmitting(false);
     }

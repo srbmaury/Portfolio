@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { X, Download, FileText } from 'lucide-react';
+import { trackResumeDownload } from '../utils/analytics';
 
 interface ResumeViewerProps {
   isOpen: boolean;
@@ -10,6 +11,9 @@ const ResumeViewer: React.FC<ResumeViewerProps> = ({ isOpen, onClose }) => {
   const [isLoading, setIsLoading] = useState(true);
 
   const handleDownload = () => {
+    // Track resume download
+    trackResumeDownload();
+
     const link = document.createElement('a');
     link.href = '/resume.pdf';
     link.download = 'Saurabh_Maurya_Resume.pdf';
