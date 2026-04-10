@@ -30,8 +30,11 @@ Software Engineer at **Salesforce** specializing in scalable systems, observabil
 ### 🤖 Intelligent Career Assistant
 Interactive chatbot trained on my experience and projects:
 - Context-aware responses about skills, projects, and experience  
-- Powered by OpenAI and Google Gemini APIs  
-- Supports rich markdown responses with links and code snippets  
+- Powered by OpenAI (with Gemini fallback)
+- Regenerate responses for better answers
+- Response caching and rate limiting (10 questions/hour)
+- Expandable full-screen mode for in-depth conversations
+- Rich markdown support with streaming effect  
 
 ### 🎨 Modern Design
 - Dark/Light mode with persistent preferences  
