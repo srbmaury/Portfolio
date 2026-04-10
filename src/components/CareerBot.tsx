@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Send, Bot, User, Loader2, X, Trash2, Maximize2, Minimize2 } from 'lucide-react';
+import { Send, Bot, User, Loader2, X, Trash2, Maximize2, Minimize2, RefreshCw } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import rehypeSanitize from 'rehype-sanitize';
@@ -10,6 +10,7 @@ import { useModal } from '../hooks/useModal';
 interface Message {
   role: 'user' | 'assistant';
   content: string;
+  isRegenerating?: boolean;
 }
 
 interface CareerBotProps {
@@ -118,6 +119,10 @@ const CareerBot: React.FC<CareerBotProps> = ({ className = '', isOpen: externalI
       });
 
       if (!response.ok) {
+        if (response.status === 429) {
+          const data = await response.json();
+          throw new Error(`RATE_LIMIT:${data.retryAfter || 60}`);
+        }
         throw new Error('Failed to get response');
       }
 
@@ -125,9 +130,17 @@ const CareerBot: React.FC<CareerBotProps> = ({ className = '', isOpen: externalI
       setMessages(prev => [...prev, { role: 'assistant', content: data.analysis }]);
     } catch (error) {
       console.error('Error:', error);
+      let errorMessage = "Sorry, Saurabh's assistant encountered an error processing your request. Please try again or check your internet connection.";
+
+      if (error instanceof Error && error.message.startsWith('RATE_LIMIT:')) {
+        const retryAfter = error.message.split(':')[1];
+        const minutes = Math.ceil(parseInt(retryAfter) / 60);
+        errorMessage = `You've reached the rate limit (10 questions per hour). Please wait ${minutes > 1 ? `${minutes} minutes` : `${retryAfter} seconds`} before trying again.`;
+      }
+
       setMessages(prev => [...prev, {
         role: 'assistant',
-        content: "Sorry, Saurabh's assistant encountered an error processing your request. Please try again or check your internet connection."
+        content: errorMessage
       }]);
     } finally {
       setIsLoading(false);
@@ -143,6 +156,102 @@ const CareerBot: React.FC<CareerBotProps> = ({ className = '', isOpen: externalI
     ]);
   };
 
+  const regenerateResponse = async (messageIndex: number) => {
+    // Find the corresponding user message
+    let userMessage = '';
+    for (let i = messageIndex - 1; i >= 0; i--) {
+      if (messages[i].role === 'user') {
+        userMessage = messages[i].content;
+        break;
+      }
+    }
+
+    if (!userMessage) return;
+
+    // Mark message as regenerating
+    setMessages(prev => prev.map((msg, idx) =>
+      idx === messageIndex ? { ...msg, isRegenerating: true } : msg
+    ));
+
+    try {
+      // Build conversation context excluding the message being regenerated
+      const conversationContext = messages
+        .slice(0, messageIndex)
+        .slice(-4)
+        .map(msg => `${msg.role === 'user' ? 'User' : 'Assistant'}: ${msg.content}`)
+        .join('\n\n');
+
+      const response = await fetch(API_ENDPOINTS.ANALYZE_CAREER, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          question: userMessage,
+          conversationContext: conversationContext,
+          regenerate: true, // Flag to indicate regeneration
+          jobDescription: userMessage.toLowerCase().includes('job') || userMessage.toLowerCase().includes('role') || userMessage.toLowerCase().includes('position') ? userMessage : null,
+          resume: {
+            name: knowledgeBase.personalInfo.name,
+            title: knowledgeBase.personalInfo.title,
+            experience: knowledgeBase.experience.map(exp => ({
+              company: exp.company,
+              role: exp.title,
+              duration: exp.duration,
+              highlights: exp.highlights
+            })),
+            skills: [
+              ...(knowledgeBase.skills.frontend || []),
+              ...(knowledgeBase.skills.backend || []),
+              ...(knowledgeBase.skills.databases || []),
+              ...(knowledgeBase.skills.devops || []),
+              ...(knowledgeBase.skills.other || [])
+            ],
+            education: `${knowledgeBase.education.degree} in ${knowledgeBase.education.field}`,
+            location: knowledgeBase.personalInfo.location,
+            email: knowledgeBase.personalInfo.email,
+            github: knowledgeBase.personalInfo.github
+          }
+        }),
+      });
+
+      if (!response.ok) {
+        if (response.status === 429) {
+          const data = await response.json();
+          throw new Error(`RATE_LIMIT:${data.retryAfter || 60}`);
+        }
+        throw new Error('Failed to regenerate response');
+      }
+
+      const data = await response.json();
+
+      // Update the specific message
+      setMessages(prev => prev.map((msg, idx) =>
+        idx === messageIndex
+          ? { role: 'assistant', content: data.analysis, isRegenerating: false }
+          : msg
+      ));
+    } catch (error) {
+      console.error('Error:', error);
+      let errorMessage = "Sorry, failed to regenerate response. Please try again.";
+
+      if (error instanceof Error && error.message.startsWith('RATE_LIMIT:')) {
+        const retryAfter = error.message.split(':')[1];
+        const minutes = Math.ceil(parseInt(retryAfter) / 60);
+        errorMessage = `Rate limit reached (10 questions per hour). Please wait ${minutes > 1 ? `${minutes} minutes` : `${retryAfter} seconds`} before regenerating.`;
+      }
+
+      setMessages(prev => prev.map((msg, idx) =>
+        idx === messageIndex
+          ? {
+              role: 'assistant',
+              content: errorMessage,
+              isRegenerating: false
+            }
+          : msg
+      ));
+    }
+  };
 
   return (
     <>
@@ -209,7 +318,7 @@ const CareerBot: React.FC<CareerBotProps> = ({ className = '', isOpen: externalI
             {messages.map((message, index) => (
               <div
                 key={index}
-                className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}
+                className={`flex flex-col ${message.role === 'user' ? 'items-end' : 'items-start'}`}
               >
                 <div
                   className={`max-w-[80%] max-w-full p-3 rounded-lg break-words ${message.role === 'user' ? 'text-white' : ''}`}
@@ -291,6 +400,29 @@ const CareerBot: React.FC<CareerBotProps> = ({ className = '', isOpen: externalI
                     )}
                   </div>
                 </div>
+                {/* Regenerate button for assistant messages */}
+                {message.role === 'assistant' && index > 0 && (
+                  <button
+                    onClick={() => regenerateResponse(index)}
+                    disabled={message.isRegenerating || isLoading}
+                    className="mt-1 text-xs flex items-center space-x-1 px-2 py-1 rounded transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                    style={{
+                      color: 'var(--text-secondary)',
+                    }}
+                    onMouseEnter={(e) => {
+                      if (!message.isRegenerating && !isLoading) {
+                        e.currentTarget.style.color = 'var(--primary-color)';
+                      }
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.color = 'var(--text-secondary)';
+                    }}
+                    title="Regenerate response"
+                  >
+                    <RefreshCw size={12} className={message.isRegenerating ? 'animate-spin' : ''} />
+                    <span>{message.isRegenerating ? 'Regenerating...' : 'Regenerate'}</span>
+                  </button>
+                )}
               </div>
             ))}
             {isLoading && (

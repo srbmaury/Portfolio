@@ -25,6 +25,64 @@ app.use(express.json());
 // Serve static files from the React app build directory
 app.use(express.static(path.join(__dirname, 'dist')));
 
+// Cache and Rate Limiting
+const responseCache = new Map(); // Stores ALL questions asked: { questionHash: { response, timestamp } }
+const rateLimitMap = new Map(); // Tracks requests per IP: { ip: { count, resetTime } }
+
+const CACHE_TTL = 60 * 60 * 1000; // 1 hour cache - any identical question within 1 hour returns cached response
+const RATE_LIMIT_WINDOW = 60 * 60 * 1000; // 1 hour window
+const RATE_LIMIT_MAX_REQUESTS = 10; // Max 10 requests per hour per IP
+
+// Helper function to generate cache key
+// Normalizes questions so "What is Saurabh's role?" and "what is saurabh's role?"
+// are treated as the same question and return cached response
+function generateCacheKey(question) {
+  return question.toLowerCase().trim().replace(/\s+/g, ' ');
+}
+
+// Rate limiting middleware
+function rateLimitMiddleware(req, res, next) {
+  const ip = req.ip || req.connection.remoteAddress;
+  const now = Date.now();
+
+  if (!rateLimitMap.has(ip)) {
+    rateLimitMap.set(ip, { count: 1, resetTime: now + RATE_LIMIT_WINDOW });
+    return next();
+  }
+
+  const rateLimitData = rateLimitMap.get(ip);
+
+  // Reset if window has passed
+  if (now > rateLimitData.resetTime) {
+    rateLimitMap.set(ip, { count: 1, resetTime: now + RATE_LIMIT_WINDOW });
+    return next();
+  }
+
+  // Check if limit exceeded
+  if (rateLimitData.count >= RATE_LIMIT_MAX_REQUESTS) {
+    const retryAfter = Math.ceil((rateLimitData.resetTime - now) / 1000);
+    return res.status(429).json({
+      error: 'Too many requests. Please try again later.',
+      retryAfter: retryAfter
+    });
+  }
+
+  // Increment count
+  rateLimitData.count++;
+  rateLimitMap.set(ip, rateLimitData);
+  next();
+}
+
+// Clean up old cache entries periodically
+setInterval(() => {
+  const now = Date.now();
+  for (const [key, value] of responseCache.entries()) {
+    if (now - value.timestamp > CACHE_TTL) {
+      responseCache.delete(key);
+    }
+  }
+}, 10 * 60 * 1000); // Clean every 10 minutes
+
 // Initialize AI clients
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
@@ -83,15 +141,26 @@ async function generateAIResponse(prompt) {
   }
 }
 
-app.post('/api/analyze-career', async (req, res) => {
+app.post('/api/analyze-career', rateLimitMiddleware, async (req, res) => {
   try {
-    const { jobDescription, resume, question, conversationContext } = req.body;
+    const { jobDescription, resume, question, conversationContext, regenerate } = req.body;
 
     // Determine if this is a job analysis or general question
     const isGeneralQuestion = question && !jobDescription;
 
     if (!isGeneralQuestion && (!jobDescription || !resume)) {
       return res.status(400).json({ error: 'Job description and resume, or a question is required' });
+    }
+
+    // Check cache for general questions (skip cache if regenerating)
+    if (isGeneralQuestion && !regenerate) {
+      const cacheKey = generateCacheKey(question);
+      const cachedResponse = responseCache.get(cacheKey);
+
+      if (cachedResponse && (Date.now() - cachedResponse.timestamp < CACHE_TTL)) {
+        console.log('[Cache] Returning cached response for:', question.substring(0, 50) + '...');
+        return res.json({ analysis: cachedResponse.response, cached: true });
+      }
     }
 
     let prompt;
@@ -106,6 +175,25 @@ app.post('/api/analyze-career', async (req, res) => {
     User's Question: ${question}
 
     ${conversationContext ? `Previous conversation context:\n${conversationContext}\n\n` : ''}
+
+    IMPORTANT - SCOPE RESTRICTION:
+    You can ONLY answer questions about:
+    - Saurabh's work experience, roles, and companies he worked at
+    - His technical projects and what he built
+    - His technical skills, programming languages, frameworks, and tools he uses
+    - His education and academic background
+    - How to contact or connect with him
+    - His career journey, achievements, and professional background
+
+    You MUST REJECT and politely decline questions about:
+    - Writing code, generating programs, or providing code solutions
+    - General knowledge questions (politics, current events, geography, science, etc.)
+    - Advice on other topics unrelated to Saurabh's profile
+    - Technical tutorials or how-to guides
+    - Anything not directly related to Saurabh Maurya's professional profile
+
+    If the question is out of scope, respond with:
+    "I'm here specifically to answer questions about Saurabh's professional experience, projects, and skills. I can't help with [brief description of what they asked]. Feel free to ask me about his work at Salesforce, his projects like YAML Visualizer or MERN Chat, or his technical expertise!"
 
     Guidelines:
     - Be friendly and conversational
@@ -169,6 +257,16 @@ IMPORTANT: Format your response using MARKDOWN for better readability:
 
     // Generate response using OpenAI (with Gemini fallback)
     const analysis = await generateAIResponse(prompt);
+
+    // Cache the response for general questions
+    if (isGeneralQuestion && question) {
+      const cacheKey = generateCacheKey(question);
+      responseCache.set(cacheKey, {
+        response: analysis,
+        timestamp: Date.now()
+      });
+      console.log('[Cache] Stored response for:', question.substring(0, 50) + '...');
+    }
 
     res.json({ analysis });
   } catch (error) {
