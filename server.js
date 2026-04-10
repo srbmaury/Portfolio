@@ -109,7 +109,7 @@ app.post('/api/analyze-career', async (req, res) => {
 
     Guidelines:
     - Be friendly and conversational
-    - Use "Saurabh" or "I" when appropriate
+    - Always refer to Saurabh in third person (use "Saurabh", "he", "his") - NEVER use first person ("I", "my", "me")
     - Provide specific examples from his projects and experience
     - If the question is about projects, mention relevant technologies and achievements
     - If asked about skills, provide concrete examples of how those skills were applied

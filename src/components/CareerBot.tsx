@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Send, Bot, User, Loader2, X, Trash2 } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Send, Bot, User, Loader2, X, Trash2, Maximize2, Minimize2 } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import rehypeSanitize from 'rehype-sanitize';
@@ -21,10 +21,11 @@ interface CareerBotProps {
 
 const CareerBot: React.FC<CareerBotProps> = ({ className = '', isOpen: externalIsOpen, onClose: externalOnClose, onOpen: externalOnOpen }) => {
   const [internalIsOpen, setInternalIsOpen] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
     {
       role: 'assistant',
-      content: "Hi there! 👋 This is Saurabh's AI assistant. You can ask about Saurabh's experience, projects, technical skills, and background. Feel free to ask about:\n\n• Saurabh's professional experience and current role at Salesforce\n• His projects (YAML Visualizer, MERN Chat, ML-based Ecommerce Search, etc.)\n• His technical skills and expertise\n• How to reach him or collaborate\n• Anything else about his background and journey!\n\nWhat would you like to know?"
+      content: "Hi there! 👋 This is Saurabh's AI assistant.\n\nYou can ask me about his experience, projects, technical skills, and background.\n\nFeel free to explore topics like:\n\n• His professional experience and current role at Salesforce\n\n• Projects he has built, including YAML Visualizer, MERN Chat, and ML-based Ecommerce Search\n\n• His technical skills and areas of expertise\n\n• How to connect or collaborate with him\n\n• His background, journey, and achievements\n\nWhat would you like to know?"
     }
   ]);
   const [input, setInput] = useState('');
@@ -33,6 +34,24 @@ const CareerBot: React.FC<CareerBotProps> = ({ className = '', isOpen: externalI
 
   // Use external state if provided, otherwise use internal state
   const isOpen = externalIsOpen !== undefined ? externalIsOpen : internalIsOpen;
+
+  // Disable body scroll when expanded
+  useEffect(() => {
+    if (isExpanded && isOpen) {
+      const scrollY = window.scrollY;
+      document.body.style.position = 'fixed';
+      document.body.style.top = `-${scrollY}px`;
+      document.body.style.width = '100%';
+      document.body.style.overflow = 'hidden';
+      return () => {
+        document.body.style.position = '';
+        document.body.style.top = '';
+        document.body.style.width = '';
+        document.body.style.overflow = '';
+        window.scrollTo(0, scrollY);
+      };
+    }
+  }, [isExpanded, isOpen]);
 
   const handleToggle = () => {
     if (externalIsOpen !== undefined) {
@@ -119,7 +138,7 @@ const CareerBot: React.FC<CareerBotProps> = ({ className = '', isOpen: externalI
     setMessages([
       {
         role: 'assistant',
-        content: "Hi there! 👋 This is Saurabh's AI assistant. You can ask about Saurabh's experience, projects, technical skills, and background. Feel free to ask about:\n\n• Saurabh's professional experience and current role at Salesforce\n• His projects (YAML Visualizer, MERN Chat, ML-based Ecommerce Search, etc.)\n• His technical skills and expertise\n• How to reach him or collaborate\n• Anything else about his background and journey!\n\nWhat would you like to know?"
+        content: "Hi there! 👋 This is Saurabh's AI assistant.\n\nYou can ask me about his experience, projects, technical skills, and background.\n\nFeel free to explore topics like:\n\n• His professional experience and current role at Salesforce\n\n• Projects he has built, including YAML Visualizer, MERN Chat, and ML-based Ecommerce Search\n\n• His technical skills and areas of expertise\n\n• How to connect or collaborate with him\n\n• His background, journey, and achievements\n\nWhat would you like to know?"
       }
     ]);
   };
@@ -141,7 +160,11 @@ const CareerBot: React.FC<CareerBotProps> = ({ className = '', isOpen: externalI
       {/* Chat Window */}
       {isOpen && !isProjectModalOpen && (
         <div
-          className="fixed bottom-20 left-0 right-0 mx-auto z-40 w-[calc(100vw-1rem)] max-w-[100vw] mx-2 h-[70vh] sm:bottom-24 sm:right-6 sm:left-auto sm:w-96 sm:max-w-[420px] sm:mx-0 sm:h-[500px] rounded-lg sm:rounded-lg shadow-2xl border flex flex-col"
+          className={`fixed z-50 shadow-2xl border flex flex-col transition-all duration-300 ${
+            isExpanded
+              ? 'inset-0 rounded-none'
+              : 'bottom-20 left-0 right-0 mx-auto w-[calc(100vw-1rem)] max-w-[100vw] mx-2 h-[70vh] sm:bottom-24 sm:right-6 sm:left-auto sm:w-96 sm:max-w-[420px] sm:mx-0 sm:h-[500px] rounded-lg'
+          }`}
           style={{
             backgroundColor: 'var(--card-bg)',
             borderColor: 'var(--border-color)'
@@ -151,20 +174,30 @@ const CareerBot: React.FC<CareerBotProps> = ({ className = '', isOpen: externalI
           aria-label="Career chat window"
         >
           {/* Header */}
-          <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white p-4 rounded-t-lg" role="banner">
+          <div className={`bg-gradient-to-r from-blue-600 to-purple-600 text-white p-4 ${isExpanded ? '' : 'rounded-t-lg'}`} role="banner">
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-2">
                 <Bot size={20} />
                 <h3 className="font-semibold">Ask About Saurabh</h3>
               </div>
-              <button
-                onClick={clearChat}
-                className="text-white/80 hover:text-white transition-colors"
-                title="Clear chat"
-                aria-label="Clear chat messages"
-              >
-                <Trash2 size={16} />
-              </button>
+              <div className="flex items-center space-x-2">
+                <button
+                  onClick={() => setIsExpanded(!isExpanded)}
+                  className="hidden sm:block text-white/80 hover:text-white transition-colors"
+                  title={isExpanded ? "Minimize" : "Expand"}
+                  aria-label={isExpanded ? "Minimize chat" : "Expand chat"}
+                >
+                  {isExpanded ? <Minimize2 size={16} /> : <Maximize2 size={16} />}
+                </button>
+                <button
+                  onClick={clearChat}
+                  className="text-white/80 hover:text-white transition-colors"
+                  title="Clear chat"
+                  aria-label="Clear chat messages"
+                >
+                  <Trash2 size={16} />
+                </button>
+              </div>
             </div>
             <p className="text-sm text-white/90 mt-1">
               Questions about experience, projects & skills
@@ -217,33 +250,34 @@ const CareerBot: React.FC<CareerBotProps> = ({ className = '', isOpen: externalI
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="text-blue-600 underline hover:text-blue-800 transition-colors"
+                                style={{ userSelect: 'text' }}
                               />
                             ),
                             // Custom heading styling
-                            h1: ({ ...props }) => <h1 {...props} className="text-lg font-bold mt-2 mb-1" />,
-                            h2: ({ ...props }) => <h2 {...props} className="text-base font-bold mt-2 mb-1" />,
-                            h3: ({ ...props }) => <h3 {...props} className="text-sm font-bold mt-1 mb-1" />,
+                            h1: ({ ...props }) => <h1 {...props} className="text-lg font-bold mt-2 mb-1" style={{ userSelect: 'text' }} />,
+                            h2: ({ ...props }) => <h2 {...props} className="text-base font-bold mt-2 mb-1" style={{ userSelect: 'text' }} />,
+                            h3: ({ ...props }) => <h3 {...props} className="text-sm font-bold mt-1 mb-1" style={{ userSelect: 'text' }} />,
                             // Custom list styling
-                            ul: ({ ...props }) => <ul {...props} className="list-disc pl-4 my-2 space-y-1" />,
-                            ol: ({ ...props }) => <ol {...props} className="list-decimal pl-4 my-2 space-y-1" />,
-                            li: ({ ...props }) => <li {...props} className="ml-0" />,
+                            ul: ({ ...props }) => <ul {...props} className="list-disc pl-5 my-2 space-y-1" style={{ userSelect: 'text' }} />,
+                            ol: ({ ...props }) => <ol {...props} className="list-decimal pl-5 my-2 space-y-1" style={{ userSelect: 'text' }} />,
+                            li: ({ ...props }) => <li {...props} className="ml-0 pl-2" style={{ userSelect: 'text' }} />,
                             // Custom paragraph styling
-                            p: ({ ...props }) => <p {...props} className="my-1" />,
+                            p: ({ ...props }) => <p {...props} className="my-1" style={{ userSelect: 'text' }} />,
                             // Custom code styling
                             code: ({ className, children, ...props }) => {
                               const isInline = !className?.includes('language-');
                               return isInline ? (
-                                <code {...props} className="bg-gray-200 dark:bg-gray-700 px-1 py-0.5 rounded text-xs">
+                                <code {...props} className="bg-gray-200 dark:bg-gray-700 px-1 py-0.5 rounded text-xs" style={{ userSelect: 'text' }}>
                                   {children}
                                 </code>
                               ) : (
-                                <code {...props} className={`block bg-gray-200 dark:bg-gray-700 p-2 rounded my-2 text-xs overflow-x-auto ${className || ''}`}>
+                                <code {...props} className={`block bg-gray-200 dark:bg-gray-700 p-2 rounded my-2 text-xs overflow-x-auto ${className || ''}`} style={{ userSelect: 'text' }}>
                                   {children}
                                 </code>
                               );
                             },
                             // Custom strong/bold styling
-                            strong: ({ ...props }) => <strong {...props} className="font-bold" />,
+                            strong: ({ ...props }) => <strong {...props} className="font-bold" style={{ userSelect: 'text' }} />,
                           }}
                         >
                           {message.content}
