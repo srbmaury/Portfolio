@@ -21,13 +21,24 @@ interface CareerBotProps {
   onOpen?: () => void;
 }
 
+const INITIAL_MESSAGE =
+  "Hi there! This is Saurabh's AI assistant.\n\n" +
+  "You can ask me about his experience, projects, technical skills, and background.\n\n" +
+  "Useful topics to explore:\n\n" +
+  "- His professional experience and current role at Salesforce\n\n" +
+  "- Projects he has built, including YAML Visualizer, MERN Chat, and ML-based Ecommerce Search\n\n" +
+  "- His technical skills and areas of expertise\n\n" +
+  "- How to connect or collaborate with him\n\n" +
+  "- His background, journey, and achievements\n\n" +
+  "What would you like to know?";
+
 const CareerBot: React.FC<CareerBotProps> = ({ className = '', isOpen: externalIsOpen, onClose: externalOnClose, onOpen: externalOnOpen }) => {
   const [internalIsOpen, setInternalIsOpen] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
     {
       role: 'assistant',
-      content: "Hi there! 👋 This is Saurabh's AI assistant.\n\nYou can ask me about his experience, projects, technical skills, and background.\n\nFeel free to explore topics like:\n\n• His professional experience and current role at Salesforce\n\n• Projects he has built, including YAML Visualizer, MERN Chat, and ML-based Ecommerce Search\n\n• His technical skills and areas of expertise\n\n• How to connect or collaborate with him\n\n• His background, journey, and achievements\n\nWhat would you like to know?"
+      content: INITIAL_MESSAGE
     }
   ]);
   const [input, setInput] = useState('');
@@ -101,8 +112,6 @@ const CareerBot: React.FC<CareerBotProps> = ({ className = '', isOpen: externalI
         body: JSON.stringify({
           question: userMessage,
           conversationContext: conversationContext,
-          // Still support job descriptions for backward compatibility
-          jobDescription: userMessage.toLowerCase().includes('job') || userMessage.toLowerCase().includes('role') || userMessage.toLowerCase().includes('position') ? userMessage : null,
           resume: {
             name: knowledgeBase.personalInfo.name,
             title: knowledgeBase.personalInfo.title,
@@ -132,13 +141,14 @@ const CareerBot: React.FC<CareerBotProps> = ({ className = '', isOpen: externalI
           const data = await response.json();
           throw new Error(`RATE_LIMIT:${data.retryAfter || 60}`);
         }
-        throw new Error('Failed to get response');
+        const data = await response.json().catch(() => null);
+        throw new Error(data?.details || data?.error || 'Failed to get response');
       }
 
       const data = await response.json();
       setMessages(prev => [...prev, { role: 'assistant', content: data.analysis }]);
     } catch (error) {
-      console.error('Error:', error);
+
       let errorMessage = "Sorry, Saurabh's assistant encountered an error processing your request. Please try again or check your internet connection.";
 
       if (error instanceof Error && error.message.startsWith('RATE_LIMIT:')) {
@@ -163,7 +173,7 @@ const CareerBot: React.FC<CareerBotProps> = ({ className = '', isOpen: externalI
     setMessages([
       {
         role: 'assistant',
-        content: "Hi there! 👋 This is Saurabh's AI assistant.\n\nYou can ask me about his experience, projects, technical skills, and background.\n\nFeel free to explore topics like:\n\n• His professional experience and current role at Salesforce\n\n• Projects he has built, including YAML Visualizer, MERN Chat, and ML-based Ecommerce Search\n\n• His technical skills and areas of expertise\n\n• How to connect or collaborate with him\n\n• His background, journey, and achievements\n\nWhat would you like to know?"
+      content: INITIAL_MESSAGE
       }
     ]);
   };
@@ -205,7 +215,6 @@ const CareerBot: React.FC<CareerBotProps> = ({ className = '', isOpen: externalI
           question: userMessage,
           conversationContext: conversationContext,
           regenerate: true, // Flag to indicate regeneration
-          jobDescription: userMessage.toLowerCase().includes('job') || userMessage.toLowerCase().includes('role') || userMessage.toLowerCase().includes('position') ? userMessage : null,
           resume: {
             name: knowledgeBase.personalInfo.name,
             title: knowledgeBase.personalInfo.title,
@@ -235,7 +244,8 @@ const CareerBot: React.FC<CareerBotProps> = ({ className = '', isOpen: externalI
           const data = await response.json();
           throw new Error(`RATE_LIMIT:${data.retryAfter || 60}`);
         }
-        throw new Error('Failed to regenerate response');
+        const data = await response.json().catch(() => null);
+        throw new Error(data?.details || data?.error || 'Failed to regenerate response');
       }
 
       const data = await response.json();
@@ -247,7 +257,7 @@ const CareerBot: React.FC<CareerBotProps> = ({ className = '', isOpen: externalI
           : msg
       ));
     } catch (error) {
-      console.error('Error:', error);
+
       let errorMessage = "Sorry, failed to regenerate response. Please try again.";
 
       if (error instanceof Error && error.message.startsWith('RATE_LIMIT:')) {

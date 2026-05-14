@@ -6,7 +6,6 @@ export function safeEval(expr: string): number | string {
         const sanitized = expr.replace(/[^0-9+\-*/().\s]/g, '');
         // Basic check for invalid patterns
         if (/[^0-9)\s]$/.test(sanitized)) return 'Invalid expression';
-        // eslint-disable-next-line no-new-func
         // Use Function constructor for arithmetic only
         // (no variable access, no eval)
         // This is still not for untrusted remote input, but safe for local UI
@@ -15,7 +14,6 @@ export function safeEval(expr: string): number | string {
         // For more security, use a library like "expr-eval" or "mathjs"
         // Here, we use Function for simplicity
         // Only allow arithmetic
-        // eslint-disable-next-line no-new-func
         const fn = new Function(`return (${sanitized})`);
         const result = fn();
         if (typeof result === 'number' && isFinite(result)) {

@@ -146,6 +146,7 @@
     {
       "title": "Codeforces Filter",
       "description": "A chrome extension to filter and display blog entries from Codeforces users with specified minimum ratings and blog quality filters.",
+      "image": "/images/CodeforcesFilter.png",
       "fallbackIcon": "🔍",
       "fallbackGradient": "from-gray-400 to-blue-500",
       "technologies": ["JavaScript", "HTML", "CSS", "API Integration", "Data Filtering"],

@@ -69,9 +69,8 @@ const Hero = () => {
             className="text-lg max-w-2xl mx-auto mb-12 leading-relaxed"
             style={{ color: 'var(--text-secondary)' }}
           >
-            I build robust, scalable web applications from concept to deployment.
-            Passionate about clean code, efficient architecture, and creating seamless user experiences
-            that solve real-world problems.
+            I build robust full-stack applications and distributed systems—from concept to deployment.
+            Passionate about clean architecture, performance, and shipping software that holds up in production.
           </motion.p>
 
           {/* CTA Buttons */}

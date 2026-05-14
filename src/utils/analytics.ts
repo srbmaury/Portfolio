@@ -11,7 +11,7 @@ declare global {
     gtag?: (
       command: string,
       targetId: string,
-      config?: Record<string, any>
+      config?: Record<string, unknown>
     ) => void;
   }
 }
@@ -35,7 +35,6 @@ export const trackEvent = (
       event_label: label,
       value: value,
     });
-    console.log('[Analytics] Event tracked:', { category, action, label, value });
   }
 };
 
@@ -50,7 +49,6 @@ export const trackPageView = (path: string, title?: string): void => {
       page_path: path,
       page_title: title || document.title,
     });
-    console.log('[Analytics] Page view tracked:', path);
   }
 };
 

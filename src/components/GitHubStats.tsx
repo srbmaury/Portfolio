@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Github, Star, GitFork, Calendar, MapPin, Building } from 'lucide-react';
+import { API_ENDPOINTS } from '../config/api';
 
 interface GitHubUser {
   login: string;
@@ -20,6 +21,7 @@ interface GitHubUser {
 
 interface GitHubStats {
   totalStars: number;
+  totalRepos: number;
 }
 
 interface Repository {
@@ -34,6 +36,14 @@ interface Repository {
   topics: string[];
 }
 
+interface GitHubStatsResponse {
+  user: GitHubUser;
+  repos: Repository[];
+  stats: GitHubStats;
+  details?: string;
+  error?: string;
+}
+
 interface GitHubStatsProps {
   username: string;
   className?: string;
@@ -42,7 +52,7 @@ interface GitHubStatsProps {
 const GitHubStats: React.FC<GitHubStatsProps> = ({ username, className = '' }) => {
   const [user, setUser] = useState<GitHubUser | null>(null);
   const [repos, setRepos] = useState<Repository[]>([]);
-  const [stats, setStats] = useState<GitHubStats>({ totalStars: 0 });
+  const [stats, setStats] = useState<GitHubStats>({ totalStars: 0, totalRepos: 0 });
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -52,33 +62,16 @@ const GitHubStats: React.FC<GitHubStatsProps> = ({ username, className = '' }) =
         setLoading(true);
         setError(null);
 
-        // Fetch user data
-        const userResponse = await fetch(`https://api.github.com/users/${username}`);
-        if (!userResponse.ok) {
-          throw new Error('Failed to fetch user data');
+        const res = await fetch(API_ENDPOINTS.githubStats(username));
+        const body = (await res.json().catch(() => ({}))) as GitHubStatsResponse;
+
+        if (!res.ok) {
+          throw new Error(body.details || body.error || `Request failed (${res.status})`);
         }
-        const userData: GitHubUser = await userResponse.json();
 
-        // Fetch all repositories to calculate total stars
-        const allReposResponse = await fetch(
-          `https://api.github.com/users/${username}/repos?per_page=100&type=owner`
-        );
-        if (!allReposResponse.ok) {
-          throw new Error('Failed to fetch repositories');
-        }
-        const allReposData: Repository[] = await allReposResponse.json();
-
-        // Calculate total stars
-        const totalStars = allReposData.reduce((sum, repo) => sum + repo.stargazers_count, 0);
-
-        // Get top 6 repositories for display
-        const topRepos = allReposData
-          .sort((a, b) => b.stargazers_count - a.stargazers_count)
-          .slice(0, 6);
-
-        setUser(userData);
-        setRepos(topRepos);
-        setStats({ totalStars });
+        setUser(body.user);
+        setRepos(body.repos);
+        setStats(body.stats);
       } catch (err) {
         setError(err instanceof Error ? err.message : 'An error occurred');
       } finally {
@@ -90,16 +83,23 @@ const GitHubStats: React.FC<GitHubStatsProps> = ({ username, className = '' }) =
   }, [username]);
 
   const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString('en-US', {
+    if (!dateString) return 'Unknown';
+
+    const date = new Date(dateString);
+    if (Number.isNaN(date.getTime())) return 'Unknown';
+
+    return date.toLocaleDateString('en-US', {
       year: 'numeric',
       month: 'short',
       day: 'numeric'
     });
   };
 
-  const getTimeAgo = (dateString: string) => {
+  const getRelativeTime = (dateString: string) => {
     const now = new Date();
     const date = new Date(dateString);
+    if (Number.isNaN(date.getTime())) return null;
+
     const diffInDays = Math.floor((now.getTime() - date.getTime()) / (1000 * 60 * 60 * 24));
     
     if (diffInDays === 0) return 'Today';
@@ -108,6 +108,14 @@ const GitHubStats: React.FC<GitHubStatsProps> = ({ username, className = '' }) =
     if (diffInDays < 30) return `${Math.floor(diffInDays / 7)} weeks ago`;
     if (diffInDays < 365) return `${Math.floor(diffInDays / 30)} months ago`;
     return `${Math.floor(diffInDays / 365)} years ago`;
+  };
+
+  const formatRepoUpdatedAt = (dateString: string) => {
+    const formattedDate = formatDate(dateString);
+    const relativeTime = getRelativeTime(dateString);
+
+    if (formattedDate === 'Unknown') return 'Updated date unavailable';
+    return relativeTime ? `Updated ${formattedDate} (${relativeTime})` : `Updated ${formattedDate}`;
   };
 
   if (loading) {
@@ -192,7 +200,9 @@ const GitHubStats: React.FC<GitHubStatsProps> = ({ username, className = '' }) =
               {/* User Details */}
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
                 <div className="text-center">
-                  <div className="text-2xl font-bold" style={{ color: 'var(--primary-color)' }}>{user.public_repos}</div>
+                  <div className="text-2xl font-bold" style={{ color: 'var(--primary-color)' }}>
+                    {stats.totalRepos}
+                  </div>
                   <div className="text-sm" style={{ color: 'var(--text-secondary)' }}>Repositories</div>
                 </div>
                 <div className="text-center">
@@ -282,13 +292,15 @@ const GitHubStats: React.FC<GitHubStatsProps> = ({ username, className = '' }) =
                       <span style={{ color: 'var(--text-secondary)' }}>{repo.forks_count}</span>
                     </div>
                   </div>
-                  <span className="text-xs" style={{ color: 'var(--text-secondary)' }}>
-                    {getTimeAgo(repo.updated_at)}
-                  </span>
                 </div>
 
                 {/* Language and Topics */}
                 <div className="space-y-2">
+                  <div className="flex items-center gap-1 text-xs" style={{ color: 'var(--text-secondary)' }}>
+                    <Calendar size={13} />
+                    <span>{formatRepoUpdatedAt(repo.updated_at)}</span>
+                  </div>
+
                   {repo.language && (
                     <div className="flex items-center gap-2">
                       <div className="w-3 h-3 rounded-full" style={{ backgroundColor: 'var(--primary-color)' }}></div>

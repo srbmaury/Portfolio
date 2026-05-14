@@ -4,7 +4,7 @@ const CustomCursor: React.FC = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isHovering, setIsHovering] = useState(false);
   const [hoverType, setHoverType] = useState<string>('');
-  const [trails, setTrails] = useState<Array<{ x: number; y: number; id: number }>>([]);
+  const [trails, setTrails] = useState<Array<{ x: number; y: number; id: number; createdAt: number }>>([]);
 
   useEffect(() => {
     let trailId = 0;
@@ -13,20 +13,38 @@ const CustomCursor: React.FC = () => {
       setMousePosition({ x: e.clientX, y: e.clientY });
       
       // Add trail effect
-      const newTrail = { x: e.clientX, y: e.clientY, id: trailId++ };
+      const newTrail = {
+        x: e.clientX,
+        y: e.clientY,
+        id: trailId++,
+        createdAt: Date.now(),
+      };
       setTrails(prev => [...prev.slice(-5), newTrail]); // Keep last 5 trails
     };
 
     const handleMouseEnter = (e: Event) => {
-      const target = e.target as HTMLElement;
       setIsHovering(true);
-      
+
+      const el =
+        e.currentTarget instanceof Element
+          ? e.currentTarget
+          : e.target instanceof Element
+            ? e.target
+            : e.target instanceof Node
+              ? e.target.parentElement
+              : null;
+
+      if (!el) {
+        setHoverType('hover');
+        return;
+      }
+
       // Determine hover type based on element
-      if (target.tagName === 'BUTTON' || target.closest('button')) {
+      if (el.tagName === 'BUTTON' || el.closest('button')) {
         setHoverType('button-hover');
-      } else if (target.tagName === 'A' || target.closest('a')) {
+      } else if (el.tagName === 'A' || el.closest('a')) {
         setHoverType('link-hover');
-      } else if (target.closest('.terminal')) {
+      } else if (el.closest('.terminal')) {
         setHoverType('terminal-hover');
       } else {
         setHoverType('hover');
@@ -40,7 +58,6 @@ const CustomCursor: React.FC = () => {
 
     // Add event listeners
     document.addEventListener('mousemove', updateMousePosition);
-    document.addEventListener('mouseenter', handleMouseEnter);
     document.addEventListener('mouseleave', handleMouseLeave);
 
     // Add hover listeners to interactive elements
@@ -52,7 +69,6 @@ const CustomCursor: React.FC = () => {
 
     return () => {
       document.removeEventListener('mousemove', updateMousePosition);
-      document.removeEventListener('mouseenter', handleMouseEnter);
       document.removeEventListener('mouseleave', handleMouseLeave);
       
       interactiveElements.forEach(el => {
@@ -65,7 +81,7 @@ const CustomCursor: React.FC = () => {
   // Clean up old trails
   useEffect(() => {
     const interval = setInterval(() => {
-      setTrails(prev => prev.filter(trail => Date.now() - trail.id < 1000));
+      setTrails(prev => prev.filter(trail => Date.now() - trail.createdAt < 1000));
     }, 100);
 
     return () => clearInterval(interval);

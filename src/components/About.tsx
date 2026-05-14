@@ -12,14 +12,14 @@ const About = () => {
       title: 'Associate Member of Technical Staff',
       company: 'Salesforce',
       location: 'Hyderabad',
-      description: 'Engineered a dependency extraction system for OmniStudio metadata, reducing deployment time by 90%. Implemented lean Vega Cache architecture, reducing cache size by 50–70%. Improved accessibility of OmniStudio components to meet compliance standards. Technologies: Java, JavaScript, Apex, GraphQL, LWC, UTAM, Git.'
+      description: 'Designed and built a metadata dependency resolution system for OmniStudio (complex inter-component graphs), cutting deployment time by ~90%. Migrated caching to Setup Entity–based Vega cache for 50–70% lower memory while meeting latency SLAs. Owned scalable UI and backend integration for live card systems. Technologies: Java, Apex, GraphQL, LWC, distributed metadata, caching.'
     },
     {
       year: 'May 2023 - July 2023',
       title: 'Software Development Intern',
       company: 'Razorpay Software Pvt. Ltd.',
       location: 'Bengaluru',
-      description: 'Designed 20+ Grafana dashboards for monitoring high-volume payment systems. Implemented Alertmanager pipelines with Slack integration reducing detection time to under 10 minutes. Integrated 6+ custom Prometheus metrics improving observability and enhanced real-time system reliability.'
+      description: 'Observability for high-volume payments: 20+ Grafana dashboards across flows; Prometheus + Alertmanager alerting with Slack for sub–10 minute detection on critical failures; custom metrics via API middleware. Technologies: Prometheus, Grafana, Alertmanager, distributed monitoring.'
     }
   ];
 

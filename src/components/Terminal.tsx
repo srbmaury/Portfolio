@@ -657,7 +657,8 @@ Full Stack Engineer
 Location: Hyderabad, India
 Experience: 2+ years
 Current: Associate Member of Technical Staff @ Salesforce
-Skills: React, Node.js, TypeScript, Python, Java, Salesforce`;
+Focus: OmniStudio metadata, dependency graphs, Vega cache, GraphQL, LWC
+Skills: Java, JavaScript, Python, C++, React, Node.js, PostgreSQL, Redis, Docker, Prometheus, Grafana`;
       }
     },
     date: {

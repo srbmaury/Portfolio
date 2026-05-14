@@ -14,7 +14,6 @@ import { wakeUpBackend } from './utils/backendWakeup';
 
 const CareerBot = lazy(() => import('./components/CareerBot'));
 const Terminal = lazy(() => import('./components/Terminal'));
-const MatrixRain = lazy(() => import('./components/MatrixRain'));
 import CustomCursor from './components/CustomCursor';
 import LoadingScreen from './components/LoadingScreen';
 import ScrollProgress from './components/ScrollProgress';
@@ -65,10 +64,6 @@ function App() {
             <CustomCursor />
             <ScrollProgress />
             <Navbar onOpenTerminal={handleOpenTerminal} />
-            {/* MatrixRain effect, code-split */}
-            <Suspense fallback={null}>
-              <MatrixRain isActive={false} onClose={() => { }} />
-            </Suspense>
             <main>
               <Routes>
                 <Route path="/" element={

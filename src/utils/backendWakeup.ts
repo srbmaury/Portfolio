@@ -8,11 +8,8 @@ export const wakeUpBackend = async (): Promise<void> => {
   try {
     // Don't ping localhost
     if (API_BASE_URL.includes('localhost')) {
-      console.log('[Backend Wakeup] Skipping wakeup for localhost');
       return;
     }
-
-    console.log('[Backend Wakeup] Pinging backend to wake it up...');
 
     // Send a lightweight GET request with a short timeout
     const controller = new AbortController();
@@ -27,9 +24,7 @@ export const wakeUpBackend = async (): Promise<void> => {
     });
 
     clearTimeout(timeoutId);
-    console.log('[Backend Wakeup] Backend ping sent successfully');
-  } catch (error) {
+  } catch {
     // Silently catch errors - we don't want to disrupt the user experience
-    console.log('[Backend Wakeup] Wake-up request completed');
   }
 };

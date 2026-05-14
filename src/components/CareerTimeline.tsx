@@ -160,12 +160,11 @@ const CareerTimeline: React.FC<CareerTimelineProps> = ({ isOpen, onClose }) => {
       color: 'bg-orange-500',
       gradient: 'from-orange-500 to-red-500',
       achievements: [
-        'Crafted 20+ Interactive Grafana Dashboards',
-        'Configured dynamic alert rules',
-        'Implemented metrics integration into Prometheus',
-        'Learned payment processing systems'
+        '20+ Grafana dashboards for high-volume payment flows',
+        'Prometheus + Alertmanager with Slack; critical failures detected in under 10 minutes',
+        'Custom metrics pipelines via API middleware for stronger production visibility'
       ],
-      skills: ['Grafana', 'PromQL', 'Prometheus', 'AlertManager', 'PHP'],
+      skills: ['Prometheus', 'Grafana', 'Alertmanager', 'Observability', 'Distributed systems'],
       choices: [
         {
           label: 'Focus on Full-Stack',
@@ -216,19 +215,18 @@ const CareerTimeline: React.FC<CareerTimelineProps> = ({ isOpen, onClose }) => {
       year: '2024',
       title: 'Salesforce - Associate Member of Technical Staff',
       subtitle: 'Full-Stack Engineer',
-      description: 'Joined Salesforce as a full-time engineer, working on interactive dependency graphs, AI-driven tools, and automated testing.',
+      description: 'Full-time on OmniStudio: metadata dependency resolution across complex graphs, Vega cache on Setup Entities, and end-to-end UI plus backend work for live card systems.',
       location: 'Hyderabad, India',
       type: 'work',
       icon: <Briefcase size={24} />,
       color: 'bg-blue-600',
       gradient: 'from-blue-600 to-cyan-600',
       achievements: [
-        'Engineered interactive dependency graphs using D3.js',
-        'Developed AI-driven test data generators',
-        'Automated frontend testing achieving 90% test coverage',
-        'Working with enterprise-scale applications'
+        'Metadata dependency resolution system; ~90% faster deployments and fewer manual failures',
+        'Setup Entity–based Vega cache; 50–70% memory reduction with SLAs intact',
+        'Scalable UI and backend integration for live card versioning workflows'
       ],
-      skills: ['SOQL', 'Java', 'Apex', 'Git', 'UTAM', 'Selenium', 'LWC', 'Salesforce DB'],
+      skills: ['Java', 'Apex', 'GraphQL', 'LWC', 'Caching', 'Distributed metadata', 'Git'],
       choices: [
         {
           label: 'Continue Building Projects',
@@ -284,7 +282,6 @@ const CareerTimeline: React.FC<CareerTimelineProps> = ({ isOpen, onClose }) => {
       icon: <Star size={24} />,
       color: 'bg-yellow-500',
       gradient: 'from-yellow-500 to-orange-500',
-      image: '/images/future.jpg',
       achievements: [
         'Master advanced technologies',
         'Contribute to open-source projects',

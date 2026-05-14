@@ -53,8 +53,7 @@ const Contact = () => {
         setSubmitStatus('error');
         trackContactFormSubmit(false);
       }
-    } catch (error) {
-      console.error('Email sending failed:', error);
+    } catch {
       setSubmitStatus('error');
       trackContactFormSubmit(false);
     } finally {

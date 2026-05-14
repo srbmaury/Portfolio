@@ -9,6 +9,8 @@ const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || (
 
 export const API_ENDPOINTS = {
   ANALYZE_CAREER: `${API_BASE_URL}/api/analyze-career`,
+  githubStats: (username: string) =>
+    `${API_BASE_URL}/api/github-stats/${encodeURIComponent(username)}`,
 };
 
 export default API_BASE_URL; 

@@ -13,9 +13,6 @@ const updateSW = registerSW({
     // For now, auto-update
     updateSW(true);
   },
-  onOfflineReady() {
-    console.log('App is ready for offline use');
-  },
 });
 
 createRoot(document.getElementById('root')!).render(

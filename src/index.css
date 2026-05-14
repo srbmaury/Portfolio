@@ -100,20 +100,6 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-}
-
-/* Allow text selection in terminal only */
-.terminal [class],
-.terminal,
-.terminal * {
-  -webkit-user-select: text !important;
-  -moz-user-select: text !important;
-  -ms-user-select: text !important;
-  user-select: text !important;
 }
 
 /* Prevent horizontal scroll on mobile */
@@ -137,6 +123,11 @@ body {
   background-color: var(--bg-primary);
   line-height: 1.6;
   transition: background-color 0.3s ease, color 0.3s ease;
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
+  user-select: text;
+  cursor: none;
 }
 
 .container {
@@ -324,11 +315,7 @@ select:focus:not(:focus-visible) {
   cursor: text !important;
 }
 
-/* Custom Cursor Styles */
-body {
-  cursor: none;
-  /* Hide default cursor */
-}
+/* Custom Cursor Styles — hide default cursor on desktop (see mobile override below) */
 
 /* Main cursor dot */
 .cursor-dot {
@@ -340,6 +327,8 @@ body {
   pointer-events: none;
   z-index: 9999;
   transition: transform 0.1s ease;
+  -webkit-user-select: none;
+  user-select: none;
 }
 
 /* Cursor ring */
@@ -353,6 +342,8 @@ body {
   z-index: 9998;
   transition: all 0.15s ease;
   opacity: 0.5;
+  -webkit-user-select: none;
+  user-select: none;
 }
 
 /* Cursor effects for different elements */
@@ -398,18 +389,8 @@ body {
   z-index: 9997;
   opacity: 0.6;
   transition: opacity 0.3s ease;
-}
-
-/* Allow text selection in terminal for copying commands */
-.terminal-content,
-.terminal-input,
-.terminal-output {
-  -webkit-user-select: text;
-  -moz-user-select: text;
-  -ms-user-select: text;
-  user-select: text;
-  cursor: text;
-  /* Show text cursor in terminal */
+  -webkit-user-select: none;
+  user-select: none;
 }
 
 @media (max-width: 768px) {

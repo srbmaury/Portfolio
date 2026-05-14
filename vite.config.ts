@@ -8,7 +8,7 @@ export default defineConfig({
     react(),
     VitePWA({
       registerType: 'autoUpdate',
-      includeAssets: ['favicon.svg', 'favicon.ico', 'robots.txt'],
+      includeAssets: ['favicon.svg', 'robots.txt'],
       workbox: {
         // Exclude resume.pdf from being cached by the service worker
         navigateFallbackDenylist: [/^\/resume\.pdf/],
@@ -81,8 +81,9 @@ export default defineConfig({
         ]
       },
       devOptions: {
-        enabled: true // Enable PWA in development (may cause caching issues)
-      }
+        enabled: true,
+        suppressWarnings: true,
+      },
     })
   ],
   build: {

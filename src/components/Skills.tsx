@@ -23,7 +23,8 @@ const Skills = () => {
         'Python',
         'Java',
         'C++',
-        'React.js',
+        'React',
+        'LWC',
         'Node.js'
       ]
     },
@@ -31,24 +32,26 @@ const Skills = () => {
       title: 'Backend & Cloud',
       icon: <Cloud size={24} />,
       skills: [
-        'RESTful APIs',
+        'REST APIs',
         'GraphQL',
-        'Microservices',
-        'AWS (EC2, Lambda)',
+        'Distributed systems',
+        'Docker',
         'Redis',
-        'API Design'
+        'Caching & scalability'
       ]
     },
     {
-      title: 'Databases & Testing',
+      title: 'Databases & observability',
       icon: <Database size={24} />,
       skills: [
         'MongoDB',
         'PostgreSQL',
+        'Prometheus',
+        'Grafana',
+        'Alertmanager',
         'Jest',
         'Selenium',
-        'Integration Testing',
-        'Test Automation',
+        'Test automation'
       ]
     }
   ];

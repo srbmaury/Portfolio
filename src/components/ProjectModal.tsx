@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, ExternalLink, Github, Play, ZoomIn, ZoomOut, RotateCcw } from 'lucide-react';
 import type { ProjectModalProps } from '../types/project';
@@ -15,20 +15,20 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, project })
     }
   };
 
-  const handleZoomIn = () => {
+  const handleZoomIn = useCallback(() => {
     setZoom(prev => Math.min(prev + 0.25, 3));
-  };
+  }, []);
 
-  const handleZoomOut = () => {
+  const handleZoomOut = useCallback(() => {
     setZoom(prev => Math.max(prev - 0.25, 0.5));
-  };
+  }, []);
 
-  const handleReset = () => {
+  const handleReset = useCallback(() => {
     setZoom(1);
     setRotation(0);
-  };
+  }, []);
 
-  const handleKeyDown = (e: KeyboardEvent) => {
+  const handleKeyDown = useCallback((e: KeyboardEvent) => {
     if (!isOpen) return;
 
     switch (e.key) {
@@ -49,7 +49,7 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, project })
         onClose();
         break;
     }
-  };
+  }, [handleReset, handleZoomIn, handleZoomOut, isOpen, onClose]);
 
   // Add keyboard event listeners and focus trap
   useEffect(() => {
@@ -84,7 +84,7 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, project })
       document.removeEventListener('keydown', handleKeyDown);
       document.removeEventListener('keydown', handleTrap);
     };
-  }, [isOpen]);
+  }, [handleKeyDown, isOpen, onClose]);
 
   if (!project) return null;
 
