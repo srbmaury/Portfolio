@@ -87,7 +87,7 @@ Interactive chatbot trained on my experience and projects:
 
 ## 📬 Get In Touch
 
-- **Email:** [srbmaury@gmail.com](mailto:srbmaury@gmail.com)  
+- **Email:** [saurabh.maurya.dev@gmail.com](mailto:saurabh.maurya.dev@gmail.com)  
 - **GitHub:** [@srbmaury](https://github.com/srbmaury)  
 - **Location:** India  
 
