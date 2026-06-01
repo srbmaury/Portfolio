@@ -40,6 +40,19 @@
       "demoUrl": "https://yaml-visualizer.netlify.app/"
     },
     {
+      "title": "Developer Knowledge Base",
+      "description": "A modern full-stack developer knowledge management platform, built for organizing coding notes, interview questions, and technical solutions. Features nested workspaces, markdown editing with live preview, AI-powered answer generation and much more.",
+      "image": "/images/DeveloperKnowledgeBase.png",
+      "fallbackIcon": "📚",
+      "fallbackGradient": "from-violet-500 to-indigo-600",
+      "technologies": ["Next.js 15", "TypeScript", "Tailwind CSS", "Prisma", "PostgreSQL", "Neon", "Supabase", "Zustand", "OpenAI API", "shadcn/ui"],
+      "liveUrl": "https://developer-knowledge-base.onrender.com/",
+      "githubUrl": "https://github.com/srbmaury/Developer-Knowledge-Base",
+      "featured": false,
+      "demoType": "iframe",
+      "demoUrl": "https://developer-knowledge-base.onrender.com/"
+    },
+    {
       "title": "Hackathon Portal",
       "description": "A comprehensive platform for managing hackathons, teams, ideas, and participants. Built with the MERN stack, it enables seamless collaboration, team formation, idea submission, and event management in a structured and user-friendly interface.",
       "image": "/images/HackathonPortal.png",

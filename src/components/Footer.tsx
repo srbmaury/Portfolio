@@ -60,7 +60,7 @@ const Footer = () => {
           >
             <h4 className="text-lg font-semibold mb-4" style={{ color: 'var(--footer-text-primary)' }}>Contact</h4>
             <div className="space-y-2" style={{ color: 'var(--footer-text-secondary)' }}>
-              <p>srbmaury@gmail.com</p>
+              <p>saurabh.maurya.dev@gmail.com</p>
               <p>+91 7355069174</p>
               <p>Chandauli, UP</p>
             </div>
