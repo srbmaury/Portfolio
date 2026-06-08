@@ -1,6 +1,6 @@
 {
   "projects": [
-      {
+    {
       "title": "Ecommerce Search Engine",
       "description": "A production-ready, ML-powered ecommerce search engine that simulates real-world search, personalization, and ranking systems used in modern ecommerce platforms. Designed to deliver relevant results with intelligent ranking and user-centric recommendations.",
       "image": "/images/EcommerceSearch.png",
@@ -12,6 +12,43 @@
       "featured": true,
       "demoType": "iframe",
       "demoUrl": "https://ecommerce-search.onrender.com/"
+    },
+    {
+      "title": "Companion AI",
+      "description": "AI‑assisted interview preparation: create multi‑round interviews from a job description, practice answers with voice or code editor, and get automatic feedback.",
+      "image": "/images/CompanionAI.png",
+      "fallbackIcon": "🤖",
+      "fallbackGradient": "from-cyan-400 to-blue-500",
+      "technologies": ["React", "Node.js", "Redis", "Express", "MongoDB", "OAuth"],
+      "liveUrl": "https://companionai-frontend.onrender.com/",
+      "githubUrl": "https://github.com/srbmaury/CompanionAI",
+      "featured": false,
+      "demoType": "iframe",
+      "demoUrl": "https://companionai-frontend.onrender.com/"
+    },
+    {
+      "title": "ExitSense",
+      "description": "A production-ready Android application that intelligently detects when you are leaving home and reminds you to take everything you need — without GPS or location permission.",
+      "image": "/images/ExitSense.png",
+      "fallbackIcon": "🚪",
+      "fallbackGradient": "from-amber-400 to-orange-500",
+      "technologies": ["Java", "Kotlin"],
+      "liveUrl": "https://github.com/srbmaury/ExitSense",
+      "githubUrl": "https://github.com/srbmaury/ExitSense",
+      "featured": false
+    },
+    {
+      "title": "Developer Knowledge Base",
+      "description": "A modern full-stack developer knowledge management platform, built for organizing coding notes, interview questions, and technical solutions. Features nested workspaces, markdown editing with live preview, AI-powered answer generation and much more.",
+      "image": "/images/DeveloperKnowledgeBase.png",
+      "fallbackIcon": "📚",
+      "fallbackGradient": "from-violet-500 to-indigo-600",
+      "technologies": ["Next.js 15", "TypeScript", "Tailwind CSS", "Prisma", "PostgreSQL", "Neon", "Supabase", "Zustand", "OpenAI API", "shadcn/ui"],
+      "liveUrl": "https://developer-knowledge-base.onrender.com/",
+      "githubUrl": "https://github.com/srbmaury/Developer-Knowledge-Base",
+      "featured": false,
+      "demoType": "iframe",
+      "demoUrl": "https://developer-knowledge-base.onrender.com/"
     },
     {
       "title": "MERN Chat Application",
@@ -40,19 +77,6 @@
       "demoUrl": "https://yaml-visualizer.netlify.app/"
     },
     {
-      "title": "Developer Knowledge Base",
-      "description": "A modern full-stack developer knowledge management platform, built for organizing coding notes, interview questions, and technical solutions. Features nested workspaces, markdown editing with live preview, AI-powered answer generation and much more.",
-      "image": "/images/DeveloperKnowledgeBase.png",
-      "fallbackIcon": "📚",
-      "fallbackGradient": "from-violet-500 to-indigo-600",
-      "technologies": ["Next.js 15", "TypeScript", "Tailwind CSS", "Prisma", "PostgreSQL", "Neon", "Supabase", "Zustand", "OpenAI API", "shadcn/ui"],
-      "liveUrl": "https://developer-knowledge-base.onrender.com/",
-      "githubUrl": "https://github.com/srbmaury/Developer-Knowledge-Base",
-      "featured": false,
-      "demoType": "iframe",
-      "demoUrl": "https://developer-knowledge-base.onrender.com/"
-    },
-    {
       "title": "Hackathon Portal",
       "description": "A comprehensive platform for managing hackathons, teams, ideas, and participants. Built with the MERN stack, it enables seamless collaboration, team formation, idea submission, and event management in a structured and user-friendly interface.",
       "image": "/images/HackathonPortal.png",
@@ -70,7 +94,7 @@
       "description": "A comprehensive store management application with inventory tracking, sales management, and reporting features. Built with modern JavaScript and responsive design.",
       "image": "/images/StoreManagement.png",
       "fallbackIcon": "🏪",
-      "fallbackGradient": "from-purple-400 to-pink-500",
+      "fallbackGradient": "from-teal-400 to-green-500",
       "technologies": ["JavaScript", "HTML", "CSS", "Local Storage", "Bootstrap"],
       "liveUrl": "https://store-management-frontend-x0e2.onrender.com/",
       "githubUrl": "https://github.com/srbmaury/store-management",
@@ -79,21 +103,8 @@
       "demoUrl": "https://store-management-frontend-x0e2.onrender.com/"
     },
     {
-      "title": "Kanban Board",
-      "description": "A Trello-like kanban board application for task management and project organization. Features drag-and-drop functionality and real-time updates.",
-      "image": "/images/KanbanBoard.png",
-      "fallbackIcon": "📋",
-      "fallbackGradient": "from-blue-400 to-indigo-500",
-      "technologies": ["JavaScript", "HTML", "CSS", "Drag & Drop API", "Local Storage"],
-      "liveUrl": "https://saurabh-kanban-board.netlify.app/",
-      "githubUrl": "https://github.com/srbmaury/saurabh-kanban-board",
-      "featured": false,
-      "demoType": "iframe",
-      "demoUrl": "https://saurabh-kanban-board.netlify.app/"
-    },
-    {
       "title": "Notes Application",
-      "description": "A feature-rich notes application with CRUD operations, search functionality, and markdown support. Built for Hacktoberfest contribution.",
+      "description": "A feature-rich notes application with CRUD operations, search functionality, and markdown support.",
       "image": "/images/MagicNotes.png",
       "fallbackIcon": "📝",
       "fallbackGradient": "from-yellow-400 to-orange-500",
@@ -134,7 +145,7 @@
       "title": "Dictionary Application",
       "description": "A comprehensive dictionary application with word definitions, pronunciations, and example usage. Integrates with external dictionary APIs.",
       "image": "/images/Dictionary.png",
-      "fallbackIcon": "📚",
+      "fallbackIcon": "📖",
       "fallbackGradient": "from-indigo-400 to-purple-500",
       "technologies": ["JavaScript", "HTML", "CSS", "API Integration", "Responsive Design"],
       "liveUrl": "https://srbmaury.github.io/dictionary/",

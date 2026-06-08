@@ -43,9 +43,12 @@ Interactive chatbot trained on my experience and projects:
 - Custom cursor for enhanced desktop experience  
 
 ### 📊 Project Showcase
-- **Ecommerce Search Engine** — ML-based product search with improved relevance  
-- **YAML Visualizer** — Interactive tree diagrams with D3.js  
-- **Hackathon Platform** — Full-stack event platform with automated evaluation  
+- **Ecommerce Search Engine** — ML-based product search with personalized ranking and A/B testing  
+- **Companion AI** — AI interview prep with voice input, code editor, and auto-feedback  
+- **ExitSense** — Android app that detects when you're leaving home without GPS  
+- **YAML Visualizer** — Interactive tree diagrams with D3.js, real-time collaboration, and versioning  
+- **Developer Knowledge Base** — Notion-style knowledge platform with AI-powered answer generation  
+- **Hackathon Platform** — Full-stack event platform with RBAC and AI-based evaluation  
 
 ### 📱 Progressive Web App
 - Offline access with service worker caching  

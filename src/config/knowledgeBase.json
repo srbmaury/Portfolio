@@ -96,205 +96,178 @@
   },
   "featuredProjects": [
     {
-      "featuredProjects": [
-        {
-          "title": "Ecommerce Search Engine",
-          "description": "Production-ready ML-powered ecommerce search engine with personalized ranking, intelligent recommendations, and real-world search system simulation.",
-          "technologies": [
-            "Python",
-            "JavaScript",
-            "Machine Learning",
-            "HTML",
-            "CSS"
-          ],
-          "url": "https://ecommerce-search.onrender.com/",
-          "github": "https://github.com/srbmaury/Ecommerce-Search",
-          "highlights": [
-            "ML-powered ranking with LightGBM and user clustering; asynchronous retraining pipelines",
-            "PostgreSQL full-text search, Redis caching, and connection pooling; ~40% latency reduction across 10K+ events",
-            "Experimentation framework with A/B testing for ranking changes"
-          ]
-        },
-        {
-          "title": "YAML Data Visualizer",
-          "description": "Advanced full-stack platform for converting YAML into interactive tree diagrams with collaboration, versioning, and AI-assisted insights.",
-          "technologies": [
-            "React",
-            "Node.js",
-            "D3.js",
-            "MongoDB",
-            "JavaScript"
-          ],
-          "url": "https://yaml-visualizer.netlify.app/",
-          "github": "https://github.com/srbmaury/YAML-Visualizer",
-          "highlights": [
-            "Real-time collaboration with Socket.IO, delta-based versioning, and secure GitHub webhook integrations",
-            "D3.js rendering pipeline supporting 5,000+ nodes at 60fps via virtual rendering and frame scheduling",
-            "Diff comparison, time-travel versioning, and AI-assisted YAML workflows"
-          ]
-        },
-        {
-          "title": "Developer Knowledge Base",
-          "description": "Modern full-stack knowledge management platform for developers to organize coding notes, interview questions, and technical solutions with AI-assisted workflows and collaborative workspace features.",
-          "technologies": [
-            "Next.js 15",
-            "TypeScript",
-            "Tailwind CSS",
-            "Prisma",
-            "PostgreSQL",
-            "Neon",
-            "Supabase",
-            "Zustand",
-            "OpenAI API",
-            "shadcn/ui"
-          ],
-          "url": "https://developer-knowledge-base.onrender.com/",
-          "github": "https://github.com/srbmaury/Developer-Knowledge-Base",
-          "highlights": [
-            "Notion-style nested workspaces with drag-and-drop organization, pinned notes, favorites, and multi-solution support",
-            "Markdown editor with live preview, syntax highlighting and global search for fast knowledge retrieval",
-            "Per-user workspaces with Supabase authentication and AI-powered answer generation using OpenAI APIs"
-          ]
-        },
-        {
-          "title": "Hackathon Management Platform",
-          "description": "Full-stack hackathon platform with RBAC, AI-based evaluation workflows, and end-to-end event lifecycle management.",
-          "technologies": [
-            "React",
-            "Node.js",
-            "MongoDB",
-            "OpenAI APIs"
-          ],
-          "url": "https://hackathon-portal-sepia.vercel.app",
-          "github": "https://github.com/srbmaury/Hackathon-Portal",
-          "highlights": [
-            "Designed multi-role RBAC system (6 roles)",
-            "Automated evaluation using AI APIs",
-            "Managed submissions, teams, and scoring workflows",
-            "Improved platform efficiency and UX"
-          ]
-        }
+      "title": "Ecommerce Search Engine",
+      "description": "Production-ready ML-powered ecommerce search engine with personalized ranking, intelligent recommendations, and real-world search system simulation.",
+      "technologies": [
+        "Python",
+        "JavaScript",
+        "Machine Learning",
+        "HTML",
+        "CSS"
       ],
-      "allProjects": [
-        {
-          "title": "MERN Chat Application",
-          "tech": [
-            "React",
-            "Node.js",
-            "MongoDB",
-            "Socket.io"
-          ],
-          "link": "https://mern-chat-app-xlr3.onrender.com/"
-        },
-        {
-          "title": "Store Management System",
-          "tech": [
-            "JavaScript",
-            "Bootstrap",
-            "Local Storage"
-          ],
-          "link": "https://store-management-frontend-x0e2.onrender.com/"
-        },
-        {
-          "title": "Kanban Board",
-          "tech": [
-            "JavaScript",
-            "Drag & Drop API"
-          ],
-          "link": "https://saurabh-kanban-board.netlify.app/"
-        },
-        {
-          "title": "Notes Application",
-          "tech": [
-            "JavaScript",
-            "Markdown"
-          ],
-          "link": "https://srbmaury.github.io/notes/"
-        },
-        {
-          "title": "Quiz Application",
-          "tech": [
-            "JavaScript",
-            "API Integration"
-          ],
-          "link": "https://srbmaury.github.io/quiz1/"
-        },
-        {
-          "title": "Tic Tac Toe Game",
-          "tech": [
-            "JavaScript",
-            "Game Logic",
-            "AI"
-          ],
-          "link": "https://tic-tac-toe-silk-sigma.vercel.app/"
-        },
-        {
-          "title": "Dictionary Application",
-          "tech": [
-            "JavaScript",
-            "API Integration"
-          ],
-          "link": "https://srbmaury.github.io/dictionary/"
-        },
-        {
-          "title": "Flappy Bird Game",
-          "tech": [
-            "JavaScript",
-            "Canvas",
-            "Animation"
-          ],
-          "link": "https://srbmaury.github.io/flappyBird/"
-        },
-        {
-          "title": "Codeforces Filter Chrome Extension",
-          "tech": [
-            "JavaScript",
-            "Chrome Extension APIs"
-          ],
-          "link": "https://github.com/srbmaury/CF-Filter-Recent-Actions"
-        }
+      "url": "https://ecommerce-search.onrender.com/",
+      "github": "https://github.com/srbmaury/Ecommerce-Search",
+      "highlights": [
+        "ML-powered ranking with LightGBM and user clustering; asynchronous retraining pipelines",
+        "PostgreSQL full-text search, Redis caching, and connection pooling; ~40% latency reduction across 10K+ events",
+        "Experimentation framework with A/B testing for ranking changes"
       ]
     },
     {
-      "title": "Ecommerce Search & Recommendation Engine",
-      "description": "Full-stack system implementing personalized ranking and recommendation pipelines.",
+      "title": "Companion AI",
+      "description": "AI-assisted interview preparation platform: create multi-round interviews from a job description, practice answers with voice or code editor, and get automatic feedback.",
       "technologies": [
-        "PostgreSQL",
+        "React",
+        "Node.js",
         "Redis",
-        "Python",
+        "Express",
+        "MongoDB",
+        "OAuth"
+      ],
+      "url": "https://companionai-frontend.onrender.com/",
+      "github": "https://github.com/srbmaury/CompanionAI",
+      "highlights": [
+        "Multi-round AI-generated interview sessions from job descriptions with voice input and code editor support",
+        "Automatic feedback and scoring powered by AI after each practice round",
+        "OAuth-based authentication with Redis session caching and MongoDB persistence"
+      ]
+    },
+    {
+      "title": "YAML Data Visualizer",
+      "description": "Advanced full-stack platform for converting YAML into interactive tree diagrams with collaboration, versioning, and AI-assisted insights.",
+      "technologies": [
+        "React",
+        "Node.js",
+        "D3.js",
+        "MongoDB",
         "JavaScript"
       ],
-      "url": "",
-      "github": "",
+      "url": "https://yaml-visualizer.netlify.app/",
+      "github": "https://github.com/srbmaury/YAML-Visualizer",
       "highlights": [
-        "LightGBM ranking with user clustering and async retraining",
-        "PostgreSQL full-text indexing, Redis, connection pooling; ~40% latency improvement at 10K+ events scale",
-        "A/B testing to evaluate ranking improvements"
+        "Real-time collaboration with Socket.IO, delta-based versioning, and secure GitHub webhook integrations",
+        "D3.js rendering pipeline supporting 5,000+ nodes at 60fps via virtual rendering and frame scheduling",
+        "Diff comparison, time-travel versioning, and AI-assisted YAML workflows"
+      ]
+    },
+    {
+      "title": "Developer Knowledge Base",
+      "description": "Modern full-stack knowledge management platform for developers to organize coding notes, interview questions, and technical solutions with AI-assisted workflows and collaborative workspace features.",
+      "technologies": [
+        "Next.js 15",
+        "TypeScript",
+        "Tailwind CSS",
+        "Prisma",
+        "PostgreSQL",
+        "Neon",
+        "Supabase",
+        "Zustand",
+        "OpenAI API",
+        "shadcn/ui"
+      ],
+      "url": "https://developer-knowledge-base.onrender.com/",
+      "github": "https://github.com/srbmaury/Developer-Knowledge-Base",
+      "highlights": [
+        "Notion-style nested workspaces with drag-and-drop organization, pinned notes, favorites, and multi-solution support",
+        "Markdown editor with live preview, syntax highlighting and global search for fast knowledge retrieval",
+        "Per-user workspaces with Supabase authentication and AI-powered answer generation using OpenAI APIs"
       ]
     },
     {
       "title": "Hackathon Management Platform",
-      "description": "Scalable platform for managing hackathons with AI-driven evaluation workflows.",
+      "description": "Full-stack hackathon platform with RBAC, AI-based evaluation workflows, and end-to-end event lifecycle management.",
       "technologies": [
         "React",
         "Node.js",
         "MongoDB",
         "OpenAI APIs"
       ],
-      "url": "",
-      "github": "",
+      "url": "https://hackathon-portal-sepia.vercel.app",
+      "github": "https://github.com/srbmaury/Hackathon-Portal",
       "highlights": [
-        "Multi-tier RBAC system with 6 roles",
-        "Automated evaluation and scoring using AI",
-        "Improved platform efficiency and UX",
-        "End-to-end hackathon lifecycle management"
+        "Designed multi-role RBAC system (6 roles)",
+        "Automated evaluation using AI APIs",
+        "Managed submissions, teams, and scoring workflows",
+        "Improved platform efficiency and UX"
       ]
     }
   ],
   "allProjects": [
-    "YAML Data Visualizer",
-    "Ecommerce Search & Recommendation Engine",
-    "Hackathon Management Platform"
+    {
+      "title": "Ecommerce Search Engine",
+      "tech": ["Python", "JavaScript", "Machine Learning"],
+      "link": "https://ecommerce-search.onrender.com/"
+    },
+    {
+      "title": "Companion AI",
+      "tech": ["React", "Node.js", "Redis", "Express", "MongoDB", "OAuth"],
+      "link": "https://companionai-frontend.onrender.com/"
+    },
+    {
+      "title": "ExitSense",
+      "tech": ["Java", "Kotlin"],
+      "link": "https://github.com/srbmaury/ExitSense"
+    },
+    {
+      "title": "Developer Knowledge Base",
+      "tech": ["Next.js 15", "TypeScript", "PostgreSQL", "OpenAI API"],
+      "link": "https://developer-knowledge-base.onrender.com/"
+    },
+    {
+      "title": "MERN Chat Application",
+      "tech": ["React", "Node.js", "MongoDB", "Socket.io"],
+      "link": "https://mern-chat-app-xlr3.onrender.com/"
+    },
+    {
+      "title": "YAML Data Visualizer",
+      "tech": ["React", "Node.js", "D3.js", "MongoDB"],
+      "link": "https://yaml-visualizer.netlify.app/"
+    },
+    {
+      "title": "Hackathon Portal",
+      "tech": ["React", "Node.js", "MongoDB"],
+      "link": "https://hackathon-portal-sepia.vercel.app"
+    },
+    {
+      "title": "Store Management System",
+      "tech": ["JavaScript", "Bootstrap", "Local Storage"],
+      "link": "https://store-management-frontend-x0e2.onrender.com/"
+    },
+    {
+      "title": "Kanban Board",
+      "tech": ["JavaScript", "Drag & Drop API"],
+      "link": "https://saurabh-kanban-board.netlify.app/"
+    },
+    {
+      "title": "Notes Application",
+      "tech": ["JavaScript", "Markdown"],
+      "link": "https://srbmaury.github.io/notes/"
+    },
+    {
+      "title": "Quiz Application",
+      "tech": ["JavaScript", "API Integration"],
+      "link": "https://srbmaury.github.io/quiz1/"
+    },
+    {
+      "title": "Tic Tac Toe Game",
+      "tech": ["JavaScript", "Game Logic", "AI"],
+      "link": "https://tic-tac-toe-silk-sigma.vercel.app/"
+    },
+    {
+      "title": "Dictionary Application",
+      "tech": ["JavaScript", "API Integration"],
+      "link": "https://srbmaury.github.io/dictionary/"
+    },
+    {
+      "title": "Flappy Bird Game",
+      "tech": ["JavaScript", "Canvas", "Animation"],
+      "link": "https://srbmaury.github.io/flappyBird/"
+    },
+    {
+      "title": "Codeforces Filter Chrome Extension",
+      "tech": ["JavaScript", "Chrome Extension APIs"],
+      "link": "https://github.com/srbmaury/CF-Filter-Recent-Actions"
+    }
   ],
   "achievements": [
     "JEE Advanced AIR 4997 and JEE Main AIR 2669 among 1M+ candidates",
