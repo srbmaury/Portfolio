@@ -76,27 +76,27 @@ const Hero = () => {
             transition={{ delay: 1 }}
             className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16"
           >
-            <motion.a
+            <a
               href="#projects"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
               className="btn btn-primary"
               onClick={() => trackHeroEvent('cta_click', 'view_my_work')}
             >
-              <Code2 size={20} />
-              View My Work
-            </motion.a>
+              <div className="flex items-center space-x-2">
+                <Code2 size={20} />
+                <span>View My Work</span>
+              </div>
+            </a>
 
-            <motion.a
+            <a
               href="#contact"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
               className="btn btn-secondary"
               onClick={() => trackHeroEvent('cta_click', 'get_in_touch')}
             >
-              <Mail size={20} />
-              Get In Touch
-            </motion.a>
+              <div className="flex items-center space-x-2">
+                <Mail size={20} />
+                <span>Get In Touch</span>
+              </div>
+            </a>
           </motion.div>
 
           {/* Scroll Indicator */}
