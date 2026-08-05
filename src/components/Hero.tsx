@@ -65,8 +65,7 @@ const Hero = () => {
             className="text-lg max-w-2xl mx-auto mb-12 leading-relaxed"
             style={{ color: 'var(--text-secondary)' }}
           >
-            I build robust full-stack applications and distributed systems—from concept to deployment.
-            Passionate about clean architecture, metadata and caching strategies, and shipping software that holds up in production.
+            I build robust full-stack applications and distributed systems—from concept to deployment, with a focus on clean architecture, scalability, and production reliability.
           </motion.p>
 
           {/* CTA Buttons */}
@@ -79,11 +78,11 @@ const Hero = () => {
             <a
               href="#projects"
               className="btn btn-primary"
-              onClick={() => trackHeroEvent('cta_click', 'view_my_work')}
+              onClick={() => trackHeroEvent('cta_click', 'view_projects')}
             >
               <div className="flex items-center space-x-2">
                 <Code2 size={20} />
-                <span>View My Work</span>
+                <span>View Projects</span>
               </div>
             </a>
 
@@ -100,6 +99,10 @@ const Hero = () => {
           </motion.div>
 
           {/* Scroll Indicator */}
+        </motion.div>
+
+        {/* Centered Scroll Indicator near bottom of hero */}
+        <div className="mt-8 flex justify-center">
           <motion.button
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -115,7 +118,8 @@ const Hero = () => {
               <ArrowDown size={24} />
             </motion.div>
           </motion.button>
-        </motion.div>
+        </div>
+
 
         {/* Background decoration */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">

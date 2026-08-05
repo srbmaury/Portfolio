@@ -653,7 +653,7 @@ Type 'projects --help' for detailed information.`;
       usage: 'whoami',
       execute: () => {
         return `Saurabh Maurya
-Full Stack Engineer
+Software Engineer
 Location: Hyderabad, India
 Experience: 2+ years
 Current: Associate Member of Technical Staff @ Salesforce

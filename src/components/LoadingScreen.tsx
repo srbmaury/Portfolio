@@ -6,32 +6,13 @@ interface LoadingScreenProps {
 }
 
 const LoadingScreen: React.FC<LoadingScreenProps> = ({ onLoadingComplete }) => {
-  const [progress, setProgress] = useState(0);
-  const [loadingText, setLoadingText] = useState('Initializing...');
+  // Minimize artificial loading delay — complete almost immediately
+  const [progress] = useState(100);
+  const [loadingText] = useState('Welcome!');
 
   useEffect(() => {
-    const loadingSteps = [
-      { progress: 20, text: 'Loading components...' },
-      { progress: 40, text: 'Setting up theme...' },
-      { progress: 60, text: 'Preparing animations...' },
-      { progress: 80, text: 'Almost ready...' },
-      { progress: 100, text: 'Welcome!' }
-    ];
-
-    let currentStep = 0;
-    const interval = setInterval(() => {
-      if (currentStep < loadingSteps.length) {
-        const step = loadingSteps[currentStep];
-        setProgress(step.progress);
-        setLoadingText(step.text);
-        currentStep++;
-      } else {
-        clearInterval(interval);
-        setTimeout(onLoadingComplete, 500);
-      }
-    }, 300);
-
-    return () => clearInterval(interval);
+    const t = setTimeout(() => onLoadingComplete(), 50);
+    return () => clearTimeout(t);
   }, [onLoadingComplete]);
 
   return (
@@ -52,7 +33,7 @@ const LoadingScreen: React.FC<LoadingScreenProps> = ({ onLoadingComplete }) => {
             className="mb-8"
           >
             <h1 className="text-4xl font-bold gradient-text mb-2">Saurabh Maurya</h1>
-            <p className="text-lg" style={{ color: 'var(--text-secondary)' }}>Full Stack Engineer</p>
+            <p className="text-lg" style={{ color: 'var(--text-secondary)' }}>Software Engineer</p>
           </motion.div>
 
           {/* Progress Bar */}
