@@ -14,9 +14,9 @@
     "duration": "June 2024 - Present",
     "location": "India",
     "responsibilities": [
-      "Designed and built a metadata dependency resolution system for OmniStudio handling complex inter-component graphs, reducing deployment time by 90% and eliminating manual dependency failures",
-      "Redesigned caching by migrating to Setup Entity-based Vega cache, achieving 50–70% reduction in memory footprint while maintaining production latency SLAs",
-      "Owned end-to-end development of scalable UI and backend integration for live card systems, enabling efficient versioning across file and record-based workflows"
+      "Architected design-time and runtime namespace handling across OmniStudio components for ISV packaging",
+      "Built a cross-component dependency extraction engine with Tooling/Composite API fixes, package automation, and custom-label management",
+      "Shipped 1-click deployment instrumentation and migration tooling to streamline enterprise customer migrations at scale"
     ],
     "technologies": [
       "Java",
@@ -35,9 +35,9 @@
       "duration": "June 2024 - Present",
       "location": "India",
       "highlights": [
-        "Metadata dependency resolution for OmniStudio with complex inter-component graphs; ~90% faster deployments",
-        "Setup Entity-based Vega cache redesign; 50–70% lower memory use with SLAs intact",
-        "Scalable UI and backend integration for live card systems and versioning workflows"
+        "Architected design-time and runtime namespace handling across OmniStudio components for ISV packaging",
+        "Built a cross-component dependency extraction engine with Tooling/Composite API fixes, package automation, and custom-label management",
+        "Shipped 1-click deployment instrumentation and migration tooling to streamline enterprise customer migrations at scale"
       ]
     },
     {
@@ -285,9 +285,9 @@
   ],
   "quickAnswers": {
     "whatDo": "I build distributed metadata and caching systems, observability platforms, and full-stack products—with emphasis on performance, reliability, and clean architecture.",
-    "experience": "I have experience at Salesforce (OmniStudio metadata, dependency graphs, Vega cache) and Razorpay (Prometheus, Grafana, Alertmanager, payment-flow observability).",
+    "experience": "I have experience at Salesforce (OmniStudio namespace resolution, cross-component dependency extraction, 1-click deployment & migration tooling) and Razorpay (Prometheus, Grafana, Alertmanager, payment-flow observability).",
     "contact": "You can reach me at saurabh.maurya.dev@gmail.com or via GitHub at https://github.com/srbmaury",
-    "currentFocus": "At Salesforce: metadata dependency resolution for OmniStudio, Setup Entity-based Vega cache, and scalable UI plus backend integration for live card systems.",
+    "currentFocus": "At Salesforce: namespace resolution for OmniStudio ISV packaging, cross-component dependency extraction engine, and 1-click deployment & migration tooling.",
     "techStack": "C++, Java, Python, JavaScript, GraphQL, PostgreSQL, Redis, Docker, Prometheus, Grafana, Apex, LWC"
   }
 }

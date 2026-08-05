@@ -10,8 +10,6 @@ export default defineConfig({
       registerType: 'autoUpdate',
       includeAssets: ['favicon.svg', 'robots.txt'],
       workbox: {
-        // Exclude resume.pdf from being cached by the service worker
-        navigateFallbackDenylist: [/^\/resume\.pdf/],
         runtimeCaching: [
           {
             // Cache Google Fonts
@@ -40,14 +38,8 @@ export default defineConfig({
                 maxAgeSeconds: 60 * 5 // 5 minutes
               }
             }
-          },
-          {
-            // NetworkOnly for resume.pdf - never cache it
-            urlPattern: /\/resume\.pdf$/,
-            handler: 'NetworkOnly'
           }
         ],
-        // Exclude resume from precaching
         globPatterns: ['**/*.{js,css,html,ico,svg,woff2}']
       },
       manifest: {

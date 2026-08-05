@@ -657,7 +657,7 @@ Full Stack Engineer
 Location: Hyderabad, India
 Experience: 2+ years
 Current: Associate Member of Technical Staff @ Salesforce
-Focus: OmniStudio metadata, dependency graphs, Vega cache, GraphQL, LWC
+Focus: OmniStudio ISV packaging, dependency extraction, migration tooling, GraphQL, LWC
 Skills: Java, JavaScript, Python, C++, React, Node.js, PostgreSQL, Redis, Docker, Prometheus, Grafana`;
       }
     },

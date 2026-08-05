@@ -6,7 +6,6 @@ import { registerSW } from 'virtual:pwa-register'
 
 // Register service worker for PWA
 // This will be automatically handled by vite-plugin-pwa
-// and will skip caching resume.pdf
 const updateSW = registerSW({
   onNeedRefresh() {
     // Show a prompt to user to refresh for new content

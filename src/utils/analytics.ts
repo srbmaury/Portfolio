@@ -67,13 +67,6 @@ export const trackProjectEvent = (action: string, projectName: string): void => 
 };
 
 /**
- * Track resume downloads
- */
-export const trackResumeDownload = (): void => {
-  trackEvent('resume', 'download', 'Resume PDF');
-};
-
-/**
  * Track contact form submissions
  */
 export const trackContactFormSubmit = (success: boolean): void => {

@@ -215,16 +215,16 @@ const CareerTimeline: React.FC<CareerTimelineProps> = ({ isOpen, onClose }) => {
       year: '2024',
       title: 'Salesforce - Associate Member of Technical Staff',
       subtitle: 'Full-Stack Engineer',
-      description: 'Full-time on OmniStudio: metadata dependency resolution across complex graphs, Vega cache on Setup Entities, and end-to-end UI plus backend work for live card systems.',
+      description: 'Full-time on OmniStudio: namespace resolution for ISV packaging, cross-component dependency extraction, and 1-click deployment & migration tooling.',
       location: 'Hyderabad, India',
       type: 'work',
       icon: <Briefcase size={24} />,
       color: 'bg-blue-600',
       gradient: 'from-blue-600 to-cyan-600',
       achievements: [
-        'Metadata dependency resolution system; ~90% faster deployments and fewer manual failures',
-        'Setup Entity–based Vega cache; 50–70% memory reduction with SLAs intact',
-        'Scalable UI and backend integration for live card versioning workflows'
+        'Led namespace resolution for OmniStudio ISV packaging across OmniScripts, FlexCards, Integration Procedures, and Data Mappers',
+        'Built cross-component dependency extraction engine, Tooling/Composite API fixes, package automation, and custom labels',
+        'Shipped 1-click deployment & migration tooling with special character detection and volume analysis'
       ],
       skills: ['Java', 'Apex', 'GraphQL', 'LWC', 'Caching', 'Distributed metadata', 'Git'],
       choices: [

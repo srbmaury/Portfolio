@@ -1,10 +1,7 @@
 import { motion } from 'framer-motion';
-import { useState } from 'react';
-import ResumeViewer from './ResumeViewer';
 import LazyImage from './LazyImage';
 
 const About = () => {
-  const [isResumeOpen, setIsResumeOpen] = useState(false);
 
   const experiences = [
     {
@@ -12,7 +9,7 @@ const About = () => {
       title: 'Associate Member of Technical Staff',
       company: 'Salesforce',
       location: 'Hyderabad',
-      description: 'Designed and built a metadata dependency resolution system for OmniStudio (complex inter-component graphs), cutting deployment time by ~90%. Migrated caching to Setup Entity–based Vega cache for 50–70% lower memory while meeting latency SLAs. Owned scalable UI and backend integration for live card systems. Technologies: Java, Apex, GraphQL, LWC, distributed metadata, caching.'
+      description: 'Architected design-time and runtime namespace handling across OmniStudio components for ISV packaging. Built a cross-component dependency extraction engine with Tooling/Composite API fixes, package automation, and custom-label management. Shipped 1-click deployment instrumentation and migration tooling to streamline enterprise customer migrations at scale. Technologies: Java, Apex, GraphQL, LWC, distributed metadata, caching.'
     },
     {
       year: 'May 2023 - July 2023',
@@ -116,12 +113,6 @@ const About = () => {
           </motion.div>
         </div>
       </div>
-
-      {/* Resume Viewer Modal */}
-      <ResumeViewer
-        isOpen={isResumeOpen}
-        onClose={() => setIsResumeOpen(false)}
-      />
     </section>
   );
 };
