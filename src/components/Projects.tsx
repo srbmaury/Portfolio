@@ -179,6 +179,7 @@ const Projects = () => {
                     rel="noopener noreferrer"
                     className="flex items-center space-x-2 font-medium transition-colors duration-200"
                     style={{ color: 'var(--primary-color)' }}
+                    onClick={() => trackProjectEvent('live_demo_click', project.title)}
                     onMouseEnter={(e) => {
                       e.currentTarget.style.opacity = '0.8';
                     }}
@@ -195,6 +196,7 @@ const Projects = () => {
                     rel="noopener noreferrer"
                     className="flex items-center space-x-2 font-medium transition-colors duration-200"
                     style={{ color: 'var(--text-secondary)' }}
+                    onClick={() => trackProjectEvent('github_click', project.title)}
                     onMouseEnter={(e) => {
                       e.currentTarget.style.color = 'var(--text-primary)';
                     }}

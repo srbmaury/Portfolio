@@ -2,6 +2,7 @@ import { useState, useEffect, useRef, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, ExternalLink, Github, Play, ZoomIn, ZoomOut, RotateCcw } from 'lucide-react';
 import type { ProjectModalProps } from '../types/project';
+import { trackProjectEvent } from '../utils/analytics';
 
 const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, project }) => {
   const [zoom, setZoom] = useState(1);
@@ -219,6 +220,7 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, project })
               href={project.liveUrl}
               target="_blank"
               rel="noopener noreferrer"
+              onClick={() => trackProjectEvent('live_demo_click', project.title)}
               className="inline-flex items-center gap-2 px-6 py-3 text-white rounded-lg transition-colors"
               style={{ backgroundColor: 'var(--primary-color)' }}
               onMouseEnter={(e) => {
@@ -235,6 +237,7 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, project })
               href={project.githubUrl}
               target="_blank"
               rel="noopener noreferrer"
+              onClick={() => trackProjectEvent('github_click', project.title)}
               className="inline-flex items-center gap-2 px-6 py-3 text-white rounded-lg transition-colors"
               style={{ backgroundColor: 'var(--bg-dark)' }}
               onMouseEnter={(e) => {

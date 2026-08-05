@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { Mail, Phone, MapPin, Send, Linkedin, Github, Twitter } from 'lucide-react';
 import emailjs from '@emailjs/browser';
 import { emailConfig } from '../config/email';
-import { trackContactFormSubmit } from '../utils/analytics';
+import { trackContactFormSubmit, trackContactFormIntent } from '../utils/analytics';
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -15,6 +15,7 @@ const Contact = () => {
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
+  const [hasContactFormOpened, setHasContactFormOpened] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({
@@ -25,6 +26,7 @@ const Contact = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    trackContactFormIntent('submit_attempt');
     setIsSubmitting(true);
     setSubmitStatus('idle');
     
@@ -87,6 +89,13 @@ const Contact = () => {
     { icon: <Github size={20} />, url: 'https://github.com/srbmaury', label: 'GitHub' },
     { icon: <Twitter size={20} />, url: 'https://x.com/srbmaury', label: 'Twitter' }
   ];
+
+  const handleFormOpen = () => {
+    if (!hasContactFormOpened) {
+      setHasContactFormOpened(true);
+      trackContactFormIntent('open', 'contact_form');
+    }
+  };
 
   return (
     <section id="contact" className="section" style={{ backgroundColor: 'var(--bg-secondary)' }}>
@@ -187,7 +196,7 @@ const Contact = () => {
                 </div>
               )}
               
-              <form onSubmit={handleSubmit} className="space-y-6">
+              <form onSubmit={handleSubmit} className="space-y-6" onFocus={handleFormOpen}>
                 <div className="grid md:grid-cols-2 gap-6">
                   <div>
                     <label htmlFor="name" className="block text-sm font-medium mb-2" style={{ color: 'var(--text-primary)' }}>

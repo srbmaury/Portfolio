@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
-import { ArrowDown, Mail } from 'lucide-react';
+import { ArrowDown, Mail, Code2 } from 'lucide-react';
+import { trackHeroEvent } from '../utils/analytics';
 
 const Hero = () => {
   const scrollToAbout = () => {
@@ -8,7 +9,6 @@ const Hero = () => {
       element.scrollIntoView({ behavior: 'smooth' });
     }
   };
-
   return (
     <section
       id="home"
@@ -51,10 +51,10 @@ const Hero = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6 }}
-            className="text-2xl md:text-3xl mb-8"
+            className="text-xl md:text-2xl mb-6"
             style={{ color: 'var(--text-secondary)' }}
           >
-            Full Stack Engineer
+            Software Engineer • Distributed Systems • Metadata & Caching
           </motion.h2>
 
           {/* Description */}
@@ -66,7 +66,7 @@ const Hero = () => {
             style={{ color: 'var(--text-secondary)' }}
           >
             I build robust full-stack applications and distributed systems—from concept to deployment.
-            Passionate about clean architecture, performance, and shipping software that holds up in production.
+            Passionate about clean architecture, metadata and caching strategies, and shipping software that holds up in production.
           </motion.p>
 
           {/* CTA Buttons */}
@@ -77,10 +77,22 @@ const Hero = () => {
             className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16"
           >
             <motion.a
-              href="#contact"
+              href="#projects"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               className="btn btn-primary"
+              onClick={() => trackHeroEvent('cta_click', 'view_my_work')}
+            >
+              <Code2 size={20} />
+              View My Work
+            </motion.a>
+
+            <motion.a
+              href="#contact"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="btn btn-secondary"
+              onClick={() => trackHeroEvent('cta_click', 'get_in_touch')}
             >
               <Mail size={20} />
               Get In Touch
@@ -93,14 +105,7 @@ const Hero = () => {
             animate={{ opacity: 1 }}
             transition={{ delay: 1.2 }}
             onClick={scrollToAbout}
-            className="flex flex-col items-center transition-colors duration-200"
-            style={{ color: 'var(--text-secondary)' }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.color = 'var(--primary-color)';
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.color = 'var(--text-secondary)';
-            }}
+            className="flex flex-col items-center text-[var(--text-secondary)] hover:text-[var(--primary-color)] transition-colors duration-200"
           >
             <span className="text-sm mb-2">Learn more about me</span>
             <motion.div

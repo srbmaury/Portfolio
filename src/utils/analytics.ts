@@ -72,3 +72,17 @@ export const trackProjectEvent = (action: string, projectName: string): void => 
 export const trackContactFormSubmit = (success: boolean): void => {
   trackEvent('contact', success ? 'submit_success' : 'submit_error');
 };
+
+/**
+ * Track contact form intent events such as open or submit attempt
+ */
+export const trackContactFormIntent = (action: string, label?: string): void => {
+  trackEvent('contact_intent', action, label);
+};
+
+/**
+ * Track hero call-to-action clicks
+ */
+export const trackHeroEvent = (action: string, label?: string): void => {
+  trackEvent('hero', action, label);
+};
