@@ -157,14 +157,7 @@ const Contact = () => {
                     viewport={{ once: true }}
                     whileHover={{ scale: 1.1 }}
                     whileTap={{ scale: 0.9 }}
-                    className="w-12 h-12 text-white rounded-full flex items-center justify-center transition-colors duration-200"
-                    style={{ backgroundColor: 'var(--primary-color)' }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.backgroundColor = 'var(--secondary-color)';
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.backgroundColor = 'var(--primary-color)';
-                    }}
+                    className="w-12 h-12 text-white rounded-full flex items-center justify-center transition-colors duration-200 bg-[var(--primary-color)] hover:bg-[var(--secondary-color)]"
                   >
                     {social.icon}
                   </motion.a>
@@ -209,20 +202,7 @@ const Contact = () => {
                       value={formData.name}
                       onChange={handleChange}
                       required
-                      className="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:border-transparent transition-colors duration-200"
-                      style={{
-                        backgroundColor: 'var(--bg-primary)',
-                        borderColor: 'var(--border-color)',
-                        color: 'var(--text-primary)'
-                      }}
-                      onFocus={(e) => {
-                        e.target.style.borderColor = 'var(--primary-color)';
-                        e.target.style.boxShadow = '0 0 0 2px rgba(59, 130, 246, 0.1)';
-                      }}
-                      onBlur={(e) => {
-                        e.target.style.borderColor = 'var(--border-color)';
-                        e.target.style.boxShadow = 'none';
-                      }}
+                      className="w-full px-4 py-3 border rounded-lg transition-colors duration-200 bg-[var(--bg-primary)] border-[var(--border-color)] text-[var(--text-primary)] focus:border-[var(--primary-color)] focus:outline-none focus:shadow-[0_0_0_6px_rgba(59,130,246,0.06)]"
                       placeholder="John Doe"
                     />
                   </div>
@@ -238,20 +218,7 @@ const Contact = () => {
                       value={formData.email}
                       onChange={handleChange}
                       required
-                      className="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:border-transparent transition-colors duration-200"
-                      style={{
-                        backgroundColor: 'var(--bg-primary)',
-                        borderColor: 'var(--border-color)',
-                        color: 'var(--text-primary)'
-                      }}
-                      onFocus={(e) => {
-                        e.target.style.borderColor = 'var(--primary-color)';
-                        e.target.style.boxShadow = '0 0 0 2px rgba(59, 130, 246, 0.1)';
-                      }}
-                      onBlur={(e) => {
-                        e.target.style.borderColor = 'var(--border-color)';
-                        e.target.style.boxShadow = 'none';
-                      }}
+                      className="w-full px-4 py-3 border rounded-lg transition-colors duration-200 bg-[var(--bg-primary)] border-[var(--border-color)] text-[var(--text-primary)] focus:border-[var(--primary-color)] focus:outline-none focus:shadow-[0_0_0_6px_rgba(59,130,246,0.06)]"
                       placeholder="john@example.com"
                     />
                   </div>
@@ -268,20 +235,7 @@ const Contact = () => {
                     value={formData.subject}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:border-transparent transition-colors duration-200"
-                    style={{
-                      backgroundColor: 'var(--bg-primary)',
-                      borderColor: 'var(--border-color)',
-                      color: 'var(--text-primary)'
-                    }}
-                    onFocus={(e) => {
-                      e.target.style.borderColor = 'var(--primary-color)';
-                      e.target.style.boxShadow = '0 0 0 2px rgba(59, 130, 246, 0.1)';
-                    }}
-                    onBlur={(e) => {
-                      e.target.style.borderColor = 'var(--border-color)';
-                      e.target.style.boxShadow = 'none';
-                    }}
+                    className="w-full px-4 py-3 border rounded-lg transition-colors duration-200 bg-[var(--bg-primary)] border-[var(--border-color)] text-[var(--text-primary)] focus:border-[var(--primary-color)] focus:outline-none focus:shadow-[0_0_0_6px_rgba(59,130,246,0.06)]"
                     placeholder="Project Inquiry"
                   />
                 </div>
@@ -297,20 +251,7 @@ const Contact = () => {
                     onChange={handleChange}
                     required
                     rows={6}
-                    className="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:border-transparent transition-colors duration-200 resize-none"
-                    style={{
-                      backgroundColor: 'var(--bg-primary)',
-                      borderColor: 'var(--border-color)',
-                      color: 'var(--text-primary)'
-                    }}
-                    onFocus={(e) => {
-                      e.target.style.borderColor = 'var(--primary-color)';
-                      e.target.style.boxShadow = '0 0 0 2px rgba(59, 130, 246, 0.1)';
-                    }}
-                    onBlur={(e) => {
-                      e.target.style.borderColor = 'var(--border-color)';
-                      e.target.style.boxShadow = 'none';
-                    }}
+                    className="w-full px-4 py-3 border rounded-lg transition-colors duration-200 resize-none bg-[var(--bg-primary)] border-[var(--border-color)] text-[var(--text-primary)] focus:border-[var(--primary-color)] focus:outline-none focus:shadow-[0_0_0_6px_rgba(59,130,246,0.06)]"
                     placeholder="Tell me about your project..."
                   />
                 </div>
