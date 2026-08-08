@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { Github, Star, GitFork, Calendar, MapPin, Building } from 'lucide-react';
+import { Building, Calendar, Github, MapPin } from 'lucide-react';
 import { API_ENDPOINTS } from '../config/api';
 
 interface GitHubUser {
@@ -8,40 +8,15 @@ interface GitHubUser {
   name: string;
   bio: string;
   avatar_url: string;
-  public_repos: number;
-  public_gists: number;
   followers: number;
-  following: number;
   location: string;
   company: string;
-  blog: string;
   created_at: string;
-  updated_at: string;
-}
-
-interface GitHubStats {
-  totalStars: number;
-  totalRepos: number;
-}
-
-interface Repository {
-  id: number;
-  name: string;
-  description: string;
-  html_url: string;
-  stargazers_count: number;
-  forks_count: number;
-  language: string;
-  updated_at: string;
-  topics: string[];
 }
 
 interface GitHubStatsResponse {
   user: GitHubUser;
-  repos: Repository[];
-  stats: GitHubStats;
-  details?: string;
-  error?: string;
+  stats: { totalStars: number; totalRepos: number };
 }
 
 interface GitHubStatsProps {
@@ -49,329 +24,99 @@ interface GitHubStatsProps {
   className?: string;
 }
 
+const profileFallback: GitHubStatsResponse = {
+  user: {
+    login: 'srbmaury',
+    name: 'Saurabh Maurya',
+    bio: 'Software engineer building production-minded applications and developer tools.',
+    avatar_url: 'https://avatars.githubusercontent.com/u/85755081?v=4',
+    followers: 6,
+    location: 'Chandauli, India',
+    company: 'IIT BHU',
+    created_at: '2021-06-11T00:00:00Z',
+  },
+  stats: { totalStars: 34, totalRepos: 25 },
+};
+
 const GitHubStats: React.FC<GitHubStatsProps> = ({ username, className = '' }) => {
-  const [user, setUser] = useState<GitHubUser | null>(null);
-  const [repos, setRepos] = useState<Repository[]>([]);
-  const [stats, setStats] = useState<GitHubStats>({ totalStars: 0, totalRepos: 0 });
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const [data, setData] = useState<GitHubStatsResponse | null>(null);
+  const profile = data || profileFallback;
+  const joinedDate = new Date(profile.user.created_at).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
 
   useEffect(() => {
+    let ignore = false;
+
     const fetchGitHubData = async () => {
       try {
-        setLoading(true);
-        setError(null);
-
-        const res = await fetch(API_ENDPOINTS.githubStats(username));
-        const body = (await res.json().catch(() => ({}))) as GitHubStatsResponse;
-
-        if (!res.ok) {
-          throw new Error(body.details || body.error || `Request failed (${res.status})`);
-        }
-
-        setUser(body.user);
-        setRepos(body.repos);
-        setStats(body.stats);
-      } catch (err) {
-        setError(err instanceof Error ? err.message : 'An error occurred');
-      } finally {
-        setLoading(false);
+        const response = await fetch(API_ENDPOINTS.githubStats(username));
+        if (!response.ok) throw new Error(`Request failed (${response.status})`);
+        const responseData = await response.json() as GitHubStatsResponse;
+        if (!ignore) setData(responseData);
+      } catch {
+        if (!ignore) setData(null);
       }
     };
 
     fetchGitHubData();
+    return () => { ignore = true; };
   }, [username]);
 
-  const formatDate = (dateString: string) => {
-    if (!dateString) return 'Unknown';
-
-    const date = new Date(dateString);
-    if (Number.isNaN(date.getTime())) return 'Unknown';
-
-    return date.toLocaleDateString('en-US', {
-      year: 'numeric',
-      month: 'short',
-      day: 'numeric'
-    });
-  };
-
-  const getRelativeTime = (dateString: string) => {
-    const now = new Date();
-    const date = new Date(dateString);
-    if (Number.isNaN(date.getTime())) return null;
-
-    const diffInDays = Math.floor((now.getTime() - date.getTime()) / (1000 * 60 * 60 * 24));
-    
-    if (diffInDays === 0) return 'Today';
-    if (diffInDays === 1) return 'Yesterday';
-    if (diffInDays < 7) return `${diffInDays} days ago`;
-    if (diffInDays < 30) return `${Math.floor(diffInDays / 7)} weeks ago`;
-    if (diffInDays < 365) return `${Math.floor(diffInDays / 30)} months ago`;
-    return `${Math.floor(diffInDays / 365)} years ago`;
-  };
-
-  const formatRepoUpdatedAt = (dateString: string) => {
-    const formattedDate = formatDate(dateString);
-    const relativeTime = getRelativeTime(dateString);
-
-    if (formattedDate === 'Unknown') return 'Updated date unavailable';
-    return relativeTime ? `Updated ${formattedDate} (${relativeTime})` : `Updated ${formattedDate}`;
-  };
-
-  if (loading) {
-    return (
-      <section className={`section ${className}`} style={{ backgroundColor: 'var(--bg-secondary)' }}>
-        <div className="container">
-          <div className="text-center">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 mx-auto" style={{ borderColor: 'var(--primary-color)' }}></div>
-            <p className="mt-4" style={{ color: 'var(--text-secondary)' }}>Loading GitHub statistics...</p>
-          </div>
-        </div>
-      </section>
-    );
-  }
-
-  if (error) {
-    return (
-      <section className={`section ${className}`} style={{ backgroundColor: 'var(--bg-secondary)' }}>
-        <div className="container">
-          <div className="text-center">
-            <p style={{ color: '#ef4444' }}>Error loading GitHub data: {error}</p>
-            <p className="text-sm mt-2" style={{ color: 'var(--text-secondary)' }}>
-              This might be due to rate limiting or network issues.
-            </p>
-          </div>
-        </div>
-      </section>
-    );
-  }
-
-  if (!user) {
-    return null;
-  }
-
   return (
-    <section id="github" className={`section ${className}`} style={{ backgroundColor: 'var(--bg-secondary)' }}>
+    <section id="github" className={`section ${className}`} style={{ backgroundColor: 'var(--bg-secondary)' }} aria-label="GitHub and open source">
       <div className="container">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-        >
+        <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} viewport={{ once: true }}>
           <h2 className="section-title">GitHub Statistics</h2>
           <p className="section-subtitle">
-            Real-time data from my GitHub profile and repositories
+            A concise snapshot of my public engineering activity and GitHub profile.
           </p>
         </motion.div>
 
-        {/* User Profile Card */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
+          transition={{ duration: 0.6, delay: 0.1 }}
           viewport={{ once: true }}
-          className="card max-w-4xl mx-auto mb-12"
+          className="card max-w-5xl mx-auto"
         >
-          <div className="flex flex-col md:flex-row items-center md:items-start gap-6">
-            {/* Avatar */}
-            <div className="flex-shrink-0">
-              <img
-                src={user.avatar_url}
-                alt={user.name || user.login}
-                className="w-24 h-24 rounded-full border-4"
-                style={{ borderColor: 'var(--primary-color)' }}
-              />
-            </div>
+          <div className="flex flex-col md:flex-row items-center gap-6">
+            {profile.user.avatar_url ? (
+              <img src={profile.user.avatar_url} alt={`${profile.user.name || username} on GitHub`} className="w-20 h-20 rounded-full border-4 flex-shrink-0 object-cover" style={{ borderColor: 'var(--primary-color)' }} />
+            ) : (
+              <div className="w-20 h-20 rounded-full flex items-center justify-center flex-shrink-0" style={{ backgroundColor: 'var(--tag-bg)' }} aria-hidden="true">
+                <Github size={34} style={{ color: 'var(--primary-color)' }} />
+              </div>
+            )}
 
-            {/* User Info */}
             <div className="flex-1 text-center md:text-left">
-              <div className="flex items-center justify-center md:justify-start gap-2 mb-2">
-                <Github size={20} style={{ color: 'var(--text-secondary)' }} />
-                <h3 className="text-2xl font-bold gradient-text">
-                  {user.name || user.login}
-                </h3>
-              </div>
-              
-              {user.bio && (
-                <p className="mb-4" style={{ color: 'var(--text-secondary)' }}>{user.bio}</p>
-              )}
-
-              {/* User Details */}
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
-                <div className="text-center">
-                  <div className="text-2xl font-bold" style={{ color: 'var(--primary-color)' }}>
-                    {stats.totalRepos}
-                  </div>
-                  <div className="text-sm" style={{ color: 'var(--text-secondary)' }}>Repositories</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-2xl font-bold" style={{ color: '#22c55e' }}>{user.followers}</div>
-                  <div className="text-sm" style={{ color: 'var(--text-secondary)' }}>Followers</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-2xl font-bold" style={{ color: 'var(--accent-color)' }}>{user.following}</div>
-                  <div className="text-sm" style={{ color: 'var(--text-secondary)' }}>Following</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-2xl font-bold" style={{ color: '#f59e0b' }}>{stats.totalStars}</div>
-                  <div className="text-sm" style={{ color: 'var(--text-secondary)' }}>Total Stars</div>
-                </div>
-              </div>
-
-              {/* Additional Info */}
-              <div className="flex flex-wrap gap-4 text-sm" style={{ color: 'var(--text-secondary)' }}>
-                {user.location && (
-                  <div className="flex items-center gap-1">
-                    <MapPin size={16} />
-                    <span>{user.location}</span>
-                  </div>
-                )}
-                {user.company && (
-                  <div className="flex items-center gap-1">
-                    <Building size={16} />
-                    <span>{user.company}</span>
-                  </div>
-                )}
-                <div className="flex items-center gap-1">
-                  <Calendar size={16} />
-                  <span>Joined {formatDate(user.created_at)}</span>
-                </div>
+              <h3 className="text-2xl font-bold gradient-text mb-1">{profile.user.name || username}</h3>
+              <p className="text-sm" style={{ color: 'var(--text-secondary)' }}>
+                {profile.user.bio}
+              </p>
+              <div className="flex flex-wrap justify-center md:justify-start gap-4 mt-3 text-sm" style={{ color: 'var(--text-secondary)' }}>
+                {profile.user.location && <span className="inline-flex items-center gap-1"><MapPin size={15} />{profile.user.location}</span>}
+                {profile.user.company && <span className="inline-flex items-center gap-1"><Building size={15} />{profile.user.company}</span>}
+                <span className="inline-flex items-center gap-1"><Calendar size={15} />Joined {joinedDate}</span>
               </div>
             </div>
+
+            <div className="grid grid-cols-3 gap-5 text-center flex-shrink-0" aria-label={data ? 'Live GitHub statistics' : 'Recent GitHub statistics snapshot'}>
+              <div><strong className="block text-xl" style={{ color: 'var(--primary-color)' }}>{profile.stats.totalRepos}</strong><span className="text-xs" style={{ color: 'var(--text-secondary)' }}>Repositories</span></div>
+              <div><strong className="block text-xl" style={{ color: '#22c55e' }}>{profile.user.followers}</strong><span className="text-xs" style={{ color: 'var(--text-secondary)' }}>Followers</span></div>
+              <div><strong className="block text-xl" style={{ color: '#f59e0b' }}>{profile.stats.totalStars}</strong><span className="text-xs" style={{ color: 'var(--text-secondary)' }}>Total Stars</span></div>
+            </div>
+
+            <a href={`https://github.com/${username}`} target="_blank" rel="noopener noreferrer" className="btn btn-primary whitespace-nowrap" aria-label={`View ${username}'s full GitHub profile`}>
+              <Github size={18} /> GitHub Profile
+            </a>
           </div>
+          <p className="mt-4 text-center text-xs" style={{ color: 'var(--text-secondary)' }}>
+            {data ? 'Live data from GitHub' : 'Recent snapshot · Live data temporarily unavailable'}
+          </p>
         </motion.div>
 
-        {/* Top Repositories */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-          viewport={{ once: true }}
-        >
-          <h3 className="text-2xl font-bold text-center mb-8 gradient-text">Top Repositories</h3>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {repos.map((repo, index) => (
-              <motion.div
-                key={repo.id}
-                initial={{ opacity: 0, scale: 0.9 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.5, delay: 0.6 + index * 0.1 }}
-                viewport={{ once: true }}
-                className="card group"
-              >
-                <div className="flex items-start justify-between mb-3">
-                  <h4 className="font-semibold" style={{ color: 'var(--text-primary)' }}>
-                    {repo.name}
-                  </h4>
-                  <a
-                    href={repo.html_url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="opacity-0 group-hover:opacity-100 transition-opacity duration-200"
-                  >
-                    <Github size={16} style={{ color: 'var(--primary-color)' }} />
-                  </a>
-                </div>
-                
-                {repo.description && (
-                  <p className="text-sm mb-4 leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
-                    {repo.description}
-                  </p>
-                )}
-
-                {/* Repository Stats */}
-                <div className="flex items-center justify-between text-sm mb-3">
-                  <div className="flex items-center gap-4">
-                    <div className="flex items-center gap-1">
-                      <Star size={14} style={{ color: '#f59e0b' }} />
-                      <span style={{ color: 'var(--text-secondary)' }}>{repo.stargazers_count}</span>
-                    </div>
-                    <div className="flex items-center gap-1">
-                      <GitFork size={14} style={{ color: 'var(--text-secondary)' }} />
-                      <span style={{ color: 'var(--text-secondary)' }}>{repo.forks_count}</span>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Language and Topics */}
-                <div className="space-y-2">
-                  <div className="flex items-center gap-1 text-xs" style={{ color: 'var(--text-secondary)' }}>
-                    <Calendar size={13} />
-                    <span>{formatRepoUpdatedAt(repo.updated_at)}</span>
-                  </div>
-
-                  {repo.language && (
-                    <div className="flex items-center gap-2">
-                      <div className="w-3 h-3 rounded-full" style={{ backgroundColor: 'var(--primary-color)' }}></div>
-                      <span className="text-xs" style={{ color: 'var(--text-secondary)' }}>{repo.language}</span>
-                    </div>
-                  )}
-                  
-                  {repo.topics && repo.topics.length > 0 && (
-                    <div className="flex flex-wrap gap-1">
-                      {repo.topics.slice(0, 3).map((topic) => (
-                        <span
-                          key={topic}
-                          className="px-2 py-1 text-xs rounded-full"
-                          style={{
-                            backgroundColor: 'var(--tag-bg)',
-                            color: 'var(--text-secondary)'
-                          }}
-                        >
-                          {topic}
-                        </span>
-                      ))}
-                      {repo.topics.length > 3 && (
-                        <span
-                          className="px-2 py-1 text-xs rounded-full"
-                          style={{
-                            backgroundColor: 'var(--tag-bg)',
-                            color: 'var(--text-secondary)'
-                          }}
-                        >
-                          +{repo.topics.length - 3}
-                        </span>
-                      )}
-                    </div>
-                  )}
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
-
-        {/* View More Button */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.8 }}
-          viewport={{ once: true }}
-          className="text-center mt-8"
-        >
-          <a
-            href={`https://github.com/${username}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-lg transition-colors duration-300"
-            style={{ 
-              backgroundColor: 'var(--primary-color)', 
-              color: 'white' 
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.backgroundColor = 'var(--secondary-color)';
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.backgroundColor = 'var(--primary-color)';
-            }}
-          >
-            <Github size={20} />
-            View Full Profile on GitHub
-          </a>
-        </motion.div>
       </div>
     </section>
   );
 };
 
-export default GitHubStats; 
+export default GitHubStats;

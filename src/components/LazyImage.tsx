@@ -17,7 +17,7 @@ const LazyImage: React.FC<LazyImageProps> = ({
     const [showFallback, setShowFallback] = useState(false);
 
     return (
-        <div className={`relative w-full h-full ${className}`}>
+        <div className={`relative ${className || 'w-full h-full'}`}>
             <img
                 src={src}
                 alt={alt}

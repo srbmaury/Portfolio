@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
@@ -9,6 +9,7 @@ import GitHubStats from './components/GitHubStats';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 import ErrorPage from './components/ErrorPage';
+import ProjectArchive from './components/ProjectArchive';
 import { Suspense, lazy, useState, useEffect } from 'react';
 import { wakeUpBackend } from './utils/backendWakeup';
 
@@ -20,6 +21,24 @@ import ScrollProgress from './components/ScrollProgress';
 import BackToTop from './components/BackToTop';
 import { ThemeProvider } from './providers/ThemeProvider';
 import { ModalProvider } from './contexts/ModalContext';
+
+const RouteScrollManager = () => {
+  const { pathname, hash } = useLocation();
+
+  useEffect(() => {
+    const frame = window.requestAnimationFrame(() => {
+      if (hash) {
+        document.querySelector(hash)?.scrollIntoView({ behavior: 'smooth' });
+      } else {
+        window.scrollTo({ top: 0 });
+      }
+    });
+
+    return () => window.cancelAnimationFrame(frame);
+  }, [pathname, hash]);
+
+  return null;
+};
 
 
 function App() {
@@ -59,12 +78,14 @@ function App() {
     <ThemeProvider>
       <ModalProvider>
         <Router>
+          <RouteScrollManager />
           <div className="App">
+            <a href="#main-content" className="skip-link">Skip to main content</a>
             {isLoading && <LoadingScreen onLoadingComplete={handleLoadingComplete} />}
             <CustomCursor />
             <ScrollProgress />
             <Navbar onOpenTerminal={handleOpenTerminal} />
-            <main>
+            <main id="main-content">
               <Routes>
                 <Route path="/" element={
                   <>
@@ -76,6 +97,7 @@ function App() {
                     <Contact />
                   </>
                 } />
+                <Route path="/projects" element={<ProjectArchive />} />
                 <Route path="*" element={<ErrorPage />} />
               </Routes>
             </main>

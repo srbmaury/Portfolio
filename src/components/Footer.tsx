@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { Heart } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const Footer = () => {
   return (
@@ -32,9 +33,9 @@ const Footer = () => {
             <h4 className="text-lg font-semibold mb-4" style={{ color: 'var(--footer-text-primary)' }}>Quick Links</h4>
             <div className="space-y-2">
               {['Home', 'About', 'Skills', 'Projects', 'Contact'].map((link) => (
-                <a
+                <Link
                   key={link}
-                  href={`#${link.toLowerCase()}`}
+                  to={`/#${link.toLowerCase()}`}
                   className="block transition-colors duration-200"
                   style={{ color: 'var(--footer-text-secondary)' }}
                   onMouseEnter={(e) => {
@@ -45,7 +46,7 @@ const Footer = () => {
                   }}
                 >
                   {link}
-                </a>
+                </Link>
               ))}
             </div>
           </motion.div>
@@ -89,4 +90,4 @@ const Footer = () => {
   );
 };
 
-export default Footer; 
+export default Footer;

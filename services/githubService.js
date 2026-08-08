@@ -76,9 +76,24 @@ function buildGitHubStatsPayload(user, repos) {
     0
   );
 
-  const topRepos = repos
-    .sort((a, b) => b.stargazers_count - a.stargazers_count)
-    .slice(0, 6)
+  const featuredRepositoryNames = [
+    'Ecommerce-Search',
+    'CompanionAI',
+    'Developer-Knowledge-Base',
+    'YAML-Visualizer',
+    'ExitSense',
+  ];
+
+  const repositoriesByName = new Map(repos.map((repo) => [repo.name.toLowerCase(), repo]));
+  const featuredRepos = featuredRepositoryNames
+    .map((name) => repositoriesByName.get(name.toLowerCase()))
+    .filter(Boolean);
+
+  const selectedRepos = featuredRepos.length > 0
+    ? featuredRepos
+    : [...repos].sort((a, b) => b.stargazers_count - a.stargazers_count).slice(0, 5);
+
+  const topRepos = selectedRepos
     .map((r) => ({
       id: r.id,
       name: r.name,

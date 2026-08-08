@@ -112,7 +112,7 @@ const Contact = () => {
           </p>
         </motion.div>
 
-        <div className="grid lg:grid-cols-2 gap-12">
+        <div className="grid lg:grid-cols-2 gap-8 lg:gap-12">
           {/* Contact Information */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
@@ -122,25 +122,45 @@ const Contact = () => {
           >
             <h3 className="text-2xl font-bold mb-8 gradient-text">Let's Talk</h3>
             
-            <div className="space-y-6 mb-8">
-              {contactInfo.map((info, index) => (
-                <motion.a
+            <div className="space-y-3 sm:space-y-6 mb-6 sm:mb-8">
+              {contactInfo.map((info, index) => {
+                const content = (
+                  <>
+                    <div style={{ color: 'var(--primary-color)' }}>{info.icon}</div>
+                    <div>
+                      <h4 className="font-semibold" style={{ color: 'var(--text-primary)' }}>{info.title}</h4>
+                      <p style={{ color: 'var(--text-secondary)' }}>{info.value}</p>
+                    </div>
+                  </>
+                );
+
+                return info.link === '#' ? (
+                  <motion.div
+                    key={info.title}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, delay: 0.4 + index * 0.1 }}
+                    viewport={{ once: true }}
+                    className="flex items-center space-x-4 p-3 sm:p-4 rounded-lg"
+                    style={{ backgroundColor: 'var(--tag-bg)' }}
+                  >
+                    {content}
+                  </motion.div>
+                ) : (
+                  <motion.a
                   key={info.title}
                   href={info.link}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: 0.4 + index * 0.1 }}
                   viewport={{ once: true }}
-                  className="flex items-center space-x-4 p-4 rounded-lg hover:shadow-md transition-shadow duration-200"
+                  className="flex items-center space-x-4 p-3 sm:p-4 rounded-lg hover:shadow-md transition-shadow duration-200"
                   style={{ backgroundColor: 'var(--tag-bg)' }}
                 >
-                  <div style={{ color: 'var(--primary-color)' }}>{info.icon}</div>
-                  <div>
-                    <h4 className="font-semibold" style={{ color: 'var(--text-primary)' }}>{info.title}</h4>
-                    <p style={{ color: 'var(--text-secondary)' }}>{info.value}</p>
-                  </div>
-                </motion.a>
-              ))}
+                    {content}
+                  </motion.a>
+                );
+              })}
             </div>
 
             {/* Social Links */}
@@ -158,6 +178,7 @@ const Contact = () => {
                     whileHover={{ scale: 1.1 }}
                     whileTap={{ scale: 0.9 }}
                     className="w-12 h-12 text-white rounded-full flex items-center justify-center transition-colors duration-200 bg-[var(--primary-color)] hover:bg-[var(--secondary-color)]"
+                    aria-label={social.label}
                   >
                     {social.icon}
                   </motion.a>
@@ -189,7 +210,7 @@ const Contact = () => {
                 </div>
               )}
               
-              <form onSubmit={handleSubmit} className="space-y-6" onFocus={handleFormOpen}>
+              <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6" onFocus={handleFormOpen}>
                 <div className="grid md:grid-cols-2 gap-6">
                   <div>
                     <label htmlFor="name" className="block text-sm font-medium mb-2" style={{ color: 'var(--text-primary)' }}>
@@ -250,7 +271,7 @@ const Contact = () => {
                     value={formData.message}
                     onChange={handleChange}
                     required
-                    rows={6}
+                    rows={4}
                     className="w-full px-4 py-3 border rounded-lg transition-colors duration-200 resize-none bg-[var(--bg-primary)] border-[var(--border-color)] text-[var(--text-primary)] focus:border-[var(--primary-color)] focus:outline-none focus:shadow-[0_0_0_6px_rgba(59,130,246,0.06)]"
                     placeholder="Tell me about your project..."
                   />

@@ -37,7 +37,7 @@ const BackToTop: React.FC = () => {
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
           onClick={scrollToTop}
-          className="fixed bottom-8 left-8 z-50 p-3 rounded-full shadow-lg transition-all duration-300"
+          className="fixed bottom-4 left-4 sm:bottom-8 sm:left-8 z-50 p-3 rounded-full shadow-lg transition-all duration-300"
           style={{
             backgroundColor: 'var(--primary-color)',
             color: 'white'
@@ -51,4 +51,4 @@ const BackToTop: React.FC = () => {
   );
 };
 
-export default BackToTop; 
+export default BackToTop;

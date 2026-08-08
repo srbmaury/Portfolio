@@ -22,7 +22,7 @@
       "technologies": ["React", "Node.js", "Redis", "Express", "MongoDB", "OAuth"],
       "liveUrl": "https://companionai-frontend.onrender.com/",
       "githubUrl": "https://github.com/srbmaury/CompanionAI",
-      "featured": false,
+      "featured": true,
       "demoType": "iframe",
       "demoUrl": "https://companionai-frontend.onrender.com/"
     },
@@ -46,7 +46,7 @@
       "technologies": ["Next.js 15", "TypeScript", "Tailwind CSS", "Prisma", "PostgreSQL", "Neon", "Supabase", "Zustand", "OpenAI API", "shadcn/ui"],
       "liveUrl": "https://developer-knowledge-base.onrender.com/",
       "githubUrl": "https://github.com/srbmaury/Developer-Knowledge-Base",
-      "featured": false,
+      "featured": true,
       "demoType": "iframe",
       "demoUrl": "https://developer-knowledge-base.onrender.com/"
     },
@@ -179,4 +179,4 @@
       "featured": false
     }
   ]
-} 
+}

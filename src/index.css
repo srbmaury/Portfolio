@@ -230,6 +230,25 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 44px;
+  height: 44px;
+}
+
+.skip-link {
+  position: fixed;
+  top: 0.5rem;
+  left: 0.5rem;
+  z-index: 10000;
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  background: var(--primary-color);
+  color: white;
+  transform: translateY(-150%);
+  transition: transform 0.2s ease;
+}
+
+.skip-link:focus {
+  transform: translateY(0);
 }
 
 .theme-toggle:hover {
@@ -282,6 +301,7 @@ html {
 
 /* Improved focus styles for accessibility - only for keyboard users */
 button:focus-visible,
+a:focus-visible,
 input:focus-visible,
 textarea:focus-visible,
 select:focus-visible {
@@ -291,10 +311,25 @@ select:focus-visible {
 
 /* Remove focus outline for mouse users */
 button:focus:not(:focus-visible),
+a:focus:not(:focus-visible),
 input:focus:not(:focus-visible),
 textarea:focus:not(:focus-visible),
 select:focus:not(:focus-visible) {
   outline: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
 
 /* Terminal input specific focus styles */
@@ -407,6 +442,18 @@ select:focus:not(:focus-visible) {
   }
 
   /* Disable custom cursor on mobile */
+  body {
+    cursor: auto;
+  }
+
+  .cursor-dot,
+  .cursor-ring,
+  .cursor-trail {
+    display: none;
+  }
+}
+
+@media (hover: none), (pointer: coarse) {
   body {
     cursor: auto;
   }

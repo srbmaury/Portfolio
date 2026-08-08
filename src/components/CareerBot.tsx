@@ -284,7 +284,7 @@ const CareerBot: React.FC<CareerBotProps> = ({ className = '', isOpen: externalI
       {!isProjectModalOpen && (
         <button
           onClick={handleToggle}
-          className={`fixed bottom-6 right-6 z-50 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white p-4 rounded-full shadow-lg transition-all duration-300 hover:scale-110 ${className}`}
+          className={`fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white p-3 sm:p-4 rounded-full shadow-lg transition-all duration-300 hover:scale-110 ${className}`}
           aria-label={isOpen ? 'Close career bot' : 'Open career bot'}
         >
           {isOpen ? <X size={24} /> : <Bot size={24} />}

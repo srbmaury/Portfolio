@@ -1,57 +1,66 @@
 import { motion } from 'framer-motion';
-import { Code, Database, Cloud, Cpu } from 'lucide-react';
+import { Bot, Cloud, Code, Database, Network, Server } from 'lucide-react';
 
 const Skills = () => {
   const skillCategories = [
     {
-      title: 'Fundamentals',
-      icon: <Cpu size={24} />,
-      skills: [
-        'Data Structures & Algorithms',
-        'System Design',
-        'Object-Oriented Programming',
-        'Problem Solving',
-        'Operating Systems',
-        'DBMS'
-      ]
-    },
-    {
-      title: 'Languages & Frameworks',
+      title: 'Languages',
       icon: <Code size={24} />,
       skills: [
-        'JavaScript',
-        'Python',
         'Java',
+        'Python',
         'C++',
-        'React',
-        'LWC',
-        'Node.js'
+        'JavaScript / TypeScript'
       ]
     },
     {
-      title: 'Backend & Cloud',
-      icon: <Cloud size={24} />,
+      title: 'Backend Technologies',
+      icon: <Server size={24} />,
       skills: [
-        'REST APIs',
+        'Spring Boot',
         'GraphQL',
-        'Distributed systems',
-        'Docker',
-        'Redis',
-        'Caching & scalability'
+        'REST APIs',
+        'SQLAlchemy'
       ]
     },
     {
-      title: 'Databases & observability',
+      title: 'Distributed Systems',
+      icon: <Network size={24} />,
+      skills: [
+        'System Design',
+        'Caching',
+        'Event-Driven Architecture',
+        'Scalability'
+      ]
+    },
+    {
+      title: 'Databases & Storage',
       icon: <Database size={24} />,
       skills: [
-        'MongoDB',
         'PostgreSQL',
-        'Prometheus',
-        'Grafana',
-        'Alertmanager',
-        'Jest',
-        'Selenium',
-        'Test automation'
+        'MongoDB',
+        'Redis',
+        'SQLite'
+      ]
+    },
+    {
+      title: 'Cloud & DevOps',
+      icon: <Cloud size={24} />,
+      skills: [
+        'AWS (EC2, S3, RDS)',
+        'Docker',
+        'Git',
+        'Bazel'
+      ]
+    },
+    {
+      title: 'AI & Agent Systems',
+      icon: <Bot size={24} />,
+      skills: [
+        'MCP',
+        'RAG',
+        'LangChain / LangGraph',
+        'Vector Databases'
       ]
     }
   ];
@@ -71,7 +80,7 @@ const Skills = () => {
           </p>
         </motion.div>
 
-        <div className="grid lg:grid-cols-2 gap-8">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {skillCategories.map((category, categoryIndex) => (
             <motion.div
               key={category.title}
@@ -79,9 +88,9 @@ const Skills = () => {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: categoryIndex * 0.1 }}
               viewport={{ once: true }}
-              className="card"
+              className="card !p-6"
             >
-              <div className="flex items-center mb-6">
+              <div className="flex items-center mb-4">
                 <div className="mr-3" style={{ color: 'var(--primary-color)' }}>{category.icon}</div>
                 <h3 className="text-xl font-bold gradient-text">{category.title}</h3>
               </div>
@@ -99,7 +108,7 @@ const Skills = () => {
                       y: -5,
                       boxShadow: '0 10px 25px rgba(0, 0, 0, 0.2)'
                     }}
-                    className="px-4 py-3 rounded-lg border text-center transition-all duration-300 cursor-pointer"
+                    className="px-3 py-2 rounded-lg border text-center transition-all duration-300"
                     style={{
                       backgroundColor: 'var(--card-bg)',
                       borderColor: 'var(--border-color)'
@@ -113,44 +122,9 @@ const Skills = () => {
           ))}
         </div>
 
-        {/* Additional Skills */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-          viewport={{ once: true }}
-          className="mt-12"
-        >
-          <h3 className="text-2xl font-bold text-center mb-8 gradient-text">Tools & Technologies</h3>
-          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
-            {[
-              'Git', 'GitHub', 'Postman', 'VS Code', 'Cursor', 'Docker', 'Kubernetes',
-              'Chrome DevTools', 'Prometheus', 'Grafana', 'Alertmanager', 'Swagger'].map((skill, index) => (
-                <motion.div
-                  key={skill}
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.5, delay: 0.5 + index * 0.05 }}
-                  viewport={{ once: true }}
-                  whileHover={{
-                    scale: 1.05,
-                    y: -3,
-                    boxShadow: '0 8px 20px rgba(0, 0, 0, 0.15)'
-                  }}
-                  className="px-4 py-3 rounded-lg border text-center transition-all duration-300 cursor-pointer"
-                  style={{
-                    backgroundColor: 'var(--card-bg)',
-                    borderColor: 'var(--border-color)'
-                  }}
-                >
-                  <span className="text-sm font-medium" style={{ color: 'var(--text-primary)' }}>{skill}</span>
-                </motion.div>
-              ))}
-          </div>
-        </motion.div>
       </div>
     </section>
   );
 };
 
-export default Skills; 
+export default Skills;

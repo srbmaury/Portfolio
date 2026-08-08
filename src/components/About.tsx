@@ -9,14 +9,22 @@ const About = () => {
       title: 'Associate Member of Technical Staff',
       company: 'Salesforce',
       location: 'Hyderabad',
-      description: 'Architected design-time and runtime namespace handling across OmniStudio components for ISV packaging. Built a cross-component dependency extraction engine with Tooling/Composite API fixes, package automation, and custom-label management. Shipped 1-click deployment instrumentation and migration tooling to streamline enterprise customer migrations at scale. Technologies: Java, Apex, GraphQL, LWC, distributed metadata, caching.'
+      highlights: [
+        'Architected namespace handling across OmniStudio components for ISV packaging.',
+        'Built cross-component dependency extraction using Tooling and Composite APIs.',
+        'Shipped deployment instrumentation and migration tooling for enterprise customers.'
+      ]
     },
     {
       year: 'May 2023 - July 2023',
       title: 'Software Development Intern',
       company: 'Razorpay Software Pvt. Ltd.',
       location: 'Bengaluru',
-      description: 'Observability for high-volume payments: 20+ Grafana dashboards across flows; Prometheus + Alertmanager alerting with Slack for sub–10 minute detection on critical failures; custom metrics via API middleware. Technologies: Prometheus, Grafana, Alertmanager, distributed monitoring.'
+      highlights: [
+        'Created 20+ Grafana dashboards for high-volume payment flows.',
+        'Implemented Prometheus and Alertmanager monitoring with Slack notifications.',
+        'Reduced critical-failure detection time to under 10 minutes.'
+      ]
     }
   ];
 
@@ -102,7 +110,9 @@ const About = () => {
                       <div className="text-sm font-medium mb-1" style={{ color: 'var(--primary-color)' }}>{exp.year}</div>
                       <h4 className="text-lg font-semibold mb-1" style={{ color: 'var(--text-primary)' }}>{exp.title}</h4>
                       <p className="font-medium mb-2" style={{ color: 'var(--text-secondary)' }}>{exp.company} • {exp.location}</p>
-                      <p style={{ color: 'var(--text-secondary)' }}>{exp.description}</p>
+                      <ul className="space-y-2 text-sm leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
+                        {exp.highlights.map((highlight) => <li key={highlight} className="flex gap-2"><span aria-hidden="true" style={{ color: 'var(--primary-color)' }}>•</span><span>{highlight}</span></li>)}
+                      </ul>
                     </motion.div>
                   ))}
                 </div>
@@ -117,4 +127,4 @@ const About = () => {
   );
 };
 
-export default About; 
+export default About;
