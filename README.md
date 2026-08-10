@@ -4,7 +4,7 @@
 
 <div align="center">
     
-  [![Portfolio](https://img.shields.io/badge/Visit-Portfolio-blue?style=for-the-badge)](https://saurabh-maurya-portfolio.netlify.app/)
+  [![Portfolio](https://img.shields.io/badge/Visit-Portfolio-blue?style=for-the-badge)](https://srbmaury.com/)
   
 </div>
 
@@ -46,9 +46,9 @@ Interactive chatbot trained on my experience and projects:
 - **Ecommerce Search Engine** — ML-based product search with personalized ranking and A/B testing  
 - **Companion AI** — AI interview prep with voice input, code editor, and auto-feedback  
 - **ExitSense** — Android app that detects when you're leaving home without GPS  
-- **YAML Visualizer** — Interactive tree diagrams with D3.js, real-time collaboration, and versioning  
+- **YAML Data Visualizer** — Interactive tree diagrams with D3.js, real-time collaboration, and versioning
 - **Developer Knowledge Base** — Notion-style knowledge platform with AI-powered answer generation  
-- **Hackathon Platform** — Full-stack event platform with RBAC and AI-based evaluation  
+- **Hackathon Portal** — Full-stack event platform with RBAC and AI-based evaluation
 
 ### 📱 Progressive Web App
 - Offline access with service worker caching  
@@ -63,11 +63,7 @@ Interactive chatbot trained on my experience and projects:
 
 ## 🛠️ Technical Skills
 
-**Frontend:** React, JavaScript, TypeScript, LWC, Tailwind CSS  
-**Backend:** Java, Node.js, Python, Apex, GraphQL, REST APIs  
-**Databases:** PostgreSQL, MongoDB, Redis, SOQL (Salesforce)  
-**DevOps:** Prometheus, Grafana, Alertmanager, Docker, Git  
-**Other:** Machine Learning, Distributed Systems, Performance Optimization  
+The portfolio renders its current, balanced skill taxonomy from [`src/config/profile.json`](src/config/profile.json), which is also the source used by the career assistant.
 
 ---
 
@@ -81,8 +77,8 @@ Interactive chatbot trained on my experience and projects:
 
 ## 🏆 Achievements
 
-- AIR **2669** in JEE Main  
-- Codeforces Specialist (**Top ~10% globally**)  
+- JEE Advanced AIR **4997** and JEE Main AIR **2669**
+- Codeforces Specialist (**Peak Rating: 1586**)
 - LeetCode Knight (**Max Rating: 1931**)  
 - Ranked **862 globally** in Google Kick Start 2022  
 
@@ -92,7 +88,7 @@ Interactive chatbot trained on my experience and projects:
 
 - **Email:** [saurabh.maurya.dev@gmail.com](mailto:saurabh.maurya.dev@gmail.com)  
 - **GitHub:** [@srbmaury](https://github.com/srbmaury)  
-- **Location:** India  
+- **Location:** Hyderabad, India
 
 🚀 **Try the portfolio and interact with the career assistant, or reach out for opportunities!**
 
@@ -100,7 +96,7 @@ Interactive chatbot trained on my experience and projects:
 
 <div align="center">
 
-**Built with React, TypeScript, and AI • Hosted on Render**
+**Built with React, TypeScript, and AI**
 
 Made with ❤️ by [Saurabh Maurya](https://github.com/srbmaury)
 

@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
+import profile from '../config/profile.json';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
   MapPin, 
@@ -53,6 +54,8 @@ const CareerTimeline: React.FC<CareerTimelineProps> = ({ isOpen, onClose }) => {
   const [isMuted, setIsMuted] = useState(false);
   const audioRef = useRef<HTMLAudioElement>(null);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
+  const razorpayExperience = profile.experience.find((experience) => experience.title.includes('Intern'))!;
+  const salesforceExperience = profile.experience.find((experience) => experience.year.includes('Present'))!;
 
   const timelineData: TimelineMilestone[] = [
     {
@@ -150,21 +153,17 @@ const CareerTimeline: React.FC<CareerTimelineProps> = ({ isOpen, onClose }) => {
     },
     {
       id: 'razorpay-internship',
-      year: '2023',
-      title: 'Razorpay Internship',
-      subtitle: 'Software Development Intern',
-      description: 'Joined Razorpay as a Software Development Intern, working on payment monitoring systems and Grafana dashboards.',
-      location: 'Bengaluru, India',
+      year: razorpayExperience.year,
+      title: `${razorpayExperience.company} Internship`,
+      subtitle: razorpayExperience.title,
+      description: razorpayExperience.highlights.join(' '),
+      location: `${razorpayExperience.location}, India`,
       type: 'work',
       icon: <Briefcase size={24} />,
       color: 'bg-orange-500',
       gradient: 'from-orange-500 to-red-500',
-      achievements: [
-        '20+ Grafana dashboards for high-volume payment flows',
-        'Prometheus + Alertmanager with Slack; critical failures detected in under 10 minutes',
-        'Custom metrics pipelines via API middleware for stronger production visibility'
-      ],
-      skills: ['Prometheus', 'Grafana', 'Alertmanager', 'Observability', 'Distributed systems'],
+      achievements: razorpayExperience.highlights,
+      skills: razorpayExperience.technologies,
       choices: [
         {
           label: 'Focus on Full-Stack',
@@ -212,21 +211,17 @@ const CareerTimeline: React.FC<CareerTimelineProps> = ({ isOpen, onClose }) => {
     },
     {
       id: 'salesforce-role',
-      year: '2024',
-      title: 'Salesforce - Associate Member of Technical Staff',
-      subtitle: 'Full-Stack Engineer',
-      description: 'Full-time on OmniStudio: namespace resolution for ISV packaging, cross-component dependency extraction, and 1-click deployment & migration tooling.',
-      location: 'Hyderabad, India',
+      year: salesforceExperience.year,
+      title: `${salesforceExperience.company} - ${salesforceExperience.title}`,
+      subtitle: profile.personalInfo.professionalTitle,
+      description: salesforceExperience.highlights.join(' '),
+      location: `${salesforceExperience.location}, India`,
       type: 'work',
       icon: <Briefcase size={24} />,
       color: 'bg-blue-600',
       gradient: 'from-blue-600 to-cyan-600',
-      achievements: [
-        'Led namespace resolution for OmniStudio ISV packaging across OmniScripts, FlexCards, Integration Procedures, and Data Mappers',
-        'Built cross-component dependency extraction engine, Tooling/Composite API fixes, package automation, and custom labels',
-        'Shipped 1-click deployment & migration tooling with special character detection and volume analysis'
-      ],
-      skills: ['Java', 'Apex', 'GraphQL', 'LWC', 'Caching', 'Distributed metadata', 'Git'],
+      achievements: salesforceExperience.highlights,
+      skills: salesforceExperience.technologies,
       choices: [
         {
           label: 'Continue Building Projects',
@@ -410,7 +405,7 @@ const CareerTimeline: React.FC<CareerTimelineProps> = ({ isOpen, onClose }) => {
               <div className="flex items-center justify-between">
                 <div>
                   <h2 className="text-3xl font-bold">Career Journey</h2>
-                  <p className="text-blue-100 mt-1">Interactive Timeline of Saurabh's Professional Growth</p>
+                  <p className="text-blue-100 mt-1">Interactive Timeline of {profile.personalInfo.name}'s Professional Growth</p>
                 </div>
                 <button
                   onClick={onClose}

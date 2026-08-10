@@ -4,9 +4,10 @@ import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import rehypeSanitize from 'rehype-sanitize';
 import { API_ENDPOINTS } from '../config/api';
-import knowledgeBase from '../config/knowledgeBase.json';
 import { useModal } from '../hooks/useModal';
 import { trackCareerBotEvent } from '../utils/analytics';
+import profile from '../config/profile.json';
+import projects from '../config/projects.json';
 
 interface Message {
   role: 'user' | 'assistant';
@@ -21,15 +22,18 @@ interface CareerBotProps {
   onOpen?: () => void;
 }
 
+const featuredProjectNames = projects.projects.filter((project) => project.featured).slice(0, 3).map((project) => project.title).join(', ');
+const currentRole = profile.experience[0];
+
 const INITIAL_MESSAGE =
-  "Hi there! This is Saurabh's AI assistant.\n\n" +
+  `Hi there! This is ${profile.personalInfo.name}'s AI assistant.\n\n` +
   "You can ask me about his experience, projects, technical skills, and background.\n\n" +
   "Useful topics to explore:\n\n" +
-  "- His professional experience and current role at Salesforce\n\n" +
-  "- Projects he has built, including YAML Visualizer, MERN Chat, and ML-based Ecommerce Search\n\n" +
+  `- His professional experience and current role at ${currentRole.company}\n\n` +
+  `- Projects he has built, including ${featuredProjectNames}\n\n` +
   "- His technical skills and areas of expertise\n\n" +
   "- How to connect or collaborate with him\n\n" +
-  "- His background, journey, and achievements\n\n" +
+  "- His background and engineering journey\n\n" +
   "What would you like to know?";
 
 const CareerBot: React.FC<CareerBotProps> = ({ className = '', isOpen: externalIsOpen, onClose: externalOnClose, onOpen: externalOnOpen }) => {
@@ -95,7 +99,7 @@ const CareerBot: React.FC<CareerBotProps> = ({ className = '', isOpen: externalI
     setIsLoading(true);
 
     // Track question asked
-    trackCareerBotEvent('question_asked', userMessage.substring(0, 100));
+    trackCareerBotEvent('question_asked');
 
     try {
       // Build conversation context from previous messages (to help AI understand the conversation flow)
@@ -111,28 +115,7 @@ const CareerBot: React.FC<CareerBotProps> = ({ className = '', isOpen: externalI
         },
         body: JSON.stringify({
           question: userMessage,
-          conversationContext: conversationContext,
-          resume: {
-            name: knowledgeBase.personalInfo.name,
-            title: knowledgeBase.personalInfo.title,
-            experience: knowledgeBase.experience.map(exp => ({
-              company: exp.company,
-              role: exp.title,
-              duration: exp.duration,
-              highlights: exp.highlights
-            })),
-            skills: [
-              ...(knowledgeBase.skills.frontend || []),
-              ...(knowledgeBase.skills.backend || []),
-              ...(knowledgeBase.skills.databases || []),
-              ...(knowledgeBase.skills.devops || []),
-              ...(knowledgeBase.skills.other || [])
-            ],
-            education: `${knowledgeBase.education.degree} in ${knowledgeBase.education.field}`,
-            location: knowledgeBase.personalInfo.location,
-            email: knowledgeBase.personalInfo.email,
-            github: knowledgeBase.personalInfo.github
-          }
+          conversationContext: conversationContext
         }),
       });
 
@@ -146,16 +129,19 @@ const CareerBot: React.FC<CareerBotProps> = ({ className = '', isOpen: externalI
       }
 
       const data = await response.json();
+      trackCareerBotEvent('response_success', 'question');
       setMessages(prev => [...prev, { role: 'assistant', content: data.analysis }]);
     } catch (error) {
 
-      let errorMessage = "Sorry, Saurabh's assistant encountered an error processing your request. Please try again or check your internet connection.";
+      let errorMessage = `Sorry, ${profile.personalInfo.name}'s assistant encountered an error processing your request. Please try again or check your internet connection.`;
 
       if (error instanceof Error && error.message.startsWith('RATE_LIMIT:')) {
         const retryAfter = error.message.split(':')[1];
         const minutes = Math.ceil(parseInt(retryAfter) / 60);
         errorMessage = `You've reached the rate limit (10 questions per hour). Please wait ${minutes > 1 ? `${minutes} minutes` : `${retryAfter} seconds`} before trying again.`;
       }
+
+      trackCareerBotEvent('response_error', 'question');
 
       setMessages(prev => [...prev, {
         role: 'assistant',
@@ -191,7 +177,7 @@ const CareerBot: React.FC<CareerBotProps> = ({ className = '', isOpen: externalI
     if (!userMessage) return;
 
     // Track regenerate
-    trackCareerBotEvent('regenerate_response', userMessage.substring(0, 100));
+    trackCareerBotEvent('regenerate_response');
 
     // Mark message as regenerating
     setMessages(prev => prev.map((msg, idx) =>
@@ -214,28 +200,7 @@ const CareerBot: React.FC<CareerBotProps> = ({ className = '', isOpen: externalI
         body: JSON.stringify({
           question: userMessage,
           conversationContext: conversationContext,
-          regenerate: true, // Flag to indicate regeneration
-          resume: {
-            name: knowledgeBase.personalInfo.name,
-            title: knowledgeBase.personalInfo.title,
-            experience: knowledgeBase.experience.map(exp => ({
-              company: exp.company,
-              role: exp.title,
-              duration: exp.duration,
-              highlights: exp.highlights
-            })),
-            skills: [
-              ...(knowledgeBase.skills.frontend || []),
-              ...(knowledgeBase.skills.backend || []),
-              ...(knowledgeBase.skills.databases || []),
-              ...(knowledgeBase.skills.devops || []),
-              ...(knowledgeBase.skills.other || [])
-            ],
-            education: `${knowledgeBase.education.degree} in ${knowledgeBase.education.field}`,
-            location: knowledgeBase.personalInfo.location,
-            email: knowledgeBase.personalInfo.email,
-            github: knowledgeBase.personalInfo.github
-          }
+          regenerate: true // Flag to indicate regeneration
         }),
       });
 
@@ -249,6 +214,7 @@ const CareerBot: React.FC<CareerBotProps> = ({ className = '', isOpen: externalI
       }
 
       const data = await response.json();
+      trackCareerBotEvent('response_success', 'regeneration');
 
       // Update the specific message
       setMessages(prev => prev.map((msg, idx) =>
@@ -265,6 +231,9 @@ const CareerBot: React.FC<CareerBotProps> = ({ className = '', isOpen: externalI
         const minutes = Math.ceil(parseInt(retryAfter) / 60);
         errorMessage = `Rate limit reached (10 questions per hour). Please wait ${minutes > 1 ? `${minutes} minutes` : `${retryAfter} seconds`} before regenerating.`;
       }
+
+
+      trackCareerBotEvent('response_error', 'regeneration');
 
       setMessages(prev => prev.map((msg, idx) =>
         idx === messageIndex
@@ -312,7 +281,7 @@ const CareerBot: React.FC<CareerBotProps> = ({ className = '', isOpen: externalI
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-2">
                 <Bot size={20} />
-                <h3 className="font-semibold">Ask About Saurabh</h3>
+                <h3 className="font-semibold">Ask About {profile.personalInfo.name.split(' ')[0]}</h3>
               </div>
               <div className="flex items-center space-x-2">
                 <button
@@ -477,7 +446,7 @@ const CareerBot: React.FC<CareerBotProps> = ({ className = '', isOpen: externalI
                 type="text"
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
-                placeholder="Ask anything about Saurabh..."
+                placeholder={`Ask anything about ${profile.personalInfo.name.split(' ')[0]}...`}
                 className="flex-1 px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:border-transparent text-sm"
                 style={{
                   backgroundColor: 'var(--bg-primary)',

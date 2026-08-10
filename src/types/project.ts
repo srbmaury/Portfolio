@@ -5,7 +5,8 @@ export interface Project {
   fallbackIcon: string;
   fallbackGradient: string;
   technologies: string[];
-  liveUrl: string;
+  highlights?: string[];
+  liveUrl?: string;
   githubUrl: string;
   featured: boolean;
   demoType?: 'iframe' | 'video' | 'image';
@@ -16,4 +17,4 @@ export interface ProjectModalProps {
   isOpen: boolean;
   onClose: () => void;
   project: Project | null;
-} 
+}

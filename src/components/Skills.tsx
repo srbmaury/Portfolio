@@ -1,70 +1,17 @@
 import { motion } from 'framer-motion';
 import { Bot, Cloud, Code, Database, Network, Server } from 'lucide-react';
+import profile from '../config/profile.json';
+
+const skillIcons = {
+  bot: Bot,
+  cloud: Cloud,
+  code: Code,
+  database: Database,
+  network: Network,
+  server: Server
+};
 
 const Skills = () => {
-  const skillCategories = [
-    {
-      title: 'Languages',
-      icon: <Code size={24} />,
-      skills: [
-        'Java',
-        'Python',
-        'C++',
-        'JavaScript / TypeScript'
-      ]
-    },
-    {
-      title: 'Backend Technologies',
-      icon: <Server size={24} />,
-      skills: [
-        'Spring Boot',
-        'GraphQL',
-        'REST APIs',
-        'SQLAlchemy'
-      ]
-    },
-    {
-      title: 'Distributed Systems',
-      icon: <Network size={24} />,
-      skills: [
-        'System Design',
-        'Caching',
-        'Event-Driven Architecture',
-        'Scalability'
-      ]
-    },
-    {
-      title: 'Databases & Storage',
-      icon: <Database size={24} />,
-      skills: [
-        'PostgreSQL',
-        'MongoDB',
-        'Redis',
-        'SQLite'
-      ]
-    },
-    {
-      title: 'Cloud & DevOps',
-      icon: <Cloud size={24} />,
-      skills: [
-        'AWS (EC2, S3, RDS)',
-        'Docker',
-        'Git',
-        'Bazel'
-      ]
-    },
-    {
-      title: 'AI & Agent Systems',
-      icon: <Bot size={24} />,
-      skills: [
-        'MCP',
-        'RAG',
-        'LangChain / LangGraph',
-        'Vector Databases'
-      ]
-    }
-  ];
-
   return (
     <section id="skills" className="section" style={{ backgroundColor: 'var(--bg-secondary)' }} aria-label="Skills section" role="region" tabIndex={-1}>
       <div className="container">
@@ -81,7 +28,10 @@ const Skills = () => {
         </motion.div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {skillCategories.map((category, categoryIndex) => (
+          {profile.skillCategories.map((category, categoryIndex) => {
+            const Icon = skillIcons[category.icon as keyof typeof skillIcons];
+
+            return (
             <motion.div
               key={category.title}
               initial={{ opacity: 0, y: 30 }}
@@ -91,7 +41,7 @@ const Skills = () => {
               className="card !p-6"
             >
               <div className="flex items-center mb-4">
-                <div className="mr-3" style={{ color: 'var(--primary-color)' }}>{category.icon}</div>
+                <div className="mr-3" style={{ color: 'var(--primary-color)' }}><Icon size={24} /></div>
                 <h3 className="text-xl font-bold gradient-text">{category.title}</h3>
               </div>
 
@@ -119,7 +69,8 @@ const Skills = () => {
                 ))}
               </div>
             </motion.div>
-          ))}
+            );
+          })}
         </div>
 
       </div>

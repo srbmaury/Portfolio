@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { ArrowDown, Mail, Code2 } from 'lucide-react';
 import { trackHeroEvent } from '../utils/analytics';
+import profile from '../config/profile.json';
 
 const Hero = () => {
   const scrollToAbout = () => {
@@ -43,7 +44,7 @@ const Hero = () => {
             transition={{ delay: 0.4 }}
             className="text-5xl md:text-7xl font-bold mb-6"
           >
-            <span className="gradient-text">Saurabh Maurya</span>
+            <span className="gradient-text">{profile.personalInfo.name}</span>
           </motion.h1>
 
           {/* Title */}
@@ -54,7 +55,7 @@ const Hero = () => {
             className="text-xl md:text-2xl mb-6"
             style={{ color: 'var(--text-secondary)' }}
           >
-            Software Engineer • Distributed Systems • Metadata & Caching
+            {profile.personalInfo.headline}
           </motion.h2>
 
           {/* Description */}
@@ -65,7 +66,7 @@ const Hero = () => {
             className="text-lg max-w-2xl mx-auto mb-12 leading-relaxed"
             style={{ color: 'var(--text-secondary)' }}
           >
-            I build robust full-stack applications and distributed systems—from concept to deployment, with a focus on clean architecture, scalability, and production reliability.
+            {profile.personalInfo.bio}
           </motion.p>
 
           {/* CTA Buttons */}
@@ -132,4 +133,4 @@ const Hero = () => {
   );
 };
 
-export default Hero; 
+export default Hero;

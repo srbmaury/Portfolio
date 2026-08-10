@@ -7,6 +7,11 @@
       "fallbackIcon": "🛒",
       "fallbackGradient": "from-purple-400 to-pink-500",
       "technologies": ["Python", "JavaScript", "HTML", "CSS", "Machine Learning"],
+      "highlights": [
+        "ML-powered ranking with LightGBM and user clustering, supported by asynchronous retraining pipelines.",
+        "PostgreSQL full-text search, Redis caching, and connection pooling reduced latency by about 40% across 10,000+ events.",
+        "Includes an experimentation framework for A/B testing ranking changes."
+      ],
       "liveUrl": "https://ecommerce-search.onrender.com/",
       "githubUrl": "https://github.com/srbmaury/Ecommerce-Search",
       "featured": true,
@@ -20,6 +25,11 @@
       "fallbackIcon": "🤖",
       "fallbackGradient": "from-cyan-400 to-blue-500",
       "technologies": ["React", "Node.js", "Redis", "Express", "MongoDB", "OAuth"],
+      "highlights": [
+        "Generates multi-round interview sessions from job descriptions with voice input and code-editor support.",
+        "Provides automatic AI-powered feedback and scoring after practice rounds.",
+        "Uses OAuth authentication, Redis session caching, and MongoDB persistence."
+      ],
       "liveUrl": "https://companionai-frontend.onrender.com/",
       "githubUrl": "https://github.com/srbmaury/CompanionAI",
       "featured": true,
@@ -33,7 +43,6 @@
       "fallbackIcon": "🚪",
       "fallbackGradient": "from-amber-400 to-orange-500",
       "technologies": ["Java", "Kotlin"],
-      "liveUrl": "https://github.com/srbmaury/ExitSense",
       "githubUrl": "https://github.com/srbmaury/ExitSense",
       "featured": false
     },
@@ -44,6 +53,11 @@
       "fallbackIcon": "📚",
       "fallbackGradient": "from-violet-500 to-indigo-600",
       "technologies": ["Next.js 15", "TypeScript", "Tailwind CSS", "Prisma", "PostgreSQL", "Neon", "Supabase", "Zustand", "OpenAI API", "shadcn/ui"],
+      "highlights": [
+        "Supports Notion-style nested workspaces, drag-and-drop organization, pinned notes, favorites, and multiple solutions.",
+        "Combines a Markdown editor, live preview, syntax highlighting, and global search.",
+        "Provides per-user Supabase-authenticated workspaces and OpenAI-powered answer generation."
+      ],
       "liveUrl": "https://developer-knowledge-base.onrender.com/",
       "githubUrl": "https://github.com/srbmaury/Developer-Knowledge-Base",
       "featured": true,
@@ -70,6 +84,11 @@
       "fallbackIcon": "🌳",
       "fallbackGradient": "from-blue-400 to-indigo-500",
       "technologies": ["React", "Node.js", "D3.js", "MongoDB", "JavaScript", "CSS"],
+      "highlights": [
+        "Supports real-time collaboration, delta-based versioning, and secure GitHub webhook integrations.",
+        "Renders more than 5,000 nodes at 60fps using virtual rendering and frame scheduling.",
+        "Includes diff comparison, time-travel versioning, and AI-assisted YAML workflows."
+      ],
       "liveUrl": "https://yaml-visualizer.netlify.app/",
       "githubUrl": "https://github.com/srbmaury/YAML-Visualizer",
       "featured": true,
@@ -83,6 +102,11 @@
       "fallbackIcon": "🚀",
       "fallbackGradient": "from-orange-400 to-red-500",
       "technologies": ["React", "Node.js", "Express", "MongoDB", "JavaScript"],
+      "highlights": [
+        "Designed a role-based access-control system spanning six roles.",
+        "Automated evaluation workflows using AI APIs.",
+        "Managed teams, submissions, ideas, participants, and scoring through the event lifecycle."
+      ],
       "liveUrl": "https://hackathon-portal-sepia.vercel.app",
       "githubUrl": "https://github.com/srbmaury/Hackathon-Portal",
       "featured": false,
@@ -101,6 +125,19 @@
       "featured": false,
       "demoType": "iframe",
       "demoUrl": "https://store-management-frontend-x0e2.onrender.com/"
+    },
+    {
+      "title": "Kanban Board",
+      "description": "A project-management board with drag-and-drop task organization and a responsive workflow-focused interface.",
+      "image": "/images/KanbanBoard.png",
+      "fallbackIcon": "📋",
+      "fallbackGradient": "from-sky-400 to-blue-600",
+      "technologies": ["JavaScript", "HTML", "CSS", "Drag & Drop API"],
+      "liveUrl": "https://saurabh-kanban-board.netlify.app/",
+      "githubUrl": "https://github.com/srbmaury/saurabh-kanban-board",
+      "featured": false,
+      "demoType": "iframe",
+      "demoUrl": "https://saurabh-kanban-board.netlify.app/"
     },
     {
       "title": "Notes Application",
@@ -174,7 +211,6 @@
       "fallbackIcon": "🔍",
       "fallbackGradient": "from-gray-400 to-blue-500",
       "technologies": ["JavaScript", "HTML", "CSS", "API Integration", "Data Filtering"],
-      "liveUrl": "https://github.com/srbmaury/CF-Filter-Recent-Actions",
       "githubUrl": "https://github.com/srbmaury/CF-Filter-Recent-Actions",
       "featured": false
     }

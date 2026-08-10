@@ -34,16 +34,22 @@ const ProjectArchive = () => {
               viewport={{ once: true }}
               className={`card flex flex-col ${projects.length % 3 === 1 && index === projects.length - 1 ? 'lg:col-start-2' : ''}`}
             >
-              <LazyImage
-                src={project.image || ''}
-                alt={project.title}
-                className="w-full h-36 object-cover object-top rounded-lg mb-5"
-                fallback={
-                  <div className="w-full h-36 rounded-lg mb-5 flex items-center justify-center text-5xl" style={{ background: fallbackGradientMap[project.fallbackGradient] || defaultFallbackGradient }}>
-                    {project.fallbackIcon}
-                  </div>
-                }
-              />
+              {project.image ? (
+                <LazyImage
+                  src={project.image}
+                  alt={project.title}
+                  className="w-full h-36 object-cover object-top rounded-lg mb-5"
+                  fallback={
+                    <div className="w-full h-36 rounded-lg mb-5 flex items-center justify-center text-5xl" style={{ background: fallbackGradientMap[project.fallbackGradient] || defaultFallbackGradient }}>
+                      {project.fallbackIcon}
+                    </div>
+                  }
+                />
+              ) : (
+                <div className="w-full h-36 rounded-lg mb-5 flex items-center justify-center text-5xl" style={{ background: fallbackGradientMap[project.fallbackGradient] || defaultFallbackGradient }}>
+                  {project.fallbackIcon}
+                </div>
+              )}
               <h2 className="text-xl font-bold mb-3 gradient-text">{project.title}</h2>
               <p className="text-sm leading-relaxed mb-4 flex-grow" style={{ color: 'var(--text-secondary)' }}>{project.description}</p>
               <div className="flex flex-wrap gap-2 mb-5">
@@ -52,9 +58,9 @@ const ProjectArchive = () => {
                 ))}
               </div>
               <div className="flex gap-4">
-                <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" className="min-h-11 inline-flex items-center gap-2 font-medium text-sm" style={{ color: 'var(--primary-color)' }} onClick={() => trackProjectEvent('live_demo_click', project.title)} aria-label={`View ${project.title}`}>
+                {project.liveUrl && <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" className="min-h-11 inline-flex items-center gap-2 font-medium text-sm" style={{ color: 'var(--primary-color)' }} onClick={() => trackProjectEvent('live_demo_click', project.title)} aria-label={`View ${project.title}`}>
                   <ExternalLink size={16} /> View
-                </a>
+                </a>}
                 <a href={project.githubUrl} target="_blank" rel="noopener noreferrer" className="min-h-11 inline-flex items-center gap-2 font-medium text-sm" style={{ color: 'var(--text-secondary)' }} onClick={() => trackProjectEvent('github_click', project.title)} aria-label={`View ${project.title} source code`}>
                   <Github size={16} /> Source
                 </a>

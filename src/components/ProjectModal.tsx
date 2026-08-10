@@ -216,7 +216,7 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, project })
           <h3 className="text-3xl font-bold mb-4" style={{ color: 'var(--text-primary)' }}>{project.title}</h3>
           <p className="text-lg max-w-md mx-auto" style={{ color: 'var(--text-secondary)' }}>{project.description}</p>
           <div className="mt-6 flex justify-center gap-4">
-            <a
+            {project.liveUrl && <a
               href={project.liveUrl}
               target="_blank"
               rel="noopener noreferrer"
@@ -232,7 +232,7 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, project })
             >
               <ExternalLink size={20} />
               View Project
-            </a>
+            </a>}
             <a
               href={project.githubUrl}
               target="_blank"
@@ -317,7 +317,7 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, project })
                     )}
                   </h3>
                   <div className="flex gap-2">
-                    <a
+                    {project.liveUrl && <a
                       href={project.liveUrl}
                       target="_blank"
                       rel="noopener noreferrer"
@@ -332,7 +332,7 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, project })
                     >
                       <ExternalLink size={16} />
                       Live Demo
-                    </a>
+                    </a>}
                     <a
                       href={project.githubUrl}
                       target="_blank"
@@ -383,22 +383,16 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, project })
               <div>
                 <h3 className="text-lg font-semibold mb-3" style={{ color: 'var(--text-primary)' }}>Key Features</h3>
                 <ul className="space-y-2" style={{ color: 'var(--text-secondary)' }}>
-                  <li className="flex items-start gap-2">
-                    <div className="w-2 h-2 rounded-full mt-2 flex-shrink-0" style={{ backgroundColor: 'var(--primary-color)' }}></div>
-                    <span>Responsive design that works on all devices</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <div className="w-2 h-2 rounded-full mt-2 flex-shrink-0" style={{ backgroundColor: 'var(--primary-color)' }}></div>
-                    <span>Modern UI/UX with smooth animations</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <div className="w-2 h-2 rounded-full mt-2 flex-shrink-0" style={{ backgroundColor: 'var(--primary-color)' }}></div>
-                    <span>Optimized performance and accessibility</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <div className="w-2 h-2 rounded-full mt-2 flex-shrink-0" style={{ backgroundColor: 'var(--primary-color)' }}></div>
-                    <span>Clean, maintainable code structure</span>
-                  </li>
+                  {(project.highlights || [
+                    'Responsive design across device sizes',
+                    'Modern UI with performance-conscious implementation',
+                    'Clean, maintainable code structure',
+                  ]).map((highlight) => (
+                    <li key={highlight} className="flex items-start gap-2">
+                      <div className="w-2 h-2 rounded-full mt-2 flex-shrink-0" style={{ backgroundColor: 'var(--primary-color)' }}></div>
+                      <span>{highlight}</span>
+                    </li>
+                  ))}
                 </ul>
               </div>
             </div>

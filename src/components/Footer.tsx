@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { Heart } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import profile from '../config/profile.json';
 
 const Footer = () => {
   return (
@@ -15,10 +16,9 @@ const Footer = () => {
             viewport={{ once: true }}
             className="text-center md:text-left"
           >
-            <h3 className="text-2xl font-bold gradient-text mb-4">Saurabh Maurya</h3>
+            <h3 className="text-2xl font-bold gradient-text mb-4">{profile.personalInfo.name}</h3>
             <p className="leading-relaxed" style={{ color: 'var(--footer-text-secondary)' }}>
-              Software Development Engineer passionate about building scalable applications 
-              and solving complex technical challenges.
+              {profile.personalInfo.bio}
             </p>
           </motion.div>
 
@@ -61,9 +61,9 @@ const Footer = () => {
           >
             <h4 className="text-lg font-semibold mb-4" style={{ color: 'var(--footer-text-primary)' }}>Contact</h4>
             <div className="space-y-2" style={{ color: 'var(--footer-text-secondary)' }}>
-              <p>saurabh.maurya.dev@gmail.com</p>
-              <p>+91 7355069174</p>
-              <p>Chandauli, UP</p>
+              <p>{profile.personalInfo.email}</p>
+              <p>{profile.personalInfo.phone}</p>
+              <p>{profile.personalInfo.location}</p>
             </div>
           </motion.div>
         </div>
@@ -81,7 +81,7 @@ const Footer = () => {
             className="text-center md:text-left"
             style={{ color: 'var(--footer-text-secondary)' }}
           >
-            © {new Date().getFullYear()} Saurabh Maurya. Made with{' '}
+            © {new Date().getFullYear()} {profile.personalInfo.name}. Made with{' '}
             <Heart size={16} className="inline" style={{ color: '#ef4444' }} /> and React.
           </motion.p>
         </div>

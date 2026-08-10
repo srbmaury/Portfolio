@@ -21,6 +21,7 @@ import ScrollProgress from './components/ScrollProgress';
 import BackToTop from './components/BackToTop';
 import { ThemeProvider } from './providers/ThemeProvider';
 import { ModalProvider } from './contexts/ModalContext';
+import profile from './config/profile.json';
 
 const RouteScrollManager = () => {
   const { pathname, hash } = useLocation();
@@ -93,7 +94,7 @@ function App() {
                     <About />
                     <Skills />
                     <Projects />
-                    <GitHubStats username="srbmaury" />
+                    <GitHubStats username={profile.githubSnapshot.username} />
                     <Contact />
                   </>
                 } />

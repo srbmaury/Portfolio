@@ -3,7 +3,8 @@ import { motion } from 'framer-motion';
 import { Mail, Phone, MapPin, Send, Linkedin, Github, Twitter } from 'lucide-react';
 import emailjs from '@emailjs/browser';
 import { emailConfig } from '../config/email';
-import { trackContactFormSubmit, trackContactFormIntent } from '../utils/analytics';
+import { trackContactFormSubmit, trackContactFormIntent, trackSocialEvent } from '../utils/analytics';
+import profile from '../config/profile.json';
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -67,27 +68,27 @@ const Contact = () => {
     {
       icon: <Mail size={24} />,
       title: 'Email',
-      value: 'saurabh.maurya.dev@gmail.com',
-      link: 'mailto:saurabh.maurya.dev@gmail.com'
+      value: profile.personalInfo.email,
+      link: `mailto:${profile.personalInfo.email}`
     },
     {
       icon: <Phone size={24} />,
       title: 'Phone',
-      value: '+91 7355069174',
-      link: 'tel:+917355069174'
+      value: profile.personalInfo.phone,
+      link: `tel:${profile.personalInfo.phone.replace(/\s/g, '')}`
     },
     {
       icon: <MapPin size={24} />,
       title: 'Location',
-      value: 'Chandauli, UP',
+      value: profile.personalInfo.location,
       link: '#'
     }
   ];
 
   const socialLinks = [
-    { icon: <Linkedin size={20} />, url: 'https://www.linkedin.com/in/srbmaury', label: 'LinkedIn' },
-    { icon: <Github size={20} />, url: 'https://github.com/srbmaury', label: 'GitHub' },
-    { icon: <Twitter size={20} />, url: 'https://x.com/srbmaury', label: 'Twitter' }
+    { icon: <Linkedin size={20} />, url: profile.personalInfo.linkedin, label: 'LinkedIn' },
+    { icon: <Github size={20} />, url: profile.personalInfo.github, label: 'GitHub' },
+    { icon: <Twitter size={20} />, url: profile.personalInfo.twitter, label: 'Twitter' }
   ];
 
   const handleFormOpen = () => {
@@ -177,6 +178,7 @@ const Contact = () => {
                     viewport={{ once: true }}
                     whileHover={{ scale: 1.1 }}
                     whileTap={{ scale: 0.9 }}
+                    onClick={() => trackSocialEvent(social.label)}
                     className="w-12 h-12 text-white rounded-full flex items-center justify-center transition-colors duration-200 bg-[var(--primary-color)] hover:bg-[var(--secondary-color)]"
                     aria-label={social.label}
                   >

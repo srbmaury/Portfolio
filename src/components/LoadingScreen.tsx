@@ -1,5 +1,6 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState, useEffect } from 'react';
+import profile from '../config/profile.json';
 
 interface LoadingScreenProps {
   onLoadingComplete: () => void;
@@ -32,8 +33,8 @@ const LoadingScreen: React.FC<LoadingScreenProps> = ({ onLoadingComplete }) => {
             transition={{ duration: 0.5 }}
             className="mb-8"
           >
-            <h1 className="text-4xl font-bold gradient-text mb-2">Saurabh Maurya</h1>
-            <p className="text-lg" style={{ color: 'var(--text-secondary)' }}>Software Engineer</p>
+            <h1 className="text-4xl font-bold gradient-text mb-2">{profile.personalInfo.name}</h1>
+            <p className="text-lg" style={{ color: 'var(--text-secondary)' }}>{profile.personalInfo.professionalTitle}</p>
           </motion.div>
 
           {/* Progress Bar */}
@@ -76,4 +77,4 @@ const LoadingScreen: React.FC<LoadingScreenProps> = ({ onLoadingComplete }) => {
   );
 };
 
-export default LoadingScreen; 
+export default LoadingScreen;

@@ -143,7 +143,7 @@ const Projects = () => {
                   <button onClick={() => handleProjectClick(project)} className="min-h-11 flex items-center space-x-2 font-medium" style={{ color: 'var(--primary-color)' }}>
                     <Info size={16} /><span>Details</span>
                   </button>
-                  {project.liveUrl !== project.githubUrl && <a
+                  {project.liveUrl && project.liveUrl !== project.githubUrl && <a
                     href={project.liveUrl}
                     target="_blank"
                     rel="noopener noreferrer"

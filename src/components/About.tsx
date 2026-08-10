@@ -1,34 +1,8 @@
 import { motion } from 'framer-motion';
 import LazyImage from './LazyImage';
+import profile from '../config/profile.json';
 
 const About = () => {
-
-  const experiences = [
-    {
-      year: 'June 2024 - Present',
-      title: 'Associate Member of Technical Staff',
-      company: 'Salesforce',
-      location: 'Hyderabad',
-      highlights: [
-        'Architected namespace handling across OmniStudio components for ISV packaging.',
-        'Built cross-component dependency extraction using Tooling and Composite APIs.',
-        'Shipped deployment instrumentation and migration tooling for enterprise customers.'
-      ]
-    },
-    {
-      year: 'May 2023 - July 2023',
-      title: 'Software Development Intern',
-      company: 'Razorpay Software Pvt. Ltd.',
-      location: 'Bengaluru',
-      highlights: [
-        'Created 20+ Grafana dashboards for high-volume payment flows.',
-        'Implemented Prometheus and Alertmanager monitoring with Slack notifications.',
-        'Reduced critical-failure detection time to under 10 minutes.'
-      ]
-    }
-  ];
-
-
   return (
     <section id="about" className="section min-h-screen flex items-center" style={{ backgroundColor: 'var(--bg-primary)' }} aria-label="About section" role="region" tabIndex={-1}>
       <div className="container">
@@ -59,13 +33,13 @@ const About = () => {
                 <div className="profile-img-container group w-full h-full rounded-2xl overflow-hidden transition-all duration-300 border-4 border-transparent hover:border-blue-400 hover:shadow-xl relative">
                   <LazyImage
                     src="/images/profile.jpg"
-                    alt="Saurabh Maurya"
+                    alt={profile.personalInfo.name}
                     sizes="(max-width: 768px) 100vw, 50vw"
                     fallback={
                       <div className="profile-fallback absolute inset-0 w-full h-full bg-gradient-to-br from-blue-400 to-cyan-400 flex items-center justify-center transition-opacity duration-500 opacity-100 pointer-events-auto">
                         <div className="text-white text-center">
                           <div className="text-6xl mb-4">👤</div>
-                          <p className="text-xl font-medium">Saurabh Maurya</p>
+                          <p className="text-xl font-medium">{profile.personalInfo.name}</p>
                           <p className="text-sm opacity-80">
                             {typeof window !== 'undefined' && !navigator.onLine
                               ? 'Profile photo unavailable offline'
@@ -97,7 +71,7 @@ const About = () => {
               <div>
                 <h3 className="text-2xl font-bold mb-6 gradient-text" tabIndex={0} aria-label="Experience">Experience</h3>
                 <div className="space-y-6">
-                  {experiences.map((exp, index) => (
+                  {profile.experience.map((exp, index) => (
                     <motion.div
                       key={index}
                       initial={{ opacity: 0, y: 20 }}

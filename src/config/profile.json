@@ -1,0 +1,108 @@
+{
+  "personalInfo": {
+    "name": "Saurabh Maurya",
+    "title": "Associate Member of Technical Staff",
+    "professionalTitle": "Software Engineer",
+    "headline": "Software Engineer • Distributed Systems • Metadata & Caching",
+    "location": "Hyderabad, India",
+    "hometown": "Chandauli, Uttar Pradesh, India",
+    "email": "saurabh.maurya.dev@gmail.com",
+    "phone": "+91 7355069174",
+    "github": "https://github.com/srbmaury",
+    "linkedin": "https://www.linkedin.com/in/srbmaury",
+    "twitter": "https://x.com/srbmaury",
+    "leetcode": "https://leetcode.com/srbmaury",
+    "codeforces": "https://codeforces.com/profile/srbmaury",
+    "portfolio": "https://srbmaury.com",
+    "bio": "Full-stack engineer focused on distributed metadata systems, caching, observability, ML-backed search, and high-performance data visualization."
+  },
+  "education": {
+    "degree": "Bachelor of Technology",
+    "field": "Electronics and Communication Engineering",
+    "university": "Indian Institute of Technology (IIT BHU), Varanasi",
+    "year": "2024",
+    "cgpa": "8.35/10"
+  },
+  "experience": [
+    {
+      "year": "June 2024 - Present",
+      "title": "Associate Member of Technical Staff",
+      "company": "Salesforce",
+      "location": "Hyderabad",
+      "technologies": ["Java", "Apex", "GraphQL", "LWC", "Distributed Metadata Systems", "Caching", "Git"],
+      "highlights": [
+        "Architected design-time and runtime namespace handling across OmniStudio components for ISV packaging.",
+        "Built a cross-component dependency extraction engine with Tooling and Composite API fixes, package automation, and custom-label management.",
+        "Shipped one-click deployment instrumentation and migration tooling for enterprise customers at scale."
+      ]
+    },
+    {
+      "year": "May 2023 - July 2023",
+      "title": "Software Development Intern",
+      "company": "Razorpay Software Pvt. Ltd.",
+      "location": "Bengaluru",
+      "technologies": ["Prometheus", "Grafana", "Alertmanager", "Observability", "API Middleware"],
+      "highlights": [
+        "Built observability infrastructure with more than 20 Grafana dashboards across high-volume payment flows.",
+        "Implemented real-time Prometheus and Alertmanager monitoring with Slack notifications, reducing critical-failure detection time to under 10 minutes.",
+        "Extended production visibility with custom metrics delivered through API middleware."
+      ]
+    }
+  ],
+  "achievements": [
+    "JEE Advanced AIR 4997 and JEE Main AIR 2669 among more than one million candidates",
+    "Codeforces Specialist with a peak rating of 1586",
+    "LeetCode Knight with a peak rating of 1931",
+    "Google Kick Start rank 862 among more than 108,000 participants"
+  ],
+  "interests": [
+    "System Design",
+    "Distributed Systems",
+    "Full-stack Development",
+    "Observability and Monitoring",
+    "Performance Optimization",
+    "Competitive Programming"
+  ],
+  "additionalExpertise": ["UTAM", "Data Structures and Algorithms"],
+  "githubSnapshot": {
+    "username": "srbmaury",
+    "avatarUrl": "https://avatars.githubusercontent.com/u/85755081?v=4",
+    "company": "IIT BHU",
+    "joinedAt": "2021-06-11T00:00:00Z",
+    "followers": 6,
+    "repositories": 25,
+    "totalStars": 34
+  },
+  "skillCategories": [
+    {
+      "title": "Languages",
+      "icon": "code",
+      "skills": ["Java", "Python", "C++", "JavaScript / TypeScript"]
+    },
+    {
+      "title": "Backend Technologies",
+      "icon": "server",
+      "skills": ["Spring Boot", "GraphQL", "REST APIs", "SQLAlchemy"]
+    },
+    {
+      "title": "Distributed Systems",
+      "icon": "network",
+      "skills": ["System Design", "Caching", "Event-Driven Architecture", "Scalability"]
+    },
+    {
+      "title": "Databases & Storage",
+      "icon": "database",
+      "skills": ["PostgreSQL", "MongoDB", "Redis", "SQLite"]
+    },
+    {
+      "title": "Cloud & DevOps",
+      "icon": "cloud",
+      "skills": ["AWS (EC2, S3, RDS)", "Docker", "Git", "Bazel"]
+    },
+    {
+      "title": "AI & Agent Systems",
+      "icon": "bot",
+      "skills": ["MCP", "RAG", "LangChain / LangGraph", "Vector Databases"]
+    }
+  ]
+}

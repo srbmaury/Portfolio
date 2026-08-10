@@ -9,11 +9,41 @@ import { generateAIResponse } from '../services/aiService.js';
 
 const router = express.Router();
 
-const knowledgeBase = JSON.parse(
+const profile = JSON.parse(
   fs.readFileSync(
-    new URL('../src/config/knowledgeBase.json', import.meta.url)
+    new URL('../src/config/profile.json', import.meta.url)
   )
 );
+
+const projects = JSON.parse(
+  fs.readFileSync(
+    new URL('../src/config/projects.json', import.meta.url)
+  )
+);
+
+// The chatbot context is composed from the same records rendered by the site.
+const portfolioContext = {
+  ...profile,
+  projects: projects.projects.map(
+    ({
+      title,
+      description,
+      technologies,
+      highlights,
+      liveUrl,
+      githubUrl,
+      featured,
+    }) => ({
+      title,
+      description,
+      technologies,
+      highlights,
+      liveUrl,
+      githubUrl,
+      featured,
+    })
+  ),
+};
 
 const careerPromptConfig = JSON.parse(
   fs.readFileSync(
@@ -57,7 +87,9 @@ router.post('/analyze-career', rateLimitMiddleware, async (req, res) => {
     }
 
     const prompt = careerPromptTemplate
-      .replace('{{KNOWLEDGE_BASE}}', JSON.stringify(knowledgeBase, null, 2))
+      .replaceAll('{{PROFILE_NAME}}', profile.personalInfo.name)
+      .replaceAll('{{PROFILE_TITLE}}', profile.personalInfo.professionalTitle)
+      .replace('{{KNOWLEDGE_BASE}}', JSON.stringify(portfolioContext, null, 2))
       .replace('{{QUESTION}}', question)
       .replace(
         '{{CONVERSATION_CONTEXT}}',

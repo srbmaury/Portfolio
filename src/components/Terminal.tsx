@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Terminal as TerminalIcon, X, HelpCircle, Play, Palette, Settings, Zap } from 'lucide-react';
 import MatrixRain from './MatrixRain';
 import CareerTimeline from './CareerTimeline';
+import profile from '../config/profile.json';
 
 interface TerminalProps {
   isOpen: boolean;
@@ -652,13 +653,15 @@ Type 'projects --help' for detailed information.`;
       description: 'Show information about me',
       usage: 'whoami',
       execute: () => {
-        return `Saurabh Maurya
-Software Engineer
-Location: Hyderabad, India
+        const currentRole = profile.experience[0];
+        const skills = profile.skillCategories.flatMap((category) => category.skills);
+        return `${profile.personalInfo.name}
+${profile.personalInfo.professionalTitle}
+Location: ${profile.personalInfo.location}
 Experience: 2+ years
-Current: Associate Member of Technical Staff @ Salesforce
-Focus: OmniStudio ISV packaging, dependency extraction, migration tooling, GraphQL, LWC
-Skills: Java, JavaScript, Python, C++, React, Node.js, PostgreSQL, Redis, Docker, Prometheus, Grafana`;
+Current: ${currentRole.title} @ ${currentRole.company}
+Focus: ${currentRole.highlights.join(' ')}
+Skills: ${skills.join(', ')}`;
       }
     },
     date: {
@@ -1101,7 +1104,7 @@ Try these commands now! Type 'help' anytime for assistance.`;
     if (showWelcome && isOpen) {
       const welcomeEntry: CommandHistory = {
         command: '',
-        output: `Welcome to Saurabh's Portfolio Terminal! 🚀
+        output: `Welcome to ${profile.personalInfo.name}'s Portfolio Terminal! 🚀
 
 Type 'help' to see all available commands
 Type 'tutorial' to start an interactive guide  
@@ -1417,4 +1420,4 @@ Type 'demo' to see a quick demonstration`,
   );
 };
 
-export default Terminal; 
+export default Terminal;

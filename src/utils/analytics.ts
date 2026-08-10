@@ -3,7 +3,7 @@
  *
  * Usage:
  * import { trackEvent, trackPageView } from './utils/analytics';
- * trackEvent('careerbot', 'question_asked', 'What is Saurabh's role?');
+ * trackEvent('careerbot', 'question_asked');
  */
 
 declare global {
@@ -64,6 +64,13 @@ export const trackCareerBotEvent = (action: string, label?: string): void => {
  */
 export const trackProjectEvent = (action: string, projectName: string): void => {
   trackEvent('project', action, projectName);
+};
+
+/**
+ * Track social profile clicks using a fixed platform label
+ */
+export const trackSocialEvent = (platform: string): void => {
+  trackEvent('social', 'profile_click', platform);
 };
 
 /**

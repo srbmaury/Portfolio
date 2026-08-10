@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { Building, Calendar, Github, MapPin } from 'lucide-react';
 import { API_ENDPOINTS } from '../config/api';
+import portfolioProfile from '../config/profile.json';
 
 interface GitHubUser {
   login: string;
@@ -26,16 +27,16 @@ interface GitHubStatsProps {
 
 const profileFallback: GitHubStatsResponse = {
   user: {
-    login: 'srbmaury',
-    name: 'Saurabh Maurya',
-    bio: 'Software engineer building production-minded applications and developer tools.',
-    avatar_url: 'https://avatars.githubusercontent.com/u/85755081?v=4',
-    followers: 6,
-    location: 'Chandauli, India',
-    company: 'IIT BHU',
-    created_at: '2021-06-11T00:00:00Z',
+    login: portfolioProfile.githubSnapshot.username,
+    name: portfolioProfile.personalInfo.name,
+    bio: portfolioProfile.personalInfo.bio,
+    avatar_url: portfolioProfile.githubSnapshot.avatarUrl,
+    followers: portfolioProfile.githubSnapshot.followers,
+    location: portfolioProfile.personalInfo.hometown,
+    company: portfolioProfile.githubSnapshot.company,
+    created_at: portfolioProfile.githubSnapshot.joinedAt,
   },
-  stats: { totalStars: 34, totalRepos: 25 },
+  stats: { totalStars: portfolioProfile.githubSnapshot.totalStars, totalRepos: portfolioProfile.githubSnapshot.repositories },
 };
 
 const GitHubStats: React.FC<GitHubStatsProps> = ({ username, className = '' }) => {
