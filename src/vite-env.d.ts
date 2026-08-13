@@ -3,6 +3,8 @@
 
 interface ImportMetaEnv {
   readonly VITE_API_URL?: string
+  readonly VITE_SHOW_RESUME?: string
+  readonly VITE_RESUME_URL: string
   // more env variables...
 }
 

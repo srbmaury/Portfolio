@@ -1,9 +1,14 @@
 import { motion } from 'framer-motion';
-import { ArrowDown, Mail, Code2 } from 'lucide-react';
+import { ArrowDown, Mail, Code2, Eye } from 'lucide-react';
+import { useState } from 'react';
 import { trackHeroEvent } from '../utils/analytics';
 import profile from '../config/profile.json';
+import ResumeViewer from './ResumeViewer';
+
+const showResume = import.meta.env.VITE_SHOW_RESUME === 'true' && Boolean(import.meta.env.VITE_RESUME_URL);
 
 const Hero = () => {
+  const [isResumeOpen, setIsResumeOpen] = useState(false);
   const scrollToAbout = () => {
     const element = document.querySelector('#about');
     if (element) {
@@ -76,16 +81,21 @@ const Hero = () => {
             transition={{ delay: 1 }}
             className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16"
           >
-            <a
-              href="#projects"
-              className="btn btn-primary"
-              onClick={() => trackHeroEvent('cta_click', 'view_projects')}
-            >
-              <div className="flex items-center space-x-2">
-                <Code2 size={20} />
-                <span>View Projects</span>
-              </div>
-            </a>
+            {showResume ? (
+              <button type="button" className="btn btn-primary" onClick={() => { trackHeroEvent('cta_click', 'view_resume'); setIsResumeOpen(true); }}>
+                <div className="flex items-center space-x-2">
+                  <Eye size={20} />
+                  <span>View Resume</span>
+                </div>
+              </button>
+            ) : (
+              <a href="#projects" className="btn btn-primary" onClick={() => trackHeroEvent('cta_click', 'view_projects')}>
+                <div className="flex items-center space-x-2">
+                  <Code2 size={20} />
+                  <span>Move to Projects</span>
+                </div>
+              </a>
+            )}
 
             <a
               href="#contact"
@@ -129,6 +139,7 @@ const Hero = () => {
           <div className="absolute top-40 left-40 w-80 h-80 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-4000" style={{ backgroundColor: 'var(--secondary-color)' }}></div>
         </div>
       </div>
+      {showResume && <ResumeViewer isOpen={isResumeOpen} onClose={() => setIsResumeOpen(false)} />}
     </section>
   );
 };
