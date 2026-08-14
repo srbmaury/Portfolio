@@ -6,9 +6,38 @@ import type { Project } from '../types/project';
 import LazyImage from './LazyImage';
 import { fallbackGradientMap, defaultFallbackGradient } from '../config/gradientMap';
 import { trackProjectEvent } from '../utils/analytics';
+import { useRouteSeo } from '../hooks/useRouteSeo';
+import profile from '../config/profile.json';
 
 const ProjectArchive = () => {
   const projects = (projectsData.projects as Project[]).filter((project) => !project.featured);
+
+  useRouteSeo({
+    title: `Software Engineering Projects | ${profile.personalInfo.name}`,
+    description: 'Earlier builds, focused utilities, and production-minded experiments by Saurabh Maurya across web, mobile, developer tools, and data visualization.',
+    canonicalPath: '/projects',
+    structuredData: {
+      '@context': 'https://schema.org',
+      '@type': 'CollectionPage',
+      name: 'Software Engineering Projects',
+      description: 'A collection of software projects and engineering experiments by Saurabh Maurya.',
+      url: 'https://srbmaury.com/projects',
+      author: {
+        '@type': 'Person',
+        name: profile.personalInfo.name,
+        url: profile.personalInfo.portfolio,
+      },
+      mainEntity: {
+        '@type': 'ItemList',
+        itemListElement: projects.map((project, index) => ({
+          '@type': 'ListItem',
+          position: index + 1,
+          name: project.title,
+          url: project.githubUrl,
+        })),
+      },
+    },
+  });
 
   return (
     <section className="section min-h-screen" style={{ backgroundColor: 'var(--bg-primary)', paddingTop: '8rem' }}>

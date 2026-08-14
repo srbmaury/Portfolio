@@ -9,17 +9,30 @@ const socialImage = `${siteUrl}og-image.png`
 const seoDescription = `${personalInfo.name} is a ${personalInfo.professionalTitle} focused on distributed systems, metadata, caching, and production-ready applications.`
 const structuredProfile = {
   '@context': 'https://schema.org',
-  '@type': 'Person',
-  name: personalInfo.name,
-  jobTitle: personalInfo.professionalTitle,
-  description: personalInfo.bio,
-  url: siteUrl,
-  mainEntityOfPage: { '@type': 'WebPage', '@id': siteUrl },
-  image: socialImage,
-  email: `mailto:${personalInfo.email}`,
-  worksFor: { '@type': 'Organization', name: experience[0].company },
-  sameAs: [personalInfo.github, personalInfo.leetcode, personalInfo.codeforces, personalInfo.linkedin, personalInfo.twitter],
-  knowsAbout: [...interests, ...skillCategories.flatMap((category) => category.skills)],
+  '@graph': [
+    {
+      '@type': 'WebSite',
+      name: `${personalInfo.name} Portfolio`,
+      url: siteUrl,
+      description: seoDescription,
+      inLanguage: 'en',
+    },
+    {
+      '@type': 'ProfilePage',
+      mainEntity: {
+        '@type': 'Person',
+        name: personalInfo.name,
+        jobTitle: personalInfo.professionalTitle,
+        description: personalInfo.bio,
+        url: siteUrl,
+        image: socialImage,
+        email: `mailto:${personalInfo.email}`,
+        worksFor: { '@type': 'Organization', name: experience[0].company },
+        sameAs: [personalInfo.github, personalInfo.leetcode, personalInfo.codeforces, personalInfo.linkedin, personalInfo.twitter],
+        knowsAbout: [...interests, ...skillCategories.flatMap((category) => category.skills)],
+      },
+    },
+  ],
 }
 
 const profileMetadata = () => ({
@@ -45,7 +58,7 @@ export default defineConfig({
     react(),
     VitePWA({
       registerType: 'autoUpdate',
-      includeAssets: ['favicon.svg', 'robots.txt'],
+      includeAssets: ['favicon.svg', 'robots.txt', 'sitemap.xml'],
       workbox: {
         runtimeCaching: [
           {
