@@ -9,6 +9,7 @@ export interface Project {
   liveUrl?: string;
   githubUrl: string;
   featured: boolean;
+  beginner?: boolean;
   demoType?: 'iframe' | 'video' | 'image';
   demoUrl?: string;
 }

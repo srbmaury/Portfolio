@@ -9,8 +9,12 @@ import { trackProjectEvent } from '../utils/analytics';
 import { useRouteSeo } from '../hooks/useRouteSeo';
 import profile from '../config/profile.json';
 
+const hideBeginnerProjects = import.meta.env.VITE_HIDE_BEGINNER_PROJECTS === 'true';
+
 const ProjectArchive = () => {
-  const projects = (projectsData.projects as Project[]).filter((project) => !project.featured);
+  const projects = (projectsData.projects as Project[]).filter(
+    (project) => !project.featured && (!hideBeginnerProjects || !project.beginner)
+  );
 
   useRouteSeo({
     title: `Software Engineering Projects | ${profile.personalInfo.name}`,

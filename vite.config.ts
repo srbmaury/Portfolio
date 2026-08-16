@@ -1,6 +1,5 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
-import { VitePWA } from 'vite-plugin-pwa'
 import profile from './src/config/profile.json'
 
 const { personalInfo, experience, interests, skillCategories } = profile
@@ -56,77 +55,6 @@ export default defineConfig({
   plugins: [
     profileMetadata(),
     react(),
-    VitePWA({
-      registerType: 'autoUpdate',
-      includeAssets: ['favicon.svg', 'robots.txt', 'sitemap.xml'],
-      workbox: {
-        runtimeCaching: [
-          {
-            // Cache Google Fonts
-            urlPattern: /^https:\/\/fonts\.googleapis\.com\/.*/i,
-            handler: 'CacheFirst',
-            options: {
-              cacheName: 'google-fonts-cache',
-              expiration: {
-                maxEntries: 10,
-                maxAgeSeconds: 60 * 60 * 24 * 365 // 1 year
-              },
-              cacheableResponse: {
-                statuses: [0, 200]
-              }
-            }
-          },
-          {
-            // Cache API responses with NetworkFirst strategy
-            urlPattern: /^https:\/\/.*\.render\.com\/api\/.*/i,
-            handler: 'NetworkFirst',
-            options: {
-              cacheName: 'api-cache',
-              networkTimeoutSeconds: 10,
-              expiration: {
-                maxEntries: 50,
-                maxAgeSeconds: 60 * 5 // 5 minutes
-              }
-            }
-          }
-        ],
-        globPatterns: ['**/*.{js,css,html,ico,svg,woff2}']
-      },
-      manifest: {
-        name: `${personalInfo.name} - Portfolio`,
-        short_name: 'Portfolio',
-        description: `${personalInfo.professionalTitle} portfolio with offline support`,
-        theme_color: '#3b82f6',
-        background_color: '#0f172a',
-        display: 'standalone',
-        start_url: '/',
-        scope: '/',
-        icons: [
-          {
-            src: 'pwa-192x192.png',
-            sizes: '192x192',
-            type: 'image/png',
-            purpose: 'any'
-          },
-          {
-            src: 'pwa-512x512.png',
-            sizes: '512x512',
-            type: 'image/png',
-            purpose: 'any'
-          },
-          {
-            src: 'pwa-512x512.png',
-            sizes: '512x512',
-            type: 'image/png',
-            purpose: 'maskable'
-          }
-        ]
-      },
-      devOptions: {
-        enabled: true,
-        suppressWarnings: true,
-      },
-    })
   ],
   build: {
     outDir: 'dist',

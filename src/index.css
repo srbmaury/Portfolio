@@ -127,6 +127,9 @@ body {
   -moz-user-select: text;
   -ms-user-select: text;
   user-select: text;
+}
+
+body.custom-cursor-enabled {
   cursor: none;
 }
 

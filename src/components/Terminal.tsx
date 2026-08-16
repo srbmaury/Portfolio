@@ -3,9 +3,10 @@ import { safeEval } from '../utils/safeEval';
 import projectsConfig from '../config/projects.json';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Terminal as TerminalIcon, X, HelpCircle, Play, Palette, Settings, Zap } from 'lucide-react';
-import MatrixRain from './MatrixRain';
 import CareerTimeline from './CareerTimeline';
 import profile from '../config/profile.json';
+
+const hideBeginnerProjects = import.meta.env.VITE_HIDE_BEGINNER_PROJECTS === 'true';
 
 interface TerminalProps {
   isOpen: boolean;
@@ -133,7 +134,6 @@ const Terminal: React.FC<TerminalProps> = ({ isOpen, onClose, onOpenCareerBot })
   const [isTyping, setIsTyping] = useState(false);
   const [showWelcome, setShowWelcome] = useState(true);
   const [isDemoRunning, setIsDemoRunning] = useState(false);
-  const [isMatrixActive, setIsMatrixActive] = useState(false);
   const [isTimelineOpen, setIsTimelineOpen] = useState(false);
   const [suggestions, setSuggestions] = useState<string[]>([]);
   const [suggestionIndex, setSuggestionIndex] = useState(-1);
@@ -163,7 +163,6 @@ const Terminal: React.FC<TerminalProps> = ({ isOpen, onClose, onOpenCareerBot })
     'help': 'help',
     'tutorial': 'tutorial',
     'demo': 'demo',
-    'matrix': 'matrix',
     'ai': 'ai',
     'timeline': 'timeline',
     'home': 'cd ~',
@@ -254,8 +253,7 @@ const Terminal: React.FC<TerminalProps> = ({ isOpen, onClose, onOpenCareerBot })
     'fortune',
     'date',
     'pwd',
-    'cd about',
-    'matrix'
+    'cd about'
   ];
 
   // Auto-typing function
@@ -317,9 +315,12 @@ const Terminal: React.FC<TerminalProps> = ({ isOpen, onClose, onOpenCareerBot })
   // Available sections
   const sections = ['about', 'skills', 'projects', 'contact', 'github'];
   // Centralized project data from projects.json
-  const projects = projectsConfig.projects.map((p) => p.title);
+  const visibleProjects = projectsConfig.projects.filter(
+    (project) => !hideBeginnerProjects || !project.beginner
+  );
+  const projects = visibleProjects.map((project) => project.title);
   const projectsData: Record<string, { github?: string; live?: string; demo?: string }> = {};
-  projectsConfig.projects.forEach((p) => {
+  visibleProjects.forEach((p) => {
     projectsData[p.title] = {
       github: p.githubUrl,
       live: p.liveUrl,
@@ -670,16 +671,6 @@ Skills: ${skills.join(', ')}`;
       execute: () => new Date().toLocaleString()
     },
 
-
-    // Fun commands
-    matrix: {
-      description: 'Activate Matrix rain effect',
-      usage: 'matrix',
-      execute: () => {
-        setIsMatrixActive(true);
-        return 'Matrix rain effect activated! 🌊\nEntering the digital realm...\nPress ESC or click "Exit Matrix" to return.';
-      }
-    },
     fortune: {
       description: 'Show random developer quote',
       usage: 'fortune',
@@ -752,7 +743,6 @@ ABOUT ME:
   date             - Show current date/time
 
 FUN STUFF:
-  matrix           - Activate Matrix effect
   fortune          - Random developer quotes
   cowsay <text>    - ASCII art messages
   ai               - Open AI bot
@@ -1404,13 +1394,6 @@ Type 'demo' to see a quick demonstration`,
           </motion.div>
         )}
       </AnimatePresence>
-
-      {/* Matrix Rain Effect */}
-      <MatrixRain
-        isActive={isMatrixActive}
-        onClose={() => setIsMatrixActive(false)}
-      />
-
       {/* Career Timeline */}
       <CareerTimeline
         isOpen={isTimelineOpen}

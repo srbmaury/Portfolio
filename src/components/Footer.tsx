@@ -1,5 +1,4 @@
 import { motion } from 'framer-motion';
-import { Heart } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import profile from '../config/profile.json';
 
@@ -28,7 +27,7 @@ const Footer = () => {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
             viewport={{ once: true }}
-            className="text-center"
+            className="mt-6 text-center md:mt-0"
           >
             <h4 className="text-lg font-semibold mb-4" style={{ color: 'var(--footer-text-primary)' }}>Quick Links</h4>
             <div className="space-y-2">
@@ -72,19 +71,16 @@ const Footer = () => {
         <div className="border-t my-8" style={{ borderColor: 'var(--border-color)' }}></div>
 
         {/* Bottom Section */}
-        <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-          <motion.p
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            transition={{ duration: 0.8, delay: 0.6 }}
-            viewport={{ once: true }}
-            className="text-center md:text-left"
-            style={{ color: 'var(--footer-text-secondary)' }}
-          >
-            © {new Date().getFullYear()} {profile.personalInfo.name}. Made with{' '}
-            <Heart size={16} className="inline" style={{ color: '#ef4444' }} /> and React.
-          </motion.p>
-        </div>
+        <motion.p
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ duration: 0.8, delay: 0.6 }}
+          viewport={{ once: true }}
+          className="text-center"
+          style={{ color: 'var(--footer-text-secondary)' }}
+        >
+          © {new Date().getFullYear()} {profile.personalInfo.name}
+        </motion.p>
       </div>
     </footer>
   );

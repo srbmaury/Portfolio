@@ -16,12 +16,14 @@ import { wakeUpBackend } from './utils/backendWakeup';
 const CareerBot = lazy(() => import('./components/CareerBot'));
 const Terminal = lazy(() => import('./components/Terminal'));
 import CustomCursor from './components/CustomCursor';
-import LoadingScreen from './components/LoadingScreen';
 import ScrollProgress from './components/ScrollProgress';
 import BackToTop from './components/BackToTop';
 import { ThemeProvider } from './providers/ThemeProvider';
 import { ModalProvider } from './contexts/ModalContext';
 import profile from './config/profile.json';
+
+const showCustomCursor = import.meta.env.VITE_HIDE_CUSTOM_CURSOR !== 'true';
+const showTerminal = import.meta.env.VITE_SHOW_TERMINAL === 'true';
 
 const RouteScrollManager = () => {
   const { pathname, hash } = useLocation();
@@ -45,14 +47,6 @@ const RouteScrollManager = () => {
 function App() {
   const [isTerminalOpen, setIsTerminalOpen] = useState(false);
   const [isCareerBotOpen, setIsCareerBotOpen] = useState(false);
-  // Only show loading screen if not visited before
-  const [isLoading, setIsLoading] = useState(() => {
-    try {
-      return !localStorage.getItem('visited');
-    } catch {
-      return true;
-    }
-  });
 
   const handleOpenTerminal = () => setIsTerminalOpen(true);
   const handleCloseTerminal = () => setIsTerminalOpen(false);
@@ -61,14 +55,6 @@ function App() {
     setIsTerminalOpen(false); // Close terminal when opening CareerBot
   };
   const handleCloseCareerBot = () => setIsCareerBotOpen(false);
-  const handleLoadingComplete = () => {
-    setIsLoading(false);
-    try {
-      localStorage.setItem('visited', 'true');
-    } catch {
-      // Ignore errors from localStorage (e.g., private mode)
-    }
-  };
 
   // Wake up backend on app load
   useEffect(() => {
@@ -82,10 +68,9 @@ function App() {
           <RouteScrollManager />
           <div className="App">
             <a href="#main-content" className="skip-link">Skip to main content</a>
-            {isLoading && <LoadingScreen onLoadingComplete={handleLoadingComplete} />}
-            <CustomCursor />
+            {showCustomCursor && <CustomCursor />}
             <ScrollProgress />
-            <Navbar onOpenTerminal={handleOpenTerminal} />
+            <Navbar onOpenTerminal={handleOpenTerminal} showTerminal={showTerminal} />
             <main id="main-content">
               <Routes>
                 <Route path="/" element={
@@ -110,11 +95,11 @@ function App() {
                 onClose={handleCloseCareerBot}
                 onOpen={handleOpenCareerBot}
               />
-              <Terminal
+              {showTerminal && <Terminal
                 isOpen={isTerminalOpen}
                 onClose={handleCloseTerminal}
                 onOpenCareerBot={handleOpenCareerBot}
-              />
+              />}
             </Suspense>
           </div>
         </Router>

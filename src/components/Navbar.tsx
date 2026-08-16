@@ -7,9 +7,10 @@ import { useLocation, useNavigate } from 'react-router-dom';
 
 interface NavbarProps {
   onOpenTerminal: () => void;
+  showTerminal: boolean;
 }
 
-const Navbar: React.FC<NavbarProps> = ({ onOpenTerminal }) => {
+const Navbar: React.FC<NavbarProps> = ({ onOpenTerminal, showTerminal }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const { isProjectModalOpen } = useModal();
@@ -105,7 +106,7 @@ const Navbar: React.FC<NavbarProps> = ({ onOpenTerminal }) => {
             <ThemeToggle />
 
             {/* Terminal Button */}
-            {!isProjectModalOpen && (
+            {showTerminal && !isProjectModalOpen && (
               <motion.button
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.95 }}
@@ -136,7 +137,7 @@ const Navbar: React.FC<NavbarProps> = ({ onOpenTerminal }) => {
               {isOpen ? <X size={24} /> : <Menu size={24} />}
             </motion.button>
             {/* Terminal Button Mobile */}
-            {!isProjectModalOpen && (
+            {showTerminal && !isProjectModalOpen && (
               <motion.button
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.95 }}

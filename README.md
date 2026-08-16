@@ -40,7 +40,7 @@ Interactive chatbot trained on my experience and projects:
 - Dark/Light mode with persistent preferences  
 - Fully responsive across desktop, tablet, and mobile  
 - Smooth animations and interactive UI  
-- Custom cursor for enhanced desktop experience  
+- Optional custom cursor for desktop visitors
 
 ### 📊 Project Showcase
 - **Ecommerce Search Engine** — ML-based product search with personalized ranking and A/B testing  
@@ -49,10 +49,6 @@ Interactive chatbot trained on my experience and projects:
 - **YAML Data Visualizer** — Interactive tree diagrams with D3.js, real-time collaboration, and versioning
 - **Developer Knowledge Base** — Notion-style knowledge platform with AI-powered answer generation  
 - **Hackathon Portal** — Full-stack event platform with RBAC and AI-based evaluation
-
-### 📱 Progressive Web App
-- Offline access with service worker caching  
-- Optimized for fast loading and performance  
 
 ### 📈 GitHub Integration
 - Live GitHub statistics via API  
@@ -64,6 +60,24 @@ Interactive chatbot trained on my experience and projects:
 ## 🛠️ Technical Skills
 
 The portfolio renders its current, balanced skill taxonomy from [`src/config/profile.json`](src/config/profile.json), which is also the source used by the career assistant.
+
+## ⚙️ Configuration
+
+Copy `.env.example` to `.env` for local development, then configure the values relevant to the features you use. Variables prefixed with `VITE_` are embedded at build time, so update them in your hosting provider and redeploy after changing them.
+
+| Variable | Purpose |
+| --- | --- |
+| `VITE_SHOW_RESUME` | Set to `true` to replace the hero projects CTA with the resume viewer. |
+| `VITE_RESUME_URL` | Public embed URL for the resume. For Google Drive, use the file's `/preview` URL. |
+| `VITE_SHOW_TERMINAL` | Set to `true` to show the interactive terminal. |
+| `VITE_HIDE_BEGINNER_PROJECTS` | Set to `true` to hide beginner projects from the archive and terminal. |
+| `VITE_HIDE_CUSTOM_CURSOR` | Set to `true` to hide the custom cursor. |
+| `VITE_EMAILJS_SERVICE_ID`, `VITE_EMAILJS_TEMPLATE_ID`, `VITE_EMAILJS_PUBLIC_KEY` | EmailJS credentials used by the contact form. |
+| `VITE_TO_EMAIL`, `VITE_TO_NAME` | Recipient details passed to the EmailJS template. |
+| `VITE_API_BASE_URL` | Optional frontend override for the backend API base URL. |
+| `OPENAI_API_KEY`, `GEMINI_API_KEY` | Server-side AI provider credentials for the career assistant. |
+| `GITHUB_TOKEN`, `UPSTASH_REDIS_REST_URL`, `UPSTASH_REDIS_REST_TOKEN` | Optional server-side GitHub and Redis configuration. |
+| `CLIENT_ORIGIN`, `PORT` | Backend CORS origin and listening port. |
 
 ---
 

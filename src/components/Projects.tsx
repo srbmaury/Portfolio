@@ -11,6 +11,8 @@ import { useModal } from '../hooks/useModal';
 import { fallbackGradientMap, defaultFallbackGradient } from '../config/gradientMap';
 import { trackProjectEvent } from '../utils/analytics';
 
+const hideBeginnerProjects = import.meta.env.VITE_HIDE_BEGINNER_PROJECTS === 'true';
+
 const Projects = () => {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -50,7 +52,7 @@ const Projects = () => {
 
         {/* Featured Projects */}
         <div className="grid lg:grid-cols-2 gap-8 mb-16">
-          {projects.filter(p => p.featured).map((project, index, featuredProjects) => (
+          {projects.filter((project) => project.featured && (!hideBeginnerProjects || !project.beginner)).map((project, index, featuredProjects) => (
             <motion.div
               key={project.title}
               initial={{ opacity: 0, y: 30 }}

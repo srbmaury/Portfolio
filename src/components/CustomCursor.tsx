@@ -7,6 +7,7 @@ const CustomCursor: React.FC = () => {
   const [trails, setTrails] = useState<Array<{ x: number; y: number; id: number; createdAt: number }>>([]);
 
   useEffect(() => {
+    document.body.classList.add('custom-cursor-enabled');
     let trailId = 0;
 
     const updateMousePosition = (e: MouseEvent) => {
@@ -68,6 +69,7 @@ const CustomCursor: React.FC = () => {
     });
 
     return () => {
+      document.body.classList.remove('custom-cursor-enabled');
       document.removeEventListener('mousemove', updateMousePosition);
       document.removeEventListener('mouseleave', handleMouseLeave);
       
