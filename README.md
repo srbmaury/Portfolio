@@ -86,7 +86,7 @@ The portfolio renders its current, balanced skill taxonomy from [`src/config/pro
 
 ## 📬 Get In Touch
 
-- **Email:** [saurabh.maurya.dev@gmail.com](mailto:saurabh.maurya.dev@gmail.com)  
+- **Email:** [contact@srbmaury.com](mailto:contact@srbmaury.com)  
 - **GitHub:** [@srbmaury](https://github.com/srbmaury)  
 - **Location:** Hyderabad, India
 

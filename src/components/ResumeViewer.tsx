@@ -7,7 +7,7 @@ interface ResumeViewerProps {
   onClose: () => void;
 }
 
-const resumeUrl = import.meta.env.VITE_RESUME_URL;
+const resumeUrl = import.meta.env.VITE_RESUME_URL ?? '';
 const googleDriveFileId = resumeUrl.match(/drive\.google\.com\/file\/d\/([^/?]+)/)?.[1];
 const resumeDownloadUrl = googleDriveFileId
   ? `https://drive.google.com/uc?export=download&id=${googleDriveFileId}`
@@ -43,18 +43,26 @@ const ResumeViewer = ({ isOpen, onClose }: ResumeViewerProps) => {
             <h2 id="resume-viewer-title" className="text-lg font-semibold">Saurabh Maurya — Resume</h2>
           </div>
           <div className="flex items-center space-x-2">
-            <a href={resumeDownloadUrl} onClick={handleDownload} className="flex items-center space-x-1 rounded-md px-3 py-1.5 transition-colors hover:bg-white/30 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400" style={{ backgroundColor: 'rgba(255, 255, 255, 0.2)' }}>
+            {resumeUrl && <a href={resumeDownloadUrl} onClick={handleDownload} className="flex items-center space-x-1 rounded-md px-3 py-1.5 transition-colors hover:bg-white/30 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400" style={{ backgroundColor: 'rgba(255, 255, 255, 0.2)' }}>
               <Download size={16} />
               <span className="text-sm">Download</span>
-            </a>
+            </a>}
             <button type="button" onClick={onClose} className="rounded-md p-1.5 transition-colors hover:bg-white/20 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400" title="Close" aria-label="Close resume viewer">
               <X size={20} />
             </button>
           </div>
         </div>
         <div className="relative flex-1">
-          {isLoading && <div className="absolute inset-0 flex items-center justify-center" style={{ backgroundColor: 'var(--bg-secondary)' }}><span style={{ color: 'var(--text-secondary)' }}>Loading resume…</span></div>}
-          <iframe src={resumeUrl} className="h-full w-full rounded-b-lg" onLoad={() => setIsLoading(false)} title="Saurabh Maurya Resume" style={{ backgroundColor: 'var(--bg-primary)' }} />
+          {!resumeUrl ? (
+            <div className="flex h-full items-center justify-center p-6 text-center" style={{ backgroundColor: 'var(--bg-secondary)', color: 'var(--text-secondary)' }}>
+              The resume is temporarily unavailable. Please use the contact section to request a copy.
+            </div>
+          ) : (
+            <>
+              {isLoading && <div className="absolute inset-0 flex items-center justify-center" style={{ backgroundColor: 'var(--bg-secondary)' }}><span style={{ color: 'var(--text-secondary)' }}>Loading resume…</span></div>}
+              <iframe src={resumeUrl} className="h-full w-full rounded-b-lg" onLoad={() => setIsLoading(false)} title="Saurabh Maurya Resume" style={{ backgroundColor: 'var(--bg-primary)' }} />
+            </>
+          )}
         </div>
       </div>
     </div>
