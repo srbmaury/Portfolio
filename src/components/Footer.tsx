@@ -27,25 +27,26 @@ const Footer = () => {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
             viewport={{ once: true }}
-            className="mt-6 text-center md:mt-0"
+            className="pt-10 text-center"
           >
             <h4 className="text-lg font-semibold mb-4" style={{ color: 'var(--footer-text-primary)' }}>Quick Links</h4>
             <div className="space-y-2">
               {['Home', 'About', 'Skills', 'Projects', 'Contact'].map((link) => (
-                <Link
-                  key={link}
-                  to={`/#${link.toLowerCase()}`}
-                  className="block transition-colors duration-200"
-                  style={{ color: 'var(--footer-text-secondary)' }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.color = 'var(--footer-text-primary)';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.color = 'var(--footer-text-secondary)';
-                  }}
-                >
-                  {link}
-                </Link>
+                <div key={link}>
+                  <Link
+                    to={`/#${link.toLowerCase()}`}
+                    className="inline-block transition-colors duration-200"
+                    style={{ color: 'var(--footer-text-secondary)' }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.color = 'var(--footer-text-primary)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.color = 'var(--footer-text-secondary)';
+                    }}
+                  >
+                    {link}
+                  </Link>
+                </div>
               ))}
             </div>
           </motion.div>

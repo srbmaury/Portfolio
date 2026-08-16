@@ -16,6 +16,7 @@ import { wakeUpBackend } from './utils/backendWakeup';
 const CareerBot = lazy(() => import('./components/CareerBot'));
 const Terminal = lazy(() => import('./components/Terminal'));
 import CustomCursor from './components/CustomCursor';
+import CareerBotLauncher from './components/CareerBotLauncher';
 import ScrollProgress from './components/ScrollProgress';
 import BackToTop from './components/BackToTop';
 import { ThemeProvider } from './providers/ThemeProvider';
@@ -51,15 +52,11 @@ function App() {
   const handleOpenTerminal = () => setIsTerminalOpen(true);
   const handleCloseTerminal = () => setIsTerminalOpen(false);
   const handleOpenCareerBot = () => {
+    void wakeUpBackend();
     setIsCareerBotOpen(true);
     setIsTerminalOpen(false); // Close terminal when opening CareerBot
   };
   const handleCloseCareerBot = () => setIsCareerBotOpen(false);
-
-  // Wake up backend on app load
-  useEffect(() => {
-    wakeUpBackend();
-  }, []);
 
   return (
     <ThemeProvider>
@@ -89,12 +86,12 @@ function App() {
             </main>
             <Footer />
             <BackToTop />
+            {!isCareerBotOpen && <CareerBotLauncher onOpen={handleOpenCareerBot} />}
             <Suspense fallback={null}>
-              <CareerBot
+              {isCareerBotOpen && <CareerBot
                 isOpen={isCareerBotOpen}
                 onClose={handleCloseCareerBot}
-                onOpen={handleOpenCareerBot}
-              />
+              />}
               {showTerminal && <Terminal
                 isOpen={isTerminalOpen}
                 onClose={handleCloseTerminal}
