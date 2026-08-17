@@ -27,9 +27,13 @@ export async function rateLimitMiddleware(req, res, next) {
     }
 
     if (count > MAX) {
+      const ttl = await redis.ttl(key);
+      const retryAfter = ttl > 0 ? ttl : WINDOW;
+
+      res.set('Retry-After', String(retryAfter));
       return res.status(429).json({
         error: 'Too many requests',
-        retryAfter: WINDOW,
+        retryAfter,
       });
     }
 

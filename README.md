@@ -65,6 +65,10 @@ The portfolio renders its current, balanced skill taxonomy from [`src/config/pro
 
 Copy `.env.example` to `.env` for local development, then configure the values relevant to the features you use. Variables prefixed with `VITE_` are embedded at build time, so update them in your hosting provider and redeploy after changing them.
 
+### Netlify frontend + Render API
+
+The frontend is static on Netlify and the Express API is deployed separately on Render. The included [`public/_redirects`](public/_redirects) file rewrites direct visits to client-side routes such as `/projects` to `index.html`, preventing Netlify 404s for visitors and search crawlers. [`public/404.html`](public/404.html) provides a noindex fallback for genuinely missing static files. Set `VITE_API_BASE_URL` in **Netlify** to the public Render API origin (without a trailing slash), then redeploy. Set `CLIENT_ORIGIN` in **Render** to a comma-separated list including `https://srbmaury.com` and the Netlify site URL. Keep `OPENAI_API_KEY`, `GEMINI_API_KEY`, `GITHUB_TOKEN`, and Upstash credentials on Render only—never set them as `VITE_` variables.
+
 | Variable | Purpose |
 | --- | --- |
 | `VITE_SHOW_RESUME` | Set to `true` to replace the hero projects CTA with the resume viewer. |
@@ -74,7 +78,7 @@ Copy `.env.example` to `.env` for local development, then configure the values r
 | `VITE_HIDE_CUSTOM_CURSOR` | Set to `true` to hide the custom cursor. |
 | `VITE_EMAILJS_SERVICE_ID`, `VITE_EMAILJS_TEMPLATE_ID`, `VITE_EMAILJS_PUBLIC_KEY` | EmailJS credentials used by the contact form. |
 | `VITE_TO_EMAIL`, `VITE_TO_NAME` | Recipient details passed to the EmailJS template. |
-| `VITE_API_BASE_URL` | Optional frontend override for the backend API base URL. |
+| `VITE_API_BASE_URL` | Required when Netlify and the Express API use different origins; set it to the public Render API URL. |
 | `OPENAI_API_KEY`, `GEMINI_API_KEY` | Server-side AI provider credentials for the career assistant. |
 | `GITHUB_TOKEN`, `UPSTASH_REDIS_REST_URL`, `UPSTASH_REDIS_REST_TOKEN` | Optional server-side GitHub and Redis configuration. |
 | `CLIENT_ORIGIN`, `PORT` | Backend CORS origin and listening port. |

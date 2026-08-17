@@ -22,6 +22,7 @@ import BackToTop from './components/BackToTop';
 import { ThemeProvider } from './providers/ThemeProvider';
 import { ModalProvider } from './contexts/ModalContext';
 import profile from './config/profile.json';
+import { trackPageView } from './utils/analytics';
 
 const showCustomCursor = import.meta.env.VITE_HIDE_CUSTOM_CURSOR !== 'true';
 const showTerminal = import.meta.env.VITE_SHOW_TERMINAL === 'true';
@@ -40,6 +41,10 @@ const RouteScrollManager = () => {
 
     return () => window.cancelAnimationFrame(frame);
   }, [pathname, hash]);
+
+  useEffect(() => {
+    trackPageView(pathname);
+  }, [pathname]);
 
   return null;
 };
