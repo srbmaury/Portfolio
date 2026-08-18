@@ -1,2 +1,2 @@
-# Serve the React application for direct visits to client-side routes.
-/*  /index.html  200
+# Serve the generated HTML for the only client-side route.
+/projects  /projects/index.html  200
