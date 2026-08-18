@@ -1,4 +1,5 @@
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import { Bot, X } from 'lucide-react';
 
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
@@ -26,6 +27,36 @@ import { trackPageView } from './utils/analytics';
 
 const showCustomCursor = import.meta.env.VITE_HIDE_CUSTOM_CURSOR !== 'true';
 const showTerminal = import.meta.env.VITE_SHOW_TERMINAL === 'true';
+
+const CareerBotLoading = ({ onClose }: { onClose: () => void }) => (
+  <div
+    className="fixed bottom-20 left-2 right-2 z-50 flex h-[70vh] max-h-[500px] flex-col overflow-hidden rounded-lg border shadow-2xl sm:bottom-24 sm:left-auto sm:right-6 sm:h-[500px] sm:w-96"
+    style={{ backgroundColor: 'var(--card-bg)', borderColor: 'var(--border-color)' }}
+    role="dialog"
+    aria-modal="true"
+    aria-label="Starting career assistant"
+  >
+    <div className="flex items-center justify-between bg-gradient-to-r from-blue-600 to-purple-600 p-4 text-white">
+      <div className="flex items-center gap-2">
+        <Bot size={20} />
+        <span className="font-semibold">Starting assistant</span>
+      </div>
+      <button
+        type="button"
+        onClick={onClose}
+        className="rounded p-1 text-white/80 transition-colors hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-white"
+        aria-label="Cancel opening career bot"
+      >
+        <X size={20} />
+      </button>
+    </div>
+    <div className="flex flex-1 flex-col items-center justify-center gap-3 p-6 text-center" aria-live="polite">
+      <Bot size={32} style={{ color: 'var(--primary-color)' }} aria-hidden="true" />
+      <p className="font-medium" style={{ color: 'var(--text-primary)' }}>Preparing the career assistant…</p>
+      <p className="text-sm" style={{ color: 'var(--text-secondary)' }}>You can ask about experience, projects, and skills in a moment.</p>
+    </div>
+  </div>
+);
 
 const RouteScrollManager = () => {
   const { pathname, hash } = useLocation();
@@ -92,7 +123,7 @@ function App() {
             <Footer />
             <BackToTop />
             {!isCareerBotOpen && <CareerBotLauncher onOpen={handleOpenCareerBot} />}
-            <Suspense fallback={null}>
+            <Suspense fallback={isCareerBotOpen ? <CareerBotLoading onClose={handleCloseCareerBot} /> : null}>
               {isCareerBotOpen && <CareerBot
                 isOpen={isCareerBotOpen}
                 onClose={handleCloseCareerBot}
