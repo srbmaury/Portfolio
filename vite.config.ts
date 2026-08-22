@@ -103,6 +103,8 @@ const homeFallbackMarkup = `
   </main>
 `
 
+const noScriptFallback = (markup: string) => `<noscript>${markup}</noscript>`
+
 const routeMetadata = ({
   html,
   title,
@@ -131,7 +133,7 @@ const routeMetadata = ({
     /<script type="application\/ld\+json">\s*[\s\S]*?\s*<\/script>/,
     `<script type="application/ld+json">\n    ${JSON.stringify(structuredData)}\n  </script>`
   )
-  .replace('<div id="root"></div>', `<div id="root">${fallbackMarkup}</div>`)
+  .replace('<div id="root"></div>', `<div id="root">${noScriptFallback(fallbackMarkup)}</div>`)
 
 const staticRouteMetadata = () => ({
   name: 'static-route-metadata',
@@ -140,7 +142,7 @@ const staticRouteMetadata = () => ({
     const rootHtml = fs.readFileSync(path.join(outputDir, 'index.html'), 'utf8')
     const staticHomeHtml = rootHtml.replace(
       '<div id="root"></div>',
-      `<div id="root">${homeFallbackMarkup}</div>`
+      `<div id="root">${noScriptFallback(homeFallbackMarkup)}</div>`
     )
     const projectHtml = routeMetadata({
       html: rootHtml,
