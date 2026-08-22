@@ -12,6 +12,7 @@
         "PostgreSQL full-text search, Redis caching, and connection pooling reduced latency by about 40% across 10,000+ events.",
         "Includes an experimentation framework for A/B testing ranking changes."
       ],
+      "systemFlow": ["Search query", "Retrieve catalog", "Rank & personalize", "Results"],
       "liveUrl": "https://ecommerce-search.onrender.com/",
       "githubUrl": "https://github.com/srbmaury/Ecommerce-Search",
       "featured": true,
@@ -30,6 +31,7 @@
         "Provides automatic AI-powered feedback and scoring after practice rounds.",
         "Uses OAuth authentication, Redis session caching, and MongoDB persistence."
       ],
+      "systemFlow": ["Add job description", "Generate rounds", "Practice", "Feedback & scoring"],
       "liveUrl": "https://companionai-frontend.onrender.com/",
       "githubUrl": "https://github.com/srbmaury/CompanionAI",
       "featured": true,
@@ -58,6 +60,7 @@
         "Combines a Markdown editor, live preview, syntax highlighting, and global search.",
         "Provides per-user Supabase-authenticated workspaces and OpenAI-powered answer generation."
       ],
+      "systemFlow": ["Organize notes", "Write solutions", "Search & review", "AI assistance"],
       "liveUrl": "https://developer-knowledge-base.onrender.com/",
       "githubUrl": "https://github.com/srbmaury/Developer-Knowledge-Base",
       "featured": true,
@@ -89,6 +92,7 @@
         "Renders more than 5,000 nodes at 60fps using virtual rendering and frame scheduling.",
         "Includes diff comparison, time-travel versioning, and AI-assisted YAML workflows."
       ],
+      "systemFlow": ["Paste or import YAML", "Explore diagram", "Compare & collaborate", "Save versions"],
       "liveUrl": "https://yaml-visualizer.netlify.app/",
       "githubUrl": "https://github.com/srbmaury/YAML-Visualizer",
       "featured": true,

@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { ArrowDown, Mail, Code2, Eye } from 'lucide-react';
+import { ArrowDown, Mail, Code2, Eye, Github } from 'lucide-react';
 import { useState } from 'react';
 import { trackHeroEvent } from '../utils/analytics';
 import profile from '../config/profile.json';
@@ -18,7 +18,7 @@ const Hero = () => {
   return (
     <section
       id="home"
-      className="min-h-screen flex flex-col md:flex-row md:items-center md:justify-center pt-16 md:pt-0"
+      className="relative min-h-screen flex flex-col overflow-hidden md:flex-row md:items-center md:justify-center pt-16 md:pt-0"
       style={{
         background: 'linear-gradient(to bottom right, var(--bg-secondary), var(--bg-primary), var(--bg-secondary))'
       }}
@@ -71,7 +71,7 @@ const Hero = () => {
             className="text-lg max-w-2xl mx-auto mb-12 leading-relaxed"
             style={{ color: 'var(--text-secondary)' }}
           >
-            {profile.personalInfo.bio}
+            Building scalable backend systems, developer platforms, and AI-powered products.
           </motion.p>
 
           {/* CTA Buttons */}
@@ -92,22 +92,41 @@ const Hero = () => {
               <a href="#projects" className="btn btn-primary" onClick={() => trackHeroEvent('cta_click', 'view_projects')}>
                 <div className="flex items-center space-x-2">
                   <Code2 size={20} />
-                  <span>Move to Projects</span>
+                  <span>View Projects</span>
                 </div>
               </a>
             )}
 
             <a
+              href={profile.personalInfo.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn btn-secondary"
+              onClick={() => trackHeroEvent('github_click', 'hero')}
+            >
+              <Github size={20} />
+              <span>GitHub</span>
+            </a>
+
+            <a
               href="#contact"
               className="btn btn-secondary"
-              onClick={() => trackHeroEvent('cta_click', 'get_in_touch')}
+              onClick={() => trackHeroEvent('contact_click', 'hero')}
             >
               <div className="flex items-center space-x-2">
                 <Mail size={20} />
-                <span>Get In Touch</span>
+                <span>Contact</span>
               </div>
             </a>
           </motion.div>
+
+          <div className="flex flex-wrap justify-center gap-x-5 gap-y-2 text-sm font-medium" style={{ color: 'var(--text-secondary)' }} aria-label="Career highlights">
+            <span>Salesforce</span>
+            <span aria-hidden="true">•</span>
+            <span>Razorpay</span>
+            <span aria-hidden="true">•</span>
+            <span>IIT BHU</span>
+          </div>
 
           {/* Scroll Indicator */}
         </motion.div>

@@ -77,11 +77,9 @@ function buildGitHubStatsPayload(user, repos) {
   );
 
   const featuredRepositoryNames = [
-    'Ecommerce-Search',
-    'CompanionAI',
-    'Developer-Knowledge-Base',
-    'YAML-Visualizer',
-    'ExitSense',
+    'India-Startup-Map',
+    'kindred-code',
+    'NEET',
   ];
 
   const repositoriesByName = new Map(repos.map((repo) => [repo.name.toLowerCase(), repo]));

@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Mail, Phone, MapPin, Send, Linkedin, Github, Twitter } from 'lucide-react';
+import { Mail, MapPin, Send, Linkedin, Github } from 'lucide-react';
 import emailjs from '@emailjs/browser';
 import { emailConfig } from '../config/email';
-import { trackContactFormSubmit, trackContactFormIntent, trackSocialEvent } from '../utils/analytics';
+import { trackContactEvent, trackContactFormSubmit, trackContactFormIntent, trackSocialEvent } from '../utils/analytics';
 import profile from '../config/profile.json';
 
 const Contact = () => {
@@ -27,7 +27,7 @@ const Contact = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    trackContactFormIntent('submit_attempt');
+    trackContactFormIntent('contact_form_submit_attempt');
     setIsSubmitting(true);
     setSubmitStatus('idle');
     
@@ -72,12 +72,6 @@ const Contact = () => {
       link: `mailto:${profile.personalInfo.email}`
     },
     {
-      icon: <Phone size={24} />,
-      title: 'Phone',
-      value: profile.personalInfo.phone,
-      link: `tel:${profile.personalInfo.phone.replace(/\s/g, '')}`
-    },
-    {
       icon: <MapPin size={24} />,
       title: 'Location',
       value: profile.personalInfo.location,
@@ -87,14 +81,13 @@ const Contact = () => {
 
   const socialLinks = [
     { icon: <Linkedin size={20} />, url: profile.personalInfo.linkedin, label: 'LinkedIn' },
-    { icon: <Github size={20} />, url: profile.personalInfo.github, label: 'GitHub' },
-    { icon: <Twitter size={20} />, url: profile.personalInfo.twitter, label: 'Twitter' }
+    { icon: <Github size={20} />, url: profile.personalInfo.github, label: 'GitHub' }
   ];
 
   const handleFormOpen = () => {
     if (!hasContactFormOpened) {
       setHasContactFormOpened(true);
-      trackContactFormIntent('open', 'contact_form');
+      trackContactFormIntent('contact_form_start');
     }
   };
 
@@ -157,6 +150,9 @@ const Contact = () => {
                   viewport={{ once: true }}
                   className="flex items-center space-x-4 p-3 sm:p-4 rounded-lg hover:shadow-md transition-shadow duration-200"
                   style={{ backgroundColor: 'var(--tag-bg)' }}
+                  onClick={() => {
+                    if (info.title === 'Email') trackContactEvent('email_click');
+                  }}
                 >
                     {content}
                   </motion.a>

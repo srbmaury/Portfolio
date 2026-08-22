@@ -4,7 +4,7 @@ import profile from '../config/profile.json';
 
 const About = () => {
   return (
-    <section id="about" className="section min-h-screen flex items-center" style={{ backgroundColor: 'var(--bg-primary)' }} aria-label="About section" role="region" tabIndex={-1}>
+    <section id="about" className="section min-h-screen flex items-center overflow-hidden" style={{ backgroundColor: 'var(--bg-primary)' }} aria-label="About section" role="region" tabIndex={-1}>
       <div className="container">
         <motion.div
           initial={{ opacity: 0, y: 30 }}

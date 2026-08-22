@@ -61,8 +61,7 @@ const Footer = () => {
           >
             <h4 className="text-lg font-semibold mb-4" style={{ color: 'var(--footer-text-primary)' }}>Contact</h4>
             <div className="space-y-2" style={{ color: 'var(--footer-text-secondary)' }}>
-              <p>{profile.personalInfo.email}</p>
-              <p>{profile.personalInfo.phone}</p>
+              <p><a href={`mailto:${profile.personalInfo.email}`} className="hover:underline">{profile.personalInfo.email}</a></p>
               <p>{profile.personalInfo.location}</p>
             </div>
           </motion.div>

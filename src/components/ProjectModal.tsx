@@ -323,6 +323,7 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, project })
                       rel="noopener noreferrer"
                       className="inline-flex items-center gap-2 px-3 py-1.5 text-white text-sm rounded-lg transition-colors"
                       style={{ backgroundColor: 'var(--primary-color)' }}
+                      onClick={() => trackProjectEvent('live_demo_click', project.title)}
                       onMouseEnter={(e) => {
                         e.currentTarget.style.backgroundColor = 'var(--secondary-color)';
                       }}
@@ -339,6 +340,7 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, project })
                       rel="noopener noreferrer"
                       className="inline-flex items-center gap-2 px-3 py-1.5 text-white text-sm rounded-lg transition-colors"
                       style={{ backgroundColor: 'var(--bg-dark)' }}
+                      onClick={() => trackProjectEvent('github_click', project.title)}
                       onMouseEnter={(e) => {
                         e.currentTarget.style.backgroundColor = 'var(--github-bg)';
                       }}
@@ -360,6 +362,20 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, project })
               </div>
 
               {/* Technologies */}
+              {project.systemFlow && (
+                <div className="mb-6">
+                  <h3 className="text-lg font-semibold mb-3" style={{ color: 'var(--text-primary)' }}>How It Works</h3>
+                  <ol className="flex flex-wrap items-center gap-2 text-sm" style={{ color: 'var(--text-secondary)' }}>
+                    {project.systemFlow.map((step, index) => (
+                      <li key={step} className="inline-flex items-center gap-2">
+                        {index > 0 && <span aria-hidden="true" style={{ color: 'var(--primary-color)' }}>→</span>}
+                        <span className="rounded-full px-3 py-1" style={{ backgroundColor: 'var(--tag-bg)' }}>{step}</span>
+                      </li>
+                    ))}
+                  </ol>
+                </div>
+              )}
+
               <div className="mb-6">
                 <h3 className="text-lg font-semibold mb-3" style={{ color: 'var(--text-primary)' }}>Technologies Used</h3>
                 <div className="flex flex-wrap gap-2">
@@ -381,7 +397,7 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, project })
 
               {/* Features/Details */}
               <div>
-                <h3 className="text-lg font-semibold mb-3" style={{ color: 'var(--text-primary)' }}>Key Features</h3>
+                <h3 className="text-lg font-semibold mb-3" style={{ color: 'var(--text-primary)' }}>Engineering Notes</h3>
                 <ul className="space-y-2" style={{ color: 'var(--text-secondary)' }}>
                   {(project.highlights || [
                     'Responsive design across device sizes',

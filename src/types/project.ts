@@ -6,6 +6,7 @@ export interface Project {
   fallbackGradient: string;
   technologies: string[];
   highlights?: string[];
+  systemFlow?: string[];
   liveUrl?: string;
   githubUrl: string;
   featured: boolean;

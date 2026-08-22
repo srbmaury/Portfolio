@@ -70,14 +70,14 @@ export const trackProjectEvent = (action: string, projectName: string): void => 
  * Track social profile clicks using a fixed platform label
  */
 export const trackSocialEvent = (platform: string): void => {
-  trackEvent('social', 'profile_click', platform);
+  trackEvent('social', `${platform.toLowerCase()}_click`, platform);
 };
 
 /**
  * Track contact form submissions
  */
 export const trackContactFormSubmit = (success: boolean): void => {
-  trackEvent('contact', success ? 'submit_success' : 'submit_error');
+  trackEvent('contact', 'contact_form_submit', undefined, success ? 1 : 0);
 };
 
 /**
@@ -85,6 +85,13 @@ export const trackContactFormSubmit = (success: boolean): void => {
  */
 export const trackContactFormIntent = (action: string, label?: string): void => {
   trackEvent('contact_intent', action, label);
+};
+
+/**
+ * Track a direct contact action such as an email click.
+ */
+export const trackContactEvent = (action: string): void => {
+  trackEvent('contact', action);
 };
 
 /**

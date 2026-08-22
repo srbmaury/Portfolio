@@ -20,7 +20,7 @@ const Projects = () => {
 
   const handleProjectClick = (project: Project) => {
     // Track project view
-    trackProjectEvent('view', project.title);
+    trackProjectEvent('project_details_click', project.title);
 
     setSelectedProject(project);
     setIsModalOpen(true);
@@ -46,7 +46,7 @@ const Projects = () => {
         >
           <h2 className="section-title" tabIndex={0} aria-label="Featured Projects">Featured Projects</h2>
           <p className="section-subtitle">
-            A curated selection of production-minded projects spanning AI, full-stack development, data visualization, and mobile engineering.
+            Selected engineering case studies across ML search, developer tooling, real-time collaboration, and AI-powered products.
           </p>
         </motion.div>
 
@@ -120,6 +120,20 @@ const Projects = () => {
               <div className="flex flex-col flex-grow">
                 <h3 className="text-xl font-bold mb-3 gradient-text">{project.title}</h3>
                 <p className="mb-4 leading-relaxed line-clamp-4 sm:line-clamp-none" style={{ color: 'var(--text-secondary)' }}>{project.description}</p>
+
+                {project.systemFlow && (
+                  <div className="mb-5 rounded-lg border p-3" style={{ borderColor: 'var(--border-color)', backgroundColor: 'var(--tag-bg)' }}>
+                    <p className="mb-2 text-xs font-semibold uppercase tracking-wide" style={{ color: 'var(--text-secondary)' }}>How it works</p>
+                    <div className="flex flex-wrap items-center gap-2 text-xs font-medium" style={{ color: 'var(--text-primary)' }}>
+                      {project.systemFlow.map((step, stepIndex) => (
+                        <span key={step} className="inline-flex items-center gap-2">
+                          {stepIndex > 0 && <span aria-hidden="true" style={{ color: 'var(--primary-color)' }}>→</span>}
+                          <span>{step}</span>
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                )}
 
                 {/* Technologies */}
                 <div className="flex flex-wrap gap-2 mb-6">
