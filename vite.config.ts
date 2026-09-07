@@ -40,6 +40,7 @@ const structuredProfile = {
 const projectRouteDescription =
   'Earlier builds, focused utilities, and production-minded experiments by Saurabh Maurya across web, mobile, developer tools, and data visualization.'
 const projectRouteUrl = `${siteUrl}projects`
+const projectPublicUrl = (project: { liveUrl?: string; githubUrl: string }) => project.liveUrl || project.githubUrl
 const projectRouteStructuredData = {
   '@context': 'https://schema.org',
   '@type': 'CollectionPage',
@@ -59,7 +60,7 @@ const projectRouteStructuredData = {
         '@type': 'ListItem',
         position: index + 1,
         name: project.title,
-        url: project.githubUrl,
+        url: projectPublicUrl(project),
       })),
   },
 }
@@ -80,7 +81,7 @@ const projectFallbackMarkup = `
     <ul>
       ${projectsData.projects
         .filter((project) => !project.featured && !project.beginner)
-        .map((project) => `<li><a href="${escapeHtml(project.githubUrl)}">${escapeHtml(project.title)}</a>: ${escapeHtml(project.description)}</li>`)
+        .map((project) => `<li><a href="${escapeHtml(projectPublicUrl(project))}">${escapeHtml(project.title)}</a>: ${escapeHtml(project.description)}</li>`)
         .join('')}
     </ul>
   </main>
@@ -96,7 +97,7 @@ const homeFallbackMarkup = `
       ${projectsData.projects
         .filter((project) => project.featured)
         .slice(0, 5)
-        .map((project) => `<li><a href="${escapeHtml(project.githubUrl)}">${escapeHtml(project.title)}</a>: ${escapeHtml(project.description)}</li>`)
+        .map((project) => `<li><a href="${escapeHtml(projectPublicUrl(project))}">${escapeHtml(project.title)}</a>: ${escapeHtml(project.description)}</li>`)
         .join('')}
     </ul>
     <p><a href="/projects">Explore all software engineering projects</a></p>
