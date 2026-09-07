@@ -20,23 +20,21 @@
       "demoUrl": "https://ecommerce-search.onrender.com/"
     },
     {
-      "title": "Companion AI",
-      "description": "AI‑assisted interview preparation: create multi‑round interviews from a job description, practice answers with voice or code editor, and get automatic feedback.",
+      "title": "EvalcueAI",
+      "description": "A production SaaS for software engineering interview practice and structured technical hiring. Candidates can run adaptive conversational, coding, and system-design interviews, while hiring teams create role-specific assessments and review evidence-backed scorecards.",
       "image": "/images/CompanionAI.png",
       "fallbackIcon": "🤖",
       "fallbackGradient": "from-cyan-400 to-blue-500",
-      "technologies": ["React", "Node.js", "Redis", "Express", "MongoDB", "OAuth"],
+      "technologies": ["React", "Node.js", "Express", "MongoDB", "Redis", "BullMQ", "OpenAI", "Stripe"],
       "highlights": [
-        "Generates multi-round interview sessions from job descriptions with voice input and code-editor support.",
-        "Provides automatic AI-powered feedback and scoring after practice rounds.",
-        "Uses OAuth authentication, Redis session caching, and MongoDB persistence."
+        "Built and launched separate Practice and Hiring product surfaces on a production domain with authentication, billing, transactional email, and SEO-ready public pages.",
+        "Runs adaptive AI interviews across conversational, coding, and live system-design rounds, with resume/JD context and structured post-interview feedback.",
+        "Uses MongoDB for product state and Redis + BullMQ for asynchronous question preparation, feedback, and candidate evaluation workflows."
       ],
-      "systemFlow": ["Add job description", "Generate rounds", "Practice", "Feedback & scoring"],
-      "liveUrl": "https://companionai-frontend.onrender.com/",
-      "githubUrl": "https://github.com/srbmaury/CompanionAI",
-      "featured": true,
-      "demoType": "iframe",
-      "demoUrl": "https://companionai-frontend.onrender.com/"
+      "systemFlow": ["Choose role or assessment", "Run adaptive interview", "Evaluate evidence", "Review feedback or scorecard"],
+      "liveUrl": "https://evalcueai.com/",
+      "githubUrl": "",
+      "featured": true
     },
     {
       "title": "ExitSense",
