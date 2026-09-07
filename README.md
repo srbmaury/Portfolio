@@ -43,8 +43,8 @@ Interactive chatbot trained on my experience and projects:
 - Optional custom cursor for desktop visitors
 
 ### 📊 Project Showcase
+- **EvalcueAI** — Production SaaS for adaptive software-engineering interview practice and structured technical hiring; live at [evalcueai.com](https://evalcueai.com/)  
 - **Ecommerce Search Engine** — ML-based product search with personalized ranking and A/B testing  
-- **Companion AI** — AI interview prep with voice input, code editor, and auto-feedback  
 - **ExitSense** — Android app that detects when you're leaving home without GPS  
 - **YAML Data Visualizer** — Interactive tree diagrams with D3.js, real-time collaboration, and versioning
 - **Developer Knowledge Base** — Notion-style knowledge platform with AI-powered answer generation  
@@ -52,7 +52,7 @@ Interactive chatbot trained on my experience and projects:
 
 ### 📈 GitHub Integration
 - Live GitHub statistics via API  
-- Direct repository links  
+- Direct repository links for public projects  
 - Contribution activity tracking  
 
 ---
