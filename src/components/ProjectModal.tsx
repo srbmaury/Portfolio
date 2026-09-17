@@ -233,7 +233,7 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, project })
               <ExternalLink size={20} />
               View Project
             </a>}
-            <a
+            {project.githubUrl && <a
               href={project.githubUrl}
               target="_blank"
               rel="noopener noreferrer"
@@ -249,7 +249,7 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, project })
             >
               <Github size={20} />
               View Code
-            </a>
+            </a>}
           </div>
         </div>
       </div>
@@ -334,7 +334,7 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, project })
                       <ExternalLink size={16} />
                       Live Demo
                     </a>}
-                    <a
+                    {project.githubUrl && <a
                       href={project.githubUrl}
                       target="_blank"
                       rel="noopener noreferrer"
@@ -350,7 +350,7 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, project })
                     >
                       <Github size={16} />
                       Code
-                    </a>
+                    </a>}
                   </div>
                 </div>
                 {renderDemoContent()}

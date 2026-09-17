@@ -8,7 +8,7 @@ export interface Project {
   highlights?: string[];
   systemFlow?: string[];
   liveUrl?: string;
-  githubUrl: string;
+  githubUrl?: string;
   featured: boolean;
   beginner?: boolean;
   demoType?: 'iframe' | 'video' | 'image';

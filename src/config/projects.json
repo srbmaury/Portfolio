@@ -20,23 +20,41 @@
       "demoUrl": "https://ecommerce-search.onrender.com/"
     },
     {
-      "title": "Companion AI",
-      "description": "AI‑assisted interview preparation: create multi‑round interviews from a job description, practice answers with voice or code editor, and get automatic feedback.",
-      "image": "/images/CompanionAI.png",
+      "title": "Evalcue AI",
+      "description": "A full-stack platform for adaptive software-engineering interview practice and structured technical hiring, spanning conversational, coding, system-design, and debugging assessments.",
+      "image": "/images/EvalcueAI.png",
       "fallbackIcon": "🤖",
       "fallbackGradient": "from-cyan-400 to-blue-500",
-      "technologies": ["React", "Node.js", "Redis", "Express", "MongoDB", "OAuth"],
+      "technologies": ["React 19", "Express 5", "MongoDB", "Redis", "BullMQ", "OpenAI", "Gemini", "Stripe"],
       "highlights": [
-        "Generates multi-round interview sessions from job descriptions with voice input and code-editor support.",
-        "Provides automatic AI-powered feedback and scoring after practice rounds.",
-        "Uses OAuth authentication, Redis session caching, and MongoDB persistence."
+        "Runs adaptive, role-specific practice interviews with hands-free voice, coding, and live system-design workspaces.",
+        "Gives hiring teams invite-only pipelines, multi-file debugging assessments, weighted scorecards, and human calibration controls.",
+        "Uses Redis and BullMQ for asynchronous evaluation, with Stripe billing, Prometheus metrics, Sentry, and production deployment guards."
       ],
-      "systemFlow": ["Add job description", "Generate rounds", "Practice", "Feedback & scoring"],
-      "liveUrl": "https://companionai-frontend.onrender.com/",
-      "githubUrl": "https://github.com/srbmaury/CompanionAI",
+      "systemFlow": ["Define role or goal", "Generate assessment", "Interview & evaluate", "Review evidence"],
+      "liveUrl": "https://evalcueai.com/",
       "featured": true,
       "demoType": "iframe",
-      "demoUrl": "https://companionai-frontend.onrender.com/"
+      "demoUrl": "https://evalcueai.com/"
+    },
+    {
+      "title": "Chess ML Coach",
+      "description": "A personalized chess-improvement platform that turns Chess.com game history into engine-grounded coaching, adaptive puzzles, and a training plan tailored to where each player struggles.",
+      "image": "/images/ChessMLCoach.png",
+      "fallbackIcon": "♞",
+      "fallbackGradient": "from-emerald-500 to-slate-800",
+      "technologies": ["Python", "FastAPI", "React", "Stockfish", "LightGBM", "SQLite", "PostgreSQL"],
+      "highlights": [
+        "Combines Stockfish evaluations with a leakage-resistant LightGBM model that predicts a player's mistake-prone positions.",
+        "Builds personal puzzles from real mistakes, then adapts continuations, hints, and spaced-repetition reviews to mastery.",
+        "Supports isolated player profiles, resumable analysis, progress reporting, engine-grounded explanations, and hosted persistence readiness."
+      ],
+      "systemFlow": ["Sync Chess.com games", "Analyze with Stockfish", "Learn player patterns", "Train with personal puzzles"],
+      "liveUrl": "https://chess-ml-coach.onrender.com/",
+      "githubUrl": "https://github.com/srbmaury/Chess-Coach",
+      "featured": true,
+      "demoType": "iframe",
+      "demoUrl": "https://chess-ml-coach.onrender.com/"
     },
     {
       "title": "ExitSense",
@@ -63,7 +81,7 @@
       "systemFlow": ["Organize notes", "Write solutions", "Search & review", "AI assistance"],
       "liveUrl": "https://developer-knowledge-base.onrender.com/",
       "githubUrl": "https://github.com/srbmaury/Developer-Knowledge-Base",
-      "featured": true,
+      "featured": false,
       "demoType": "iframe",
       "demoUrl": "https://developer-knowledge-base.onrender.com/"
     },

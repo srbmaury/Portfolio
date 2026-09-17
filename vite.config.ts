@@ -59,7 +59,7 @@ const projectRouteStructuredData = {
         '@type': 'ListItem',
         position: index + 1,
         name: project.title,
-        url: project.githubUrl,
+        url: project.githubUrl ?? project.liveUrl,
       })),
   },
 }
@@ -80,7 +80,7 @@ const projectFallbackMarkup = `
     <ul>
       ${projectsData.projects
         .filter((project) => !project.featured && !project.beginner)
-        .map((project) => `<li><a href="${escapeHtml(project.githubUrl)}">${escapeHtml(project.title)}</a>: ${escapeHtml(project.description)}</li>`)
+        .map((project) => `<li><a href="${escapeHtml(project.githubUrl ?? project.liveUrl)}">${escapeHtml(project.title)}</a>: ${escapeHtml(project.description)}</li>`)
         .join('')}
     </ul>
   </main>
@@ -96,7 +96,7 @@ const homeFallbackMarkup = `
       ${projectsData.projects
         .filter((project) => project.featured)
         .slice(0, 5)
-        .map((project) => `<li><a href="${escapeHtml(project.githubUrl)}">${escapeHtml(project.title)}</a>: ${escapeHtml(project.description)}</li>`)
+        .map((project) => `<li><a href="${escapeHtml(project.githubUrl ?? project.liveUrl)}">${escapeHtml(project.title)}</a>: ${escapeHtml(project.description)}</li>`)
         .join('')}
     </ul>
     <p><a href="/projects">Explore all software engineering projects</a></p>

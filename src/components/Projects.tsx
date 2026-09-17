@@ -176,7 +176,7 @@ const Projects = () => {
                     <Eye size={16} />
                     <span>Live Demo</span>
                   </a>}
-                  <a
+                  {project.githubUrl && <a
                     href={project.githubUrl}
                     target="_blank"
                     rel="noopener noreferrer"
@@ -192,7 +192,7 @@ const Projects = () => {
                   >
                     <Github size={16} />
                     <span>Source Code</span>
-                  </a>
+                  </a>}
                 </div>
               </div>
             </motion.div>

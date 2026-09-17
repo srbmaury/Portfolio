@@ -44,7 +44,8 @@ Interactive chatbot trained on my experience and projects:
 
 ### 📊 Project Showcase
 - **Ecommerce Search Engine** — ML-based product search with personalized ranking and A/B testing  
-- **Companion AI** — AI interview prep with voice input, code editor, and auto-feedback  
+- **Evalcue AI** — Adaptive interview practice and structured technical hiring with voice, coding, system-design, and debugging assessments  
+- **Chess ML Coach** — Personalized chess training with Stockfish analysis, LightGBM mistake prediction, and adaptive puzzles  
 - **ExitSense** — Android app that detects when you're leaving home without GPS  
 - **YAML Data Visualizer** — Interactive tree diagrams with D3.js, real-time collaboration, and versioning
 - **Developer Knowledge Base** — Notion-style knowledge platform with AI-powered answer generation  

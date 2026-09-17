@@ -37,7 +37,7 @@ const ProjectArchive = () => {
           '@type': 'ListItem',
           position: index + 1,
           name: project.title,
-          url: project.githubUrl,
+          url: project.githubUrl ?? project.liveUrl,
         })),
       },
     },
@@ -94,9 +94,9 @@ const ProjectArchive = () => {
                 {project.liveUrl && <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" className="min-h-11 inline-flex items-center gap-2 font-medium text-sm" style={{ color: 'var(--primary-color)' }} onClick={() => trackProjectEvent('live_demo_click', project.title)} aria-label={`View ${project.title}`}>
                   <ExternalLink size={16} /> View
                 </a>}
-                <a href={project.githubUrl} target="_blank" rel="noopener noreferrer" className="min-h-11 inline-flex items-center gap-2 font-medium text-sm" style={{ color: 'var(--text-secondary)' }} onClick={() => trackProjectEvent('github_click', project.title)} aria-label={`View ${project.title} source code`}>
+                {project.githubUrl && <a href={project.githubUrl} target="_blank" rel="noopener noreferrer" className="min-h-11 inline-flex items-center gap-2 font-medium text-sm" style={{ color: 'var(--text-secondary)' }} onClick={() => trackProjectEvent('github_click', project.title)} aria-label={`View ${project.title} source code`}>
                   <Github size={16} /> Source
-                </a>
+                </a>}
               </div>
             </motion.article>
           ))}
