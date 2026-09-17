@@ -102,6 +102,11 @@
   box-sizing: border-box;
 }
 
+/* Private/commercial projects can intentionally omit a public source URL. */
+a[href=""] {
+  display: none !important;
+}
+
 /* Prevent horizontal scroll on mobile */
 html,
 body {
