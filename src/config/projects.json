@@ -3,7 +3,7 @@
     {
       "title": "Ecommerce Search Engine",
       "description": "A production-ready, ML-powered ecommerce search engine that simulates real-world search, personalization, and ranking systems used in modern ecommerce platforms. Designed to deliver relevant results with intelligent ranking and user-centric recommendations.",
-      "image": "/images/EcommerceSearch.png",
+      "image": "/images/EcommerceSearch.webp",
       "fallbackIcon": "🛒",
       "fallbackGradient": "from-purple-400 to-pink-500",
       "technologies": ["Python", "JavaScript", "HTML", "CSS", "Machine Learning"],
@@ -22,7 +22,7 @@
     {
       "title": "Evalcue AI",
       "description": "A full-stack platform for adaptive software-engineering interview practice and structured technical hiring, spanning conversational, coding, system-design, and debugging assessments.",
-      "image": "/images/EvalcueAI.png",
+      "image": "/images/EvalcueAI.webp",
       "fallbackIcon": "🤖",
       "fallbackGradient": "from-cyan-400 to-blue-500",
       "technologies": ["React 19", "Express 5", "MongoDB", "Redis", "BullMQ", "OpenAI", "Gemini", "Stripe"],
@@ -40,7 +40,7 @@
     {
       "title": "Chess ML Coach",
       "description": "A personalized chess-improvement platform that turns Chess.com game history into engine-grounded coaching, adaptive puzzles, and a training plan tailored to where each player struggles.",
-      "image": "/images/ChessMLCoach.png",
+      "image": "/images/ChessMLCoach.webp",
       "fallbackIcon": "♞",
       "fallbackGradient": "from-emerald-500 to-slate-800",
       "technologies": ["Python", "FastAPI", "React", "Stockfish", "LightGBM", "SQLite", "PostgreSQL"],
@@ -59,7 +59,7 @@
     {
       "title": "ExitSense",
       "description": "A production-ready Android application that intelligently detects when you are leaving home and reminds you to take everything you need — without GPS or location permission.",
-      "image": "/images/ExitSense.png",
+      "image": "/images/ExitSense.webp",
       "fallbackIcon": "🚪",
       "fallbackGradient": "from-amber-400 to-orange-500",
       "technologies": ["Java", "Kotlin"],
@@ -69,7 +69,7 @@
     {
       "title": "Developer Knowledge Base",
       "description": "A modern full-stack developer knowledge management platform, built for organizing coding notes, interview questions, and technical solutions. Features nested workspaces, markdown editing with live preview, AI-powered answer generation and much more.",
-      "image": "/images/DeveloperKnowledgeBase.png",
+      "image": "/images/DeveloperKnowledgeBase.webp",
       "fallbackIcon": "📚",
       "fallbackGradient": "from-violet-500 to-indigo-600",
       "technologies": ["Next.js 15", "TypeScript", "Tailwind CSS", "Prisma", "PostgreSQL", "Neon", "Supabase", "Zustand", "OpenAI API", "shadcn/ui"],
@@ -88,7 +88,7 @@
     {
       "title": "MERN Chat Application",
       "description": "A real-time chat application built with MERN stack featuring JWT authentication, WhatsApp-like interface, and secure messaging capabilities. Includes user authentication and real-time communication.",
-      "image": "/images/MernChatApp.png",
+      "image": "/images/MernChatApp.webp",
       "fallbackIcon": "💬",
       "fallbackGradient": "from-green-400 to-blue-500",
       "technologies": ["React", "Node.js", "MongoDB", "Socket.io", "JWT", "Express"],
@@ -101,7 +101,7 @@
     {
       "title": "YAML Data Visualizer",
       "description": "An advanced full-stack application that converts YAML structures into interactive tree diagrams. Features a powerful YAML editor, diff comparison, AI-assisted insights, versioning, and real-time collaboration for seamless data visualization and analysis.",
-      "image": "/images/YamlVisualizer.png",
+      "image": "/images/YamlVisualizer.webp",
       "fallbackIcon": "🌳",
       "fallbackGradient": "from-blue-400 to-indigo-500",
       "technologies": ["React", "Node.js", "D3.js", "MongoDB", "JavaScript", "CSS"],
@@ -120,7 +120,7 @@
     {
       "title": "Hackathon Portal",
       "description": "A comprehensive platform for managing hackathons, teams, ideas, and participants. Built with the MERN stack, it enables seamless collaboration, team formation, idea submission, and event management in a structured and user-friendly interface.",
-      "image": "/images/HackathonPortal.png",
+      "image": "/images/HackathonPortal.webp",
       "fallbackIcon": "🚀",
       "fallbackGradient": "from-orange-400 to-red-500",
       "technologies": ["React", "Node.js", "Express", "MongoDB", "JavaScript"],
@@ -138,7 +138,7 @@
     {
       "title": "Store Management System",
       "description": "A comprehensive store management application with inventory tracking, sales management, and reporting features. Built with modern JavaScript and responsive design.",
-      "image": "/images/StoreManagement.png",
+      "image": "/images/StoreManagement.webp",
       "fallbackIcon": "🏪",
       "fallbackGradient": "from-teal-400 to-green-500",
       "technologies": ["JavaScript", "HTML", "CSS", "Local Storage", "Bootstrap"],
@@ -152,7 +152,7 @@
     {
       "title": "Kanban Board",
       "description": "A project-management board with drag-and-drop task organization and a responsive workflow-focused interface.",
-      "image": "/images/KanbanBoard.png",
+      "image": "/images/KanbanBoard.webp",
       "fallbackIcon": "📋",
       "fallbackGradient": "from-sky-400 to-blue-600",
       "technologies": ["JavaScript", "HTML", "CSS", "Drag & Drop API"],
@@ -166,7 +166,7 @@
     {
       "title": "Notes Application",
       "description": "A feature-rich notes application with CRUD operations, search functionality, and markdown support.",
-      "image": "/images/MagicNotes.png",
+      "image": "/images/MagicNotes.webp",
       "fallbackIcon": "📝",
       "fallbackGradient": "from-yellow-400 to-orange-500",
       "technologies": ["JavaScript", "HTML", "CSS", "Local Storage", "Markdown"],
@@ -180,7 +180,7 @@
     {
       "title": "Quiz Application",
       "description": "An interactive quiz application with multiple categories, scoring system, and result tracking. Features responsive design and user-friendly interface.",
-      "image": "/images/Quiz.png",
+      "image": "/images/Quiz.webp",
       "fallbackIcon": "❓",
       "fallbackGradient": "from-red-400 to-pink-500",
       "technologies": ["CSS", "HTML", "JavaScript", "Quiz API", "Responsive Design"],
@@ -194,7 +194,7 @@
     {
       "title": "Tic Tac Toe Game",
       "description": "A classic Tic Tac Toe game with AI opponent, score tracking, and smooth animations. Features both single-player and two-player modes.",
-      "image": "/images/TictacToe.png",
+      "image": "/images/TictacToe.webp",
       "fallbackIcon": "⭕",
       "fallbackGradient": "from-green-400 to-teal-500",
       "technologies": ["JavaScript", "HTML", "CSS", "Game Logic", "AI Algorithm"],
@@ -208,7 +208,7 @@
     {
       "title": "Dictionary Application",
       "description": "A comprehensive dictionary application with word definitions, pronunciations, and example usage. Integrates with external dictionary APIs.",
-      "image": "/images/Dictionary.png",
+      "image": "/images/Dictionary.webp",
       "fallbackIcon": "📖",
       "fallbackGradient": "from-indigo-400 to-purple-500",
       "technologies": ["JavaScript", "HTML", "CSS", "API Integration", "Responsive Design"],
@@ -222,7 +222,7 @@
     {
       "title": "Flappy Bird Game",
       "description": "A recreation of the classic Flappy Bird game with smooth animations, score tracking, and responsive controls.",
-      "image": "/images/FlappyBird.png",
+      "image": "/images/FlappyBird.webp",
       "fallbackIcon": "🐦",
       "fallbackGradient": "from-yellow-400 to-green-500",
       "technologies": ["JavaScript", "HTML5 Canvas", "CSS", "Game Development", "Animation"],
@@ -236,7 +236,7 @@
     {
       "title": "Codeforces Filter",
       "description": "A chrome extension to filter and display blog entries from Codeforces users with specified minimum ratings and blog quality filters.",
-      "image": "/images/CodeforcesFilter.png",
+      "image": "/images/CodeforcesFilter.webp",
       "fallbackIcon": "🔍",
       "fallbackGradient": "from-gray-400 to-blue-500",
       "technologies": ["JavaScript", "HTML", "CSS", "API Integration", "Data Filtering"],
