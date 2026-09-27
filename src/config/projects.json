@@ -1,55 +1,31 @@
 {
   "projects": [
     {
-      "title": "Ecommerce Search Engine",
-      "description": "A production-ready, ML-powered ecommerce search engine that simulates real-world search, personalization, and ranking systems used in modern ecommerce platforms. Designed to deliver relevant results with intelligent ranking and user-centric recommendations.",
-      "image": "/images/EcommerceSearch.webp",
-      "fallbackIcon": "🛒",
-      "fallbackGradient": "from-purple-400 to-pink-500",
-      "technologies": ["Python", "JavaScript", "HTML", "CSS", "Machine Learning"],
-      "highlights": [
-        "ML-powered ranking with LightGBM and user clustering, supported by asynchronous retraining pipelines.",
-        "PostgreSQL full-text search, Redis caching, and connection pooling reduced latency by about 40% across 10,000+ events.",
-        "Includes an experimentation framework for A/B testing ranking changes."
-      ],
-      "systemFlow": ["Search query", "Retrieve catalog", "Rank & personalize", "Results"],
-      "liveUrl": "https://ecommerce-search.onrender.com/",
-      "githubUrl": "https://github.com/srbmaury/Ecommerce-Search",
-      "featured": true,
-      "demoType": "iframe",
-      "demoUrl": "https://ecommerce-search.onrender.com/"
-    },
-    {
-      "title": "Evalcue AI",
-      "description": "A full-stack platform for adaptive software-engineering interview practice and structured technical hiring, spanning conversational, coding, system-design, and debugging assessments.",
-      "image": "/images/EvalcueAI.webp",
-      "fallbackIcon": "🤖",
-      "fallbackGradient": "from-cyan-400 to-blue-500",
-      "technologies": ["React 19", "Express 5", "MongoDB", "Redis", "BullMQ", "OpenAI", "Gemini", "Stripe"],
-      "highlights": [
-        "Runs adaptive, role-specific practice interviews with hands-free voice, coding, and live system-design workspaces.",
-        "Gives hiring teams invite-only pipelines, multi-file debugging assessments, weighted scorecards, and human calibration controls.",
-        "Uses Redis and BullMQ for asynchronous evaluation, with Stripe billing, Prometheus metrics, Sentry, and production deployment guards."
-      ],
-      "systemFlow": ["Define role or goal", "Generate assessment", "Interview & evaluate", "Review evidence"],
-      "liveUrl": "https://evalcueai.com/",
-      "featured": true,
-      "demoType": "iframe",
-      "demoUrl": "https://evalcueai.com/"
-    },
-    {
       "title": "Chess ML Coach",
-      "description": "A personalized chess-improvement platform that turns Chess.com game history into engine-grounded coaching, adaptive puzzles, and a training plan tailored to where each player struggles.",
+      "description": "Personalized chess training platform combining Stockfish analysis, browser-side compute, player-specific ML, adaptive puzzles, and resumable hosted pipelines.",
       "image": "/images/ChessMLCoach.webp",
       "fallbackIcon": "♞",
       "fallbackGradient": "from-emerald-500 to-slate-800",
-      "technologies": ["Python", "FastAPI", "React", "Stockfish", "LightGBM", "SQLite", "PostgreSQL"],
-      "highlights": [
-        "Combines Stockfish evaluations with a leakage-resistant LightGBM model that predicts a player's mistake-prone positions.",
-        "Builds personal puzzles from real mistakes, then adapts continuations, hints, and spaced-repetition reviews to mastery.",
-        "Supports isolated player profiles, resumable analysis, progress reporting, engine-grounded explanations, and hosted persistence readiness."
+      "technologies": [
+        "Python",
+        "FastAPI",
+        "React",
+        "Stockfish / WASM",
+        "PostgreSQL",
+        "Supabase",
+        "LightGBM"
       ],
-      "systemFlow": ["Sync Chess.com games", "Analyze with Stockfish", "Learn player patterns", "Train with personal puzzles"],
+      "highlights": [
+        "Runs Stockfish analysis in the browser for hosted workflows, with resumable checkpoints and shared analysis coordination.",
+        "Uses authenticated, isolated player data with PostgreSQL-backed persistence and adaptive spaced-repetition practice.",
+        "Combines engine-grounded coaching with player-specific modelling to identify mistake-prone positions and generate personal training."
+      ],
+      "systemFlow": [
+        "Sync Chess.com games",
+        "Analyze & checkpoint",
+        "Learn player patterns",
+        "Train adaptively"
+      ],
       "liveUrl": "https://chess-ml-coach.onrender.com/",
       "githubUrl": "https://github.com/srbmaury/Chess-Coach",
       "featured": true,
@@ -57,12 +33,109 @@
       "demoUrl": "https://chess-ml-coach.onrender.com/"
     },
     {
+      "title": "Evalcue AI",
+      "description": "Technical interviewing platform for adaptive practice and structured hiring across coding, system design, debugging, and conversational interviews.",
+      "image": "/images/EvalcueAI.webp",
+      "fallbackIcon": "🤖",
+      "fallbackGradient": "from-cyan-400 to-blue-500",
+      "technologies": [
+        "React 19",
+        "Express 5",
+        "MongoDB",
+        "Redis",
+        "BullMQ",
+        "OpenAI",
+        "Gemini",
+        "Stripe"
+      ],
+      "highlights": [
+        "Supports role-specific practice and candidate assessments across voice, coding, system design, and multi-file debugging workflows.",
+        "Provides hiring pipelines, weighted scorecards, evidence review, and human calibration controls.",
+        "Uses Redis and BullMQ for asynchronous evaluation, with billing, observability, and production deployment safeguards."
+      ],
+      "systemFlow": [
+        "Define role or goal",
+        "Generate assessment",
+        "Interview & evaluate",
+        "Review evidence"
+      ],
+      "liveUrl": "https://evalcueai.com/",
+      "featured": true,
+      "demoType": "iframe",
+      "demoUrl": "https://evalcueai.com/"
+    },
+    {
+      "title": "Ecommerce Search Engine",
+      "description": "Search and recommendation system combining PostgreSQL retrieval, Redis caching, personalized ranking, and ML-based learning-to-rank.",
+      "image": "/images/EcommerceSearch.webp",
+      "fallbackIcon": "🛒",
+      "fallbackGradient": "from-purple-400 to-pink-500",
+      "technologies": [
+        "Python",
+        "Flask",
+        "PostgreSQL",
+        "Redis",
+        "LightGBM",
+        "scikit-learn"
+      ],
+      "highlights": [
+        "Uses PostgreSQL full-text retrieval, Redis query/result caches, and cursor-based pagination for low-latency search.",
+        "Ranks results with LightGBM using popularity, relevance, freshness, category, price, and interaction features.",
+        "Includes personalization, event tracking, background retraining, and an A/B framework for ranking experiments."
+      ],
+      "systemFlow": [
+        "Search query",
+        "Retrieve catalog",
+        "Rank & personalize",
+        "Results"
+      ],
+      "liveUrl": "https://ecommerce-search.onrender.com/",
+      "githubUrl": "https://github.com/srbmaury/Ecommerce-Search",
+      "featured": true,
+      "demoType": "iframe",
+      "demoUrl": "https://ecommerce-search.onrender.com/"
+    },
+    {
+      "title": "YAML Data Visualizer",
+      "description": "Collaborative developer tool for exploring large YAML structures through interactive visualization, realtime collaboration, diffing, and versioned workflows.",
+      "image": "/images/YamlVisualizer.webp",
+      "fallbackIcon": "🌳",
+      "fallbackGradient": "from-blue-400 to-indigo-500",
+      "technologies": [
+        "React",
+        "Node.js",
+        "D3.js",
+        "MongoDB",
+        "JavaScript",
+        "CSS"
+      ],
+      "highlights": [
+        "Renders more than 5,000 nodes at 60fps using virtual rendering and frame scheduling.",
+        "Supports real-time collaboration, delta-based versioning, diff comparison, and secure GitHub webhook integrations.",
+        "Recent work improved diff correctness and added regression coverage to CI for the comparison workflow."
+      ],
+      "systemFlow": [
+        "Paste or import YAML",
+        "Explore diagram",
+        "Compare & collaborate",
+        "Save versions"
+      ],
+      "liveUrl": "https://yaml-visualizer.netlify.app/",
+      "githubUrl": "https://github.com/srbmaury/YAML-Visualizer",
+      "featured": true,
+      "demoType": "iframe",
+      "demoUrl": "https://yaml-visualizer.netlify.app/"
+    },
+    {
       "title": "ExitSense",
       "description": "A production-ready Android application that intelligently detects when you are leaving home and reminds you to take everything you need — without GPS or location permission.",
       "image": "/images/ExitSense.webp",
       "fallbackIcon": "🚪",
       "fallbackGradient": "from-amber-400 to-orange-500",
-      "technologies": ["Java", "Kotlin"],
+      "technologies": [
+        "Java",
+        "Kotlin"
+      ],
       "githubUrl": "https://github.com/srbmaury/ExitSense",
       "featured": false
     },
@@ -72,13 +145,29 @@
       "image": "/images/DeveloperKnowledgeBase.webp",
       "fallbackIcon": "📚",
       "fallbackGradient": "from-violet-500 to-indigo-600",
-      "technologies": ["Next.js 15", "TypeScript", "Tailwind CSS", "Prisma", "PostgreSQL", "Neon", "Supabase", "Zustand", "OpenAI API", "shadcn/ui"],
+      "technologies": [
+        "Next.js 15",
+        "TypeScript",
+        "Tailwind CSS",
+        "Prisma",
+        "PostgreSQL",
+        "Neon",
+        "Supabase",
+        "Zustand",
+        "OpenAI API",
+        "shadcn/ui"
+      ],
       "highlights": [
         "Supports Notion-style nested workspaces, drag-and-drop organization, pinned notes, favorites, and multiple solutions.",
         "Combines a Markdown editor, live preview, syntax highlighting, and global search.",
         "Provides per-user Supabase-authenticated workspaces and OpenAI-powered answer generation."
       ],
-      "systemFlow": ["Organize notes", "Write solutions", "Search & review", "AI assistance"],
+      "systemFlow": [
+        "Organize notes",
+        "Write solutions",
+        "Search & review",
+        "AI assistance"
+      ],
       "liveUrl": "https://developer-knowledge-base.onrender.com/",
       "githubUrl": "https://github.com/srbmaury/Developer-Knowledge-Base",
       "featured": false,
@@ -91,7 +180,14 @@
       "image": "/images/MernChatApp.webp",
       "fallbackIcon": "💬",
       "fallbackGradient": "from-green-400 to-blue-500",
-      "technologies": ["React", "Node.js", "MongoDB", "Socket.io", "JWT", "Express"],
+      "technologies": [
+        "React",
+        "Node.js",
+        "MongoDB",
+        "Socket.io",
+        "JWT",
+        "Express"
+      ],
       "liveUrl": "https://mern-chat-app-xlr3.onrender.com/",
       "githubUrl": "https://github.com/srbmaury/MERN-Chat-App",
       "featured": false,
@@ -99,31 +195,18 @@
       "demoUrl": "https://mern-chat-app-xlr3.onrender.com/"
     },
     {
-      "title": "YAML Data Visualizer",
-      "description": "An advanced full-stack application that converts YAML structures into interactive tree diagrams. Features a powerful YAML editor, diff comparison, AI-assisted insights, versioning, and real-time collaboration for seamless data visualization and analysis.",
-      "image": "/images/YamlVisualizer.webp",
-      "fallbackIcon": "🌳",
-      "fallbackGradient": "from-blue-400 to-indigo-500",
-      "technologies": ["React", "Node.js", "D3.js", "MongoDB", "JavaScript", "CSS"],
-      "highlights": [
-        "Supports real-time collaboration, delta-based versioning, and secure GitHub webhook integrations.",
-        "Renders more than 5,000 nodes at 60fps using virtual rendering and frame scheduling.",
-        "Includes diff comparison, time-travel versioning, and AI-assisted YAML workflows."
-      ],
-      "systemFlow": ["Paste or import YAML", "Explore diagram", "Compare & collaborate", "Save versions"],
-      "liveUrl": "https://yaml-visualizer.netlify.app/",
-      "githubUrl": "https://github.com/srbmaury/YAML-Visualizer",
-      "featured": true,
-      "demoType": "iframe",
-      "demoUrl": "https://yaml-visualizer.netlify.app/"
-    },
-    {
       "title": "Hackathon Portal",
       "description": "A comprehensive platform for managing hackathons, teams, ideas, and participants. Built with the MERN stack, it enables seamless collaboration, team formation, idea submission, and event management in a structured and user-friendly interface.",
       "image": "/images/HackathonPortal.webp",
       "fallbackIcon": "🚀",
       "fallbackGradient": "from-orange-400 to-red-500",
-      "technologies": ["React", "Node.js", "Express", "MongoDB", "JavaScript"],
+      "technologies": [
+        "React",
+        "Node.js",
+        "Express",
+        "MongoDB",
+        "JavaScript"
+      ],
       "highlights": [
         "Designed a role-based access-control system spanning six roles.",
         "Automated evaluation workflows using AI APIs.",
@@ -141,7 +224,13 @@
       "image": "/images/StoreManagement.webp",
       "fallbackIcon": "🏪",
       "fallbackGradient": "from-teal-400 to-green-500",
-      "technologies": ["JavaScript", "HTML", "CSS", "Local Storage", "Bootstrap"],
+      "technologies": [
+        "JavaScript",
+        "HTML",
+        "CSS",
+        "Local Storage",
+        "Bootstrap"
+      ],
       "liveUrl": "https://store-management-frontend-x0e2.onrender.com/",
       "githubUrl": "https://github.com/srbmaury/store-management",
       "featured": false,
@@ -155,7 +244,12 @@
       "image": "/images/KanbanBoard.webp",
       "fallbackIcon": "📋",
       "fallbackGradient": "from-sky-400 to-blue-600",
-      "technologies": ["JavaScript", "HTML", "CSS", "Drag & Drop API"],
+      "technologies": [
+        "JavaScript",
+        "HTML",
+        "CSS",
+        "Drag & Drop API"
+      ],
       "liveUrl": "https://saurabh-kanban-board.netlify.app/",
       "githubUrl": "https://github.com/srbmaury/saurabh-kanban-board",
       "featured": false,
@@ -169,7 +263,13 @@
       "image": "/images/MagicNotes.webp",
       "fallbackIcon": "📝",
       "fallbackGradient": "from-yellow-400 to-orange-500",
-      "technologies": ["JavaScript", "HTML", "CSS", "Local Storage", "Markdown"],
+      "technologies": [
+        "JavaScript",
+        "HTML",
+        "CSS",
+        "Local Storage",
+        "Markdown"
+      ],
       "liveUrl": "https://srbmaury.github.io/notes/",
       "githubUrl": "https://github.com/srbmaury/notes",
       "featured": false,
@@ -183,7 +283,13 @@
       "image": "/images/Quiz.webp",
       "fallbackIcon": "❓",
       "fallbackGradient": "from-red-400 to-pink-500",
-      "technologies": ["CSS", "HTML", "JavaScript", "Quiz API", "Responsive Design"],
+      "technologies": [
+        "CSS",
+        "HTML",
+        "JavaScript",
+        "Quiz API",
+        "Responsive Design"
+      ],
       "liveUrl": "https://srbmaury.github.io/quiz1/",
       "githubUrl": "https://github.com/srbmaury/quiz1",
       "featured": false,
@@ -197,7 +303,13 @@
       "image": "/images/TictacToe.webp",
       "fallbackIcon": "⭕",
       "fallbackGradient": "from-green-400 to-teal-500",
-      "technologies": ["JavaScript", "HTML", "CSS", "Game Logic", "AI Algorithm"],
+      "technologies": [
+        "JavaScript",
+        "HTML",
+        "CSS",
+        "Game Logic",
+        "AI Algorithm"
+      ],
       "liveUrl": "https://tic-tac-toe-silk-sigma.vercel.app/",
       "githubUrl": "https://github.com/srbmaury/tic-tac-toe",
       "featured": false,
@@ -211,7 +323,13 @@
       "image": "/images/Dictionary.webp",
       "fallbackIcon": "📖",
       "fallbackGradient": "from-indigo-400 to-purple-500",
-      "technologies": ["JavaScript", "HTML", "CSS", "API Integration", "Responsive Design"],
+      "technologies": [
+        "JavaScript",
+        "HTML",
+        "CSS",
+        "API Integration",
+        "Responsive Design"
+      ],
       "liveUrl": "https://srbmaury.github.io/dictionary/",
       "githubUrl": "https://github.com/srbmaury/dictionary",
       "featured": false,
@@ -225,7 +343,13 @@
       "image": "/images/FlappyBird.webp",
       "fallbackIcon": "🐦",
       "fallbackGradient": "from-yellow-400 to-green-500",
-      "technologies": ["JavaScript", "HTML5 Canvas", "CSS", "Game Development", "Animation"],
+      "technologies": [
+        "JavaScript",
+        "HTML5 Canvas",
+        "CSS",
+        "Game Development",
+        "Animation"
+      ],
       "liveUrl": "https://srbmaury.github.io/flappyBird/",
       "githubUrl": "https://github.com/srbmaury/flappyBird",
       "featured": false,
@@ -239,7 +363,13 @@
       "image": "/images/CodeforcesFilter.webp",
       "fallbackIcon": "🔍",
       "fallbackGradient": "from-gray-400 to-blue-500",
-      "technologies": ["JavaScript", "HTML", "CSS", "API Integration", "Data Filtering"],
+      "technologies": [
+        "JavaScript",
+        "HTML",
+        "CSS",
+        "API Integration",
+        "Data Filtering"
+      ],
       "githubUrl": "https://github.com/srbmaury/CF-Filter-Recent-Actions",
       "featured": false,
       "beginner": true
