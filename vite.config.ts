@@ -7,7 +7,7 @@ import projectsData from './src/config/projects.json'
 
 const { personalInfo, experience, interests, skillCategories } = profile
 const siteUrl = `${personalInfo.portfolio.replace(/\/$/, '')}/`
-const socialImage = `${siteUrl}og-image.jpg`
+const socialImage = `${siteUrl}og-image.png`
 const seoDescription = `${personalInfo.name} is a ${personalInfo.professionalTitle} focused on distributed systems, developer tools, performance engineering, and AI-powered products.`
 const structuredProfile = {
   '@context': 'https://schema.org',
