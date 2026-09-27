@@ -76,10 +76,12 @@ function buildGitHubStatsPayload(user, repos) {
     0
   );
 
+  // Keep in sync with selectedRepositoryNames in src/components/GitHubStats.tsx,
+  // otherwise the client drops any repo missing from this payload.
   const featuredRepositoryNames = [
-    'India-Startup-Map',
-    'kindred-code',
+    'Repo-LLD-generator',
     'NEET',
+    'kindred-code',
   ];
 
   const repositoriesByName = new Map(repos.map((repo) => [repo.name.toLowerCase(), repo]));

@@ -52,8 +52,15 @@ const profileFallback: GitHubStatsResponse = {
 const GitHubStats: React.FC<GitHubStatsProps> = ({ username, className = '' }) => {
   const [data, setData] = useState<GitHubStatsResponse | null>(null);
   const profile = data || profileFallback;
-  const liveSelected = data?.repos.filter((repo) => selectedRepositoryNames.includes(repo.name)) || [];
-  const selectedRepos = liveSelected.length >= 2 ? liveSelected : selectedRepositoryFallbacks;
+  // Always render every selected repository: live data enriches a card with
+  // stars/forks, but a repo the API response omits still shows its local copy.
+  const selectedRepos = selectedRepositoryNames.map((name) => {
+    const live = data?.repos.find((repo) => repo.name.toLowerCase() === name.toLowerCase());
+    const fallback = selectedRepositoryFallbacks.find((repo) => repo.name === name);
+    // Curated description/language win: they describe what the project does,
+    // while GitHub reports whichever language has the most bytes.
+    return live ? { ...live, ...fallback, stars: live.stars, forks: live.forks } : fallback;
+  }).filter((repo): repo is GitHubRepository => Boolean(repo));
 
   useEffect(() => {
     let ignore = false;
