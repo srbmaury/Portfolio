@@ -1,8 +1,8 @@
 import { motion } from 'framer-motion';
-import { Bot, Cloud, Code, Network, Server } from 'lucide-react';
+import { Activity, Bot, Cloud, Code, Network, Server } from 'lucide-react';
 import profile from '../config/profile.json';
 
-const skillIcons = { bot: Bot, cloud: Cloud, code: Code, network: Network, server: Server };
+const skillIcons = { activity: Activity, bot: Bot, cloud: Cloud, code: Code, network: Network, server: Server };
 
 const Skills = () => (
   <section id="skills" className="section" style={{ backgroundColor: 'var(--bg-primary)' }} aria-label="Technical toolkit">

@@ -79,14 +79,14 @@ const Projects = () => {
                 <p className="mb-5 leading-relaxed" style={{ color: 'var(--text-secondary)' }}>{project.description}</p>
 
                 <div className="mb-6 flex flex-wrap gap-2">
-                  {project.technologies.slice(0, 6).map((tech) => (
+                  {project.technologies.slice(0, 5).map((tech) => (
                     <span key={tech} className="rounded-md px-2.5 py-1 text-xs font-medium" style={{ backgroundColor: 'var(--tag-bg)', color: 'var(--text-secondary)' }}>
                       {tech}
                     </span>
                   ))}
-                  {project.technologies.length > 6 && (
+                  {project.technologies.length > 5 && (
                     <span className="rounded-md px-2.5 py-1 text-xs font-medium" style={{ backgroundColor: 'var(--tag-bg)', color: 'var(--text-secondary)' }}>
-                      +{project.technologies.length - 6}
+                      +{project.technologies.length - 5}
                     </span>
                   )}
                 </div>

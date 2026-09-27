@@ -70,11 +70,8 @@
     "Google Kick Start rank 862 among more than 108,000 participants"
   ],
   "interests": [
-    "Distributed Systems",
     "System Design",
     "Developer Tools",
-    "AI & ML Products",
-    "Observability and Monitoring",
     "Performance Optimization",
     "Competitive Programming",
     "Chess"
@@ -125,14 +122,22 @@
       ]
     },
     {
-      "title": "Cloud & Observability",
+      "title": "Cloud & Build",
       "icon": "cloud",
       "skills": [
         "Docker",
         "AWS (EC2, S3, RDS)",
+        "Bazel"
+      ]
+    },
+    {
+      "title": "Observability",
+      "icon": "activity",
+      "skills": [
         "Prometheus",
         "Grafana",
-        "Bazel"
+        "Alertmanager",
+        "OpenTelemetry"
       ]
     },
     {

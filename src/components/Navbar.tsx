@@ -24,6 +24,7 @@ const Navbar: React.FC<NavbarProps> = ({ onOpenTerminal, showTerminal }) => {
     { name: 'About', href: '#about' },
     { name: 'Experience', href: '#experience' },
     { name: 'Projects', href: '#projects' },
+    { name: 'Toolkit', href: '#skills' },
     { name: 'GitHub', href: '#github' },
     { name: 'Contact', href: '#contact' },
   ];

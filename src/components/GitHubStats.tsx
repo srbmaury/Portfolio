@@ -10,26 +10,28 @@ interface GitHubRepository { id?: number; name: string; description?: string | n
 interface GitHubStatsResponse { user: GitHubUser; stats: { totalStars: number; totalRepos: number }; repos: GitHubRepository[]; }
 interface GitHubStatsProps { username: string; className?: string; }
 
-const selectedRepositoryNames = ['Chess-Coach', 'YAML-Visualizer', 'Ecommerce-Search'];
+// Deliberately excludes the featured projects above, so this section adds work
+// a visitor has not already seen rather than repeating the project cards.
+const selectedRepositoryNames = ['Repo-LLD-generator', 'pr-blast-radius', 'kindred-code'];
 
 const selectedRepositoryFallbacks: GitHubRepository[] = [
   {
-    name: 'Chess-Coach',
-    description: 'Personalized chess training with Stockfish, browser-side analysis, hosted persistence, adaptive puzzles, and player-specific modelling.',
-    html_url: 'https://github.com/srbmaury/Chess-Coach',
-    language: 'Python',
+    name: 'Repo-LLD-generator',
+    description: 'Generates PlantUML class diagrams from Java repositories by parsing the Java AST instead of matching text patterns.',
+    html_url: 'https://github.com/srbmaury/Repo-LLD-generator',
+    language: 'Java',
   },
   {
-    name: 'YAML-Visualizer',
-    description: 'Collaborative YAML visualization with large-tree rendering, realtime workflows, diffing, versioning, and GitHub integration.',
-    html_url: 'https://github.com/srbmaury/YAML-Visualizer',
-    language: 'JavaScript',
+    name: 'pr-blast-radius',
+    description: 'Production-aware pull request analysis that traces impact across code, PostgreSQL schemas, and OpenTelemetry dependencies.',
+    html_url: 'https://github.com/srbmaury/pr-blast-radius',
+    language: 'Java',
   },
   {
-    name: 'Ecommerce-Search',
-    description: 'Search and recommendation system with PostgreSQL retrieval, Redis caching, personalization, and LightGBM ranking.',
-    html_url: 'https://github.com/srbmaury/Ecommerce-Search',
-    language: 'Python',
+    name: 'kindred-code',
+    description: 'Finds developers with shared interests from public GitHub activity, with ranked matching, GitHub App auth, and rate-aware discovery.',
+    html_url: 'https://github.com/srbmaury/kindred-code',
+    language: 'TypeScript',
   },
 ];
 
@@ -80,7 +82,7 @@ const GitHubStats: React.FC<GitHubStatsProps> = ({ username, className = '' }) =
         </motion.div>
 
         <div className="mx-auto max-w-5xl">
-          <div className="mb-6 flex flex-col gap-4 rounded-xl border p-5 sm:flex-row sm:items-center sm:justify-between" style={{ borderColor: 'var(--border-color)', backgroundColor: 'var(--card-bg)' }}>
+          <div className="mb-6 flex flex-col gap-5 rounded-xl border p-5 sm:flex-row sm:items-center sm:justify-between" style={{ borderColor: 'var(--border-color)', backgroundColor: 'var(--card-bg)' }}>
             <div className="flex items-center gap-4">
               <img src={profile.user.avatar_url} alt={profile.user.name || username} className="h-14 w-14 rounded-full object-cover" />
               <div>
@@ -88,9 +90,19 @@ const GitHubStats: React.FC<GitHubStatsProps> = ({ username, className = '' }) =
                 <p className="text-sm" style={{ color: 'var(--text-secondary)' }}>Open source, experiments, and ongoing engineering work.</p>
               </div>
             </div>
-            <a href={`https://github.com/${username}`} target="_blank" rel="noopener noreferrer" className="btn btn-secondary whitespace-nowrap" onClick={() => trackSocialEvent('GitHub')}>
-              <Github size={18} /> View GitHub
-            </a>
+            <div className="flex items-center gap-5 sm:gap-6">
+              <div className="text-center">
+                <strong className="block text-xl leading-tight" style={{ color: 'var(--primary-color)' }}>{profile.stats.totalRepos}</strong>
+                <span className="text-xs" style={{ color: 'var(--text-secondary)' }}>Repositories</span>
+              </div>
+              <div className="text-center">
+                <strong className="block text-xl leading-tight" style={{ color: '#f59e0b' }}>{profile.stats.totalStars}</strong>
+                <span className="text-xs" style={{ color: 'var(--text-secondary)' }}>Total Stars</span>
+              </div>
+              <a href={`https://github.com/${username}`} target="_blank" rel="noopener noreferrer" className="btn btn-secondary whitespace-nowrap" onClick={() => trackSocialEvent('GitHub')}>
+                <Github size={18} /> View GitHub
+              </a>
+            </div>
           </div>
 
           <div className="grid gap-4 md:grid-cols-3">
