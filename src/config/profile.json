@@ -3,7 +3,7 @@
     "name": "Saurabh Maurya",
     "title": "Associate Member of Technical Staff",
     "professionalTitle": "Software Engineer",
-    "headline": "Software Engineer • Distributed Systems • Metadata & Caching",
+    "headline": "Software Engineer • Distributed Systems • Developer Tools • AI Products",
     "location": "Hyderabad, India",
     "hometown": "Chandauli, Uttar Pradesh, India",
     "email": "contact@srbmaury.com",
@@ -14,7 +14,7 @@
     "leetcode": "https://leetcode.com/srbmaury",
     "codeforces": "https://codeforces.com/profile/srbmaury",
     "portfolio": "https://srbmaury.com",
-    "bio": "Full-stack engineer focused on distributed metadata systems, caching, observability, ML-backed search, and high-performance data visualization."
+    "bio": "Software engineer building distributed platforms, developer infrastructure, performance-sensitive applications, and ML-backed products. Outside work, I build open-source tools, study system design, solve competitive programming problems, and experiment with new engineering ideas."
   },
   "education": {
     "degree": "Bachelor of Technology",
@@ -29,7 +29,15 @@
       "title": "Associate Member of Technical Staff",
       "company": "Salesforce",
       "location": "Hyderabad",
-      "technologies": ["Java", "Apex", "GraphQL", "LWC", "Distributed Metadata Systems", "Caching", "Git"],
+      "technologies": [
+        "Java",
+        "Apex",
+        "GraphQL",
+        "LWC",
+        "Distributed Metadata Systems",
+        "Caching",
+        "Git"
+      ],
       "highlights": [
         "Architected design-time and runtime namespace handling across OmniStudio components for ISV packaging.",
         "Built a cross-component dependency extraction engine with Tooling and Composite API fixes, package automation, and custom-label management.",
@@ -41,7 +49,13 @@
       "title": "Software Development Intern",
       "company": "Razorpay Software Pvt. Ltd.",
       "location": "Bengaluru",
-      "technologies": ["Prometheus", "Grafana", "Alertmanager", "Observability", "API Middleware"],
+      "technologies": [
+        "Prometheus",
+        "Grafana",
+        "Alertmanager",
+        "Observability",
+        "API Middleware"
+      ],
       "highlights": [
         "Built observability infrastructure with more than 20 Grafana dashboards across high-volume payment flows.",
         "Implemented real-time Prometheus and Alertmanager monitoring with Slack notifications, reducing critical-failure detection time to under 10 minutes.",
@@ -56,14 +70,19 @@
     "Google Kick Start rank 862 among more than 108,000 participants"
   ],
   "interests": [
-    "System Design",
     "Distributed Systems",
-    "Full-stack Development",
+    "System Design",
+    "Developer Tools",
+    "AI & ML Products",
     "Observability and Monitoring",
     "Performance Optimization",
-    "Competitive Programming"
+    "Competitive Programming",
+    "Chess"
   ],
-  "additionalExpertise": ["UTAM", "Data Structures and Algorithms"],
+  "additionalExpertise": [
+    "UTAM",
+    "Data Structures and Algorithms"
+  ],
   "githubSnapshot": {
     "username": "srbmaury",
     "avatarUrl": "https://avatars.githubusercontent.com/u/85755081?v=4",
@@ -77,32 +96,55 @@
     {
       "title": "Languages",
       "icon": "code",
-      "skills": ["Java", "Python", "C++", "JavaScript / TypeScript"]
+      "skills": [
+        "Java",
+        "Python",
+        "C++",
+        "JavaScript / TypeScript"
+      ]
     },
     {
-      "title": "Backend Technologies",
+      "title": "Backend & APIs",
       "icon": "server",
-      "skills": ["Spring Boot", "GraphQL", "REST APIs", "SQLAlchemy"]
+      "skills": [
+        "Spring Boot",
+        "FastAPI",
+        "GraphQL",
+        "REST APIs"
+      ]
     },
     {
-      "title": "Distributed Systems",
+      "title": "Systems & Data",
       "icon": "network",
-      "skills": ["System Design", "Caching", "Event-Driven Architecture", "Scalability"]
+      "skills": [
+        "Distributed Systems",
+        "Redis",
+        "PostgreSQL",
+        "MongoDB",
+        "SQLite"
+      ]
     },
     {
-      "title": "Databases & Storage",
-      "icon": "database",
-      "skills": ["PostgreSQL", "MongoDB", "Redis", "SQLite"]
-    },
-    {
-      "title": "Cloud & DevOps",
+      "title": "Cloud & Observability",
       "icon": "cloud",
-      "skills": ["AWS (EC2, S3, RDS)", "Docker", "Git", "Bazel"]
+      "skills": [
+        "Docker",
+        "AWS (EC2, S3, RDS)",
+        "Prometheus",
+        "Grafana",
+        "Bazel"
+      ]
     },
     {
-      "title": "AI & Agent Systems",
+      "title": "AI & ML",
       "icon": "bot",
-      "skills": ["MCP", "RAG", "LangChain / LangGraph", "Vector Databases"]
+      "skills": [
+        "LightGBM",
+        "scikit-learn",
+        "MCP",
+        "RAG",
+        "LangChain / LangGraph"
+      ]
     }
   ]
 }
