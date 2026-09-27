@@ -1,61 +1,35 @@
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { Building, Calendar, Github, GitFork, MapPin, Star } from 'lucide-react';
+import { Github, GitFork, Star } from 'lucide-react';
 import { API_ENDPOINTS } from '../config/api';
 import portfolioProfile from '../config/profile.json';
 import { trackSocialEvent } from '../utils/analytics';
 
-interface GitHubUser {
-  login: string;
-  name: string;
-  bio: string;
-  avatar_url: string;
-  location: string;
-  company: string;
-  created_at: string;
-}
+interface GitHubUser { login: string; name: string; bio: string; avatar_url: string; location: string; company: string; created_at: string; }
+interface GitHubRepository { id?: number; name: string; description?: string | null; html_url: string; stars?: number; forks?: number; language?: string | null; }
+interface GitHubStatsResponse { user: GitHubUser; stats: { totalStars: number; totalRepos: number }; repos: GitHubRepository[]; }
+interface GitHubStatsProps { username: string; className?: string; }
 
-interface GitHubStatsResponse {
-  user: GitHubUser;
-  stats: { totalStars: number; totalRepos: number };
-  repos: GitHubRepository[];
-}
-
-interface GitHubRepository {
-  id?: number;
-  name: string;
-  description?: string | null;
-  html_url: string;
-  stars?: number;
-  forks?: number;
-  language?: string | null;
-}
-
-interface GitHubStatsProps {
-  username: string;
-  className?: string;
-}
-
-const selectedRepositoryNames = ['India-Startup-Map', 'kindred-code', 'NEET'];
+const selectedRepositoryNames = ['Chess-Coach', 'YAML-Visualizer', 'Ecommerce-Search'];
 
 const selectedRepositoryFallbacks: GitHubRepository[] = [
   {
-    name: 'India-Startup-Map',
-    description: 'A source-linked directory for exploring India’s startup and technology ecosystem by city, sector, stage, hiring status, and verified technology stack.',
-    html_url: 'https://github.com/srbmaury/India-Startup-Map',
-    language: 'TypeScript',
+    name: 'Chess-Coach',
+    description: 'Personalized chess training with Stockfish, browser-side analysis, hosted persistence, adaptive puzzles, and player-specific modelling.',
+    html_url: 'https://github.com/srbmaury/Chess-Coach',
+    language: 'Python',
   },
   {
-    name: 'kindred-code',
-    description: 'Finds developers with similar interests through explainable overlap in public GitHub repositories, languages, and topics.',
-    html_url: 'https://github.com/srbmaury/kindred-code',
-    language: 'TypeScript',
+    name: 'YAML-Visualizer',
+    description: 'Collaborative YAML visualization with large-tree rendering, realtime workflows, diffing, versioning, and GitHub integration.',
+    html_url: 'https://github.com/srbmaury/YAML-Visualizer',
+    language: 'JavaScript',
   },
   {
-    name: 'NEET',
-    description: 'An AI-powered Android app for adaptive NEET exam practice, mock tests, notes, flashcards, and local-first progress tracking.',
-    html_url: 'https://github.com/srbmaury/NEET',
-    language: 'Kotlin',
+    name: 'Ecommerce-Search',
+    description: 'Search and recommendation system with PostgreSQL retrieval, Redis caching, personalization, and LightGBM ranking.',
+    html_url: 'https://github.com/srbmaury/Ecommerce-Search',
+    language: 'Python',
   },
 ];
 
@@ -76,111 +50,66 @@ const profileFallback: GitHubStatsResponse = {
 const GitHubStats: React.FC<GitHubStatsProps> = ({ username, className = '' }) => {
   const [data, setData] = useState<GitHubStatsResponse | null>(null);
   const profile = data || profileFallback;
-  const selectedRepos = data?.repos.some((repo) => selectedRepositoryNames.includes(repo.name))
-    ? data.repos.filter((repo) => selectedRepositoryNames.includes(repo.name))
-    : selectedRepositoryFallbacks;
-  const joinedDate = new Date(profile.user.created_at).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+  const liveSelected = data?.repos.filter((repo) => selectedRepositoryNames.includes(repo.name)) || [];
+  const selectedRepos = liveSelected.length >= 2 ? liveSelected : selectedRepositoryFallbacks;
 
   useEffect(() => {
     let ignore = false;
-
-    const fetchGitHubData = async () => {
+    const load = async () => {
       try {
         const response = await fetch(API_ENDPOINTS.githubStats(username));
-        if (!response.ok) throw new Error(`Request failed (${response.status})`);
-        const responseData = await response.json() as GitHubStatsResponse;
-        if (!ignore) setData(responseData);
+        if (!response.ok) throw new Error('GitHub request failed');
+        const result = await response.json() as GitHubStatsResponse;
+        if (!ignore) setData(result);
       } catch {
         if (!ignore) setData(null);
       }
     };
-
-    fetchGitHubData();
+    void load();
     return () => { ignore = true; };
   }, [username]);
 
   return (
-    <section id="github" className={`section ${className}`} style={{ backgroundColor: 'var(--bg-secondary)' }} aria-label="GitHub and open source">
+    <section id="github" className={`section ${className}`} style={{ backgroundColor: 'var(--bg-secondary)' }} aria-label="Current engineering work on GitHub">
       <div className="container">
         <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} viewport={{ once: true }}>
-          <h2 className="section-title">Open Source & GitHub</h2>
+          <h2 className="section-title">What I’m Building</h2>
           <p className="section-subtitle">
-            Selected repositories and a concise snapshot of public engineering work.
+            A few public repositories that best represent what I’m actively exploring and improving.
           </p>
         </motion.div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.1 }}
-          viewport={{ once: true }}
-          className="card max-w-5xl mx-auto"
-        >
-          <div className="flex flex-col md:flex-row items-center gap-6">
-            {profile.user.avatar_url ? (
-              <img src={profile.user.avatar_url} alt={`${profile.user.name || username} on GitHub`} className="w-20 h-20 rounded-full border-4 flex-shrink-0 object-cover" style={{ borderColor: 'var(--primary-color)' }} />
-            ) : (
-              <div className="w-20 h-20 rounded-full flex items-center justify-center flex-shrink-0" style={{ backgroundColor: 'var(--tag-bg)' }} aria-hidden="true">
-                <Github size={34} style={{ color: 'var(--primary-color)' }} />
-              </div>
-            )}
-
-            <div className="flex-1 text-center md:text-left">
-              <h3 className="text-2xl font-bold gradient-text mb-1">{profile.user.name || username}</h3>
-              <p className="text-sm" style={{ color: 'var(--text-secondary)' }}>
-                {profile.user.bio}
-              </p>
-              <div className="flex flex-wrap justify-center md:justify-start gap-4 mt-3 text-sm" style={{ color: 'var(--text-secondary)' }}>
-                {profile.user.location && <span className="inline-flex items-center gap-1"><MapPin size={15} />{profile.user.location}</span>}
-                {profile.user.company && <span className="inline-flex items-center gap-1"><Building size={15} />{profile.user.company}</span>}
-                <span className="inline-flex items-center gap-1"><Calendar size={15} />Joined {joinedDate}</span>
+        <div className="mx-auto max-w-5xl">
+          <div className="mb-6 flex flex-col gap-4 rounded-xl border p-5 sm:flex-row sm:items-center sm:justify-between" style={{ borderColor: 'var(--border-color)', backgroundColor: 'var(--card-bg)' }}>
+            <div className="flex items-center gap-4">
+              <img src={profile.user.avatar_url} alt={profile.user.name || username} className="h-14 w-14 rounded-full object-cover" />
+              <div>
+                <h3 className="font-semibold" style={{ color: 'var(--text-primary)' }}>{profile.user.name || username}</h3>
+                <p className="text-sm" style={{ color: 'var(--text-secondary)' }}>Open source, experiments, and ongoing engineering work.</p>
               </div>
             </div>
-
-            <div className="grid grid-cols-2 gap-5 text-center flex-shrink-0" aria-label={data ? 'Live GitHub statistics' : 'Recent GitHub statistics snapshot'}>
-              <div><strong className="block text-xl" style={{ color: 'var(--primary-color)' }}>{profile.stats.totalRepos}</strong><span className="text-xs" style={{ color: 'var(--text-secondary)' }}>Repositories</span></div>
-              <div><strong className="block text-xl" style={{ color: '#f59e0b' }}>{profile.stats.totalStars}</strong><span className="text-xs" style={{ color: 'var(--text-secondary)' }}>Total Stars</span></div>
-            </div>
-
-            <a href={`https://github.com/${username}`} target="_blank" rel="noopener noreferrer" className="btn btn-primary whitespace-nowrap" aria-label={`View ${username}'s full GitHub profile`} onClick={() => trackSocialEvent('GitHub')}>
-              <Github size={18} /> GitHub Profile
+            <a href={`https://github.com/${username}`} target="_blank" rel="noopener noreferrer" className="btn btn-secondary whitespace-nowrap" onClick={() => trackSocialEvent('GitHub')}>
+              <Github size={18} /> View GitHub
             </a>
           </div>
-          <p className="mt-4 text-center text-xs" style={{ color: 'var(--text-secondary)' }}>
-            {data ? 'Live data from GitHub' : 'Recent snapshot · Live data temporarily unavailable'}
-          </p>
 
-          {selectedRepos.length > 0 && (
-            <div className="mt-8 border-t pt-6" style={{ borderColor: 'var(--border-color)' }}>
-              <h3 className="mb-4 text-lg font-semibold" style={{ color: 'var(--text-primary)' }}>Selected repositories</h3>
-              <div className="grid gap-4 md:grid-cols-3">
-                {selectedRepos.map((repo) => (
-                  <a
-                    key={repo.html_url}
-                    href={repo.html_url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onClick={() => trackSocialEvent('GitHub')}
-                    className="rounded-lg border p-4 transition-colors hover:border-[var(--primary-color)]"
-                    style={{ borderColor: 'var(--border-color)', backgroundColor: 'var(--tag-bg)' }}
-                  >
-                    <div className="flex items-start justify-between gap-3">
-                      <h4 className="font-semibold" style={{ color: 'var(--text-primary)' }}>{repo.name}</h4>
-                      <Github size={16} aria-hidden="true" style={{ color: 'var(--primary-color)' }} />
-                    </div>
-                    {repo.description && <p className="mt-2 line-clamp-3 text-sm" style={{ color: 'var(--text-secondary)' }}>{repo.description}</p>}
-                    <div className="mt-3 flex flex-wrap gap-3 text-xs" style={{ color: 'var(--text-secondary)' }}>
-                      {repo.language && <span>{repo.language}</span>}
-                      {typeof repo.stars === 'number' && repo.stars > 0 && <span className="inline-flex items-center gap-1"><Star size={13} />{repo.stars}</span>}
-                      {typeof repo.forks === 'number' && repo.forks > 0 && <span className="inline-flex items-center gap-1"><GitFork size={13} />{repo.forks}</span>}
-                    </div>
-                  </a>
-                ))}
-              </div>
-            </div>
-          )}
-        </motion.div>
-
+          <div className="grid gap-4 md:grid-cols-3">
+            {selectedRepos.map((repo, index) => (
+              <motion.a key={repo.html_url} href={repo.html_url} target="_blank" rel="noopener noreferrer" initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.45, delay: index * 0.06 }} viewport={{ once: true }} onClick={() => trackSocialEvent('GitHub')} className="rounded-xl border p-5 transition-transform hover:-translate-y-1" style={{ borderColor: 'var(--border-color)', backgroundColor: 'var(--card-bg)' }}>
+                <div className="mb-3 flex items-start justify-between gap-3">
+                  <h3 className="font-semibold" style={{ color: 'var(--text-primary)' }}>{repo.name}</h3>
+                  <Github size={17} style={{ color: 'var(--primary-color)' }} />
+                </div>
+                <p className="min-h-[5.25rem] text-sm leading-relaxed" style={{ color: 'var(--text-secondary)' }}>{repo.description}</p>
+                <div className="mt-4 flex flex-wrap gap-3 text-xs" style={{ color: 'var(--text-secondary)' }}>
+                  {repo.language && <span>{repo.language}</span>}
+                  {typeof repo.stars === 'number' && repo.stars > 0 && <span className="inline-flex items-center gap-1"><Star size={12} />{repo.stars}</span>}
+                  {typeof repo.forks === 'number' && repo.forks > 0 && <span className="inline-flex items-center gap-1"><GitFork size={12} />{repo.forks}</span>}
+                </div>
+              </motion.a>
+            ))}
+          </div>
+        </div>
       </div>
     </section>
   );
