@@ -12,7 +12,7 @@ interface GitHubStatsProps { username: string; className?: string; }
 
 // Deliberately excludes the featured projects above, so this section adds work
 // a visitor has not already seen rather than repeating the project cards.
-const selectedRepositoryNames = ['Repo-LLD-generator', 'pr-blast-radius', 'kindred-code'];
+const selectedRepositoryNames = ['Repo-LLD-generator', 'NEET', 'kindred-code'];
 
 const selectedRepositoryFallbacks: GitHubRepository[] = [
   {
@@ -22,10 +22,10 @@ const selectedRepositoryFallbacks: GitHubRepository[] = [
     language: 'Java',
   },
   {
-    name: 'pr-blast-radius',
-    description: 'Production-aware pull request analysis that traces impact across code, PostgreSQL schemas, and OpenTelemetry dependencies.',
-    html_url: 'https://github.com/srbmaury/pr-blast-radius',
-    language: 'Java',
+    name: 'NEET',
+    description: 'Android exam-prep app in Jetpack Compose with adaptive practice, mock tests, flashcards, photo solving, and optional cloud sync.',
+    html_url: 'https://github.com/srbmaury/NEET',
+    language: 'Kotlin',
   },
   {
     name: 'kindred-code',
