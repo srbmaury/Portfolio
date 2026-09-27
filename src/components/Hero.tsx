@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { ArrowDown, Mail, Code2, Eye, Github } from 'lucide-react';
+import { ArrowDown, Code2, Eye, Github } from 'lucide-react';
 import { useState } from 'react';
 import { trackHeroEvent } from '../utils/analytics';
 import profile from '../config/profile.json';
@@ -9,155 +9,53 @@ const showResume = import.meta.env.VITE_SHOW_RESUME === 'true' && Boolean(import
 
 const Hero = () => {
   const [isResumeOpen, setIsResumeOpen] = useState(false);
-  const scrollToAbout = () => {
-    const element = document.querySelector('#about');
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
+  const scrollToAbout = () => document.querySelector('#about')?.scrollIntoView({ behavior: 'smooth' });
+
   return (
-    <section
-      id="home"
-      className="relative min-h-screen flex flex-col overflow-hidden md:flex-row md:items-center md:justify-center pt-16 md:pt-0"
-      style={{
-        background: 'linear-gradient(to bottom right, var(--bg-secondary), var(--bg-primary), var(--bg-secondary))'
-      }}
-      role="region"
-      aria-label="Hero section"
-    >
-      <div className="container mx-auto px-4 text-center">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-        >
-          {/* Greeting */}
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.2 }}
-            className="text-lg font-medium mb-4"
-            style={{ color: 'var(--primary-color)' }}
-          >
-            Hello, I'm
-          </motion.p>
-
-          {/* Name */}
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4 }}
-            className="text-5xl md:text-7xl font-bold mb-6"
-          >
+    <section id="home" className="relative flex min-h-screen items-center overflow-hidden pt-16" style={{ background: 'linear-gradient(145deg, var(--bg-secondary), var(--bg-primary) 55%, var(--bg-secondary))' }} role="region" aria-label="Introduction">
+      <div className="container relative z-10">
+        <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }} className="mx-auto max-w-4xl text-center">
+          <p className="mb-5 text-sm font-semibold uppercase tracking-[0.28em]" style={{ color: 'var(--primary-color)' }}>Software Engineer</p>
+          <h1 className="mb-6 text-5xl font-bold tracking-tight md:text-7xl">
             <span className="gradient-text">{profile.personalInfo.name}</span>
-          </motion.h1>
+          </h1>
+          <h2 className="mb-6 text-xl font-medium md:text-2xl" style={{ color: 'var(--text-secondary)' }}>
+            Distributed Systems <span aria-hidden="true">•</span> Developer Tools <span aria-hidden="true">•</span> AI Products
+          </h2>
+          <p className="mx-auto mb-10 max-w-3xl text-base leading-8 md:text-lg" style={{ color: 'var(--text-secondary)' }}>
+            Building scalable backend systems, developer infrastructure, and AI-powered products. Exploring open source, system design, performance engineering, and continuous learning.
+          </p>
 
-          {/* Title */}
-          <motion.h2
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.6 }}
-            className="text-xl md:text-2xl mb-6"
-            style={{ color: 'var(--text-secondary)' }}
-          >
-            {profile.personalInfo.headline}
-          </motion.h2>
-
-          {/* Description */}
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.8 }}
-            className="text-lg max-w-2xl mx-auto mb-12 leading-relaxed"
-            style={{ color: 'var(--text-secondary)' }}
-          >
-            Building scalable backend systems, developer platforms, and AI-powered products.
-          </motion.p>
-
-          {/* CTA Buttons */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1 }}
-            className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16"
-          >
-            {showResume ? (
-              <button type="button" className="btn btn-primary" onClick={() => { trackHeroEvent('cta_click', 'view_resume'); setIsResumeOpen(true); }}>
-                <div className="flex items-center space-x-2">
-                  <Eye size={20} />
-                  <span>View Resume</span>
-                </div>
+          <div className="mb-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
+            <a href="#projects" className="btn btn-primary" onClick={() => trackHeroEvent('cta_click', 'view_projects')}>
+              <Code2 size={19} /> <span>Explore My Work</span>
+            </a>
+            {showResume && (
+              <button type="button" className="btn btn-secondary" onClick={() => { trackHeroEvent('cta_click', 'view_resume'); setIsResumeOpen(true); }}>
+                <Eye size={19} /> <span>Resume</span>
               </button>
-            ) : (
-              <a href="#projects" className="btn btn-primary" onClick={() => trackHeroEvent('cta_click', 'view_projects')}>
-                <div className="flex items-center space-x-2">
-                  <Code2 size={20} />
-                  <span>View Projects</span>
-                </div>
-              </a>
             )}
-
-            <a
-              href={profile.personalInfo.github}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn btn-secondary"
-              onClick={() => trackHeroEvent('github_click', 'hero')}
-            >
-              <Github size={20} />
-              <span>GitHub</span>
+            <a href={profile.personalInfo.github} target="_blank" rel="noopener noreferrer" className="btn btn-secondary" onClick={() => trackHeroEvent('github_click', 'hero')}>
+              <Github size={19} /> <span>GitHub</span>
             </a>
-
-            <a
-              href="#contact"
-              className="btn btn-secondary"
-              onClick={() => trackHeroEvent('contact_click', 'hero')}
-            >
-              <div className="flex items-center space-x-2">
-                <Mail size={20} />
-                <span>Contact</span>
-              </div>
-            </a>
-          </motion.div>
-
-          <div className="flex flex-wrap justify-center gap-x-5 gap-y-2 text-sm font-medium" style={{ color: 'var(--text-secondary)' }} aria-label="Career highlights">
-            <span>Salesforce</span>
-            <span aria-hidden="true">•</span>
-            <span>Razorpay</span>
-            <span aria-hidden="true">•</span>
-            <span>IIT BHU</span>
           </div>
 
-          {/* Scroll Indicator */}
+          <div className="flex flex-wrap justify-center gap-x-5 gap-y-2 text-sm font-medium" style={{ color: 'var(--text-secondary)' }} aria-label="Career highlights">
+            <span>Salesforce</span><span aria-hidden="true">•</span><span>Razorpay</span><span aria-hidden="true">•</span><span>IIT BHU</span>
+          </div>
+
+          <button type="button" onClick={scrollToAbout} className="mt-12 inline-flex flex-col items-center gap-2 text-sm transition-colors hover:text-[var(--primary-color)]" style={{ color: 'var(--text-secondary)' }}>
+            <span>Know more about me</span>
+            <motion.span animate={{ y: [0, 7, 0] }} transition={{ duration: 2, repeat: Infinity }}><ArrowDown size={20} /></motion.span>
+          </button>
         </motion.div>
-
-        {/* Centered Scroll Indicator near bottom of hero */}
-        <div className="mt-8 flex justify-center">
-          <motion.button
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 1.2 }}
-            onClick={scrollToAbout}
-            className="flex flex-col items-center text-[var(--text-secondary)] hover:text-[var(--primary-color)] transition-colors duration-200"
-          >
-            <span className="text-sm mb-2">Learn more about me</span>
-            <motion.div
-              animate={{ y: [0, 10, 0] }}
-              transition={{ duration: 2, repeat: Infinity }}
-            >
-              <ArrowDown size={24} />
-            </motion.div>
-          </motion.button>
-        </div>
-
-
-        {/* Background decoration */}
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div className="absolute -top-40 -right-40 w-80 h-80 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob" style={{ backgroundColor: 'var(--primary-color)' }}></div>
-          <div className="absolute -bottom-40 -left-40 w-80 h-80 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-2000" style={{ backgroundColor: 'var(--accent-color)' }}></div>
-          <div className="absolute top-40 left-40 w-80 h-80 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-4000" style={{ backgroundColor: 'var(--secondary-color)' }}></div>
-        </div>
       </div>
+
+      <div className="pointer-events-none absolute inset-0 opacity-40" aria-hidden="true">
+        <div className="absolute -right-40 -top-40 h-96 w-96 rounded-full blur-3xl" style={{ backgroundColor: 'var(--primary-color)', opacity: 0.12 }} />
+        <div className="absolute -bottom-48 -left-48 h-96 w-96 rounded-full blur-3xl" style={{ backgroundColor: 'var(--accent-color)', opacity: 0.1 }} />
+      </div>
+
       {showResume && <ResumeViewer isOpen={isResumeOpen} onClose={() => setIsResumeOpen(false)} />}
     </section>
   );
