@@ -102,7 +102,7 @@ const Contact = () => {
         >
           <h2 className="section-title">Get In Touch</h2>
           <p className="section-subtitle">
-            I'm always open to discussing new projects, creative ideas, or opportunities to be part of your visions.
+            Want to talk engineering, open source, a project idea, or an opportunity? I’m always happy to connect.
           </p>
         </motion.div>
 
@@ -114,7 +114,7 @@ const Contact = () => {
             transition={{ duration: 0.8, delay: 0.2 }}
             viewport={{ once: true }}
           >
-            <h3 className="text-2xl font-bold mb-8 gradient-text">Let's Talk</h3>
+            <h3 className="text-2xl font-bold mb-8 gradient-text">Say Hello</h3>
             
             <div className="space-y-3 sm:space-y-6 mb-6 sm:mb-8">
               {contactInfo.map((info, index) => {
