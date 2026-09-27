@@ -4,95 +4,49 @@ import profile from '../config/profile.json';
 
 const About = () => {
   return (
-    <section id="about" className="section min-h-screen flex items-center overflow-hidden" style={{ backgroundColor: 'var(--bg-primary)' }} aria-label="About section" role="region" tabIndex={-1}>
+    <section id="about" className="section overflow-hidden" style={{ backgroundColor: 'var(--bg-primary)' }} aria-label="About Saurabh" role="region" tabIndex={-1}>
       <div className="container">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-        >
-          <h2 className="section-title" tabIndex={0} aria-label="About Me">About Me</h2>
-          <p className="section-subtitle" tabIndex={0} style={{ color: 'var(--text-secondary)', textShadow: '0 1px 2px #fff, 0 0 0 #000' }}>
-            Get to know me better - my journey, experience, and what drives me to build exceptional software solutions.
+        <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} viewport={{ once: true }}>
+          <h2 className="section-title">About Me</h2>
+          <p className="section-subtitle">
+            The person behind the projects — what I enjoy building, learning, and exploring.
           </p>
         </motion.div>
 
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
-          {/* Left Column - Image */}
-          <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            viewport={{ once: true }}
-            className="relative"
-          >
-            <div className="relative">
-              {/* Profile image */}
-              <div className="w-full h-96 rounded-2xl overflow-hidden">
-                <div className="profile-img-container group w-full h-full rounded-2xl overflow-hidden transition-all duration-300 border-4 border-transparent hover:border-blue-400 hover:shadow-xl relative">
-                  <LazyImage
-                    src="/images/profile.jpg"
-                    alt={profile.personalInfo.name}
-                    sizes="(max-width: 768px) 100vw, 50vw"
-                    fallback={
-                      <div className="profile-fallback absolute inset-0 w-full h-full bg-gradient-to-br from-blue-400 to-cyan-400 flex items-center justify-center transition-opacity duration-500 opacity-100 pointer-events-auto">
-                        <div className="text-white text-center">
-                          <div className="text-6xl mb-4">👤</div>
-                          <p className="text-xl font-medium">{profile.personalInfo.name}</p>
-                          <p className="text-sm opacity-80">
-                            {typeof window !== 'undefined' && !navigator.onLine
-                              ? 'Profile photo unavailable offline'
-                              : 'Profile photo unavailable'}
-                          </p>
-                        </div>
-                      </div>
-                    }
-                    spinnerClassName="profile-spinner"
-                  />
-                </div>
-              </div>
-
-              {/* Decorative elements */}
-              <div className="absolute -top-4 -right-4 w-24 h-24 rounded-full opacity-20" style={{ backgroundColor: 'var(--accent-color)' }}></div>
-              <div className="absolute -bottom-4 -left-4 w-16 h-16 rounded-full opacity-20" style={{ backgroundColor: 'var(--primary-color)' }}></div>
+        <div className="grid items-center gap-10 lg:grid-cols-[320px_1fr] lg:gap-14">
+          <motion.div initial={{ opacity: 0, x: -24 }} whileInView={{ opacity: 1, x: 0 }} transition={{ duration: 0.6 }} viewport={{ once: true }} className="mx-auto w-full max-w-xs">
+            <div className="profile-img-container relative aspect-[4/5] overflow-hidden rounded-2xl border" style={{ borderColor: 'var(--border-color)', backgroundColor: 'var(--card-bg)' }}>
+              <LazyImage src="/images/profile.jpg" alt={profile.personalInfo.name} sizes="(max-width: 768px) 80vw, 320px" className="h-full w-full object-cover" spinnerClassName="profile-spinner" />
             </div>
           </motion.div>
 
-          {/* Right Column - Content */}
-          <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-            viewport={{ once: true }}
-          >
-            <div className="space-y-8">
-              {/* Experience */}
-              <div>
-                <h3 className="text-2xl font-bold mb-6 gradient-text" tabIndex={0} aria-label="Experience">Experience</h3>
-                <div className="space-y-6">
-                  {profile.experience.map((exp, index) => (
-                    <motion.div
-                      key={index}
-                      initial={{ opacity: 0, y: 20 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.5, delay: 0.8 + index * 0.1 }}
-                      viewport={{ once: true }}
-                      className="border-l-4 pl-6"
-                      style={{ borderColor: 'var(--primary-color)' }}
-                    >
-                      <div className="text-sm font-medium mb-1" style={{ color: 'var(--primary-color)' }}>{exp.year}</div>
-                      <h4 className="text-lg font-semibold mb-1" style={{ color: 'var(--text-primary)' }}>{exp.title}</h4>
-                      <p className="font-medium mb-2" style={{ color: 'var(--text-secondary)' }}>{exp.company} • {exp.location}</p>
-                      <ul className="space-y-2 text-sm leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
-                        {exp.highlights.map((highlight) => <li key={highlight} className="flex gap-2"><span aria-hidden="true" style={{ color: 'var(--primary-color)' }}>•</span><span>{highlight}</span></li>)}
-                      </ul>
-                    </motion.div>
-                  ))}
-                </div>
+          <motion.div initial={{ opacity: 0, x: 24 }} whileInView={{ opacity: 1, x: 0 }} transition={{ duration: 0.6 }} viewport={{ once: true }} className="space-y-7">
+            <div className="space-y-4 text-base leading-8 md:text-lg" style={{ color: 'var(--text-secondary)' }}>
+              <p>
+                I’m a software engineer who enjoys building systems where product behavior and engineering depth meet — distributed platforms, developer tools, performance-sensitive applications, and ML-backed products.
+              </p>
+              <p>
+                I currently work at Salesforce. Outside work, I spend a lot of time building open-source projects, studying system design, solving competitive programming problems, experimenting with new engineering ideas, and playing chess.
+              </p>
+            </div>
+
+            <div>
+              <h3 className="mb-3 text-sm font-semibold uppercase tracking-[0.18em]" style={{ color: 'var(--primary-color)' }}>What I keep coming back to</h3>
+              <div className="flex flex-wrap gap-2">
+                {profile.interests.map((interest) => (
+                  <span key={interest} className="rounded-full border px-3 py-1.5 text-sm" style={{ borderColor: 'var(--border-color)', backgroundColor: 'var(--tag-bg)', color: 'var(--text-primary)' }}>
+                    {interest}
+                  </span>
+                ))}
               </div>
+            </div>
 
-
+            <div className="grid gap-3 sm:grid-cols-2">
+              {profile.achievements.map((achievement) => (
+                <div key={achievement} className="rounded-xl border p-4 text-sm leading-relaxed" style={{ borderColor: 'var(--border-color)', backgroundColor: 'var(--card-bg)', color: 'var(--text-secondary)' }}>
+                  {achievement}
+                </div>
+              ))}
             </div>
           </motion.div>
         </div>
