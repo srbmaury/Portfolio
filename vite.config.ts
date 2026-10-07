@@ -155,9 +155,12 @@ const staticRouteMetadata = () => ({
     })
 
     fs.writeFileSync(path.join(outputDir, 'index.html'), staticHomeHtml)
-    // projects.html, not projects/index.html: Netlify serves it at /projects with a 200, while a
-    // directory index makes /projects 301 to /projects/ and contradicts the slash-free canonical URL.
+    // Netlify serves projects.html at /projects (200) and projects/index.html at /projects/ (200).
+    // With only the directory index, /projects 301s to /projects/ and contradicts the slash-free
+    // canonical; keeping the index too means browsers that cached that old 301 still get the page.
     fs.writeFileSync(path.join(outputDir, 'projects.html'), projectHtml)
+    fs.mkdirSync(path.join(outputDir, 'projects'), { recursive: true })
+    fs.writeFileSync(path.join(outputDir, 'projects', 'index.html'), projectHtml)
   },
 })
 
