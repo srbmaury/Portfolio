@@ -1,2 +1,4 @@
-# Serve the generated HTML for the only client-side route.
-/projects  /projects/index.html  200
+# Serve the prerendered page for the only client-side route. The forced rewrite keeps "/projects/"
+# at 200: browsers cached the old "/projects" -> "/projects/" 301, and a 301 back would loop.
+/projects   /projects.html  200
+/projects/  /projects.html  200!

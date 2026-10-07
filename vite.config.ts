@@ -154,9 +154,10 @@ const staticRouteMetadata = () => ({
       fallbackMarkup: projectFallbackMarkup,
     })
 
-    fs.mkdirSync(path.join(outputDir, 'projects'), { recursive: true })
     fs.writeFileSync(path.join(outputDir, 'index.html'), staticHomeHtml)
-    fs.writeFileSync(path.join(outputDir, 'projects', 'index.html'), projectHtml)
+    // projects.html, not projects/index.html: Netlify serves it at /projects with a 200, while a
+    // directory index makes /projects 301 to /projects/ and contradicts the slash-free canonical URL.
+    fs.writeFileSync(path.join(outputDir, 'projects.html'), projectHtml)
   },
 })
 
