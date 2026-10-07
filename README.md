@@ -68,7 +68,7 @@ Copy `.env.example` to `.env` for local development, then configure the values r
 
 ### Netlify frontend + Render API
 
-The frontend is static on Netlify and the Express API is deployed separately on Render. The included [`public/_redirects`](public/_redirects) file rewrites direct visits to client-side routes such as `/projects` to `index.html`, preventing Netlify 404s for visitors and search crawlers. [`public/404.html`](public/404.html) provides a noindex fallback for genuinely missing static files. Set `VITE_API_BASE_URL` in **Netlify** to the public Render API origin (without a trailing slash), then redeploy. Set `CLIENT_ORIGIN` in **Render** to a comma-separated list including `https://srbmaury.com` and the Netlify site URL. Keep `OPENAI_API_KEY`, `GEMINI_API_KEY`, `GITHUB_TOKEN`, and Upstash credentials on Render only—never set them as `VITE_` variables.
+The frontend is static on Netlify and the Express API is deployed separately on Render. The build writes the prerendered `/projects` page as `projects.html`, and [`public/_redirects`](public/_redirects) force-rewrites `/projects/` to it, so both URLs return 200 without a redirect. [`public/404.html`](public/404.html) provides a noindex fallback for genuinely missing static files. Set `VITE_API_BASE_URL` in **Netlify** to the public Render API origin (without a trailing slash), then redeploy. Set `CLIENT_ORIGIN` in **Render** to a comma-separated list including `https://srbmaury.com` and the Netlify site URL. Keep `OPENAI_API_KEY`, `GEMINI_API_KEY`, `GITHUB_TOKEN`, and Upstash credentials on Render only—never set them as `VITE_` variables.
 
 | Variable | Purpose |
 | --- | --- |
