@@ -582,3 +582,14 @@ section[aria-label="Featured engineering work"] .section-subtitle {max-width:690
 .showcase-buttons button {display:grid;place-items:center;width:32px;height:32px;border-radius:7px;border:1px solid var(--border-color);color:var(--text-secondary);background:var(--card-bg)}
 .showcase-buttons button:hover {color:var(--primary-color);border-color:var(--primary-color)}
 @media(prefers-reduced-motion:reduce){.showcase-dots button {transition:none}}
+
+/* Final UX polish — consistent contrast and accessible carousel targets */
+.chatter-send {color:#fff}
+[data-theme="dark"] .chatter-send {color:#0e1119}
+.showcase-dots button {position:relative;min-height:28px;min-width:28px;width:28px;height:28px;background:transparent;border-radius:100px}
+.showcase-dots button::after {content:"";position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:9px;height:9px;border-radius:999px;background:var(--border-color);transition:width .2s,background .2s}
+.showcase-dots button.active {width:28px;background:transparent}
+.showcase-dots button.active::after {width:20px;background:var(--primary-color)}
+.showcase-buttons button {min-width:40px;min-height:40px}
+#projects .group h3,#projects .group p {overflow-wrap:break-word}
+@media(max-width:900px){.hero-layout{grid-template-columns:minmax(0,1fr)}}
