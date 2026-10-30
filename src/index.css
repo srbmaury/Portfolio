@@ -546,3 +546,19 @@ section[id] {scroll-margin-top:76px}
 
 :root {--user-message-text:#fff}
 [data-theme="dark"] {--user-message-text:#0e1119}
+
+/* Consistent editorial rhythm across every section. */
+#about .profile-img-container {border-radius:14px}
+#about .grid, #contact .grid {align-items:start}
+#experience article, #skills .rounded-xl, #github .rounded-xl {box-shadow:none;transition:border-color .2s ease,transform .2s ease}
+#experience article:hover, #skills .rounded-xl:hover, #github a.rounded-xl:hover {border-color:var(--primary-color)!important}
+#contact input,#contact textarea {border-radius:9px!important;background:var(--bg-primary)!important;color:var(--text-primary)!important;box-shadow:none}
+#contact input::placeholder,#contact textarea::placeholder {color:var(--text-secondary);opacity:.75}
+#contact .card {padding:clamp(20px,3vw,32px)}
+#projects .group img {object-position:top}
+#projects .group p {max-width:65ch}
+#projects .group a,#projects .group button {transition:color .2s ease}
+section[aria-label="Featured engineering work"] .section-subtitle {max-width:690px}
+.portfolio-footer a:focus-visible,.chatter-launcher:focus-visible {outline:2px solid var(--primary-color);outline-offset:3px}
+[data-theme="dark"] #contact .card,[data-theme="dark"] #projects article {background:var(--card-bg)}
+@media(max-width:640px){#contact .grid{gap:24px}.section-title{font-size:2rem}#experience article{padding:20px}}
