@@ -231,7 +231,7 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, project })
               }}
             >
               <ExternalLink size={20} />
-              View Project
+              Open live demo
             </a>}
             {project.githubUrl && <a
               href={project.githubUrl}
@@ -377,7 +377,7 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, project })
               )}
 
               <div className="mb-6">
-                <h3 className="text-lg font-semibold mb-3" style={{ color: 'var(--text-primary)' }}>Technologies Used</h3>
+                <h3 className="text-lg font-semibold mb-3" style={{ color: 'var(--text-primary)' }}>Technology stack</h3>
                 <div className="flex flex-wrap gap-2">
                   {project.technologies.map((tech, index) => (
                     <span
@@ -397,7 +397,7 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, project })
 
               {/* Features/Details */}
               <div>
-                <h3 className="text-lg font-semibold mb-3" style={{ color: 'var(--text-primary)' }}>Engineering Notes</h3>
+                <h3 className="text-lg font-semibold mb-3" style={{ color: 'var(--text-primary)' }}>Implementation notes</h3>
                 <ul className="space-y-2" style={{ color: 'var(--text-secondary)' }}>
                   {(project.highlights || [
                     'Responsive design across device sizes',
