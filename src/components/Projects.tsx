@@ -37,13 +37,13 @@ const Projects = () => {
     <section id="projects" className="section" style={{ backgroundColor: 'var(--bg-primary)' }} aria-label="Featured engineering work" role="region" tabIndex={-1}>
       <div className="container">
         <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} viewport={{ once: true }}>
-          <h2 className="section-title">Featured Engineering</h2>
+          <h2 className="section-title">A few things I’ve built.</h2>
           <p className="section-subtitle">
             A few projects that best show how I approach systems, product engineering, performance, developer tooling, and applied ML.
           </p>
         </motion.div>
 
-        <div className="mb-14 grid gap-6 lg:grid-cols-2">
+        <div className="mb-14 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
           {featuredProjects.map((project, index) => (
             <motion.article
               key={project.title}
@@ -59,24 +59,24 @@ const Projects = () => {
                   <LazyImage
                     src={project.image}
                     alt={project.title}
-                    className="h-52 w-full object-cover object-top"
+                    className="h-44 w-full object-cover object-top"
                     spinnerClassName="profile-spinner"
                     fallback={
-                      <div className="flex h-52 items-center justify-center" style={{ background: fallbackGradientMap[project.fallbackGradient] || defaultFallbackGradient }}>
+                      <div className="flex h-44 items-center justify-center" style={{ background: fallbackGradientMap[project.fallbackGradient] || defaultFallbackGradient }}>
                         <span className="text-5xl" aria-hidden="true">{project.fallbackIcon || '🚀'}</span>
                       </div>
                     }
                   />
                 ) : (
-                  <div className="flex h-52 items-center justify-center" style={{ background: fallbackGradientMap[project.fallbackGradient] || defaultFallbackGradient }}>
+                  <div className="flex h-44 items-center justify-center" style={{ background: fallbackGradientMap[project.fallbackGradient] || defaultFallbackGradient }}>
                     <span className="text-5xl" aria-hidden="true">{project.fallbackIcon || '🚀'}</span>
                   </div>
                 )}
               </div>
 
-              <div className="flex flex-1 flex-col p-6">
-                <h3 className="mb-3 text-xl font-bold" style={{ color: 'var(--text-primary)' }}>{project.title}</h3>
-                <p className="mb-5 leading-relaxed" style={{ color: 'var(--text-secondary)' }}>{project.description}</p>
+              <div className="flex flex-1 flex-col p-5">
+                <h3 className="mb-2 text-lg font-bold tracking-tight" style={{ color: 'var(--text-primary)' }}>{project.title}</h3>
+                <p className="mb-4 text-sm leading-relaxed" style={{ color: 'var(--text-secondary)' }}>{project.description}</p>
 
                 <div className="mb-6 flex flex-wrap gap-2">
                   {project.technologies.slice(0, 5).map((tech) => (
