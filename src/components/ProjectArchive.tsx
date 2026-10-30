@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { useState } from 'react';
 import { ArrowLeft, ExternalLink, Github } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import projectsData from '../config/projects.json';
@@ -11,10 +12,22 @@ import profile from '../config/profile.json';
 
 const hideBeginnerProjects = import.meta.env.VITE_HIDE_BEGINNER_PROJECTS === 'true';
 
+const categories = ['All', 'Developer tools', 'Web & data', 'Mobile', 'Earlier projects'] as const;
+type Category = typeof categories[number];
+const categoryFor = (project: Project): Category => {
+  if (['ExitSense'].includes(project.title)) return 'Mobile';
+  if (['Developer Knowledge Base', 'Codeforces Filter'].includes(project.title)) return 'Developer tools';
+  if (['MERN Chat Application', 'Hackathon Portal', 'Store Management System'].includes(project.title)) return 'Web & data';
+  return 'Earlier projects';
+};
+
 const ProjectArchive = () => {
+  const [category, setCategory] = useState<Category>('All');
   const projects = (projectsData.projects as Project[]).filter(
     (project) => !project.featured && (!hideBeginnerProjects || !project.beginner)
   );
+
+  const visibleProjects = projects.filter(project => category === 'All' || categoryFor(project) === category);
 
   useRouteSeo({
     title: `Software Engineering Projects | ${profile.personalInfo.name}`,
@@ -57,15 +70,19 @@ const ProjectArchive = () => {
           </Link>
         </motion.div>
 
+        <nav className="archive-filters" aria-label="Filter projects by category">
+          {categories.map(item => <button key={item} type="button" aria-pressed={category === item} className={category === item ? "active" : ""} onClick={() => setCategory(item)}>{item} <span>{item === "All" ? projects.length : projects.filter(p => categoryFor(p) === item).length}</span></button>)}
+        </nav>
+        <p className="archive-count" aria-live="polite">Showing {visibleProjects.length} {visibleProjects.length === 1 ? "project" : "projects"}</p>
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {projects.map((project, index) => (
+          {visibleProjects.map((project, index) => (
             <motion.article
               key={project.title}
               initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.05 }}
               viewport={{ once: true }}
-              className={`card flex flex-col ${projects.length % 3 === 1 && index === projects.length - 1 ? 'lg:col-start-2' : ''}`}
+              className={`card flex flex-col ${visibleProjects.length % 3 === 1 && index === visibleProjects.length - 1 ? 'lg:col-start-2' : ''}`}
             >
               {project.image ? (
                 <LazyImage
