@@ -82,6 +82,38 @@
       "featured": true
     },
     {
+      "title": "Evalcue AI",
+      "description": "An interview platform for practicing and assessing coding, system design, and debugging skills with structured feedback and evaluation.",
+      "image": "/images/EvalcueAI.webp",
+      "fallbackIcon": "🤖",
+      "fallbackGradient": "from-cyan-400 to-blue-500",
+      "technologies": [
+        "React 19",
+        "Express 5",
+        "MongoDB",
+        "Redis",
+        "BullMQ",
+        "OpenAI",
+        "Gemini",
+        "Stripe"
+      ],
+      "highlights": [
+        "Supports role-specific practice and candidate assessments across voice, coding, system design, and multi-file debugging workflows.",
+        "Provides hiring pipelines, weighted scorecards, evidence review, and human calibration controls.",
+        "Uses Redis and BullMQ for asynchronous evaluation, with billing, observability, and production deployment safeguards."
+      ],
+      "systemFlow": [
+        "Define role or goal",
+        "Generate assessment",
+        "Interview & evaluate",
+        "Review evidence"
+      ],
+      "liveUrl": "https://evalcueai.com/",
+      "featured": true,
+      "demoType": "iframe",
+      "demoUrl": "https://evalcueai.com/"
+    },
+    {
       "title": "YAML Data Visualizer",
       "description": "Explore large YAML files visually, compare changes, and collaborate on configurations without getting lost in nested structures.",
       "image": "/images/YamlVisualizer.webp",
@@ -143,38 +175,6 @@
       "featured": false,
       "demoType": "iframe",
       "demoUrl": "https://chess-ml-coach.onrender.com/"
-    },
-    {
-      "title": "Evalcue AI",
-      "description": "An interview platform for practicing and assessing coding, system design, and debugging skills with structured feedback and evaluation.",
-      "image": "/images/EvalcueAI.webp",
-      "fallbackIcon": "🤖",
-      "fallbackGradient": "from-cyan-400 to-blue-500",
-      "technologies": [
-        "React 19",
-        "Express 5",
-        "MongoDB",
-        "Redis",
-        "BullMQ",
-        "OpenAI",
-        "Gemini",
-        "Stripe"
-      ],
-      "highlights": [
-        "Supports role-specific practice and candidate assessments across voice, coding, system design, and multi-file debugging workflows.",
-        "Provides hiring pipelines, weighted scorecards, evidence review, and human calibration controls.",
-        "Uses Redis and BullMQ for asynchronous evaluation, with billing, observability, and production deployment safeguards."
-      ],
-      "systemFlow": [
-        "Define role or goal",
-        "Generate assessment",
-        "Interview & evaluate",
-        "Review evidence"
-      ],
-      "liveUrl": "https://evalcueai.com/",
-      "featured": false,
-      "demoType": "iframe",
-      "demoUrl": "https://evalcueai.com/"
     },
     {
       "title": "Ecommerce Search Engine",
