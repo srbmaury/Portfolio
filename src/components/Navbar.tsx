@@ -45,10 +45,10 @@ const Navbar: React.FC<NavbarProps> = ({ onOpenTerminal, showTerminal }) => {
   };
 
   return (
-    <motion.nav initial={{ y: -80 }} animate={{ y: 0 }} className="fixed left-0 right-0 top-0 z-50 transition-all duration-300" style={{ backgroundColor: scrolled ? 'var(--nav-bg)' : 'transparent', boxShadow: scrolled ? 'var(--shadow-sm)' : 'none', backdropFilter: scrolled ? 'blur(14px)' : 'none' }}>
+    <motion.nav initial={{ y: -80 }} animate={{ y: 0 }} className="fixed left-0 right-0 top-0 z-50 border-b transition-all duration-300" style={{ backgroundColor: 'var(--nav-bg)', borderColor: 'var(--border-color)', backdropFilter: 'blur(16px)' }}>
       <div className="container">
         <div className="flex h-16 items-center justify-between">
-          <button type="button" onClick={goHome} className="min-h-11 text-lg font-bold tracking-tight" style={{ color: 'var(--text-primary)' }} aria-label="Saurabh Maurya home">
+          <button type="button" onClick={goHome} className="min-h-11 text-base font-extrabold tracking-[-0.04em]" style={{ color: 'var(--text-primary)' }} aria-label="Saurabh Maurya home">
             Saurabh Maurya
           </button>
 
