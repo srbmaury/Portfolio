@@ -5,8 +5,8 @@ const Experience = () => (
   <section id="experience" className="section" style={{ backgroundColor: 'var(--bg-secondary)' }} aria-label="Professional experience">
     <div className="container">
       <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} viewport={{ once: true }}>
-        <h2 className="section-title">Experience</h2>
-        <p className="section-subtitle">Production engineering across enterprise platforms, payments, metadata systems, caching, and observability.</p>
+        <h2 className="section-title">Where I’ve worked</h2>
+        <p className="section-subtitle">Engineering experience across enterprise platforms, payments, developer infrastructure, and observability.</p>
       </motion.div>
 
       <div className="mx-auto max-w-4xl space-y-6">
