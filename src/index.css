@@ -477,9 +477,9 @@ select:focus:not(:focus-visible) {
 /* Portfolio design system */
 :root { --primary-color:#4f46e5;--secondary-color:#4338ca;--accent-color:#4f46e5;--text-primary:#1d2230;--text-secondary:#586174;--bg-primary:#fff;--bg-secondary:#f8f9fc;--bg-dark:#10131c;--border-color:#e6e8ef;--card-bg:#fff;--tag-bg:#f1f3f8;--nav-bg:rgba(255,255,255,.96);--nav-text:#353b4d;--nav-hover:#4f46e5; }
 [data-theme="dark"] {--primary-color:#a8a3ff;--secondary-color:#8a83ff;--accent-color:#a8a3ff;--text-primary:#f5f6fa;--text-secondary:#b7bdcb;--bg-primary:#0e1119;--bg-secondary:#151a25;--bg-dark:#090b11;--border-color:#2b3241;--card-bg:#171d29;--tag-bg:#252c3b;--nav-bg:rgba(14,17,25,.97);--nav-text:#e1e4ed;--nav-hover:#ada8ff;}
-.container {max-width:1480px;padding-left:clamp(1rem,2.4vw,2.75rem);padding-right:clamp(1rem,2.4vw,2.75rem)}
+.container {max-width:1360px;padding-left:clamp(1.125rem,2.6vw,2.5rem);padding-right:clamp(1.125rem,2.6vw,2.5rem)}
 .section {padding:clamp(4rem,7vw,6rem) 0;border-top:1px solid var(--border-color)}
-.section-title {text-align:left;color:var(--text-primary);background:none;-webkit-text-fill-color:currentColor;font-size:clamp(2rem,3vw,2.8rem);letter-spacing:-.045em;line-height:1.15}
+.section-title {text-align:left;color:var(--text-primary);background:none;-webkit-text-fill-color:currentColor;font-size:clamp(2rem,2.7vw,2.375rem);letter-spacing:-.04em;line-height:1.15}
 .section-subtitle {text-align:left;margin:0 0 2.5rem;max-width:720px;font-size:1rem}
 .gradient-text {color:var(--text-primary);background:none;-webkit-text-fill-color:currentColor}
 .btn {border-radius:8px;padding:.8rem 1.25rem;font-size:.9rem;font-weight:600}
@@ -493,9 +493,9 @@ select:focus:not(:focus-visible) {
 .portfolio-hero {display:flex;align-items:center;min-height:670px;padding:120px 0 84px;background:var(--bg-primary)}
 .hero-layout {display:grid;grid-template-columns:minmax(0,1.1fr) minmax(340px,.9fr);align-items:center;gap:clamp(36px,6vw,90px)}
 .eyebrow {font-size:12px;font-weight:700;letter-spacing:.13em;color:var(--primary-color);margin-bottom:24px}
-.hero-copy h1 {font-size:clamp(2.35rem,3.8vw,4.2rem);letter-spacing:-.05em;line-height:1.12;font-weight:750;color:var(--text-primary);margin-bottom:22px}
+.hero-copy h1 {font-size:clamp(2.5rem,3.65vw,3.75rem);letter-spacing:-.05em;line-height:1.12;font-weight:750;color:var(--text-primary);margin-bottom:22px}
 .hero-copy h1 span {color:var(--primary-color)}
-.hero-intro {max-width:540px;font-size:1.075rem;line-height:1.75;color:var(--text-secondary)}
+.hero-intro {max-width:540px;font-size:1rem;line-height:1.75;color:var(--text-secondary)}
 .hero-actions {display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}
 .hero-meta {display:flex;flex-wrap:wrap;gap:0;margin-top:45px;font-size:.85rem;color:var(--text-secondary)}
 .hero-meta span+span:before {content:'·';padding:0 16px}
@@ -521,7 +521,7 @@ select:focus:not(:focus-visible) {
 /* Navigation, hero identity, footer, and assistant polish */
 html {scroll-padding-top:0}
 section[id] {scroll-margin-top:0}
- .hero-name {font-size:clamp(1.35rem,2vw,1.9rem);font-weight:750;line-height:1.2;letter-spacing:-.045em;color:var(--text-primary);margin:-5px 0 20px}
+ .hero-name {font-size:clamp(1.75rem,2.1vw,2rem);font-weight:750;line-height:1.2;letter-spacing:-.045em;color:var(--text-primary);margin:-5px 0 20px}
 .footer-main {display:grid;grid-template-columns:1.4fr .8fr 1fr;gap:clamp(24px,5vw,64px);padding:65px 0}
 .portfolio-footer {background:var(--bg-secondary);border-top:1px solid var(--border-color);color:var(--text-primary)}
 .footer-identity h2 {font-size:clamp(1.65rem,3vw,2.3rem);font-weight:750;letter-spacing:-.045em;line-height:1.2}
@@ -564,5 +564,5 @@ section[aria-label="Featured engineering work"] .section-subtitle {max-width:690
 @media(max-width:640px){#contact .grid{gap:24px}.section-title{font-size:2rem}#experience article{padding:20px}}
 
 /* Wider desktop canvas without sacrificing readable copy widths. */
-@media(min-width:1100px){.hero-layout{grid-template-columns:minmax(0,1.12fr) minmax(420px,.88fr)}.hero-copy h1{font-size:clamp(2.8rem,3.8vw,4.2rem)}}
+@media(min-width:1100px){.hero-layout{grid-template-columns:minmax(0,1.12fr) minmax(420px,.88fr)}.hero-copy h1{font-size:clamp(2.75rem,3.65vw,3.75rem)}}
 @media(max-width:768px){.container{padding-left:1.25rem;padding-right:1.25rem}}
