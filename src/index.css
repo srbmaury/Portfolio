@@ -543,3 +543,6 @@ section[id] {scroll-margin-top:76px}
 .chatter-panel {background:var(--card-bg);color:var(--text-primary);border-radius:15px}
 @media(max-width:760px){.footer-main {grid-template-columns:1fr 1fr;padding:45px 0}.footer-identity {grid-column:1/-1}}
 @media(max-width:480px){.footer-main {grid-template-columns:1fr}.footer-identity {grid-column:auto}.chatter-launcher {right:16px;bottom:16px;padding:12px 15px}}
+
+:root {--user-message-text:#fff}
+[data-theme="dark"] {--user-message-text:#0e1119}
