@@ -11,13 +11,13 @@ interface GitHubStatsProps { username: string; className?: string; }
 
 // Deliberately excludes the featured projects above, so this section adds work
 // a visitor has not already seen rather than repeating the project cards.
-const selectedRepositoryNames = ['Repo-LLD-generator', 'NEET', 'kindred-code'];
+const selectedRepositoryNames = ['pr-blast-radius', 'NEET', 'kindred-code'];
 
 const selectedRepositoryFallbacks: GitHubRepository[] = [
   {
-    name: 'Repo-LLD-generator',
-    description: 'Generates PlantUML class diagrams from Java repositories by parsing the Java AST instead of matching text patterns.',
-    html_url: 'https://github.com/srbmaury/Repo-LLD-generator',
+    name: 'pr-blast-radius',
+    description: 'Analyze potential backend PR impact using Java code, PostgreSQL dependencies, and OpenTelemetry evidence.',
+    html_url: 'https://github.com/srbmaury/pr-blast-radius',
     language: 'Java',
   },
   {
