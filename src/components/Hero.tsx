@@ -11,7 +11,8 @@ export default function Hero() {
     <section id="home" className="portfolio-hero" aria-label="Introduction">
       <div className="container hero-layout">
         <motion.div initial={{opacity:0,y:15}} animate={{opacity:1,y:0}} transition={{duration:.5}} className="hero-copy">
-          <p className="eyebrow">HELLO, I'M {profile.personalInfo.name.toUpperCase()}</p>
+          <p className="eyebrow">SOFTWARE ENGINEER · SALESFORCE</p>
+          <p className="hero-name">{profile.personalInfo.name}</p>
           <h1>I build software<br/>that solves <span>real</span><br/>problems.</h1>
           <p className="hero-intro">Software engineer focused on backend systems, developer tools and practical products. Currently building at Salesforce.</p>
           <div className="hero-actions">
