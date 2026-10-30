@@ -82,9 +82,9 @@ const GitHubStats: React.FC<GitHubStatsProps> = ({ username, className = '' }) =
     <section id="github" className={`section ${className}`} style={{ backgroundColor: 'var(--bg-secondary)' }} aria-label="Current engineering work on GitHub">
       <div className="container">
         <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} viewport={{ once: true }}>
-          <h2 className="section-title">What I’m Building</h2>
+          <h2 className="section-title">More from GitHub</h2>
           <p className="section-subtitle">
-            A few public repositories that best represent what I’m actively exploring and improving.
+            Other public repositories worth exploring.
           </p>
         </motion.div>
 
@@ -94,20 +94,20 @@ const GitHubStats: React.FC<GitHubStatsProps> = ({ username, className = '' }) =
               <img src={profile.user.avatar_url} alt={profile.user.name || username} className="h-14 w-14 rounded-full object-cover" />
               <div>
                 <h3 className="font-semibold" style={{ color: 'var(--text-primary)' }}>{profile.user.name || username}</h3>
-                <p className="text-sm" style={{ color: 'var(--text-secondary)' }}>Open source, experiments, and ongoing engineering work.</p>
+                <p className="text-sm" style={{ color: 'var(--text-secondary)' }}>Source code, experiments, and smaller tools.</p>
               </div>
             </div>
             <div className="flex items-center gap-5 sm:gap-6">
               <div className="text-center">
-                <strong className="block text-xl leading-tight" style={{ color: 'var(--primary-color)' }}>{profile.stats.totalRepos}</strong>
-                <span className="text-xs" style={{ color: 'var(--text-secondary)' }}>Repositories</span>
+                <strong className="block text-xl leading-tight" style={{ color: 'var(--primary-color)' }}>{data ? profile.stats.totalRepos : "—"}</strong>
+                <span className="text-xs" style={{ color: 'var(--text-secondary)' }}>{data ? "Repositories" : "Live count unavailable"}</span>
               </div>
               <div className="text-center">
-                <strong className="block text-xl leading-tight" style={{ color: '#f59e0b' }}>{profile.stats.totalStars}</strong>
-                <span className="text-xs" style={{ color: 'var(--text-secondary)' }}>Total Stars</span>
+                <strong className="block text-xl leading-tight" style={{ color: '#f59e0b' }}>{data ? profile.stats.totalStars : "—"}</strong>
+                <span className="text-xs" style={{ color: 'var(--text-secondary)' }}>{data ? "Total stars" : "Live count unavailable"}</span>
               </div>
               <a href={`https://github.com/${username}`} target="_blank" rel="noopener noreferrer" className="btn btn-secondary whitespace-nowrap" onClick={() => trackSocialEvent('GitHub')}>
-                <Github size={18} /> View GitHub
+                <Github size={18} /> GitHub profile
               </a>
             </div>
           </div>
