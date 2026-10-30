@@ -8,8 +8,8 @@ const Skills = () => (
   <section id="skills" className="section" style={{ backgroundColor: 'var(--bg-primary)' }} aria-label="Technical toolkit">
     <div className="container">
       <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} viewport={{ once: true }}>
-        <h2 className="section-title">Technical Toolkit</h2>
-        <p className="section-subtitle">The technologies I use most often across backend systems, data, infrastructure, and AI products.</p>
+        <h2 className="section-title">Tools & technologies</h2>
+        <p className="section-subtitle">Technologies I’ve used across work and personal projects.</p>
       </motion.div>
 
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
