@@ -48,12 +48,12 @@ const ProjectArchive = () => {
       <div className="container">
         <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} className="text-center mb-12">
           <p className="font-semibold mb-3" style={{ color: 'var(--primary-color)' }}>PROJECT ARCHIVE</p>
-          <h1 className="section-title">More Projects & Experiments</h1>
+          <h1 className="section-title">Project archive</h1>
           <p className="section-subtitle mb-6">
-            Earlier builds, focused utilities, and experiments that document my growth as a developer.
+            Smaller tools, experiments, and earlier projects from my development journey.
           </p>
           <Link to="/#projects" className="btn btn-secondary">
-            <ArrowLeft size={18} /> Back to featured work
+            <ArrowLeft size={18} /> Back to selected projects
           </Link>
         </motion.div>
 
@@ -92,10 +92,10 @@ const ProjectArchive = () => {
               </div>
               <div className="flex gap-4">
                 {project.liveUrl && <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" className="min-h-11 inline-flex items-center gap-2 font-medium text-sm" style={{ color: 'var(--primary-color)' }} onClick={() => trackProjectEvent('live_demo_click', project.title)} aria-label={`View ${project.title}`}>
-                  <ExternalLink size={16} /> View
+                  <ExternalLink size={16} /> Live demo
                 </a>}
                 {project.githubUrl && <a href={project.githubUrl} target="_blank" rel="noopener noreferrer" className="min-h-11 inline-flex items-center gap-2 font-medium text-sm" style={{ color: 'var(--text-secondary)' }} onClick={() => trackProjectEvent('github_click', project.title)} aria-label={`View ${project.title} source code`}>
-                  <Github size={16} /> Source
+                  <Github size={16} /> Source code
                 </a>}
               </div>
             </motion.article>
