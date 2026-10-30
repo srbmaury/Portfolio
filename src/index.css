@@ -493,7 +493,7 @@ select:focus:not(:focus-visible) {
 .portfolio-hero {display:flex;align-items:center;min-height:670px;padding:120px 0 84px;background:var(--bg-primary)}
 .hero-layout {display:grid;grid-template-columns:minmax(0,1.1fr) minmax(340px,.9fr);align-items:center;gap:clamp(36px,6vw,90px)}
 .eyebrow {font-size:12px;font-weight:700;letter-spacing:.13em;color:var(--primary-color);margin-bottom:24px}
-.hero-copy h1 {font-size:clamp(3.2rem,5.4vw,5.65rem);letter-spacing:-.065em;line-height:1.08;font-weight:750;color:var(--text-primary);margin-bottom:24px}
+.hero-copy h1 {font-size:clamp(2.35rem,3.8vw,4.2rem);letter-spacing:-.05em;line-height:1.12;font-weight:750;color:var(--text-primary);margin-bottom:22px}
 .hero-copy h1 span {color:var(--primary-color)}
 .hero-intro {max-width:540px;font-size:1.075rem;line-height:1.75;color:var(--text-secondary)}
 .hero-actions {display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}
@@ -516,12 +516,12 @@ select:focus:not(:focus-visible) {
 #projects article:hover img {transform:scale(1.02)}
 #experience article,#skills .rounded-xl {border-radius:12px}
 @media(max-width:900px) {.hero-layout {grid-template-columns:1fr;gap:44px}.portfolio-hero {min-height:0;padding-top:115px}.hero-showcase {max-width:650px;width:100%}}
-@media(max-width:600px) {.hero-copy h1 {font-size:clamp(2.8rem,11vw,4rem)}.portfolio-hero {padding-bottom:58px}.hero-meta {margin-top:30px}.hero-layout {gap:30px}.showcase-image {aspect-ratio:16/10}}
+@media(max-width:600px) {.hero-copy h1 {font-size:clamp(2.25rem,8vw,3.15rem)}.portfolio-hero {padding-bottom:58px}.hero-meta {margin-top:30px}.hero-layout {gap:30px}.showcase-image {aspect-ratio:16/10}}
 
 /* Navigation, hero identity, footer, and assistant polish */
 html {scroll-padding-top:0}
 section[id] {scroll-margin-top:0}
-.hero-name {font-size:clamp(1.55rem,2.65vw,2.45rem);font-weight:750;line-height:1.2;letter-spacing:-.045em;color:var(--text-primary);margin:-5px 0 20px}
+ .hero-name {font-size:clamp(1.35rem,2vw,1.9rem);font-weight:750;line-height:1.2;letter-spacing:-.045em;color:var(--text-primary);margin:-5px 0 20px}
 .footer-main {display:grid;grid-template-columns:1.4fr .8fr 1fr;gap:clamp(24px,5vw,64px);padding:65px 0}
 .portfolio-footer {background:var(--bg-secondary);border-top:1px solid var(--border-color);color:var(--text-primary)}
 .footer-identity h2 {font-size:clamp(1.65rem,3vw,2.3rem);font-weight:750;letter-spacing:-.045em;line-height:1.2}
@@ -564,5 +564,5 @@ section[aria-label="Featured engineering work"] .section-subtitle {max-width:690
 @media(max-width:640px){#contact .grid{gap:24px}.section-title{font-size:2rem}#experience article{padding:20px}}
 
 /* Wider desktop canvas without sacrificing readable copy widths. */
-@media(min-width:1100px){.hero-layout{grid-template-columns:minmax(0,1.12fr) minmax(420px,.88fr)}.hero-copy h1{font-size:clamp(3.2rem,5vw,5.8rem)}}
+@media(min-width:1100px){.hero-layout{grid-template-columns:minmax(0,1.12fr) minmax(420px,.88fr)}.hero-copy h1{font-size:clamp(2.8rem,3.8vw,4.2rem)}}
 @media(max-width:768px){.container{padding-left:1.25rem;padding-right:1.25rem}}
