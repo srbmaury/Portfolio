@@ -16,7 +16,7 @@ const categories = ['All', 'Developer tools', 'AI & ML', 'Web & data', 'Mobile',
 type Category = typeof categories[number];
 const categoryFor = (project: Project): Category => {
   if (['ExitSense', 'RecallLater', 'NEET'].includes(project.title)) return 'Mobile';
-  if (['PR Blast Radius', 'Developer Knowledge Base', 'Codeforces Filter'].includes(project.title)) return 'Developer tools';
+  if (['PR Blast Radius', 'Developer Knowledge Base', 'Codeforces Filter', 'YAML Data Visualizer'].includes(project.title)) return 'Developer tools';
   if (['Evalcue AI', 'Chess ML Coach', 'Ecommerce Search Engine'].includes(project.title)) return 'AI & ML';
   if (['India Startup Map', 'Kindred Code', 'MERN Chat Application', 'Hackathon Portal', 'Store Management System'].includes(project.title)) return 'Web & data';
   return 'Earlier projects';
