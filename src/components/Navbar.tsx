@@ -4,6 +4,7 @@ import { Menu, Terminal as TerminalIcon, X } from 'lucide-react';
 import ThemeToggle from './ThemeToggle';
 import { useModal } from '../hooks/useModal';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { scrollToSection as scrollToHeading } from '../utils/scrollToSection';
 
 interface NavbarProps { onOpenTerminal: () => void; showTerminal: boolean; }
 
@@ -28,7 +29,7 @@ const Navbar: React.FC<NavbarProps> = ({ onOpenTerminal, showTerminal }) => {
       setIsOpen(false);
       return;
     }
-    document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' });
+    scrollToHeading(href);
     setIsOpen(false);
   };
 
