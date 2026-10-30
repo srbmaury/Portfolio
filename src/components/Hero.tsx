@@ -10,7 +10,7 @@ import ResumeViewer from './ResumeViewer';
 const showResume = import.meta.env.VITE_SHOW_RESUME === 'true' && Boolean(import.meta.env.VITE_RESUME_URL);
 const ROTATION_MS = 6000;
 const featuredWork = projectsData.projects.filter(
-  (project) => project.featured && project.image && (project.liveUrl || project.githubUrl)
+  (project) => project.featured && (project.liveUrl || project.githubUrl)
 );
 export default function Hero() {
   const [isResumeOpen, setIsResumeOpen] = useState(false);
@@ -66,9 +66,19 @@ export default function Hero() {
             <a className="showcase-project-link" href={projectUrl} target="_blank" rel="noopener noreferrer" aria-label={`Open ${currentProject.title} ${currentProject.liveUrl ? 'live website' : 'source code'} in a new tab`}>
               <div className="showcase-image">
                 <AnimatePresence mode="wait" initial={false}>
-                  <motion.img key={currentProject.image} src={currentProject.image} alt={`Screenshot of ${currentProject.title}`} loading={selectedIndex === 0 ? 'eager' : 'lazy'}
-                    initial={reduceMotion ? false : {opacity:0}} animate={{opacity:1}} exit={reduceMotion ? undefined : {opacity:0}}
-                    transition={{duration:reduceMotion ? 0 : .3}}/>
+                  {currentProject.image ? (
+                    <motion.img key={currentProject.title} src={currentProject.image} alt={`Screenshot of ${currentProject.title}`} loading={selectedIndex === 0 ? 'eager' : 'lazy'}
+                      initial={reduceMotion ? false : {opacity:0}} animate={{opacity:1}} exit={reduceMotion ? undefined : {opacity:0}}
+                      transition={{duration:reduceMotion ? 0 : .3}}/>
+                  ) : (
+                    <motion.div key={currentProject.title} className="showcase-empty-preview"
+                      initial={reduceMotion ? false : {opacity:0}} animate={{opacity:1}} exit={reduceMotion ? undefined : {opacity:0}}
+                      transition={{duration:reduceMotion ? 0 : .3}}>
+                      <span className="showcase-preview-label">PROJECT PREVIEW</span>
+                      <strong>{currentProject.title}</strong>
+                      <small>{currentProject.description}</small>
+                    </motion.div>
+                  )}
                 </AnimatePresence>
               </div>
               <div className="showcase-bottom"><div><strong>{currentProject.title}</strong><small>{currentProject.technologies.slice(0,3).join(' · ')}</small></div><ArrowUpRight size={20}/></div>
