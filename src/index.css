@@ -612,3 +612,22 @@ section[aria-label="Featured engineering work"] .section-subtitle {max-width:690
 .case-study-summary h3{font-size:1.2rem;font-weight:700;letter-spacing:-.02em;color:var(--text-primary);margin-bottom:8px}
 .case-study-summary p{font-size:.95rem;color:var(--text-secondary);line-height:1.75}
 @media(max-width:640px){.career-timeline{padding-left:25px}.career-timeline::before{left:5px}.career-entry::before{left:-26px;width:10px;height:10px}.archive-filters{gap:7px}.archive-filters button{padding:9px 12px;font-size:.82rem}.case-study-modal .case-study-summary{padding:16px}}
+
+/* Portfolio consistency pass */
+.featured-project-card{transition:border-color .2s,transform .2s;min-width:0}
+.featured-project-card:hover{border-color:var(--primary-color)!important;transform:translateY(-2px)}
+.featured-project-image{height:auto;aspect-ratio:16/10;max-height:340px}
+.featured-project-description{max-width:64ch}
+.featured-project-actions{border-top:1px solid var(--border-color);padding-top:12px}
+.featured-project-actions a:focus-visible,.featured-project-actions button:focus-visible,.github-curated a:focus-visible{outline:2px solid var(--primary-color);outline-offset:3px;border-radius:5px}
+.about-layout{max-width:1100px}
+.about-bio{max-width:68ch}
+.about-achievements>div{box-shadow:none}
+.skill-card{box-shadow:none!important;transition:border-color .2s}
+.skill-card:hover{border-color:var(--primary-color)!important}
+.github-curated{max-width:1140px}
+.github-curated-header{display:flex;align-items:center;justify-content:space-between;gap:18px;margin-bottom:20px}
+.github-curated-header p{color:var(--text-secondary);font-size:.9rem}
+.github-repo-card{display:flex;flex-direction:column;min-width:0}
+.github-repo-card p{flex:1;min-height:0}
+@media(max-width:640px){.github-curated-header{align-items:flex-start;flex-direction:column}.featured-project-image{max-height:none}.about-layout{gap:24px}}
