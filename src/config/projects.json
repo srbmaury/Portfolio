@@ -1,99 +1,85 @@
 {
   "projects": [
     {
-      "title": "Chess ML Coach",
-      "description": "A chess coach that analyzes your games, identifies recurring mistakes, and creates personalized practice with Stockfish and machine learning.",
-      "image": "/images/ChessMLCoach.webp",
-      "fallbackIcon": "♞",
-      "fallbackGradient": "from-emerald-500 to-slate-800",
+      "title": "FreeEdit",
+      "description": "An open-source screen recording editor with timeline-based cuts, noise removal, captions, privacy masks, annotations, and zoom effects.",
+      "fallbackIcon": "🎬",
+      "fallbackGradient": "from-slate-700 to-slate-900",
       "technologies": [
-        "Python",
-        "FastAPI",
         "React",
-        "Stockfish / WASM",
-        "PostgreSQL",
-        "Supabase",
-        "LightGBM"
+        "JavaScript",
+        "FastAPI",
+        "FFmpeg",
+        "DeepFilterNet3"
       ],
       "highlights": [
-        "Runs Stockfish analysis in the browser for hosted workflows, with resumable checkpoints and shared analysis coordination.",
-        "Uses authenticated, isolated player data with PostgreSQL-backed persistence and adaptive spaced-repetition practice.",
-        "Combines engine-grounded coaching with player-specific modelling to identify mistake-prone positions and generate personal training."
+        "Edit screen recordings on a visual timeline with captions, annotations, privacy masks, and zoom effects.",
+        "Process audio and video with configurable noise reduction, pause shortening, and export options.",
+        "Save edit projects for later and review short previews before exporting."
       ],
       "systemFlow": [
-        "Sync Chess.com games",
-        "Analyze & checkpoint",
-        "Learn player patterns",
-        "Train adaptively"
+        "Import recording",
+        "Edit timeline",
+        "Preview changes",
+        "Export"
       ],
-      "liveUrl": "https://chess-ml-coach.onrender.com/",
-      "githubUrl": "https://github.com/srbmaury/Chess-Coach",
-      "featured": true,
-      "demoType": "iframe",
-      "demoUrl": "https://chess-ml-coach.onrender.com/"
+      "liveUrl": "https://freeedit.srbmaury.com/",
+      "githubUrl": "https://github.com/srbmaury/FreeEdit",
+      "featured": true
     },
     {
-      "title": "Evalcue AI",
-      "description": "An interview platform for practicing and assessing coding, system design, and debugging skills with structured feedback and evaluation.",
-      "image": "/images/EvalcueAI.webp",
-      "fallbackIcon": "🤖",
-      "fallbackGradient": "from-cyan-400 to-blue-500",
-      "technologies": [
-        "React 19",
-        "Express 5",
-        "MongoDB",
-        "Redis",
-        "BullMQ",
-        "OpenAI",
-        "Gemini",
-        "Stripe"
-      ],
-      "highlights": [
-        "Supports role-specific practice and candidate assessments across voice, coding, system design, and multi-file debugging workflows.",
-        "Provides hiring pipelines, weighted scorecards, evidence review, and human calibration controls.",
-        "Uses Redis and BullMQ for asynchronous evaluation, with billing, observability, and production deployment safeguards."
-      ],
-      "systemFlow": [
-        "Define role or goal",
-        "Generate assessment",
-        "Interview & evaluate",
-        "Review evidence"
-      ],
-      "liveUrl": "https://evalcueai.com/",
-      "featured": true,
-      "demoType": "iframe",
-      "demoUrl": "https://evalcueai.com/"
-    },
-    {
-      "title": "Ecommerce Search Engine",
-      "description": "An e-commerce search engine combining full-text retrieval, caching, and machine-learning-based ranking for more relevant product results.",
-      "image": "/images/EcommerceSearch.webp",
-      "fallbackIcon": "🛒",
-      "fallbackGradient": "from-purple-400 to-pink-500",
+      "title": "Repository LLD Generator",
+      "description": "Generate PlantUML class diagrams from Java repositories using AST parsing and source-aware relationship analysis.",
+      "fallbackIcon": "🧩",
+      "fallbackGradient": "from-slate-600 to-blue-900",
       "technologies": [
         "Python",
+        "Java AST",
+        "PlantUML",
         "Flask",
-        "PostgreSQL",
-        "Redis",
-        "LightGBM",
-        "scikit-learn"
+        "Docker"
       ],
       "highlights": [
-        "Uses PostgreSQL full-text retrieval, Redis query/result caches, and cursor-based pagination for low-latency search.",
-        "Ranks results with LightGBM using popularity, relevance, freshness, category, price, and interaction features.",
-        "Includes personalization, event tracking, background retraining, and an A/B framework for ranking experiments."
+        "Parses Java source code to identify classes, interfaces, methods, fields, and inheritance relationships.",
+        "Generates PlantUML diagrams for repositories, modules, and subdirectories.",
+        "Provides a web interface to preview diagrams for public GitHub and GitLab repositories."
       ],
       "systemFlow": [
-        "Search query",
-        "Retrieve catalog",
-        "Rank & personalize",
-        "Results"
+        "Enter repository URL",
+        "Parse Java AST",
+        "Resolve relationships",
+        "Render class diagrams"
       ],
-      "liveUrl": "https://ecommerce-search.onrender.com/",
-      "githubUrl": "https://github.com/srbmaury/Ecommerce-Search",
-      "featured": true,
-      "demoType": "iframe",
-      "demoUrl": "https://ecommerce-search.onrender.com/"
+      "liveUrl": "https://lldgenerator.srbmaury.com/",
+      "githubUrl": "https://github.com/srbmaury/Repo-LLD-generator",
+      "featured": true
+    },
+    {
+      "title": "DevFolioX",
+      "description": "A developer portfolio builder with resume import, role-specific layouts, publishing, and first-party analytics.",
+      "fallbackIcon": "🗂️",
+      "fallbackGradient": "from-blue-600 to-slate-900",
+      "technologies": [
+        "Next.js",
+        "React",
+        "TypeScript",
+        "Supabase",
+        "PostgreSQL"
+      ],
+      "highlights": [
+        "Import a resume and GitHub projects into an editable portfolio workspace.",
+        "Create multiple targeted portfolio variants using the same shared profile.",
+        "Publish responsive portfolios and review first-party engagement analytics."
+      ],
+      "systemFlow": [
+        "Import profile",
+        "Customize portfolio",
+        "Publish",
+        "Review analytics"
+      ],
+      "liveUrl": "https://devfoliox.srbmaury.com/",
+      "githubUrl": "https://github.com/srbmaury/Portfolio-Builder",
+      "featured": true
     },
     {
       "title": "YAML Data Visualizer",
@@ -125,6 +111,101 @@
       "featured": true,
       "demoType": "iframe",
       "demoUrl": "https://yaml-visualizer.netlify.app/"
+    },
+    {
+      "title": "Chess ML Coach",
+      "description": "A chess coach that analyzes your games, identifies recurring mistakes, and creates personalized practice with Stockfish and machine learning.",
+      "image": "/images/ChessMLCoach.webp",
+      "fallbackIcon": "♞",
+      "fallbackGradient": "from-emerald-500 to-slate-800",
+      "technologies": [
+        "Python",
+        "FastAPI",
+        "React",
+        "Stockfish / WASM",
+        "PostgreSQL",
+        "Supabase",
+        "LightGBM"
+      ],
+      "highlights": [
+        "Runs Stockfish analysis in the browser for hosted workflows, with resumable checkpoints and shared analysis coordination.",
+        "Uses authenticated, isolated player data with PostgreSQL-backed persistence and adaptive spaced-repetition practice.",
+        "Combines engine-grounded coaching with player-specific modelling to identify mistake-prone positions and generate personal training."
+      ],
+      "systemFlow": [
+        "Sync Chess.com games",
+        "Analyze & checkpoint",
+        "Learn player patterns",
+        "Train adaptively"
+      ],
+      "liveUrl": "https://chess-ml-coach.onrender.com/",
+      "githubUrl": "https://github.com/srbmaury/Chess-Coach",
+      "featured": false,
+      "demoType": "iframe",
+      "demoUrl": "https://chess-ml-coach.onrender.com/"
+    },
+    {
+      "title": "Evalcue AI",
+      "description": "An interview platform for practicing and assessing coding, system design, and debugging skills with structured feedback and evaluation.",
+      "image": "/images/EvalcueAI.webp",
+      "fallbackIcon": "🤖",
+      "fallbackGradient": "from-cyan-400 to-blue-500",
+      "technologies": [
+        "React 19",
+        "Express 5",
+        "MongoDB",
+        "Redis",
+        "BullMQ",
+        "OpenAI",
+        "Gemini",
+        "Stripe"
+      ],
+      "highlights": [
+        "Supports role-specific practice and candidate assessments across voice, coding, system design, and multi-file debugging workflows.",
+        "Provides hiring pipelines, weighted scorecards, evidence review, and human calibration controls.",
+        "Uses Redis and BullMQ for asynchronous evaluation, with billing, observability, and production deployment safeguards."
+      ],
+      "systemFlow": [
+        "Define role or goal",
+        "Generate assessment",
+        "Interview & evaluate",
+        "Review evidence"
+      ],
+      "liveUrl": "https://evalcueai.com/",
+      "featured": false,
+      "demoType": "iframe",
+      "demoUrl": "https://evalcueai.com/"
+    },
+    {
+      "title": "Ecommerce Search Engine",
+      "description": "An e-commerce search engine combining full-text retrieval, caching, and machine-learning-based ranking for more relevant product results.",
+      "image": "/images/EcommerceSearch.webp",
+      "fallbackIcon": "🛒",
+      "fallbackGradient": "from-purple-400 to-pink-500",
+      "technologies": [
+        "Python",
+        "Flask",
+        "PostgreSQL",
+        "Redis",
+        "LightGBM",
+        "scikit-learn"
+      ],
+      "highlights": [
+        "Uses PostgreSQL full-text retrieval, Redis query/result caches, and cursor-based pagination for low-latency search.",
+        "Ranks results with LightGBM using popularity, relevance, freshness, category, price, and interaction features.",
+        "Includes personalization, event tracking, background retraining, and an A/B framework for ranking experiments."
+      ],
+      "systemFlow": [
+        "Search query",
+        "Retrieve catalog",
+        "Rank & personalize",
+        "Results"
+      ],
+      "liveUrl": "https://ecommerce-search.onrender.com/",
+      "githubUrl": "https://github.com/srbmaury/Ecommerce-Search",
+      "featured": false,
+      "demoType": "iframe",
+      "demoUrl": "https://ecommerce-search.onrender.com/"
     },
     {
       "title": "ExitSense",
@@ -373,6 +454,96 @@
       "githubUrl": "https://github.com/srbmaury/CF-Filter-Recent-Actions",
       "featured": false,
       "beginner": true
+    },
+    {
+      "title": "India Startup Map",
+      "description": "Explore Indian startups by city, sector, hiring status, and technology stack using source-linked location data.",
+      "fallbackIcon": "🗺️",
+      "fallbackGradient": "from-teal-600 to-slate-900",
+      "technologies": [
+        "TypeScript",
+        "MapLibre",
+        "OpenStreetMap",
+        "Data Visualization"
+      ],
+      "highlights": [
+        "Explore city and company listings through an interactive map.",
+        "Filter organizations by sector and hiring details.",
+        "Keep uncertainty visible through source-linked records and location confidence rules."
+      ],
+      "liveUrl": "https://india-startup-map.srbmaury.chatgpt.site/",
+      "githubUrl": "https://github.com/srbmaury/India-Startup-Map",
+      "featured": false
+    },
+    {
+      "title": "Kindred Code",
+      "description": "Find developers with similar interests using public GitHub activity, ranked matching, and rate-aware discovery.",
+      "fallbackIcon": "🔗",
+      "fallbackGradient": "from-indigo-600 to-slate-900",
+      "technologies": [
+        "TypeScript",
+        "GitHub API",
+        "GitHub App",
+        "Caching"
+      ],
+      "highlights": [
+        "Discover developers from public GitHub signals.",
+        "Rank shared interests and account for API rate limits."
+      ],
+      "liveUrl": "https://kindred-code-srbmaury.srbmaury.chatgpt.site/",
+      "githubUrl": "https://github.com/srbmaury/kindred-code",
+      "featured": false
+    },
+    {
+      "title": "PR Blast Radius",
+      "description": "Analyze potential production impact of Java/Spring Boot pull requests using static code evidence, PostgreSQL dependencies, and OpenTelemetry traces.",
+      "fallbackIcon": "🛰️",
+      "fallbackGradient": "from-orange-600 to-slate-900",
+      "technologies": [
+        "Java",
+        "Spring Boot",
+        "PostgreSQL",
+        "OpenTelemetry",
+        "GitHub API"
+      ],
+      "highlights": [
+        "Inspect changed Java endpoints and types using source-aware static analysis.",
+        "Correlate PostgreSQL schema and runtime dependency evidence.",
+        "Report findings with explicit evidence strength and coverage warnings."
+      ],
+      "githubUrl": "https://github.com/srbmaury/pr-blast-radius",
+      "featured": false
+    },
+    {
+      "title": "RecallLater",
+      "description": "A local-first mobile inbox for screenshots, PDFs, links, and text, with on-device extraction and reminders.",
+      "fallbackIcon": "📌",
+      "fallbackGradient": "from-emerald-600 to-slate-900",
+      "technologies": [
+        "React Native",
+        "Expo",
+        "SQLite",
+        "OCR"
+      ],
+      "highlights": [
+        "Collect shared content into device-private storage.",
+        "Extract details on-device and schedule local reminders."
+      ],
+      "githubUrl": "https://github.com/srbmaury/RecallLater",
+      "featured": false
+    },
+    {
+      "title": "NEET",
+      "description": "An Android exam preparation app with adaptive practice, mock tests, flashcards, and optional cloud synchronization.",
+      "fallbackIcon": "📖",
+      "fallbackGradient": "from-green-600 to-slate-900",
+      "technologies": [
+        "Kotlin",
+        "Jetpack Compose",
+        "Android"
+      ],
+      "githubUrl": "https://github.com/srbmaury/NEET",
+      "featured": false
     }
   ]
 }
