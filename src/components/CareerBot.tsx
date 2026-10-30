@@ -7,7 +7,6 @@ import { API_ENDPOINTS } from '../config/api';
 import { useModal } from '../hooks/useModal';
 import { trackCareerBotEvent } from '../utils/analytics';
 import profile from '../config/profile.json';
-import projects from '../config/projects.json';
 
 interface Message {
   role: 'user' | 'assistant';
@@ -21,9 +20,6 @@ interface CareerBotProps {
   onClose?: () => void;
   onOpen?: () => void;
 }
-
-const featuredProjectNames = projects.projects.filter((project) => project.featured).slice(0, 3).map((project) => project.title).join(', ');
-const currentRole = profile.experience[0];
 
 const INITIAL_MESSAGE = `Hi! I'm ${profile.personalInfo.name}'s portfolio assistant.\n\nAsk me about his projects, experience, or technical background.`;
 
@@ -438,7 +434,7 @@ const CareerBot: React.FC<CareerBotProps> = ({ className = '', isOpen: externalI
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 placeholder={`Ask anything about ${profile.personalInfo.name.split(' ')[0]}...`}
-                className="flex-1 px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:border-transparent text-sm"
+                className="min-w-0 flex-1 px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:border-transparent text-sm"
                 style={{
                   backgroundColor: 'var(--bg-primary)',
                   borderColor: 'var(--border-color)',
@@ -457,7 +453,7 @@ const CareerBot: React.FC<CareerBotProps> = ({ className = '', isOpen: externalI
               <button
                 type="submit"
                 disabled={!input.trim() || isLoading}
-                className="text-white p-2 rounded-lg transition-colors disabled:cursor-not-allowed"
+                className="chatter-send p-2 rounded-lg transition-colors disabled:cursor-not-allowed"
                 style={{
                   backgroundColor: input.trim() && !isLoading ? 'var(--primary-color)' : 'var(--text-secondary)'
                 }}
