@@ -13,15 +13,15 @@ const About = () => {
           </p>
         </motion.div>
 
-        <div className="grid items-center gap-10 lg:grid-cols-[320px_1fr] lg:gap-14">
-          <motion.div initial={{ opacity: 0, x: -24 }} whileInView={{ opacity: 1, x: 0 }} transition={{ duration: 0.6 }} viewport={{ once: true }} className="mx-auto w-full max-w-xs">
+        <div className="about-layout grid items-start gap-8 lg:grid-cols-[260px_1fr] lg:gap-12">
+          <motion.div initial={{ opacity: 0, x: -24 }} whileInView={{ opacity: 1, x: 0 }} transition={{ duration: 0.6 }} viewport={{ once: true }} className="mx-auto w-full max-w-[260px]">
             <div className="profile-img-container relative aspect-[4/5] overflow-hidden rounded-2xl border" style={{ borderColor: 'var(--border-color)', backgroundColor: 'var(--card-bg)' }}>
               <LazyImage src="/images/profile.jpg" alt={profile.personalInfo.name} sizes="(max-width: 768px) 80vw, 320px" className="h-full w-full object-cover" spinnerClassName="profile-spinner" />
             </div>
           </motion.div>
 
-          <motion.div initial={{ opacity: 0, x: 24 }} whileInView={{ opacity: 1, x: 0 }} transition={{ duration: 0.6 }} viewport={{ once: true }} className="space-y-7">
-            <div className="space-y-4 text-base leading-8 md:text-lg" style={{ color: 'var(--text-secondary)' }}>
+          <motion.div initial={{ opacity: 0, x: 24 }} whileInView={{ opacity: 1, x: 0 }} transition={{ duration: 0.6 }} viewport={{ once: true }} className="space-y-6">
+            <div className="about-bio space-y-3 text-base leading-7" style={{ color: 'var(--text-secondary)' }}>
               <p>
                 I’m a software engineer at Salesforce. I enjoy understanding how things work, improving them, and building tools that solve problems I’ve encountered myself.
               </p>
@@ -41,9 +41,9 @@ const About = () => {
               </div>
             </div>
 
-            <div className="grid gap-3 sm:grid-cols-2">
+            <div className="about-achievements grid gap-2 sm:grid-cols-2">
               {profile.achievements.map((achievement) => (
-                <div key={achievement} className="rounded-xl border p-4 text-sm leading-relaxed" style={{ borderColor: 'var(--border-color)', backgroundColor: 'var(--card-bg)', color: 'var(--text-secondary)' }}>
+                <div key={achievement} className="rounded-lg border px-4 py-3 text-[13px] leading-relaxed" style={{ borderColor: 'var(--border-color)', backgroundColor: 'var(--card-bg)', color: 'var(--text-secondary)' }}>
                   {achievement}
                 </div>
               ))}
