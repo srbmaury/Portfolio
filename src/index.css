@@ -631,3 +631,9 @@ section[aria-label="Featured engineering work"] .section-subtitle {max-width:690
 .github-repo-card{display:flex;flex-direction:column;min-width:0}
 .github-repo-card p{flex:1;min-height:0}
 @media(max-width:640px){.github-curated-header{align-items:flex-start;flex-direction:column}.featured-project-image{max-height:none}.about-layout{gap:24px}}
+
+/* Featured project preview when a genuine screenshot is not available */
+.showcase-empty-preview{min-height:100%;width:100%;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;padding:clamp(24px,4vw,44px);background:var(--bg-secondary);color:var(--text-primary);gap:12px}
+.showcase-empty-preview .showcase-preview-label{font-size:.68rem;letter-spacing:.14em;color:var(--primary-color);font-weight:700}
+.showcase-empty-preview strong{font-size:clamp(1.5rem,2.5vw,2.3rem);font-weight:750;letter-spacing:-.04em;line-height:1.2}
+.showcase-empty-preview small{font-size:.87rem;line-height:1.6;color:var(--text-secondary);max-width:42ch}
