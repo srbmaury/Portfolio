@@ -17,6 +17,7 @@ export default function Hero() {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
   const [reduceMotion, setReduceMotion] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
 
   useEffect(() => {
     const query = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -27,10 +28,17 @@ export default function Hero() {
   }, []);
 
   useEffect(() => {
-    if (isPaused || reduceMotion || featuredWork.length < 2) return;
+    const onVisibilityChange = () => setIsVisible(!document.hidden);
+    document.addEventListener('visibilitychange', onVisibilityChange);
+    onVisibilityChange();
+    return () => document.removeEventListener('visibilitychange', onVisibilityChange);
+  }, []);
+
+  useEffect(() => {
+    if (isPaused || reduceMotion || !isVisible || featuredWork.length < 2) return;
     const id = window.setInterval(() => setSelectedIndex((index) => (index + 1) % featuredWork.length), ROTATION_MS);
     return () => window.clearInterval(id);
-  }, [isPaused, reduceMotion, selectedIndex]);
+  }, [isPaused, reduceMotion, isVisible, selectedIndex]);
 
   const currentProject = featuredWork[selectedIndex];
   const projectUrl = currentProject?.liveUrl || currentProject?.githubUrl;
@@ -51,7 +59,7 @@ export default function Hero() {
           <div className="hero-meta"><span>Salesforce</span><span>Razorpay</span><span>IIT BHU</span></div>
         </motion.div>
         {currentProject && projectUrl && (
-          <motion.div className="hero-showcase" initial={{opacity:0,y:18}} animate={{opacity:1,y:0}} transition={{duration:.6,delay:.15}} aria-label="Selected work"
+          <motion.div className="hero-showcase" initial={{opacity:0,y:18}} animate={{opacity:1,y:0}} transition={{duration:.6,delay:.15}} aria-label="Selected work carousel"
             onMouseEnter={() => setIsPaused(true)} onMouseLeave={() => setIsPaused(false)}
             onFocusCapture={() => setIsPaused(true)} onBlurCapture={(event) => { if (!event.currentTarget.contains(event.relatedTarget)) setIsPaused(false); }}>
             <div className="showcase-top"><span className="showcase-indicator"/><span>SELECTED WORK</span><span>{String(selectedIndex + 1).padStart(2,'0')} / {String(featuredWork.length).padStart(2,'0')}</span></div>
