@@ -566,3 +566,19 @@ section[aria-label="Featured engineering work"] .section-subtitle {max-width:690
 /* Wider desktop canvas without sacrificing readable copy widths. */
 @media(min-width:1100px){.hero-layout{grid-template-columns:minmax(0,1.12fr) minmax(420px,.88fr)}.hero-copy h1{font-size:clamp(2.75rem,3.65vw,3.75rem)}}
 @media(max-width:768px){.container{padding-left:1.25rem;padding-right:1.25rem}}
+
+/* Featured work carousel */
+.showcase-project-link {display:block;text-decoration:none;color:inherit;border-radius:8px}
+.showcase-project-link:hover .showcase-bottom strong {color:var(--primary-color)}
+.showcase-project-link:focus-visible {outline:2px solid var(--primary-color);outline-offset:3px}
+.showcase-image {position:relative}
+.showcase-image img {display:block;width:100%;height:100%;object-fit:cover;object-position:top}
+.showcase-bottom svg {color:var(--primary-color);flex:none}
+.showcase-controls {display:flex;justify-content:space-between;align-items:center;padding:5px 7px 0}
+.showcase-dots,.showcase-buttons {display:flex;align-items:center;gap:8px}
+.showcase-dots button {width:9px;height:9px;min-width:9px;border-radius:999px;background:var(--border-color);transition:background .2s,width .2s}
+.showcase-dots button.active {width:24px;background:var(--primary-color)}
+.showcase-dots button:focus-visible,.showcase-buttons button:focus-visible {outline:2px solid var(--primary-color);outline-offset:2px}
+.showcase-buttons button {display:grid;place-items:center;width:32px;height:32px;border-radius:7px;border:1px solid var(--border-color);color:var(--text-secondary);background:var(--card-bg)}
+.showcase-buttons button:hover {color:var(--primary-color);border-color:var(--primary-color)}
+@media(prefers-reduced-motion:reduce){.showcase-dots button {transition:none}}
