@@ -153,9 +153,9 @@ body.custom-cursor-enabled {
   font-weight: 700;
   text-align: center;
   margin-bottom: 1rem;
-  background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+  background: none;
   -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  -webkit-text-fill-color: currentColor;
   background-clip: text;
 }
 
@@ -184,7 +184,7 @@ body.custom-cursor-enabled {
 }
 
 .btn-primary {
-  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  background: var(--primary-color);
   color: white;
 }
 
@@ -220,9 +220,9 @@ body.custom-cursor-enabled {
 }
 
 .gradient-text {
-  background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+  background: none;
   -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  -webkit-text-fill-color: currentColor;
   background-clip: text;
 }
 
@@ -473,41 +473,47 @@ select:focus:not(:focus-visible) {
   }
 }
 
-/* Editorial light/dark redesign: restrained color, visual hierarchy, and genuine project imagery. */
-:root {
-  --primary-color:#4f46e5; --secondary-color:#4338ca; --accent-color:#4f46e5;
-  --text-primary:#171923; --text-secondary:#596172;
-  --bg-primary:#ffffff; --bg-secondary:#f8f9fc; --bg-dark:#11131b;
-  --border-color:#e5e7ed; --card-bg:#fff; --tag-bg:#f1f2f7;
-  --nav-bg:rgba(255,255,255,.94); --nav-text:#323746; --nav-hover:#4f46e5;
-}
-[data-theme="dark"] {
-  --primary-color:#a5a0ff; --secondary-color:#847dff; --accent-color:#a5a0ff;
-  --text-primary:#f5f6fa; --text-secondary:#b5bbca;
-  --bg-primary:#0d1018; --bg-secondary:#131823; --bg-dark:#090b11;
-  --border-color:#2a303e; --card-bg:#151b27; --tag-bg:#242b39;
-  --nav-bg:rgba(13,16,24,.94); --nav-text:#d9ddeb; --nav-hover:#b4afff;
-}
-.container { max-width:1200px; padding-left:clamp(1.25rem,4vw,3rem); padding-right:clamp(1.25rem,4vw,3rem); }
-.section { padding:clamp(4rem,7vw,6.5rem) 0; border-top:1px solid var(--border-color); }
-.section-title { text-align:left; color:var(--text-primary); background:none; -webkit-text-fill-color:currentColor; font-size:clamp(2rem,4vw,3rem); letter-spacing:-.045em; line-height:1.13; margin-bottom:1rem; }
-.section-subtitle { text-align:left; margin:0 0 2.5rem 0; font-size:1rem; max-width:700px; }
-.gradient-text { background:none; -webkit-text-fill-color:currentColor; color:var(--text-primary); }
-.btn { border-radius:.5rem; font-size:.9rem; font-weight:600; padding:.8rem 1.2rem; }
-.btn-primary { background:var(--primary-color); color:#fff; }
-[data-theme="dark"] .btn-primary { color:#090b11; }
-.btn-primary:hover { background:var(--secondary-color); box-shadow:none; }
-.btn-secondary { color:var(--text-primary); border:1px solid var(--border-color); background:var(--card-bg); }
-.btn-secondary:hover { color:var(--primary-color); background:var(--tag-bg); border-color:var(--primary-color); }
-.card { border-radius:.7rem; box-shadow:none; }
-.card:hover { box-shadow:var(--shadow-sm); transform:translateY(-2px); }
-#projects article { border-radius:.7rem; transition:border-color .2s, transform .2s; }
-#projects article:hover { border-color:var(--primary-color)!important; transform:translateY(-3px); }
-#projects article img { transition:transform .35s ease; }
-#projects article:hover img { transform:scale(1.025); }
-#skills .rounded-xl, #experience .rounded-2xl { border-radius:.7rem; }
-#home h1 { max-width:850px; }
-#home .container { width:100%; }
-#home .gradient-text { color:var(--text-primary); }
-footer .gradient-text { color:var(--footer-text-primary); }
-@media (max-width:640px) { #home h1 {font-size:clamp(2.8rem,11vw,4.5rem);} .section {padding:3.75rem 0;} }
+
+/* Portfolio design system */
+:root { --primary-color:#4f46e5;--secondary-color:#4338ca;--accent-color:#4f46e5;--text-primary:#1d2230;--text-secondary:#586174;--bg-primary:#fff;--bg-secondary:#f8f9fc;--bg-dark:#10131c;--border-color:#e6e8ef;--card-bg:#fff;--tag-bg:#f1f3f8;--nav-bg:rgba(255,255,255,.96);--nav-text:#353b4d;--nav-hover:#4f46e5; }
+[data-theme="dark"] {--primary-color:#a8a3ff;--secondary-color:#8a83ff;--accent-color:#a8a3ff;--text-primary:#f5f6fa;--text-secondary:#b7bdcb;--bg-primary:#0e1119;--bg-secondary:#151a25;--bg-dark:#090b11;--border-color:#2b3241;--card-bg:#171d29;--tag-bg:#252c3b;--nav-bg:rgba(14,17,25,.97);--nav-text:#e1e4ed;--nav-hover:#ada8ff;}
+.container {max-width:1200px;padding-left:clamp(1.25rem,3vw,2.5rem);padding-right:clamp(1.25rem,3vw,2.5rem)}
+.section {padding:clamp(4rem,7vw,6rem) 0;border-top:1px solid var(--border-color)}
+.section-title {text-align:left;color:var(--text-primary);background:none;-webkit-text-fill-color:currentColor;font-size:clamp(2rem,3vw,2.8rem);letter-spacing:-.045em;line-height:1.15}
+.section-subtitle {text-align:left;margin:0 0 2.5rem;max-width:720px;font-size:1rem}
+.gradient-text {color:var(--text-primary);background:none;-webkit-text-fill-color:currentColor}
+.btn {border-radius:8px;padding:.8rem 1.25rem;font-size:.9rem;font-weight:600}
+.btn-primary {background:var(--primary-color);color:#fff}
+[data-theme="dark"] .btn-primary {color:#0e1119}
+.btn-primary:hover {background:var(--secondary-color);box-shadow:none}
+.btn-secondary {background:var(--card-bg);color:var(--text-primary);border:1px solid var(--border-color)}
+.btn-secondary:hover {background:var(--tag-bg);color:var(--primary-color)}
+.card {border-radius:12px;box-shadow:none}
+.card:hover {box-shadow:var(--shadow-sm);transform:translateY(-2px)}
+.portfolio-hero {display:flex;align-items:center;min-height:670px;padding:120px 0 84px;background:var(--bg-primary)}
+.hero-layout {display:grid;grid-template-columns:minmax(0,1.1fr) minmax(340px,.9fr);align-items:center;gap:clamp(36px,6vw,90px)}
+.eyebrow {font-size:12px;font-weight:700;letter-spacing:.13em;color:var(--primary-color);margin-bottom:24px}
+.hero-copy h1 {font-size:clamp(3.2rem,5.4vw,5.65rem);letter-spacing:-.065em;line-height:1.08;font-weight:750;color:var(--text-primary);margin-bottom:24px}
+.hero-copy h1 span {color:var(--primary-color)}
+.hero-intro {max-width:540px;font-size:1.075rem;line-height:1.75;color:var(--text-secondary)}
+.hero-actions {display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}
+.hero-meta {display:flex;flex-wrap:wrap;gap:0;margin-top:45px;font-size:.85rem;color:var(--text-secondary)}
+.hero-meta span+span:before {content:'·';padding:0 16px}
+.hero-showcase {border:1px solid var(--border-color);border-radius:14px;background:var(--card-bg);padding:14px;box-shadow:0 20px 60px rgba(16,20,30,.06);min-width:0}
+[data-theme="dark"] .hero-showcase {box-shadow:0 20px 60px rgba(0,0,0,.18)}
+.showcase-top {display:flex;gap:9px;align-items:center;font-size:10px;letter-spacing:.12em;font-weight:700;color:var(--text-secondary);padding:6px 7px 15px}
+.showcase-top span:last-child {margin-left:auto}
+.showcase-indicator {width:7px;height:7px;border-radius:50%;background:var(--primary-color)}
+.showcase-image {aspect-ratio:4/3;overflow:hidden;border-radius:8px;background:var(--bg-secondary);border:1px solid var(--border-color)}
+.showcase-image img {width:100%;height:100%;object-fit:cover;object-position:top}
+.showcase-bottom {padding:17px 7px 5px;display:flex;justify-content:space-between;gap:15px;align-items:center}
+.showcase-bottom strong {display:block;font-size:.95rem;color:var(--text-primary)}
+.showcase-bottom small {display:block;font-size:.78rem;color:var(--text-secondary);margin-top:3px}
+.showcase-bottom a {color:var(--primary-color);padding:8px}
+#projects article {border-radius:12px;transition:border-color .2s,transform .2s}
+#projects article:hover {border-color:var(--primary-color)!important;transform:translateY(-3px)}
+#projects article img {transition:transform .3s}
+#projects article:hover img {transform:scale(1.02)}
+#experience article,#skills .rounded-xl {border-radius:12px}
+@media(max-width:900px) {.hero-layout {grid-template-columns:1fr;gap:44px}.portfolio-hero {min-height:0;padding-top:115px}.hero-showcase {max-width:650px;width:100%}}
+@media(max-width:600px) {.hero-copy h1 {font-size:clamp(2.8rem,11vw,4rem)}.portfolio-hero {padding-bottom:58px}.hero-meta {margin-top:30px}.hero-layout {gap:30px}.showcase-image {aspect-ratio:16/10}}
