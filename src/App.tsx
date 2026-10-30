@@ -111,8 +111,8 @@ function App() {
                   <>
                     <Hero />
                     <About />
-                    <Experience />
                     <Projects />
+                    <Experience />
                     <Skills />
                     <GitHubStats username={profile.githubSnapshot.username} />
                     <Contact />
