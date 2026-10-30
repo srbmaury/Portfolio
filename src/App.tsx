@@ -25,6 +25,7 @@ import { ThemeProvider } from './providers/ThemeProvider';
 import { ModalProvider } from './contexts/ModalContext';
 import profile from './config/profile.json';
 import { trackPageView } from './utils/analytics';
+import { scrollToSection } from './utils/scrollToSection';
 
 const showCustomCursor = import.meta.env.VITE_HIDE_CUSTOM_CURSOR !== 'true';
 const showTerminal = import.meta.env.VITE_SHOW_TERMINAL === 'true';
@@ -65,7 +66,7 @@ const RouteScrollManager = () => {
   useEffect(() => {
     const frame = window.requestAnimationFrame(() => {
       if (hash) {
-        document.querySelector(hash)?.scrollIntoView({ behavior: 'smooth' });
+        scrollToSection(hash);
       } else {
         window.scrollTo({ top: 0 });
       }
