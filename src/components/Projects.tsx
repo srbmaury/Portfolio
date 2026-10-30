@@ -51,7 +51,7 @@ const Projects = () => {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.06 }}
               viewport={{ once: true }}
-              className="group flex flex-col overflow-hidden rounded-2xl border"
+              className="featured-project-card group flex flex-col overflow-hidden rounded-2xl border"
               style={{ borderColor: 'var(--border-color)', backgroundColor: 'var(--card-bg)' }}
             >
               <div className="relative overflow-hidden border-b" style={{ borderColor: 'var(--border-color)' }}>
@@ -59,24 +59,24 @@ const Projects = () => {
                   <LazyImage
                     src={project.image}
                     alt={project.title}
-                    className="h-52 w-full object-cover object-top"
+                    className="featured-project-image w-full object-cover object-top"
                     spinnerClassName="profile-spinner"
                     fallback={
-                      <div className="flex h-52 items-center justify-center" style={{ background: fallbackGradientMap[project.fallbackGradient] || defaultFallbackGradient }}>
+                      <div className="featured-project-image flex items-center justify-center" style={{ background: fallbackGradientMap[project.fallbackGradient] || defaultFallbackGradient }}>
                         <span className="text-5xl" aria-hidden="true">{project.fallbackIcon || '🚀'}</span>
                       </div>
                     }
                   />
                 ) : (
-                  <div className="flex h-52 items-center justify-center" style={{ background: fallbackGradientMap[project.fallbackGradient] || defaultFallbackGradient }}>
+                  <div className="featured-project-image flex items-center justify-center" style={{ background: fallbackGradientMap[project.fallbackGradient] || defaultFallbackGradient }}>
                     <span className="text-5xl" aria-hidden="true">{project.fallbackIcon || '🚀'}</span>
                   </div>
                 )}
               </div>
 
-              <div className="flex flex-1 flex-col p-6">
+              <div className="flex flex-1 flex-col p-5 sm:p-6">
                 <h3 className="mb-2 text-xl font-bold tracking-tight" style={{ color: 'var(--text-primary)' }}>{project.title}</h3>
-                <p className="mb-4 text-[15px] leading-relaxed" style={{ color: 'var(--text-secondary)' }}>{project.description}</p>
+                <p className="featured-project-description mb-4 text-[15px] leading-relaxed" style={{ color: 'var(--text-secondary)' }}>{project.description}</p>
 
                 <div className="mb-6 flex flex-wrap gap-2">
                   {project.technologies.slice(0, 5).map((tech) => (
@@ -91,7 +91,7 @@ const Projects = () => {
                   )}
                 </div>
 
-                <div className="mt-auto flex flex-wrap items-center gap-x-5 gap-y-2 text-sm font-medium">
+                <div className="featured-project-actions mt-auto flex flex-wrap items-center gap-x-5 gap-y-2 text-sm font-medium">
                   <button type="button" onClick={() => handleProjectClick(project)} className="inline-flex min-h-11 items-center gap-2" style={{ color: 'var(--primary-color)' }}>
                     <Info size={16} /> Project details
                   </button>
