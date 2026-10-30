@@ -12,12 +12,13 @@ import profile from '../config/profile.json';
 
 const hideBeginnerProjects = import.meta.env.VITE_HIDE_BEGINNER_PROJECTS === 'true';
 
-const categories = ['All', 'Developer tools', 'Web & data', 'Mobile', 'Earlier projects'] as const;
+const categories = ['All', 'Developer tools', 'AI & ML', 'Web & data', 'Mobile', 'Earlier projects'] as const;
 type Category = typeof categories[number];
 const categoryFor = (project: Project): Category => {
-  if (['ExitSense'].includes(project.title)) return 'Mobile';
-  if (['Developer Knowledge Base', 'Codeforces Filter'].includes(project.title)) return 'Developer tools';
-  if (['MERN Chat Application', 'Hackathon Portal', 'Store Management System'].includes(project.title)) return 'Web & data';
+  if (['ExitSense', 'RecallLater', 'NEET'].includes(project.title)) return 'Mobile';
+  if (['PR Blast Radius', 'Developer Knowledge Base', 'Codeforces Filter'].includes(project.title)) return 'Developer tools';
+  if (['Evalcue AI', 'Chess ML Coach', 'Ecommerce Search Engine'].includes(project.title)) return 'AI & ML';
+  if (['India Startup Map', 'Kindred Code', 'MERN Chat Application', 'Hackathon Portal', 'Store Management System'].includes(project.title)) return 'Web & data';
   return 'Earlier projects';
 };
 
