@@ -75,8 +75,8 @@ const Projects = () => {
               </div>
 
               <div className="flex flex-1 flex-col p-6">
-                <h3 className="mb-2 text-lg font-bold tracking-tight" style={{ color: 'var(--text-primary)' }}>{project.title}</h3>
-                <p className="mb-4 text-sm leading-relaxed" style={{ color: 'var(--text-secondary)' }}>{project.description}</p>
+                <h3 className="mb-2 text-xl font-bold tracking-tight" style={{ color: 'var(--text-primary)' }}>{project.title}</h3>
+                <p className="mb-4 text-[15px] leading-relaxed" style={{ color: 'var(--text-secondary)' }}>{project.description}</p>
 
                 <div className="mb-6 flex flex-wrap gap-2">
                   {project.technologies.slice(0, 5).map((tech) => (
