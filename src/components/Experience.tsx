@@ -9,7 +9,7 @@ const Experience = () => (
         <p className="section-subtitle">Engineering experience across enterprise platforms, payments, developer infrastructure, and observability.</p>
       </motion.div>
 
-      <div className="mx-auto max-w-4xl space-y-6">
+      <div className="career-timeline">
         {profile.experience.map((exp, index) => (
           <motion.article
             key={`${exp.company}-${exp.title}`}
@@ -17,11 +17,12 @@ const Experience = () => (
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: index * 0.08 }}
             viewport={{ once: true }}
-            className="rounded-2xl border p-6 md:p-8"
+            className="career-entry rounded-2xl border p-6 md:p-8"
             style={{ borderColor: 'var(--border-color)', backgroundColor: 'var(--card-bg)' }}
           >
             <div className="mb-5 flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
               <div>
+                <p className="career-step">0{index + 1} / {profile.experience.length}</p>
                 <h3 className="text-xl font-bold" style={{ color: 'var(--text-primary)' }}>{exp.company}</h3>
                 <p className="font-medium" style={{ color: 'var(--primary-color)' }}>{exp.title}</p>
               </div>
