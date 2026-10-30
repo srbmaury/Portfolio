@@ -25,16 +25,7 @@ interface CareerBotProps {
 const featuredProjectNames = projects.projects.filter((project) => project.featured).slice(0, 3).map((project) => project.title).join(', ');
 const currentRole = profile.experience[0];
 
-const INITIAL_MESSAGE =
-  `Hi there! This is ${profile.personalInfo.name}'s AI assistant.\n\n` +
-  "You can ask me about his experience, projects, technical skills, and background.\n\n" +
-  "Useful topics to explore:\n\n" +
-  `- His professional experience and current role at ${currentRole.company}\n\n` +
-  `- Projects he has built, including ${featuredProjectNames}\n\n` +
-  "- His technical skills and areas of expertise\n\n" +
-  "- How to connect or collaborate with him\n\n" +
-  "- His background and engineering journey\n\n" +
-  "What would you like to know?";
+const INITIAL_MESSAGE = `Hi! I'm ${profile.personalInfo.name}'s portfolio assistant.\n\nAsk me about his projects, experience, or technical background.`;
 
 const CareerBot: React.FC<CareerBotProps> = ({ className = '', isOpen: externalIsOpen, onClose: externalOnClose, onOpen: externalOnOpen }) => {
   const [internalIsOpen, setInternalIsOpen] = useState(false);
@@ -254,7 +245,7 @@ const CareerBot: React.FC<CareerBotProps> = ({ className = '', isOpen: externalI
         <button
           onClick={handleToggle}
           className={`chatter-launcher ${className}`}
-          aria-label={isOpen ? 'Close career bot' : 'Open career bot'}
+          aria-label={isOpen ? 'Close Chatter' : 'Open Chatter'}
         >
           {isOpen ? <X size={24} /> : <Bot size={24} />}
         </button>
@@ -274,7 +265,7 @@ const CareerBot: React.FC<CareerBotProps> = ({ className = '', isOpen: externalI
           }}
           role="dialog"
           aria-modal="true"
-          aria-label="Career chat window"
+          aria-label="Chatter assistant"
         >
           {/* Header */}
           <div className={`chatter-header p-4 ${isExpanded ? '' : 'rounded-t-lg'}`} role="banner">
@@ -307,7 +298,7 @@ const CareerBot: React.FC<CareerBotProps> = ({ className = '', isOpen: externalI
               </div>
             </div>
             <p className="text-sm text-[var(--text-secondary)] mt-1">
-              Questions about experience, projects & skills
+              Projects, work experience, and technical skills
             </p>
           </div>
 
