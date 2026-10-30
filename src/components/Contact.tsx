@@ -114,7 +114,7 @@ const Contact = () => {
             transition={{ duration: 0.8, delay: 0.2 }}
             viewport={{ once: true }}
           >
-            <h3 className="text-2xl font-bold mb-8 gradient-text">Contact details</h3>
+            <h3 className="text-xl font-bold mb-8 gradient-text">Contact details</h3>
             
             <div className="space-y-3 sm:space-y-6 mb-6 sm:mb-8">
               {contactInfo.map((info, index) => {
@@ -193,7 +193,7 @@ const Contact = () => {
             viewport={{ once: true }}
           >
             <div className="card">
-              <h3 className="text-2xl font-bold mb-6 gradient-text">Send a message</h3>
+              <h3 className="text-xl font-bold mb-6 gradient-text">Send a message</h3>
               
               {/* Status Messages */}
               {submitStatus === 'success' && (
