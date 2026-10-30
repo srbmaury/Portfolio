@@ -253,7 +253,7 @@ const CareerBot: React.FC<CareerBotProps> = ({ className = '', isOpen: externalI
       {!isProjectModalOpen && (
         <button
           onClick={handleToggle}
-          className={`fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white p-3 sm:p-4 rounded-full shadow-lg transition-all duration-300 hover:scale-110 ${className}`}
+          className={`chatter-launcher ${className}`}
           aria-label={isOpen ? 'Close career bot' : 'Open career bot'}
         >
           {isOpen ? <X size={24} /> : <Bot size={24} />}
@@ -263,10 +263,10 @@ const CareerBot: React.FC<CareerBotProps> = ({ className = '', isOpen: externalI
       {/* Chat Window */}
       {isOpen && !isProjectModalOpen && (
         <div
-          className={`fixed z-50 shadow-2xl border flex flex-col transition-all duration-300 ${
+          className={`chatter-panel fixed z-50 shadow-2xl border flex flex-col transition-all duration-300 ${
             isExpanded
               ? 'inset-0 rounded-none'
-              : 'bottom-20 left-0 right-0 mx-auto w-[calc(100vw-1rem)] max-w-[100vw] mx-2 h-[70vh] sm:bottom-24 sm:right-6 sm:left-auto sm:w-96 sm:max-w-[420px] sm:mx-0 sm:h-[500px] rounded-lg'
+              : 'bottom-20 left-2 right-2 w-auto h-[min(72vh,600px)] sm:bottom-24 sm:right-6 sm:left-auto sm:w-[400px] sm:max-w-[calc(100vw-3rem)] sm:h-[560px] rounded-xl'
           }`}
           style={{
             backgroundColor: 'var(--card-bg)',
@@ -277,11 +277,11 @@ const CareerBot: React.FC<CareerBotProps> = ({ className = '', isOpen: externalI
           aria-label="Career chat window"
         >
           {/* Header */}
-          <div className={`bg-gradient-to-r from-blue-600 to-purple-600 text-white p-4 ${isExpanded ? '' : 'rounded-t-lg'}`} role="banner">
+          <div className={`chatter-header p-4 ${isExpanded ? '' : 'rounded-t-lg'}`} role="banner">
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-2">
                 <Bot size={20} />
-                <h3 className="font-semibold">Ask About {profile.personalInfo.name.split(' ')[0]}</h3>
+                <h3 className="font-semibold">Chatter · Ask about {profile.personalInfo.name.split(' ')[0]}</h3>
               </div>
               <div className="flex items-center space-x-2">
                 <button
@@ -290,7 +290,7 @@ const CareerBot: React.FC<CareerBotProps> = ({ className = '', isOpen: externalI
                     trackCareerBotEvent(willBeExpanded ? 'expand' : 'minimize');
                     setIsExpanded(willBeExpanded);
                   }}
-                  className="hidden sm:block text-white/80 hover:text-white transition-colors"
+                  className="hidden sm:block text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors"
                   title={isExpanded ? "Minimize" : "Expand"}
                   aria-label={isExpanded ? "Minimize chat" : "Expand chat"}
                 >
@@ -298,7 +298,7 @@ const CareerBot: React.FC<CareerBotProps> = ({ className = '', isOpen: externalI
                 </button>
                 <button
                   onClick={clearChat}
-                  className="text-white/80 hover:text-white transition-colors"
+                  className="text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors"
                   title="Clear chat"
                   aria-label="Clear chat messages"
                 >
@@ -306,7 +306,7 @@ const CareerBot: React.FC<CareerBotProps> = ({ className = '', isOpen: externalI
                 </button>
               </div>
             </div>
-            <p className="text-sm text-white/90 mt-1">
+            <p className="text-sm text-[var(--text-secondary)] mt-1">
               Questions about experience, projects & skills
             </p>
           </div>
@@ -319,13 +319,13 @@ const CareerBot: React.FC<CareerBotProps> = ({ className = '', isOpen: externalI
                 className={`flex flex-col ${message.role === 'user' ? 'items-end' : 'items-start'}`}
               >
                 <div
-                  className={`max-w-[80%] max-w-full p-3 rounded-lg break-words ${message.role === 'user' ? 'text-white' : ''}`}
+                  className={`max-w-[80%] max-w-full p-3 rounded-lg break-words ${message.role === 'user' ? 'text-[var(--user-message-text)]' : ''}`}
                   style={{
                     backgroundColor: message.role === 'user'
                       ? 'var(--primary-color)'
                       : 'var(--tag-bg)',
                     color: message.role === 'user'
-                      ? 'white'
+                      ? 'var(--user-message-text)'
                       : 'var(--text-primary)',
                     wordBreak: 'break-word',
                     overflowWrap: 'anywhere',
@@ -341,7 +341,7 @@ const CareerBot: React.FC<CareerBotProps> = ({ className = '', isOpen: externalI
                         width: '100%',
                         userSelect: 'text',
                         cursor: 'text',
-                        color: message.role === 'user' ? 'white' : 'var(--text-primary)'
+                        color: message.role === 'user' ? 'var(--user-message-text)' : 'var(--text-primary)'
                       }}
                       tabIndex={0}
                     >
