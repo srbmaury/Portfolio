@@ -43,7 +43,7 @@ const Projects = () => {
           </p>
         </motion.div>
 
-        <div className="mb-14 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+        <div className="mb-14 grid gap-6 md:grid-cols-2">
           {featuredProjects.map((project, index) => (
             <motion.article
               key={project.title}
@@ -59,22 +59,22 @@ const Projects = () => {
                   <LazyImage
                     src={project.image}
                     alt={project.title}
-                    className="h-44 w-full object-cover object-top"
+                    className="h-52 w-full object-cover object-top"
                     spinnerClassName="profile-spinner"
                     fallback={
-                      <div className="flex h-44 items-center justify-center" style={{ background: fallbackGradientMap[project.fallbackGradient] || defaultFallbackGradient }}>
+                      <div className="flex h-52 items-center justify-center" style={{ background: fallbackGradientMap[project.fallbackGradient] || defaultFallbackGradient }}>
                         <span className="text-5xl" aria-hidden="true">{project.fallbackIcon || '🚀'}</span>
                       </div>
                     }
                   />
                 ) : (
-                  <div className="flex h-44 items-center justify-center" style={{ background: fallbackGradientMap[project.fallbackGradient] || defaultFallbackGradient }}>
+                  <div className="flex h-52 items-center justify-center" style={{ background: fallbackGradientMap[project.fallbackGradient] || defaultFallbackGradient }}>
                     <span className="text-5xl" aria-hidden="true">{project.fallbackIcon || '🚀'}</span>
                   </div>
                 )}
               </div>
 
-              <div className="flex flex-1 flex-col p-5">
+              <div className="flex flex-1 flex-col p-6">
                 <h3 className="mb-2 text-lg font-bold tracking-tight" style={{ color: 'var(--text-primary)' }}>{project.title}</h3>
                 <p className="mb-4 text-sm leading-relaxed" style={{ color: 'var(--text-secondary)' }}>{project.description}</p>
 
