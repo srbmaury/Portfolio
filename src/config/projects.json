@@ -140,7 +140,7 @@
       ],
       "liveUrl": "https://yaml-visualizer.netlify.app/",
       "githubUrl": "https://github.com/srbmaury/YAML-Visualizer",
-      "featured": true,
+      "featured": false,
       "demoType": "iframe",
       "demoUrl": "https://yaml-visualizer.netlify.app/"
     },
