@@ -2,7 +2,7 @@
   "projects": [
     {
       "title": "Chess ML Coach",
-      "description": "Personalized chess training platform combining Stockfish analysis, browser-side compute, player-specific ML, adaptive puzzles, and resumable hosted pipelines.",
+      "description": "A chess coach that analyzes your games, identifies recurring mistakes, and creates personalized practice with Stockfish and machine learning.",
       "image": "/images/ChessMLCoach.webp",
       "fallbackIcon": "♞",
       "fallbackGradient": "from-emerald-500 to-slate-800",
@@ -34,7 +34,7 @@
     },
     {
       "title": "Evalcue AI",
-      "description": "Technical interviewing platform for adaptive practice and structured hiring across coding, system design, debugging, and conversational interviews.",
+      "description": "An interview platform for practicing and assessing coding, system design, and debugging skills with structured feedback and evaluation.",
       "image": "/images/EvalcueAI.webp",
       "fallbackIcon": "🤖",
       "fallbackGradient": "from-cyan-400 to-blue-500",
@@ -66,7 +66,7 @@
     },
     {
       "title": "Ecommerce Search Engine",
-      "description": "Search and recommendation system combining PostgreSQL retrieval, Redis caching, personalized ranking, and ML-based learning-to-rank.",
+      "description": "An e-commerce search engine combining full-text retrieval, caching, and machine-learning-based ranking for more relevant product results.",
       "image": "/images/EcommerceSearch.webp",
       "fallbackIcon": "🛒",
       "fallbackGradient": "from-purple-400 to-pink-500",
@@ -97,7 +97,7 @@
     },
     {
       "title": "YAML Data Visualizer",
-      "description": "Collaborative developer tool for exploring large YAML structures through interactive visualization, realtime collaboration, diffing, and versioned workflows.",
+      "description": "Explore large YAML files visually, compare changes, and collaborate on configurations without getting lost in nested structures.",
       "image": "/images/YamlVisualizer.webp",
       "fallbackIcon": "🌳",
       "fallbackGradient": "from-blue-400 to-indigo-500",
@@ -128,7 +128,7 @@
     },
     {
       "title": "ExitSense",
-      "description": "A production-ready Android application that intelligently detects when you are leaving home and reminds you to take everything you need — without GPS or location permission.",
+      "description": "An Android app that detects when you're leaving home and reminds you what to bring, using device sensors rather than GPS.",
       "image": "/images/ExitSense.webp",
       "fallbackIcon": "🚪",
       "fallbackGradient": "from-amber-400 to-orange-500",
@@ -141,7 +141,7 @@
     },
     {
       "title": "Developer Knowledge Base",
-      "description": "A modern full-stack developer knowledge management platform, built for organizing coding notes, interview questions, and technical solutions. Features nested workspaces, markdown editing with live preview, AI-powered answer generation and much more.",
+      "description": "Organize technical notes, coding questions, and solutions in nested workspaces with Markdown editing, search, and optional AI assistance.",
       "image": "/images/DeveloperKnowledgeBase.webp",
       "fallbackIcon": "📚",
       "fallbackGradient": "from-violet-500 to-indigo-600",
@@ -176,7 +176,7 @@
     },
     {
       "title": "MERN Chat Application",
-      "description": "A real-time chat application built with MERN stack featuring JWT authentication, WhatsApp-like interface, and secure messaging capabilities. Includes user authentication and real-time communication.",
+      "description": "A real-time messaging app with user accounts, JWT authentication, and Socket.IO-powered conversations.",
       "image": "/images/MernChatApp.webp",
       "fallbackIcon": "💬",
       "fallbackGradient": "from-green-400 to-blue-500",
@@ -196,7 +196,7 @@
     },
     {
       "title": "Hackathon Portal",
-      "description": "A comprehensive platform for managing hackathons, teams, ideas, and participants. Built with the MERN stack, it enables seamless collaboration, team formation, idea submission, and event management in a structured and user-friendly interface.",
+      "description": "Manage hackathon teams, ideas, submissions, judging, and event workflows in one application.",
       "image": "/images/HackathonPortal.webp",
       "fallbackIcon": "🚀",
       "fallbackGradient": "from-orange-400 to-red-500",
@@ -220,7 +220,7 @@
     },
     {
       "title": "Store Management System",
-      "description": "A comprehensive store management application with inventory tracking, sales management, and reporting features. Built with modern JavaScript and responsive design.",
+      "description": "Track inventory, sales, and basic reports through a lightweight store management interface.",
       "image": "/images/StoreManagement.webp",
       "fallbackIcon": "🏪",
       "fallbackGradient": "from-teal-400 to-green-500",
@@ -240,7 +240,7 @@
     },
     {
       "title": "Kanban Board",
-      "description": "A project-management board with drag-and-drop task organization and a responsive workflow-focused interface.",
+      "description": "A drag-and-drop board for organizing tasks and tracking work across stages.",
       "image": "/images/KanbanBoard.webp",
       "fallbackIcon": "📋",
       "fallbackGradient": "from-sky-400 to-blue-600",
@@ -259,7 +259,7 @@
     },
     {
       "title": "Notes Application",
-      "description": "A feature-rich notes application with CRUD operations, search functionality, and markdown support.",
+      "description": "Create, edit, search, and organize notes with Markdown support.",
       "image": "/images/MagicNotes.webp",
       "fallbackIcon": "📝",
       "fallbackGradient": "from-yellow-400 to-orange-500",
@@ -279,7 +279,7 @@
     },
     {
       "title": "Quiz Application",
-      "description": "An interactive quiz application with multiple categories, scoring system, and result tracking. Features responsive design and user-friendly interface.",
+      "description": "Take category-based quizzes, receive scores, and review results.",
       "image": "/images/Quiz.webp",
       "fallbackIcon": "❓",
       "fallbackGradient": "from-red-400 to-pink-500",
@@ -299,7 +299,7 @@
     },
     {
       "title": "Tic Tac Toe Game",
-      "description": "A classic Tic Tac Toe game with AI opponent, score tracking, and smooth animations. Features both single-player and two-player modes.",
+      "description": "Play tic-tac-toe against a computer opponent or another player, with score tracking.",
       "image": "/images/TictacToe.webp",
       "fallbackIcon": "⭕",
       "fallbackGradient": "from-green-400 to-teal-500",
@@ -319,7 +319,7 @@
     },
     {
       "title": "Dictionary Application",
-      "description": "A comprehensive dictionary application with word definitions, pronunciations, and example usage. Integrates with external dictionary APIs.",
+      "description": "Look up definitions, pronunciations, and examples through a dictionary API.",
       "image": "/images/Dictionary.webp",
       "fallbackIcon": "📖",
       "fallbackGradient": "from-indigo-400 to-purple-500",
@@ -339,7 +339,7 @@
     },
     {
       "title": "Flappy Bird Game",
-      "description": "A recreation of the classic Flappy Bird game with smooth animations, score tracking, and responsive controls.",
+      "description": "A browser-based Flappy Bird recreation with responsive controls and score tracking.",
       "image": "/images/FlappyBird.webp",
       "fallbackIcon": "🐦",
       "fallbackGradient": "from-yellow-400 to-green-500",
@@ -359,7 +359,7 @@
     },
     {
       "title": "Codeforces Filter",
-      "description": "A chrome extension to filter and display blog entries from Codeforces users with specified minimum ratings and blog quality filters.",
+      "description": "A Chrome extension that filters Codeforces blog activity by user rating and other criteria.",
       "image": "/images/CodeforcesFilter.webp",
       "fallbackIcon": "🔍",
       "fallbackGradient": "from-gray-400 to-blue-500",
