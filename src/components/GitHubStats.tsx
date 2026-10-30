@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { Github, GitFork, Star } from 'lucide-react';
 import { API_ENDPOINTS } from '../config/api';
-import portfolioProfile from '../config/profile.json';
 import { trackSocialEvent } from '../utils/analytics';
 
 interface GitHubUser { login: string; name: string; bio: string; avatar_url: string; location: string; company: string; created_at: string; }
@@ -35,23 +34,8 @@ const selectedRepositoryFallbacks: GitHubRepository[] = [
   },
 ];
 
-const profileFallback: GitHubStatsResponse = {
-  user: {
-    login: portfolioProfile.githubSnapshot.username,
-    name: portfolioProfile.personalInfo.name,
-    bio: portfolioProfile.personalInfo.bio,
-    avatar_url: portfolioProfile.githubSnapshot.avatarUrl,
-    location: portfolioProfile.personalInfo.hometown,
-    company: portfolioProfile.githubSnapshot.company,
-    created_at: portfolioProfile.githubSnapshot.joinedAt,
-  },
-  stats: { totalStars: portfolioProfile.githubSnapshot.totalStars, totalRepos: portfolioProfile.githubSnapshot.repositories },
-  repos: selectedRepositoryFallbacks,
-};
-
 const GitHubStats: React.FC<GitHubStatsProps> = ({ username, className = '' }) => {
   const [data, setData] = useState<GitHubStatsResponse | null>(null);
-  const profile = data || profileFallback;
   // Always render every selected repository: live data enriches a card with
   // stars/forks, but a repo the API response omits still shows its local copy.
   const selectedRepos = selectedRepositoryNames.map((name) => {
@@ -88,33 +72,14 @@ const GitHubStats: React.FC<GitHubStatsProps> = ({ username, className = '' }) =
           </p>
         </motion.div>
 
-        <div className="mx-auto max-w-5xl">
-          <div className="mb-6 flex flex-col gap-5 rounded-xl border p-5 sm:flex-row sm:items-center sm:justify-between" style={{ borderColor: 'var(--border-color)', backgroundColor: 'var(--card-bg)' }}>
-            <div className="flex items-center gap-4">
-              <img src={profile.user.avatar_url} alt={profile.user.name || username} className="h-14 w-14 rounded-full object-cover" />
-              <div>
-                <h3 className="font-semibold" style={{ color: 'var(--text-primary)' }}>{profile.user.name || username}</h3>
-                <p className="text-sm" style={{ color: 'var(--text-secondary)' }}>Source code, experiments, and smaller tools.</p>
-              </div>
-            </div>
-            <div className="flex items-center gap-5 sm:gap-6">
-              <div className="text-center">
-                <strong className="block text-xl leading-tight" style={{ color: 'var(--primary-color)' }}>{data ? profile.stats.totalRepos : "—"}</strong>
-                <span className="text-xs" style={{ color: 'var(--text-secondary)' }}>{data ? "Repositories" : "Live count unavailable"}</span>
-              </div>
-              <div className="text-center">
-                <strong className="block text-xl leading-tight" style={{ color: '#f59e0b' }}>{data ? profile.stats.totalStars : "—"}</strong>
-                <span className="text-xs" style={{ color: 'var(--text-secondary)' }}>{data ? "Total stars" : "Live count unavailable"}</span>
-              </div>
-              <a href={`https://github.com/${username}`} target="_blank" rel="noopener noreferrer" className="btn btn-secondary whitespace-nowrap" onClick={() => trackSocialEvent('GitHub')}>
-                <Github size={18} /> GitHub profile
-              </a>
-            </div>
+        <div className="github-curated">
+          <div className="github-curated-header">
+            <p>Selected repositories beyond the featured projects</p>
+            <a href={`https://github.com/${username}`} target="_blank" rel="noopener noreferrer" className="btn btn-secondary" onClick={() => trackSocialEvent('GitHub')}><Github size={17} /> View GitHub profile</a>
           </div>
-
-          <div className="grid gap-4 md:grid-cols-3">
+          <div className="github-curated-grid grid gap-4 md:grid-cols-3">
             {selectedRepos.map((repo, index) => (
-              <motion.a key={repo.html_url} href={repo.html_url} target="_blank" rel="noopener noreferrer" initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.45, delay: index * 0.06 }} viewport={{ once: true }} onClick={() => trackSocialEvent('GitHub')} className="rounded-xl border p-5 transition-transform hover:-translate-y-1" style={{ borderColor: 'var(--border-color)', backgroundColor: 'var(--card-bg)' }}>
+              <motion.a key={repo.html_url} href={repo.html_url} target="_blank" rel="noopener noreferrer" initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.45, delay: index * 0.06 }} viewport={{ once: true }} onClick={() => trackSocialEvent('GitHub')} className="github-repo-card rounded-xl border p-5 transition-transform hover:-translate-y-1" style={{ borderColor: 'var(--border-color)', backgroundColor: 'var(--card-bg)' }}>
                 <div className="mb-3 flex items-start justify-between gap-3">
                   <h3 className="font-semibold" style={{ color: 'var(--text-primary)' }}>{repo.name}</h3>
                   <Github size={17} style={{ color: 'var(--primary-color)' }} />
