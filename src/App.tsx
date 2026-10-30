@@ -46,7 +46,7 @@ const CareerBotLoading = ({ onClose }: { onClose: () => void }) => (
       <button
         type="button"
         onClick={onClose}
-        className="rounded p-1 text-white/80 transition-colors hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-white"
+        className="rounded p-1 text-[var(--text-secondary)] transition-colors hover:text-[var(--text-primary)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--primary-color)]"
         aria-label="Cancel opening career bot"
       >
         <X size={20} />
