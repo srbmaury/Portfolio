@@ -276,7 +276,7 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, project })
             animate={{ scale: 1, opacity: 1, y: 0 }}
             exit={{ scale: 0.9, opacity: 0, y: 20 }}
             transition={{ type: "spring", damping: 25, stiffness: 300 }}
-            className="rounded-xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-hidden"
+            className="case-study-modal rounded-xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-hidden"
             style={{ backgroundColor: 'var(--card-bg)' }}
           >
             {/* Header */}
@@ -304,6 +304,7 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, project })
 
             {/* Content */}
             <div className="p-6 overflow-y-auto max-h-[calc(90vh-140px)]">
+              <section className="case-study-summary" aria-label="Project overview"><span className="case-study-kicker">THE PROJECT</span><h3>What it does</h3><p>{project.description}</p></section>
               {/* Demo Section */}
               <div className="mb-6">
                 <div className="flex items-center justify-between mb-4">
@@ -364,7 +365,7 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, project })
               {/* Technologies */}
               {project.systemFlow && (
                 <div className="mb-6">
-                  <h3 className="text-lg font-semibold mb-3" style={{ color: 'var(--text-primary)' }}>How It Works</h3>
+                  <h3 className="text-lg font-semibold mb-3" style={{ color: 'var(--text-primary)' }}>How it works</h3>
                   <ol className="flex flex-wrap items-center gap-2 text-sm" style={{ color: 'var(--text-secondary)' }}>
                     {project.systemFlow.map((step, index) => (
                       <li key={step} className="inline-flex items-center gap-2">
@@ -383,11 +384,7 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, project })
                     <span
                       key={index}
                       className="px-3 py-1 text-sm rounded-full font-medium"
-                      style={{
-                        backgroundColor: 'var(--primary-color)',
-                        color: 'white',
-                        opacity: 0.9
-                      }}
+                      style={{ backgroundColor: 'var(--tag-bg)', color: 'var(--text-primary)' }}
                     >
                       {tech}
                     </span>
@@ -397,13 +394,9 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, project })
 
               {/* Features/Details */}
               <div>
-                <h3 className="text-lg font-semibold mb-3" style={{ color: 'var(--text-primary)' }}>Implementation notes</h3>
+                <h3 className="text-lg font-semibold mb-3" style={{ color: 'var(--text-primary)' }}>Engineering decisions & implementation</h3>
                 <ul className="space-y-2" style={{ color: 'var(--text-secondary)' }}>
-                  {(project.highlights || [
-                    'Responsive design across device sizes',
-                    'Modern UI with performance-conscious implementation',
-                    'Clean, maintainable code structure',
-                  ]).map((highlight) => (
+                  {(project.highlights && project.highlights.length > 0 ? project.highlights : [project.description]).map((highlight) => (
                     <li key={highlight} className="flex items-start gap-2">
                       <div className="w-2 h-2 rounded-full mt-2 flex-shrink-0" style={{ backgroundColor: 'var(--primary-color)' }}></div>
                       <span>{highlight}</span>
