@@ -31,13 +31,13 @@ const showTerminal = import.meta.env.VITE_SHOW_TERMINAL === 'true';
 
 const CareerBotLoading = ({ onClose }: { onClose: () => void }) => (
   <div
-    className="fixed bottom-20 left-2 right-2 z-50 flex h-[70vh] max-h-[500px] flex-col overflow-hidden rounded-lg border shadow-2xl sm:bottom-24 sm:left-auto sm:right-6 sm:h-[500px] sm:w-96"
+    className="chatter-panel fixed bottom-20 left-2 right-2 z-50 flex h-[70vh] max-h-[500px] flex-col overflow-hidden rounded-lg border shadow-2xl sm:bottom-24 sm:left-auto sm:right-6 sm:h-[500px] sm:w-96"
     style={{ backgroundColor: 'var(--card-bg)', borderColor: 'var(--border-color)' }}
     role="dialog"
     aria-modal="true"
     aria-label="Starting career assistant"
   >
-    <div className="flex items-center justify-between bg-gradient-to-r from-blue-600 to-purple-600 p-4 text-white">
+    <div className="chatter-header flex items-center justify-between p-4">
       <div className="flex items-center gap-2">
         <Bot size={20} />
         <span className="font-semibold">Starting assistant</span>
