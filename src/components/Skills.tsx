@@ -12,18 +12,18 @@ const Skills = () => (
         <p className="section-subtitle">Technologies I’ve used across work and personal projects.</p>
       </motion.div>
 
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+      <div className="skills-grid grid gap-3 md:grid-cols-2 lg:grid-cols-3">
         {profile.skillCategories.map((category, index) => {
           const Icon = skillIcons[category.icon as keyof typeof skillIcons] || Code;
           return (
-            <motion.div key={category.title} initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.45, delay: index * 0.05 }} viewport={{ once: true }} className="rounded-xl border p-5" style={{ borderColor: 'var(--border-color)', backgroundColor: 'var(--card-bg)' }}>
-              <div className="mb-4 flex items-center gap-3">
+            <motion.div key={category.title} initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.45, delay: index * 0.05 }} viewport={{ once: true }} className="skill-card rounded-xl border p-4 sm:p-5" style={{ borderColor: 'var(--border-color)', backgroundColor: 'var(--card-bg)' }}>
+              <div className="mb-3 flex items-center gap-3">
                 <Icon size={20} style={{ color: 'var(--primary-color)' }} />
                 <h3 className="font-semibold" style={{ color: 'var(--text-primary)' }}>{category.title}</h3>
               </div>
               <div className="flex flex-wrap gap-2">
                 {category.skills.map((skill) => (
-                  <span key={skill} className="rounded-md px-2.5 py-1.5 text-sm" style={{ backgroundColor: 'var(--tag-bg)', color: 'var(--text-secondary)' }}>{skill}</span>
+                  <span key={skill} className="rounded-md px-2.5 py-1 text-[13px]" style={{ backgroundColor: 'var(--tag-bg)', color: 'var(--text-secondary)' }}>{skill}</span>
                 ))}
               </div>
             </motion.div>
