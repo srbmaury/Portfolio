@@ -593,3 +593,22 @@ section[aria-label="Featured engineering work"] .section-subtitle {max-width:690
 .showcase-buttons button {min-width:40px;min-height:40px}
 #projects .group h3,#projects .group p {overflow-wrap:break-word}
 @media(max-width:900px){.hero-layout{grid-template-columns:minmax(0,1fr)}}
+
+/* Project discovery and engineering case-study layouts */
+.archive-filters{display:flex;flex-wrap:wrap;gap:9px;margin:10px 0 16px}
+.archive-filters button{display:inline-flex;align-items:center;gap:9px;border:1px solid var(--border-color);background:var(--card-bg);color:var(--text-secondary);border-radius:999px;padding:10px 15px;font-size:.87rem;font-weight:600;transition:border-color .2s,background .2s,color .2s}
+.archive-filters button span{font-size:.75rem;opacity:.7}
+.archive-filters button.active{background:var(--tag-bg);color:var(--text-primary);border-color:var(--primary-color)}
+.archive-filters button:hover{border-color:var(--primary-color)}
+.archive-filters button:focus-visible{outline:2px solid var(--primary-color);outline-offset:3px}
+.archive-count{margin:0 0 23px;color:var(--text-secondary);font-size:.85rem}
+.career-timeline{position:relative;max-width:940px;margin:0 auto;padding-left:36px;display:grid;gap:22px}
+.career-timeline::before{content:"";position:absolute;left:11px;top:20px;bottom:25px;width:2px;background:var(--border-color)}
+.career-entry{position:relative;box-shadow:none!important}
+.career-entry::before{content:"";position:absolute;left:-32px;top:29px;width:12px;height:12px;border-radius:50%;background:var(--primary-color);box-shadow:0 0 0 5px var(--bg-secondary)}
+.career-step{font-size:.7rem;letter-spacing:.12em;color:var(--text-secondary);font-weight:700;margin-bottom:8px}
+.case-study-modal .case-study-summary{padding:22px 24px;margin-bottom:24px;background:var(--bg-secondary);border:1px solid var(--border-color);border-radius:12px}
+.case-study-kicker{display:block;color:var(--primary-color);font-size:.7rem;font-weight:700;letter-spacing:.12em;margin-bottom:7px}
+.case-study-summary h3{font-size:1.2rem;font-weight:700;letter-spacing:-.02em;color:var(--text-primary);margin-bottom:8px}
+.case-study-summary p{font-size:.95rem;color:var(--text-secondary);line-height:1.75}
+@media(max-width:640px){.career-timeline{padding-left:25px}.career-timeline::before{left:5px}.career-entry::before{left:-26px;width:10px;height:10px}.archive-filters{gap:7px}.archive-filters button{padding:9px 12px;font-size:.82rem}.case-study-modal .case-study-summary{padding:16px}}
