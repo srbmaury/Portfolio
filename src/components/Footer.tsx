@@ -1,89 +1,16 @@
-import { motion } from 'framer-motion';
+import { Github, Linkedin, ArrowUpRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import profile from '../config/profile.json';
-
-const Footer = () => {
-  return (
-    <footer style={{ backgroundColor: 'var(--bg-dark)', color: 'var(--footer-text-primary)' }}>
-      <div className="container mx-auto px-4 py-12">
-        <div className="grid md:grid-cols-3 gap-8 items-center">
-          {/* Logo and Description */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="text-center md:text-left"
-          >
-            <h3 className="text-2xl font-bold gradient-text mb-4">{profile.personalInfo.name}</h3>
-            <p className="leading-relaxed" style={{ color: 'var(--footer-text-secondary)' }}>
-              {profile.personalInfo.bio}
-            </p>
-          </motion.div>
-
-          {/* Quick Links */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            viewport={{ once: true }}
-            className="pt-10 text-center"
-          >
-            <h4 className="text-lg font-semibold mb-4" style={{ color: 'var(--footer-text-primary)' }}>Quick Links</h4>
-            <div className="space-y-2">
-              {['Home', 'About', 'Skills', 'Projects', 'Contact'].map((link) => (
-                <div key={link}>
-                  <Link
-                    to={`/#${link.toLowerCase()}`}
-                    className="inline-block transition-colors duration-200"
-                    style={{ color: 'var(--footer-text-secondary)' }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.color = 'var(--footer-text-primary)';
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.color = 'var(--footer-text-secondary)';
-                    }}
-                  >
-                    {link}
-                  </Link>
-                </div>
-              ))}
-            </div>
-          </motion.div>
-
-          {/* Contact Info */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-            viewport={{ once: true }}
-            className="text-center md:text-right"
-          >
-            <h4 className="text-lg font-semibold mb-4" style={{ color: 'var(--footer-text-primary)' }}>Contact</h4>
-            <div className="space-y-2" style={{ color: 'var(--footer-text-secondary)' }}>
-              <p><a href={`mailto:${profile.personalInfo.email}`} className="hover:underline">{profile.personalInfo.email}</a></p>
-              <p>{profile.personalInfo.location}</p>
-            </div>
-          </motion.div>
-        </div>
-
-        {/* Divider */}
-        <div className="border-t my-8" style={{ borderColor: 'var(--border-color)' }}></div>
-
-        {/* Bottom Section */}
-        <motion.p
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ duration: 0.8, delay: 0.6 }}
-          viewport={{ once: true }}
-          className="text-center"
-          style={{ color: 'var(--footer-text-secondary)' }}
-        >
-          © {new Date().getFullYear()} {profile.personalInfo.name}
-        </motion.p>
-      </div>
-    </footer>
-  );
-};
-
-export default Footer;
+const links = [{label:'Home',href:'#home'},{label:'About',href:'#about'},{label:'Projects',href:'#projects'},{label:'Experience',href:'#experience'},{label:'Toolkit',href:'#skills'},{label:'GitHub',href:'#github'},{label:'Contact',href:'#contact'}];
+export default function Footer(){
+return <footer className="portfolio-footer">
+  <div className="container">
+    <div className="footer-main">
+      <div className="footer-identity"><h2>{profile.personalInfo.name}</h2><p>Building useful software, developer tools, and backend systems.</p><span>{profile.personalInfo.location}</span></div>
+      <nav className="footer-links" aria-label="Footer navigation"><h3>Explore</h3><div>{links.map(link=><Link key={link.href} to={'/'+link.href}>{link.label}</Link>)}</div></nav>
+      <div className="footer-connect"><h3>Get in touch</h3><a className="footer-email" href={'mailto:'+profile.personalInfo.email}>{profile.personalInfo.email}<ArrowUpRight size={17}/></a><div className="footer-social"><a href={profile.personalInfo.github} target="_blank" rel="noopener noreferrer" aria-label="GitHub"><Github size={20}/></a><a href={profile.personalInfo.linkedin} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><Linkedin size={20}/></a></div></div>
+    </div>
+    <div className="footer-bottom"><span>© {new Date().getFullYear()} {profile.personalInfo.name}</span><span>Designed to be useful, not flashy.</span></div>
+  </div>
+</footer>
+}
