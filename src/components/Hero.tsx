@@ -1,64 +1,109 @@
-import { motion } from 'framer-motion';
-import { ArrowDown, Code2, Eye, Github } from 'lucide-react';
-import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { ArrowDown, ArrowRight, ArrowUpRight, ChevronLeft, ChevronRight, Eye, Github, Pause, Play } from 'lucide-react';
+import { useEffect, useState } from 'react';
 import { trackHeroEvent } from '../utils/analytics';
+import { scrollToSection } from '../utils/scrollToSection';
 import profile from '../config/profile.json';
+import projectsData from '../config/projects.json';
 import ResumeViewer from './ResumeViewer';
 
 const showResume = import.meta.env.VITE_SHOW_RESUME === 'true' && Boolean(import.meta.env.VITE_RESUME_URL);
-
-const Hero = () => {
+const ROTATION_MS = 6000;
+const featuredWork = projectsData.projects.filter(
+  (project) => project.featured && (project.liveUrl || project.githubUrl)
+).sort((a, b) => (a.featuredOrder ?? Number.MAX_SAFE_INTEGER) - (b.featuredOrder ?? Number.MAX_SAFE_INTEGER));
+export default function Hero() {
   const [isResumeOpen, setIsResumeOpen] = useState(false);
-  const scrollToAbout = () => document.querySelector('#about')?.scrollIntoView({ behavior: 'smooth' });
+  const [selectedIndex, setSelectedIndex] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
+  const [isInteracting, setIsInteracting] = useState(false);
+  const [reduceMotion, setReduceMotion] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
+
+  useEffect(() => {
+    const query = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const update = () => setReduceMotion(query.matches);
+    update();
+    query.addEventListener('change', update);
+    return () => query.removeEventListener('change', update);
+  }, []);
+
+  useEffect(() => {
+    const onVisibilityChange = () => setIsVisible(!document.hidden);
+    document.addEventListener('visibilitychange', onVisibilityChange);
+    onVisibilityChange();
+    return () => document.removeEventListener('visibilitychange', onVisibilityChange);
+  }, []);
+
+  useEffect(() => {
+    if (isPaused || isInteracting || reduceMotion || !isVisible || featuredWork.length < 2) return;
+    const id = window.setInterval(() => setSelectedIndex((index) => (index + 1) % featuredWork.length), ROTATION_MS);
+    return () => window.clearInterval(id);
+  }, [isPaused, isInteracting, reduceMotion, isVisible, selectedIndex]);
+
+  const currentProject = featuredWork[selectedIndex];
+  const projectUrl = currentProject?.liveUrl || currentProject?.githubUrl;
 
   return (
-    <section id="home" className="relative flex min-h-screen items-center overflow-hidden pt-16" style={{ background: 'linear-gradient(145deg, var(--bg-secondary), var(--bg-primary) 55%, var(--bg-secondary))' }} role="region" aria-label="Introduction">
-      <div className="container relative z-10">
-        <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }} className="mx-auto max-w-4xl text-center">
-          <p className="mb-5 text-sm font-semibold uppercase tracking-[0.28em]" style={{ color: 'var(--primary-color)' }}>Software Engineer</p>
-          <h1 className="mb-6 text-5xl font-bold tracking-tight md:text-7xl">
-            <span className="gradient-text">{profile.personalInfo.name}</span>
-          </h1>
-          <h2 className="mb-6 text-xl font-medium md:text-2xl" style={{ color: 'var(--text-secondary)' }}>
-            Distributed Systems <span aria-hidden="true">•</span> Developer Tools <span aria-hidden="true">•</span> AI Products
-          </h2>
-          <p className="mx-auto mb-10 max-w-3xl text-base leading-8 md:text-lg" style={{ color: 'var(--text-secondary)' }}>
-            Building scalable backend systems, developer infrastructure, and AI-powered products. Exploring open source, system design, performance engineering, and continuous learning.
-          </p>
-
-          <div className="mb-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
-            <a href="#projects" className="btn btn-primary" onClick={() => trackHeroEvent('cta_click', 'view_projects')}>
-              <Code2 size={19} /> <span>Explore My Work</span>
-            </a>
-            {showResume && (
-              <button type="button" className="btn btn-secondary" onClick={() => { trackHeroEvent('cta_click', 'view_resume'); setIsResumeOpen(true); }}>
-                <Eye size={19} /> <span>Resume</span>
-              </button>
-            )}
-            <a href={profile.personalInfo.github} target="_blank" rel="noopener noreferrer" className="btn btn-secondary" onClick={() => trackHeroEvent('github_click', 'hero')}>
-              <Github size={19} /> <span>GitHub</span>
-            </a>
+    <section id="home" className="portfolio-hero" aria-label="Introduction">
+      <div className="container hero-layout">
+        <motion.div initial={{opacity:0,y:15}} animate={{opacity:1,y:0}} transition={{duration:.5}} className="hero-copy">
+          <p className="eyebrow">SOFTWARE ENGINEER AT SALESFORCE</p>
+          <p className="hero-name">{profile.personalInfo.name}</p>
+          <h1>Building software<br/>that makes complex<br/>things <span>simpler.</span></h1>
+          <p className="hero-intro">I work on backend systems, developer tools, and applications where performance and reliability matter. Outside work, I turn ideas into open-source projects.</p>
+          <div className="hero-actions">
+            <a href="#projects" className="btn btn-primary" onClick={(event) => { event.preventDefault(); trackHeroEvent('cta_click','view_projects'); scrollToSection('#projects'); }}>Explore projects <ArrowRight size={17}/></a>
+            <a href={profile.personalInfo.github} target="_blank" rel="noopener noreferrer" className="btn btn-secondary" onClick={() => trackHeroEvent('github_click','hero')}><Github size={17}/> GitHub</a>
+            {showResume && <button type="button" className="btn btn-secondary" onClick={()=>{trackHeroEvent('cta_click','view_resume');setIsResumeOpen(true);}}><Eye size={17}/> Resume</button>}
           </div>
-
-          <div className="flex flex-wrap justify-center gap-x-5 gap-y-2 text-sm font-medium" style={{ color: 'var(--text-secondary)' }} aria-label="Career highlights">
-            <span>Salesforce</span><span aria-hidden="true">•</span><span>Razorpay</span><span aria-hidden="true">•</span><span>IIT BHU</span>
-          </div>
-
-          <button type="button" onClick={scrollToAbout} className="mt-12 inline-flex flex-col items-center gap-2 text-sm transition-colors hover:text-[var(--primary-color)]" style={{ color: 'var(--text-secondary)' }}>
-            <span>Know more about me</span>
-            <motion.span animate={{ y: [0, 7, 0] }} transition={{ duration: 2, repeat: Infinity }}><ArrowDown size={20} /></motion.span>
-          </button>
+          <div className="hero-meta"><span>Salesforce</span><span>Razorpay</span><span>IIT BHU</span></div>
         </motion.div>
+        {currentProject && projectUrl && (
+          <motion.div className="hero-showcase" initial={{opacity:0,y:18}} animate={{opacity:1,y:0}} transition={{duration:.6,delay:.15}} aria-label="Selected work carousel"
+            onMouseEnter={() => setIsInteracting(true)} onMouseLeave={() => setIsInteracting(false)}
+            onFocusCapture={() => setIsInteracting(true)} onBlurCapture={(event) => { if (!event.currentTarget.contains(event.relatedTarget)) setIsInteracting(false); }}>
+            <div className="showcase-top"><span className="showcase-indicator"/><span>SELECTED WORK</span><span>{String(selectedIndex + 1).padStart(2,'0')} / {String(featuredWork.length).padStart(2,'0')}</span></div>
+            <a className="showcase-project-link" href={projectUrl} target="_blank" rel="noopener noreferrer" aria-label={`Open ${currentProject.title} ${currentProject.liveUrl ? 'live website' : 'source code'} in a new tab`}>
+              <div className="showcase-image">
+                <AnimatePresence mode="wait" initial={false}>
+                  {currentProject.image ? (
+                    <motion.img key={currentProject.title} src={currentProject.image} alt={`Screenshot of ${currentProject.title}`} loading={selectedIndex === 0 ? 'eager' : 'lazy'}
+                      initial={reduceMotion ? false : {opacity:0}} animate={{opacity:1}} exit={reduceMotion ? undefined : {opacity:0}}
+                      transition={{duration:reduceMotion ? 0 : .3}}/>
+                  ) : (
+                    <motion.div key={currentProject.title} className="showcase-empty-preview"
+                      initial={reduceMotion ? false : {opacity:0}} animate={{opacity:1}} exit={reduceMotion ? undefined : {opacity:0}}
+                      transition={{duration:reduceMotion ? 0 : .3}}>
+                      <span className="showcase-preview-label">PROJECT PREVIEW</span>
+                      <strong>{currentProject.title}</strong>
+                      <small>{currentProject.description}</small>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+              <div className="showcase-bottom">
+                <div><strong>{currentProject.title}</strong><small>{currentProject.technologies.slice(0,3).join(' · ')}</small></div>
+                <span className="showcase-open-label">{currentProject.liveUrl ? 'Open live site' : 'View source'}<ArrowUpRight size={16} aria-hidden="true" /></span>
+              </div>
+            </a>
+            {featuredWork.length > 1 && (
+              <div className="showcase-controls" aria-label="Choose showcased project">
+                <div className="showcase-dots">{featuredWork.map((project,index)=><button type="button" key={project.title} aria-label={`Show ${project.title}`} aria-current={index===selectedIndex ? 'true' : undefined} className={index===selectedIndex ? 'active' : ''} onClick={()=>setSelectedIndex(index)}/>)}</div>
+                <div className="showcase-buttons">
+                  <button type="button" aria-label="Previous project" onClick={()=>setSelectedIndex(i=>(i+featuredWork.length-1)%featuredWork.length)}><ChevronLeft size={17}/></button>
+                  <button type="button" aria-label={isPaused ? 'Resume project rotation' : 'Pause project rotation'} aria-pressed={isPaused} onClick={()=>setIsPaused((paused)=>!paused)}>{isPaused ? <Play size={15}/> : <Pause size={15}/>}</button>
+                  <button type="button" aria-label="Next project" onClick={()=>setSelectedIndex(i=>(i+1)%featuredWork.length)}><ChevronRight size={17}/></button>
+                </div>
+              </div>
+            )}
+          </motion.div>
+        )}
       </div>
-
-      <div className="pointer-events-none absolute inset-0 opacity-40" aria-hidden="true">
-        <div className="absolute -right-40 -top-40 h-96 w-96 rounded-full blur-3xl" style={{ backgroundColor: 'var(--primary-color)', opacity: 0.12 }} />
-        <div className="absolute -bottom-48 -left-48 h-96 w-96 rounded-full blur-3xl" style={{ backgroundColor: 'var(--accent-color)', opacity: 0.1 }} />
-      </div>
-
-      {showResume && <ResumeViewer isOpen={isResumeOpen} onClose={() => setIsResumeOpen(false)} />}
+      {showResume && <ResumeViewer isOpen={isResumeOpen} onClose={()=>setIsResumeOpen(false)} />}
+      <button type="button" className="hero-scroll-cue" onClick={() => { trackHeroEvent('cta_click', 'about'); scrollToSection('#about'); }} aria-label="Get to know me">
+        <span>GET TO KNOW ME</span><ArrowDown size={15} aria-hidden="true" />
+      </button>
     </section>
   );
-};
-
-export default Hero;
+}

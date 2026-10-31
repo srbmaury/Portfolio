@@ -31,7 +31,7 @@ const LazyImage: React.FC<LazyImageProps> = ({
                     }
                 }}
                 {...props}
-                className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                className={`w-full h-full ${className.includes('image-contain') ? 'object-contain' : 'object-cover'} transition-transform duration-300 group-hover:scale-105`}
                 style={{ ...(props.style || {}) }}
             />
             {loading && (

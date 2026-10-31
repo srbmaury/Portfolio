@@ -7,7 +7,6 @@ import { API_ENDPOINTS } from '../config/api';
 import { useModal } from '../hooks/useModal';
 import { trackCareerBotEvent } from '../utils/analytics';
 import profile from '../config/profile.json';
-import projects from '../config/projects.json';
 
 interface Message {
   role: 'user' | 'assistant';
@@ -22,19 +21,7 @@ interface CareerBotProps {
   onOpen?: () => void;
 }
 
-const featuredProjectNames = projects.projects.filter((project) => project.featured).slice(0, 3).map((project) => project.title).join(', ');
-const currentRole = profile.experience[0];
-
-const INITIAL_MESSAGE =
-  `Hi there! This is ${profile.personalInfo.name}'s AI assistant.\n\n` +
-  "You can ask me about his experience, projects, technical skills, and background.\n\n" +
-  "Useful topics to explore:\n\n" +
-  `- His professional experience and current role at ${currentRole.company}\n\n` +
-  `- Projects he has built, including ${featuredProjectNames}\n\n` +
-  "- His technical skills and areas of expertise\n\n" +
-  "- How to connect or collaborate with him\n\n" +
-  "- His background and engineering journey\n\n" +
-  "What would you like to know?";
+const INITIAL_MESSAGE = `Hi! I'm ${profile.personalInfo.name}'s portfolio assistant.\n\nAsk me about his projects, experience, or technical background.`;
 
 const CareerBot: React.FC<CareerBotProps> = ({ className = '', isOpen: externalIsOpen, onClose: externalOnClose, onOpen: externalOnOpen }) => {
   const [internalIsOpen, setInternalIsOpen] = useState(false);
@@ -253,8 +240,8 @@ const CareerBot: React.FC<CareerBotProps> = ({ className = '', isOpen: externalI
       {!isProjectModalOpen && (
         <button
           onClick={handleToggle}
-          className={`fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white p-3 sm:p-4 rounded-full shadow-lg transition-all duration-300 hover:scale-110 ${className}`}
-          aria-label={isOpen ? 'Close career bot' : 'Open career bot'}
+          className={`chatter-launcher ${className}`}
+          aria-label={isOpen ? 'Close Chatter' : 'Open Chatter'}
         >
           {isOpen ? <X size={24} /> : <Bot size={24} />}
         </button>
@@ -263,10 +250,10 @@ const CareerBot: React.FC<CareerBotProps> = ({ className = '', isOpen: externalI
       {/* Chat Window */}
       {isOpen && !isProjectModalOpen && (
         <div
-          className={`fixed z-50 shadow-2xl border flex flex-col transition-all duration-300 ${
+          className={`chatter-panel fixed z-50 shadow-2xl border flex flex-col transition-all duration-300 ${
             isExpanded
               ? 'inset-0 rounded-none'
-              : 'bottom-20 left-0 right-0 mx-auto w-[calc(100vw-1rem)] max-w-[100vw] mx-2 h-[70vh] sm:bottom-24 sm:right-6 sm:left-auto sm:w-96 sm:max-w-[420px] sm:mx-0 sm:h-[500px] rounded-lg'
+              : 'bottom-20 left-2 right-2 w-auto h-[min(72vh,600px)] sm:bottom-24 sm:right-6 sm:left-auto sm:w-[400px] sm:max-w-[calc(100vw-3rem)] sm:h-[560px] rounded-xl'
           }`}
           style={{
             backgroundColor: 'var(--card-bg)',
@@ -274,14 +261,14 @@ const CareerBot: React.FC<CareerBotProps> = ({ className = '', isOpen: externalI
           }}
           role="dialog"
           aria-modal="true"
-          aria-label="Career chat window"
+          aria-label="Chatter assistant"
         >
           {/* Header */}
-          <div className={`bg-gradient-to-r from-blue-600 to-purple-600 text-white p-4 ${isExpanded ? '' : 'rounded-t-lg'}`} role="banner">
+          <div className={`chatter-header p-4 ${isExpanded ? '' : 'rounded-t-lg'}`} role="banner">
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-2">
                 <Bot size={20} />
-                <h3 className="font-semibold">Ask About {profile.personalInfo.name.split(' ')[0]}</h3>
+                <h3 className="font-semibold">Chatter · Ask about {profile.personalInfo.name.split(' ')[0]}</h3>
               </div>
               <div className="flex items-center space-x-2">
                 <button
@@ -290,7 +277,7 @@ const CareerBot: React.FC<CareerBotProps> = ({ className = '', isOpen: externalI
                     trackCareerBotEvent(willBeExpanded ? 'expand' : 'minimize');
                     setIsExpanded(willBeExpanded);
                   }}
-                  className="hidden sm:block text-white/80 hover:text-white transition-colors"
+                  className="hidden sm:block text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors"
                   title={isExpanded ? "Minimize" : "Expand"}
                   aria-label={isExpanded ? "Minimize chat" : "Expand chat"}
                 >
@@ -298,7 +285,7 @@ const CareerBot: React.FC<CareerBotProps> = ({ className = '', isOpen: externalI
                 </button>
                 <button
                   onClick={clearChat}
-                  className="text-white/80 hover:text-white transition-colors"
+                  className="text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors"
                   title="Clear chat"
                   aria-label="Clear chat messages"
                 >
@@ -306,8 +293,8 @@ const CareerBot: React.FC<CareerBotProps> = ({ className = '', isOpen: externalI
                 </button>
               </div>
             </div>
-            <p className="text-sm text-white/90 mt-1">
-              Questions about experience, projects & skills
+            <p className="text-sm text-[var(--text-secondary)] mt-1">
+              Projects, work experience, and technical skills
             </p>
           </div>
 
@@ -319,13 +306,13 @@ const CareerBot: React.FC<CareerBotProps> = ({ className = '', isOpen: externalI
                 className={`flex flex-col ${message.role === 'user' ? 'items-end' : 'items-start'}`}
               >
                 <div
-                  className={`max-w-[80%] max-w-full p-3 rounded-lg break-words ${message.role === 'user' ? 'text-white' : ''}`}
+                  className={`max-w-[80%] max-w-full p-3 rounded-lg break-words ${message.role === 'user' ? 'text-[var(--user-message-text)]' : ''}`}
                   style={{
                     backgroundColor: message.role === 'user'
                       ? 'var(--primary-color)'
                       : 'var(--tag-bg)',
                     color: message.role === 'user'
-                      ? 'white'
+                      ? 'var(--user-message-text)'
                       : 'var(--text-primary)',
                     wordBreak: 'break-word',
                     overflowWrap: 'anywhere',
@@ -341,7 +328,7 @@ const CareerBot: React.FC<CareerBotProps> = ({ className = '', isOpen: externalI
                         width: '100%',
                         userSelect: 'text',
                         cursor: 'text',
-                        color: message.role === 'user' ? 'white' : 'var(--text-primary)'
+                        color: message.role === 'user' ? 'var(--user-message-text)' : 'var(--text-primary)'
                       }}
                       tabIndex={0}
                     >
@@ -447,7 +434,7 @@ const CareerBot: React.FC<CareerBotProps> = ({ className = '', isOpen: externalI
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 placeholder={`Ask anything about ${profile.personalInfo.name.split(' ')[0]}...`}
-                className="flex-1 px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:border-transparent text-sm"
+                className="min-w-0 flex-1 px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:border-transparent text-sm"
                 style={{
                   backgroundColor: 'var(--bg-primary)',
                   borderColor: 'var(--border-color)',
@@ -466,7 +453,7 @@ const CareerBot: React.FC<CareerBotProps> = ({ className = '', isOpen: externalI
               <button
                 type="submit"
                 disabled={!input.trim() || isLoading}
-                className="text-white p-2 rounded-lg transition-colors disabled:cursor-not-allowed"
+                className="chatter-send p-2 rounded-lg transition-colors disabled:cursor-not-allowed"
                 style={{
                   backgroundColor: input.trim() && !isLoading ? 'var(--primary-color)' : 'var(--text-secondary)'
                 }}

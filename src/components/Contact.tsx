@@ -100,9 +100,9 @@ const Contact = () => {
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
         >
-          <h2 className="section-title">Get In Touch</h2>
+          <h2 className="section-title">Let’s talk</h2>
           <p className="section-subtitle">
-            Want to talk engineering, open source, a project idea, or an opportunity? I’m always happy to connect.
+            Have a question about my work, an open-source project, or a collaboration? Send a message.
           </p>
         </motion.div>
 
@@ -114,7 +114,7 @@ const Contact = () => {
             transition={{ duration: 0.8, delay: 0.2 }}
             viewport={{ once: true }}
           >
-            <h3 className="text-2xl font-bold mb-8 gradient-text">Say Hello</h3>
+            <h3 className="text-xl font-bold mb-8 gradient-text">Contact details</h3>
             
             <div className="space-y-3 sm:space-y-6 mb-6 sm:mb-8">
               {contactInfo.map((info, index) => {
@@ -162,7 +162,7 @@ const Contact = () => {
 
             {/* Social Links */}
             <div>
-              <h4 className="text-lg font-semibold mb-4" style={{ color: 'var(--text-primary)' }}>Follow Me</h4>
+              <h4 className="text-lg font-semibold mb-4" style={{ color: 'var(--text-primary)' }}>Elsewhere</h4>
               <div className="flex space-x-4">
                 {socialLinks.map((social, index) => (
                   <motion.a
@@ -193,7 +193,7 @@ const Contact = () => {
             viewport={{ once: true }}
           >
             <div className="card">
-              <h3 className="text-2xl font-bold mb-6 gradient-text">Send Message</h3>
+              <h3 className="text-xl font-bold mb-6 gradient-text">Send a message</h3>
               
               {/* Status Messages */}
               {submitStatus === 'success' && (
@@ -212,33 +212,35 @@ const Contact = () => {
                 <div className="grid md:grid-cols-2 gap-6">
                   <div>
                     <label htmlFor="name" className="block text-sm font-medium mb-2" style={{ color: 'var(--text-primary)' }}>
-                      Your Name
+                      Name
                     </label>
                     <input
                       type="text"
                       id="name"
                       name="name"
+                      autoComplete="name"
                       value={formData.name}
                       onChange={handleChange}
                       required
                       className="w-full px-4 py-3 border rounded-lg transition-colors duration-200 bg-[var(--bg-primary)] border-[var(--border-color)] text-[var(--text-primary)] focus:border-[var(--primary-color)] focus:outline-none focus:shadow-[0_0_0_6px_rgba(59,130,246,0.06)]"
-                      placeholder="John Doe"
+                      placeholder="Your name"
                     />
                   </div>
                   
                   <div>
                     <label htmlFor="email" className="block text-sm font-medium mb-2" style={{ color: 'var(--text-primary)' }}>
-                      Your Email
+                      Email
                     </label>
                     <input
                       type="email"
                       id="email"
                       name="email"
+                      autoComplete="email"
                       value={formData.email}
                       onChange={handleChange}
                       required
                       className="w-full px-4 py-3 border rounded-lg transition-colors duration-200 bg-[var(--bg-primary)] border-[var(--border-color)] text-[var(--text-primary)] focus:border-[var(--primary-color)] focus:outline-none focus:shadow-[0_0_0_6px_rgba(59,130,246,0.06)]"
-                      placeholder="john@example.com"
+                      placeholder="you@example.com"
                     />
                   </div>
                 </div>
@@ -255,7 +257,7 @@ const Contact = () => {
                     onChange={handleChange}
                     required
                     className="w-full px-4 py-3 border rounded-lg transition-colors duration-200 bg-[var(--bg-primary)] border-[var(--border-color)] text-[var(--text-primary)] focus:border-[var(--primary-color)] focus:outline-none focus:shadow-[0_0_0_6px_rgba(59,130,246,0.06)]"
-                    placeholder="Project Inquiry"
+                    placeholder="What’s this about?"
                   />
                 </div>
                 
@@ -271,7 +273,7 @@ const Contact = () => {
                     required
                     rows={4}
                     className="w-full px-4 py-3 border rounded-lg transition-colors duration-200 resize-none bg-[var(--bg-primary)] border-[var(--border-color)] text-[var(--text-primary)] focus:border-[var(--primary-color)] focus:outline-none focus:shadow-[0_0_0_6px_rgba(59,130,246,0.06)]"
-                    placeholder="Tell me about your project..."
+                    placeholder="Write your message..."
                   />
                 </div>
                 

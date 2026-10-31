@@ -1,40 +1,92 @@
 {
   "projects": [
     {
-      "title": "Chess ML Coach",
-      "description": "Personalized chess training platform combining Stockfish analysis, browser-side compute, player-specific ML, adaptive puzzles, and resumable hosted pipelines.",
-      "image": "/images/ChessMLCoach.webp",
-      "fallbackIcon": "♞",
-      "fallbackGradient": "from-emerald-500 to-slate-800",
+      "title": "FreeEdit",
+      "description": "A browser-based editor for shaping screen recordings and polishing their sound, captions, and visual details.",
+      "fallbackIcon": "🎬",
+      "fallbackGradient": "from-slate-700 to-slate-900",
       "technologies": [
-        "Python",
-        "FastAPI",
         "React",
-        "Stockfish / WASM",
-        "PostgreSQL",
-        "Supabase",
-        "LightGBM"
+        "JavaScript",
+        "FastAPI",
+        "FFmpeg",
+        "DeepFilterNet3"
       ],
       "highlights": [
-        "Runs Stockfish analysis in the browser for hosted workflows, with resumable checkpoints and shared analysis coordination.",
-        "Uses authenticated, isolated player data with PostgreSQL-backed persistence and adaptive spaced-repetition practice.",
-        "Combines engine-grounded coaching with player-specific modelling to identify mistake-prone positions and generate personal training."
+        "Edit screen recordings on a visual timeline with captions, annotations, privacy masks, and zoom effects.",
+        "Process audio and video with configurable noise reduction, pause shortening, and export options.",
+        "Save edit projects for later and review short previews before exporting."
       ],
       "systemFlow": [
-        "Sync Chess.com games",
-        "Analyze & checkpoint",
-        "Learn player patterns",
-        "Train adaptively"
+        "Import recording",
+        "Edit timeline",
+        "Preview changes",
+        "Export"
       ],
-      "liveUrl": "https://chess-ml-coach.onrender.com/",
-      "githubUrl": "https://github.com/srbmaury/Chess-Coach",
-      "featured": true,
-      "demoType": "iframe",
-      "demoUrl": "https://chess-ml-coach.onrender.com/"
+      "liveUrl": "https://freeedit.srbmaury.com/",
+      "githubUrl": "https://github.com/srbmaury/FreeEdit",
+      "featured": false,
+      "image": "/images/FreeEdit.webp"
+    },
+    {
+      "title": "Repository LLD Generator",
+      "description": "Understand unfamiliar Java codebases faster with UML diagrams generated from their source structure.",
+      "fallbackIcon": "🧩",
+      "fallbackGradient": "from-slate-600 to-blue-900",
+      "technologies": [
+        "Python",
+        "Java AST",
+        "PlantUML",
+        "Flask",
+        "Docker"
+      ],
+      "highlights": [
+        "Parses Java source code to identify classes, interfaces, methods, fields, and inheritance relationships.",
+        "Generates PlantUML diagrams for repositories, modules, and subdirectories.",
+        "Provides a web interface to preview diagrams for public GitHub and GitLab repositories."
+      ],
+      "systemFlow": [
+        "Enter repository URL",
+        "Parse Java AST",
+        "Resolve relationships",
+        "Render class diagrams"
+      ],
+      "liveUrl": "https://lldgenerator.srbmaury.com/",
+      "githubUrl": "https://github.com/srbmaury/Repo-LLD-generator",
+      "featured": false,
+      "image": "/images/LLDGenerator.webp"
+    },
+    {
+      "title": "DevFolioX",
+      "description": "Build and publish tailored developer portfolios from a profile you manage in one place.",
+      "fallbackIcon": "🗂️",
+      "fallbackGradient": "from-blue-600 to-slate-900",
+      "technologies": [
+        "Next.js",
+        "React",
+        "TypeScript",
+        "Supabase",
+        "PostgreSQL"
+      ],
+      "highlights": [
+        "Import a resume and GitHub projects into an editable portfolio workspace.",
+        "Create multiple targeted portfolio variants using the same shared profile.",
+        "Publish responsive portfolios and review first-party engagement analytics."
+      ],
+      "systemFlow": [
+        "Import profile",
+        "Customize portfolio",
+        "Publish",
+        "Review analytics"
+      ],
+      "liveUrl": "https://devfoliox.srbmaury.com/",
+      "githubUrl": "https://github.com/srbmaury/Portfolio-Builder",
+      "featured": false,
+      "image": "/images/DevFolioX.webp"
     },
     {
       "title": "Evalcue AI",
-      "description": "Technical interviewing platform for adaptive practice and structured hiring across coding, system design, debugging, and conversational interviews.",
+      "description": "An interview practice and assessment platform for candidates and teams that need consistent, evidence-based feedback.",
       "image": "/images/EvalcueAI.webp",
       "fallbackIcon": "🤖",
       "fallbackGradient": "from-cyan-400 to-blue-500",
@@ -62,42 +114,12 @@
       "liveUrl": "https://evalcueai.com/",
       "featured": true,
       "demoType": "iframe",
-      "demoUrl": "https://evalcueai.com/"
-    },
-    {
-      "title": "Ecommerce Search Engine",
-      "description": "Search and recommendation system combining PostgreSQL retrieval, Redis caching, personalized ranking, and ML-based learning-to-rank.",
-      "image": "/images/EcommerceSearch.webp",
-      "fallbackIcon": "🛒",
-      "fallbackGradient": "from-purple-400 to-pink-500",
-      "technologies": [
-        "Python",
-        "Flask",
-        "PostgreSQL",
-        "Redis",
-        "LightGBM",
-        "scikit-learn"
-      ],
-      "highlights": [
-        "Uses PostgreSQL full-text retrieval, Redis query/result caches, and cursor-based pagination for low-latency search.",
-        "Ranks results with LightGBM using popularity, relevance, freshness, category, price, and interaction features.",
-        "Includes personalization, event tracking, background retraining, and an A/B framework for ranking experiments."
-      ],
-      "systemFlow": [
-        "Search query",
-        "Retrieve catalog",
-        "Rank & personalize",
-        "Results"
-      ],
-      "liveUrl": "https://ecommerce-search.onrender.com/",
-      "githubUrl": "https://github.com/srbmaury/Ecommerce-Search",
-      "featured": true,
-      "demoType": "iframe",
-      "demoUrl": "https://ecommerce-search.onrender.com/"
+      "demoUrl": "https://evalcueai.com/",
+      "featuredOrder": 2
     },
     {
       "title": "YAML Data Visualizer",
-      "description": "Collaborative developer tool for exploring large YAML structures through interactive visualization, realtime collaboration, diffing, and versioned workflows.",
+      "description": "Explore large YAML files visually, compare changes, and collaborate on configurations without getting lost in nested structures.",
       "image": "/images/YamlVisualizer.webp",
       "fallbackIcon": "🌳",
       "fallbackGradient": "from-blue-400 to-indigo-500",
@@ -124,11 +146,77 @@
       "githubUrl": "https://github.com/srbmaury/YAML-Visualizer",
       "featured": true,
       "demoType": "iframe",
-      "demoUrl": "https://yaml-visualizer.netlify.app/"
+      "demoUrl": "https://yaml-visualizer.netlify.app/",
+      "featuredOrder": 4
+    },
+    {
+      "title": "Chess ML Coach",
+      "description": "A chess coach that analyzes your games, identifies recurring mistakes, and creates personalized practice with Stockfish and machine learning.",
+      "image": "/images/ChessMLCoach.webp",
+      "fallbackIcon": "♞",
+      "fallbackGradient": "from-emerald-500 to-slate-800",
+      "technologies": [
+        "Python",
+        "FastAPI",
+        "React",
+        "Stockfish / WASM",
+        "PostgreSQL",
+        "Supabase",
+        "LightGBM"
+      ],
+      "highlights": [
+        "Runs Stockfish analysis in the browser for hosted workflows, with resumable checkpoints and shared analysis coordination.",
+        "Uses authenticated, isolated player data with PostgreSQL-backed persistence and adaptive spaced-repetition practice.",
+        "Combines engine-grounded coaching with player-specific modelling to identify mistake-prone positions and generate personal training."
+      ],
+      "systemFlow": [
+        "Sync Chess.com games",
+        "Analyze & checkpoint",
+        "Learn player patterns",
+        "Train adaptively"
+      ],
+      "liveUrl": "https://chess-ml-coach.onrender.com/",
+      "githubUrl": "https://github.com/srbmaury/Chess-Coach",
+      "featured": true,
+      "demoType": "iframe",
+      "demoUrl": "https://chess-ml-coach.onrender.com/",
+      "featuredOrder": 1
+    },
+    {
+      "title": "Ecommerce Search Engine",
+      "description": "An e-commerce search engine combining full-text retrieval, caching, and machine-learning-based ranking for more relevant product results.",
+      "image": "/images/EcommerceSearch.webp",
+      "fallbackIcon": "🛒",
+      "fallbackGradient": "from-purple-400 to-pink-500",
+      "technologies": [
+        "Python",
+        "Flask",
+        "PostgreSQL",
+        "Redis",
+        "LightGBM",
+        "scikit-learn"
+      ],
+      "highlights": [
+        "Uses PostgreSQL full-text retrieval, Redis query/result caches, and cursor-based pagination for low-latency search.",
+        "Ranks results with LightGBM using popularity, relevance, freshness, category, price, and interaction features.",
+        "Includes personalization, event tracking, background retraining, and an A/B framework for ranking experiments."
+      ],
+      "systemFlow": [
+        "Search query",
+        "Retrieve catalog",
+        "Rank & personalize",
+        "Results"
+      ],
+      "liveUrl": "https://ecommerce-search.onrender.com/",
+      "githubUrl": "https://github.com/srbmaury/Ecommerce-Search",
+      "featured": true,
+      "demoType": "iframe",
+      "demoUrl": "https://ecommerce-search.onrender.com/",
+      "featuredOrder": 3
     },
     {
       "title": "ExitSense",
-      "description": "A production-ready Android application that intelligently detects when you are leaving home and reminds you to take everything you need — without GPS or location permission.",
+      "description": "An Android app that detects when you're leaving home and reminds you what to bring, using device sensors rather than GPS.",
       "image": "/images/ExitSense.webp",
       "fallbackIcon": "🚪",
       "fallbackGradient": "from-amber-400 to-orange-500",
@@ -141,7 +229,7 @@
     },
     {
       "title": "Developer Knowledge Base",
-      "description": "A modern full-stack developer knowledge management platform, built for organizing coding notes, interview questions, and technical solutions. Features nested workspaces, markdown editing with live preview, AI-powered answer generation and much more.",
+      "description": "Organize technical notes, coding questions, and solutions in nested workspaces with Markdown editing, search, and optional AI assistance.",
       "image": "/images/DeveloperKnowledgeBase.webp",
       "fallbackIcon": "📚",
       "fallbackGradient": "from-violet-500 to-indigo-600",
@@ -176,7 +264,7 @@
     },
     {
       "title": "MERN Chat Application",
-      "description": "A real-time chat application built with MERN stack featuring JWT authentication, WhatsApp-like interface, and secure messaging capabilities. Includes user authentication and real-time communication.",
+      "description": "A real-time messaging app with user accounts, JWT authentication, and Socket.IO-powered conversations.",
       "image": "/images/MernChatApp.webp",
       "fallbackIcon": "💬",
       "fallbackGradient": "from-green-400 to-blue-500",
@@ -196,7 +284,7 @@
     },
     {
       "title": "Hackathon Portal",
-      "description": "A comprehensive platform for managing hackathons, teams, ideas, and participants. Built with the MERN stack, it enables seamless collaboration, team formation, idea submission, and event management in a structured and user-friendly interface.",
+      "description": "Manage hackathon teams, ideas, submissions, judging, and event workflows in one application.",
       "image": "/images/HackathonPortal.webp",
       "fallbackIcon": "🚀",
       "fallbackGradient": "from-orange-400 to-red-500",
@@ -220,7 +308,7 @@
     },
     {
       "title": "Store Management System",
-      "description": "A comprehensive store management application with inventory tracking, sales management, and reporting features. Built with modern JavaScript and responsive design.",
+      "description": "Track inventory, sales, and basic reports through a lightweight store management interface.",
       "image": "/images/StoreManagement.webp",
       "fallbackIcon": "🏪",
       "fallbackGradient": "from-teal-400 to-green-500",
@@ -240,7 +328,7 @@
     },
     {
       "title": "Kanban Board",
-      "description": "A project-management board with drag-and-drop task organization and a responsive workflow-focused interface.",
+      "description": "A drag-and-drop board for organizing tasks and tracking work across stages.",
       "image": "/images/KanbanBoard.webp",
       "fallbackIcon": "📋",
       "fallbackGradient": "from-sky-400 to-blue-600",
@@ -259,7 +347,7 @@
     },
     {
       "title": "Notes Application",
-      "description": "A feature-rich notes application with CRUD operations, search functionality, and markdown support.",
+      "description": "Create, edit, search, and organize notes with Markdown support.",
       "image": "/images/MagicNotes.webp",
       "fallbackIcon": "📝",
       "fallbackGradient": "from-yellow-400 to-orange-500",
@@ -279,7 +367,7 @@
     },
     {
       "title": "Quiz Application",
-      "description": "An interactive quiz application with multiple categories, scoring system, and result tracking. Features responsive design and user-friendly interface.",
+      "description": "Take category-based quizzes, receive scores, and review results.",
       "image": "/images/Quiz.webp",
       "fallbackIcon": "❓",
       "fallbackGradient": "from-red-400 to-pink-500",
@@ -299,7 +387,7 @@
     },
     {
       "title": "Tic Tac Toe Game",
-      "description": "A classic Tic Tac Toe game with AI opponent, score tracking, and smooth animations. Features both single-player and two-player modes.",
+      "description": "Play tic-tac-toe against a computer opponent or another player, with score tracking.",
       "image": "/images/TictacToe.webp",
       "fallbackIcon": "⭕",
       "fallbackGradient": "from-green-400 to-teal-500",
@@ -319,7 +407,7 @@
     },
     {
       "title": "Dictionary Application",
-      "description": "A comprehensive dictionary application with word definitions, pronunciations, and example usage. Integrates with external dictionary APIs.",
+      "description": "Look up definitions, pronunciations, and examples through a dictionary API.",
       "image": "/images/Dictionary.webp",
       "fallbackIcon": "📖",
       "fallbackGradient": "from-indigo-400 to-purple-500",
@@ -339,7 +427,7 @@
     },
     {
       "title": "Flappy Bird Game",
-      "description": "A recreation of the classic Flappy Bird game with smooth animations, score tracking, and responsive controls.",
+      "description": "A browser-based Flappy Bird recreation with responsive controls and score tracking.",
       "image": "/images/FlappyBird.webp",
       "fallbackIcon": "🐦",
       "fallbackGradient": "from-yellow-400 to-green-500",
@@ -359,7 +447,7 @@
     },
     {
       "title": "Codeforces Filter",
-      "description": "A chrome extension to filter and display blog entries from Codeforces users with specified minimum ratings and blog quality filters.",
+      "description": "A Chrome extension that filters Codeforces blog activity by user rating and other criteria.",
       "image": "/images/CodeforcesFilter.webp",
       "fallbackIcon": "🔍",
       "fallbackGradient": "from-gray-400 to-blue-500",
@@ -373,6 +461,106 @@
       "githubUrl": "https://github.com/srbmaury/CF-Filter-Recent-Actions",
       "featured": false,
       "beginner": true
+    },
+    {
+      "title": "India Startup Map",
+      "description": "Explore Indian startups by city, sector, hiring status, and technology stack using source-linked location data.",
+      "fallbackIcon": "🗺️",
+      "fallbackGradient": "from-teal-600 to-slate-900",
+      "technologies": [
+        "TypeScript",
+        "MapLibre",
+        "OpenStreetMap",
+        "Data Visualization"
+      ],
+      "highlights": [
+        "Explore city and company listings through an interactive map.",
+        "Filter organizations by sector and hiring details.",
+        "Keep uncertainty visible through source-linked records and location confidence rules."
+      ],
+      "liveUrl": "https://india-startup-map.srbmaury.chatgpt.site/",
+      "githubUrl": "https://github.com/srbmaury/India-Startup-Map",
+      "featured": false,
+      "image": "/images/projects/india-startup-map-live.webp",
+      "imageFit": "cover"
+    },
+    {
+      "title": "Kindred Code",
+      "description": "Find developers with similar interests using public GitHub activity, ranked matching, and rate-aware discovery.",
+      "fallbackIcon": "🔗",
+      "fallbackGradient": "from-indigo-600 to-slate-900",
+      "technologies": [
+        "TypeScript",
+        "GitHub API",
+        "GitHub App",
+        "Caching"
+      ],
+      "highlights": [
+        "Discover developers from public GitHub signals.",
+        "Rank shared interests and account for API rate limits."
+      ],
+      "liveUrl": "https://kindred-code-srbmaury.srbmaury.chatgpt.site/",
+      "githubUrl": "https://github.com/srbmaury/kindred-code",
+      "featured": false,
+      "image": "/images/projects/kindred-code-live.webp",
+      "imageFit": "cover"
+    },
+    {
+      "title": "PR Blast Radius",
+      "description": "Analyze potential production impact of Java/Spring Boot pull requests using static code evidence, PostgreSQL dependencies, and OpenTelemetry traces.",
+      "fallbackIcon": "🛰️",
+      "fallbackGradient": "from-orange-600 to-slate-900",
+      "technologies": [
+        "Java",
+        "Spring Boot",
+        "PostgreSQL",
+        "OpenTelemetry",
+        "GitHub API"
+      ],
+      "highlights": [
+        "Inspect changed Java endpoints and types using source-aware static analysis.",
+        "Correlate PostgreSQL schema and runtime dependency evidence.",
+        "Report findings with explicit evidence strength and coverage warnings."
+      ],
+      "githubUrl": "https://github.com/srbmaury/pr-blast-radius",
+      "featured": false,
+      "image": "/images/projects/pr-blast-radius-analysis.webp",
+      "imageFit": "cover"
+    },
+    {
+      "title": "RecallLater",
+      "description": "A local-first mobile inbox for screenshots, PDFs, links, and text, with on-device extraction and reminders.",
+      "fallbackIcon": "📌",
+      "fallbackGradient": "from-emerald-600 to-slate-900",
+      "technologies": [
+        "React Native",
+        "Expo",
+        "SQLite",
+        "OCR"
+      ],
+      "highlights": [
+        "Collect shared content into device-private storage.",
+        "Extract details on-device and schedule local reminders."
+      ],
+      "githubUrl": "https://github.com/srbmaury/RecallLater",
+      "featured": false,
+      "image": "/images/projects/recall-later-android.webp",
+      "imageFit": "contain"
+    },
+    {
+      "title": "NEET",
+      "description": "An Android exam preparation app with adaptive practice, mock tests, flashcards, and optional cloud synchronization.",
+      "fallbackIcon": "📖",
+      "fallbackGradient": "from-green-600 to-slate-900",
+      "technologies": [
+        "Kotlin",
+        "Jetpack Compose",
+        "Android"
+      ],
+      "githubUrl": "https://github.com/srbmaury/NEET",
+      "featured": false,
+      "image": "/images/projects/neet-android.webp",
+      "imageFit": "contain"
     }
   ]
 }

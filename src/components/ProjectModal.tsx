@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, ExternalLink, Github, Play, ZoomIn, ZoomOut, RotateCcw } from 'lucide-react';
+import { X, ExternalLink, Github, Eye, Play, ZoomIn, ZoomOut, RotateCcw } from 'lucide-react';
 import type { ProjectModalProps } from '../types/project';
 import { trackProjectEvent } from '../utils/analytics';
 
@@ -46,24 +46,27 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, project })
         e.preventDefault();
         handleReset();
         break;
-      case 'Escape':
-        onClose();
-        break;
     }
-  }, [handleReset, handleZoomIn, handleZoomOut, isOpen, onClose]);
+  }, [handleReset, handleZoomIn, handleZoomOut, isOpen]);
 
   // Add keyboard event listeners and focus trap
   useEffect(() => {
     if (!isOpen) return;
+    const previousFocus = document.activeElement instanceof HTMLElement ? document.activeElement : null;
     closeBtnRef.current?.focus();
+    return () => previousFocus?.focus();
+  }, [isOpen]);
+
+  useEffect(() => {
+    if (!isOpen) return;
     const handleTrap = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
         onClose();
       } else if (e.key === 'Tab') {
-        const focusable = modalRef.current?.querySelectorAll<HTMLElement>(
+        const focusable = Array.from(modalRef.current?.querySelectorAll<HTMLElement>(
           'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
-        );
-        if (!focusable || focusable.length === 0) return;
+        ) ?? []).filter(element => !element.hasAttribute('disabled') && element.getClientRects().length > 0);
+        if (focusable.length === 0) return;
         const first = focusable[0];
         const last = focusable[focusable.length - 1];
         if (e.shiftKey) {
@@ -79,13 +82,17 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, project })
         }
       }
     };
-    document.addEventListener('keydown', handleKeyDown);
     document.addEventListener('keydown', handleTrap);
     return () => {
-      document.removeEventListener('keydown', handleKeyDown);
       document.removeEventListener('keydown', handleTrap);
     };
-  }, [handleKeyDown, isOpen, onClose]);
+  }, [isOpen, onClose]);
+
+  useEffect(() => {
+    if (!isOpen) return;
+    document.addEventListener('keydown', handleKeyDown);
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  }, [handleKeyDown, isOpen]);
 
   if (!project) return null;
 
@@ -169,22 +176,11 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, project })
       </div>
     );
 
-    if (project.demoType === 'iframe' && project.demoUrl) {
-      return renderContent(
-        <iframe
-          src={project.demoUrl}
-          className="w-full h-full border-0"
-          title={`${project.title} Demo`}
-          allowFullScreen
-        />
-      );
-    }
-
     if (project.demoType === 'video' && project.demoUrl) {
       return renderContent(
         <video
           src={project.demoUrl}
-          className="w-full h-full object-cover"
+          className={`w-full h-full ${project.imageFit === 'contain' ? 'object-contain' : 'object-cover'}`}
           controls
           autoPlay
           muted
@@ -200,8 +196,19 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, project })
       return renderContent(
         <img
           src={project.image}
-          alt={project.title}
-          className="w-full h-full object-cover"
+          alt={`${project.title} interface screenshot`}
+          className={`w-full h-full ${project.imageFit === 'contain' ? 'object-contain' : 'object-cover'}`}
+        />
+      );
+    }
+
+    if (project.demoType === 'iframe' && project.demoUrl) {
+      return renderContent(
+        <iframe
+          src={project.demoUrl}
+          className="w-full h-full border-0"
+          title={`${project.title} Demo`}
+          allowFullScreen
         />
       );
     }
@@ -231,7 +238,7 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, project })
               }}
             >
               <ExternalLink size={20} />
-              View Project
+              Open live demo
             </a>}
             {project.githubUrl && <a
               href={project.githubUrl}
@@ -276,7 +283,7 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, project })
             animate={{ scale: 1, opacity: 1, y: 0 }}
             exit={{ scale: 0.9, opacity: 0, y: 20 }}
             transition={{ type: "spring", damping: 25, stiffness: 300 }}
-            className="rounded-xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-hidden"
+            className="case-study-modal rounded-xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-hidden"
             style={{ backgroundColor: 'var(--card-bg)' }}
           >
             {/* Header */}
@@ -308,8 +315,8 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, project })
               <div className="mb-6">
                 <div className="flex items-center justify-between mb-4">
                   <h3 className="text-lg font-semibold flex items-center gap-2" style={{ color: 'var(--text-primary)' }}>
-                    <Play size={20} style={{ color: 'var(--primary-color)' }} />
-                    Project Demo
+                    {project.image ? <Eye size={20} style={{ color: 'var(--primary-color)' }} /> : <Play size={20} style={{ color: 'var(--primary-color)' }} />}
+                    {project.image ? 'Project screenshot' : 'Project demo'}
                     {zoom !== 1 && (
                       <span className="text-sm ml-2" style={{ color: 'var(--text-secondary)' }}>
                         (Zoom: {Math.round(zoom * 100)}%)
@@ -354,6 +361,9 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, project })
                   </div>
                 </div>
                 {renderDemoContent()}
+                {project.image && project.liveUrl && (
+                  <p className="mt-2 text-xs" style={{ color: 'var(--text-secondary)' }}>Screenshot preview · open the live demo to explore the project.</p>
+                )}
 
                 {/* Zoom Instructions */}
                 <div className="mt-3 text-xs text-center" style={{ color: 'var(--text-secondary)' }}>
@@ -364,7 +374,7 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, project })
               {/* Technologies */}
               {project.systemFlow && (
                 <div className="mb-6">
-                  <h3 className="text-lg font-semibold mb-3" style={{ color: 'var(--text-primary)' }}>How It Works</h3>
+                  <h3 className="text-lg font-semibold mb-3" style={{ color: 'var(--text-primary)' }}>How it works</h3>
                   <ol className="flex flex-wrap items-center gap-2 text-sm" style={{ color: 'var(--text-secondary)' }}>
                     {project.systemFlow.map((step, index) => (
                       <li key={step} className="inline-flex items-center gap-2">
@@ -377,17 +387,13 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, project })
               )}
 
               <div className="mb-6">
-                <h3 className="text-lg font-semibold mb-3" style={{ color: 'var(--text-primary)' }}>Technologies Used</h3>
+                <h3 className="text-lg font-semibold mb-3" style={{ color: 'var(--text-primary)' }}>Technology stack</h3>
                 <div className="flex flex-wrap gap-2">
                   {project.technologies.map((tech, index) => (
                     <span
                       key={index}
                       className="px-3 py-1 text-sm rounded-full font-medium"
-                      style={{
-                        backgroundColor: 'var(--primary-color)',
-                        color: 'white',
-                        opacity: 0.9
-                      }}
+                      style={{ backgroundColor: 'var(--tag-bg)', color: 'var(--text-primary)' }}
                     >
                       {tech}
                     </span>
@@ -397,13 +403,9 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, project })
 
               {/* Features/Details */}
               <div>
-                <h3 className="text-lg font-semibold mb-3" style={{ color: 'var(--text-primary)' }}>Engineering Notes</h3>
+                <h3 className="text-lg font-semibold mb-3" style={{ color: 'var(--text-primary)' }}>Engineering decisions & implementation</h3>
                 <ul className="space-y-2" style={{ color: 'var(--text-secondary)' }}>
-                  {(project.highlights || [
-                    'Responsive design across device sizes',
-                    'Modern UI with performance-conscious implementation',
-                    'Clean, maintainable code structure',
-                  ]).map((highlight) => (
+                  {(project.highlights && project.highlights.length > 0 ? project.highlights : [project.description]).map((highlight) => (
                     <li key={highlight} className="flex items-start gap-2">
                       <div className="w-2 h-2 rounded-full mt-2 flex-shrink-0" style={{ backgroundColor: 'var(--primary-color)' }}></div>
                       <span>{highlight}</span>

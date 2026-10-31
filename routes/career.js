@@ -92,7 +92,12 @@ router.post('/analyze-career', rateLimitMiddleware, async (req, res) => {
     const cacheKey = generateCacheKey(question, conversationContext);
 
     if (!regenerate) {
-      const cached = await getCareerCachedResponse(cacheKey);
+      let cached = null;
+      try {
+        cached = await getCareerCachedResponse(cacheKey);
+      } catch (cacheError) {
+        console.warn('Career cache read failed:', cacheError.message);
+      }
       if (cached) {
         return res.json({
           analysis: cached.response,
@@ -119,7 +124,11 @@ router.post('/analyze-career', rateLimitMiddleware, async (req, res) => {
 
     const analysis = await generateAIResponse(prompt);
 
-    await setCareerCachedResponse(cacheKey, analysis);
+    try {
+      await setCareerCachedResponse(cacheKey, analysis);
+    } catch (cacheError) {
+      console.warn('Career cache write failed:', cacheError.message);
+    }
 
     res.json({ analysis, cached: false });
   } catch (err) {
