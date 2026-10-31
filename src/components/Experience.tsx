@@ -33,18 +33,19 @@ const Experience = () => (
             </div>
 
             <ul className="space-y-3">
-              {exp.highlights.map((highlight) => (
-                <li key={highlight} className="flex gap-3 leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
-                  <span aria-hidden="true" className="mt-2 h-1.5 w-1.5 flex-none rounded-full" style={{ backgroundColor: 'var(--primary-color)' }} />
-                  <span>{highlight}</span>
+              {exp.highlights.map((highlight, highlightIndex) => (
+                <li key={highlight} className="experience-highlight flex gap-4 leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
+                  <span aria-hidden="true" className="experience-highlight-index">0{highlightIndex + 1}</span>
+                  <span>{highlight.split(/(more than \d+|under \d+ minutes|\d+(?:%|x)?)/gi).map((part, index) => /(?:more than \d+|under \d+ minutes|\d+(?:%|x)?)/i.test(part) ? <strong className="impact-emphasis" key={`${highlightIndex}-${index}`}>{part}</strong> : part)}</span>
                 </li>
               ))}
             </ul>
 
             <div className="mt-5 flex flex-wrap gap-2">
-              {exp.technologies.map((tech) => (
+              {exp.technologies.slice(0, 4).map((tech) => (
                 <span key={tech} className="rounded-full px-3 py-1 text-xs font-medium" style={{ backgroundColor: 'var(--tag-bg)', color: 'var(--text-secondary)' }}>{tech}</span>
               ))}
+              {exp.technologies.length > 4 && <span className="rounded-full px-3 py-1 text-xs font-medium" style={{ backgroundColor: 'var(--tag-bg)', color: 'var(--text-secondary)' }}>+{exp.technologies.length - 4}</span>}
             </div>
           </motion.article>
         ))}

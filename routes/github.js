@@ -10,17 +10,23 @@ import {
   getGithubCacheEntry,
   setGithubCacheEntry,
 } from '../services/cacheService.js';
+import { githubRateLimitMiddleware } from '../middleware/rateLimit.js';
 
 const router = express.Router();
 
-router.get('/github-stats/:username', async (req, res) => {
+router.get('/github-stats/:username', githubRateLimitMiddleware, async (req, res) => {
   const { username } = req.params;
 
   if (!isValidGitHubUsername(username)) {
     return res.status(400).json({ error: 'Invalid username' });
   }
 
-  const cached = await getGithubCacheEntry(username);
+  let cached = null;
+  try {
+    cached = await getGithubCacheEntry(username);
+  } catch (cacheError) {
+    console.warn('GitHub cache read failed:', cacheError.message);
+  }
 
   try {
     const user = await githubJson(
@@ -31,7 +37,11 @@ router.get('/github-stats/:username', async (req, res) => {
 
     const payload = buildGitHubStatsPayload(user, repos);
 
-    await setGithubCacheEntry(username, payload);
+    try {
+      await setGithubCacheEntry(username, payload);
+    } catch (cacheError) {
+      console.warn('GitHub cache write failed:', cacheError.message);
+    }
 
     res.json({ ...payload, cached: false });
   } catch (err) {

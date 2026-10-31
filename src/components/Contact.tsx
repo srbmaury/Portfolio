@@ -218,11 +218,12 @@ const Contact = () => {
                       type="text"
                       id="name"
                       name="name"
+                      autoComplete="name"
                       value={formData.name}
                       onChange={handleChange}
                       required
                       className="w-full px-4 py-3 border rounded-lg transition-colors duration-200 bg-[var(--bg-primary)] border-[var(--border-color)] text-[var(--text-primary)] focus:border-[var(--primary-color)] focus:outline-none focus:shadow-[0_0_0_6px_rgba(59,130,246,0.06)]"
-                      placeholder="John Doe"
+                      placeholder="Your name"
                     />
                   </div>
                   
@@ -234,11 +235,12 @@ const Contact = () => {
                       type="email"
                       id="email"
                       name="email"
+                      autoComplete="email"
                       value={formData.email}
                       onChange={handleChange}
                       required
                       className="w-full px-4 py-3 border rounded-lg transition-colors duration-200 bg-[var(--bg-primary)] border-[var(--border-color)] text-[var(--text-primary)] focus:border-[var(--primary-color)] focus:outline-none focus:shadow-[0_0_0_6px_rgba(59,130,246,0.06)]"
-                      placeholder="john@example.com"
+                      placeholder="you@example.com"
                     />
                   </div>
                 </div>

@@ -16,6 +16,8 @@ app.set('trust proxy', 1);
 const allowedOrigins = [
   'http://localhost:3000',
   'http://localhost:5173',
+  'http://127.0.0.1:3000',
+  'http://127.0.0.1:5173',
   'https://saurabh-maurya-portfolio.netlify.app',
   ...(process.env.CLIENT_ORIGIN || '')
     .split(',')
@@ -54,7 +56,7 @@ app.get('/api/health', (req, res) => {
 app.use('/api', careerRoutes);
 app.use('/api', githubRoutes);
 
-app.get('*', (req, res) => {
+app.get('/{*path}', (req, res) => {
   if (!fs.existsSync(distIndex)) {
     return res.send('No build found');
   }

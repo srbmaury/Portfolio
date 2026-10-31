@@ -1,5 +1,6 @@
 import { Redis } from '@upstash/redis';
-import { sha256hex } from '../services/cacheService.js';
+import { rateLimit } from 'express-rate-limit';
+import { RedisStore } from 'rate-limit-redis';
 
 const redis =
   process.env.UPSTASH_REDIS_REST_URL &&
@@ -12,33 +13,55 @@ const redis =
 
 const WINDOW = 60 * 60;
 const MAX = 10;
+const localRateLimiter = rateLimit({
+  windowMs: WINDOW * 1000,
+  limit: MAX,
+  standardHeaders: 'draft-8',
+  legacyHeaders: false,
+});
+const redisRateLimiter = redis
+  ? rateLimit({
+      windowMs: WINDOW * 1000,
+      limit: MAX,
+      standardHeaders: 'draft-8',
+      legacyHeaders: false,
+      store: new RedisStore({
+        sendCommand: async (command, ...args) => {
+          const response = await redis.client.request({
+            path: [command, ...args].map(encodeURIComponent),
+            body: null,
+          });
+          if (response.error) throw new Error(response.error);
+          return response.result;
+        },
+        prefix: 'portfolio:ratelimit:',
+      }),
+    })
+  : null;
 
-export async function rateLimitMiddleware(req, res, next) {
-  try {
-    if (!redis) return next();
+export const rateLimitMiddleware = redisRateLimiter || localRateLimiter;
 
-    const ip = req.ip || 'unknown';
-    const key = `ratelimit:${sha256hex(ip)}`;
-
-    const count = await redis.incr(key);
-
-    if (count === 1) {
-      await redis.expire(key, WINDOW);
-    }
-
-    if (count > MAX) {
-      const ttl = await redis.ttl(key);
-      const retryAfter = ttl > 0 ? ttl : WINDOW;
-
-      res.set('Retry-After', String(retryAfter));
-      return res.status(429).json({
-        error: 'Too many requests',
-        retryAfter,
-      });
-    }
-
-    next();
-  } catch (err) {
-    next(err);
-  }
-}
+export const githubRateLimitMiddleware = redis
+  ? rateLimit({
+      windowMs: 60 * 60 * 1000,
+      limit: 60,
+      standardHeaders: 'draft-8',
+      legacyHeaders: false,
+      store: new RedisStore({
+        sendCommand: async (command, ...args) => {
+          const response = await redis.client.request({
+            path: [command, ...args].map(encodeURIComponent),
+            body: null,
+          });
+          if (response.error) throw new Error(response.error);
+          return response.result;
+        },
+        prefix: 'portfolio:github-ratelimit:',
+      }),
+    })
+  : rateLimit({
+      windowMs: 60 * 60 * 1000,
+      limit: 60,
+      standardHeaders: 'draft-8',
+      legacyHeaders: false,
+    });

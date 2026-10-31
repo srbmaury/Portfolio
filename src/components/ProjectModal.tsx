@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, ExternalLink, Github, Play, ZoomIn, ZoomOut, RotateCcw } from 'lucide-react';
+import { X, ExternalLink, Github, Eye, Play, ZoomIn, ZoomOut, RotateCcw } from 'lucide-react';
 import type { ProjectModalProps } from '../types/project';
 import { trackProjectEvent } from '../utils/analytics';
 
@@ -46,24 +46,27 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, project })
         e.preventDefault();
         handleReset();
         break;
-      case 'Escape':
-        onClose();
-        break;
     }
-  }, [handleReset, handleZoomIn, handleZoomOut, isOpen, onClose]);
+  }, [handleReset, handleZoomIn, handleZoomOut, isOpen]);
 
   // Add keyboard event listeners and focus trap
   useEffect(() => {
     if (!isOpen) return;
+    const previousFocus = document.activeElement instanceof HTMLElement ? document.activeElement : null;
     closeBtnRef.current?.focus();
+    return () => previousFocus?.focus();
+  }, [isOpen]);
+
+  useEffect(() => {
+    if (!isOpen) return;
     const handleTrap = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
         onClose();
       } else if (e.key === 'Tab') {
-        const focusable = modalRef.current?.querySelectorAll<HTMLElement>(
+        const focusable = Array.from(modalRef.current?.querySelectorAll<HTMLElement>(
           'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
-        );
-        if (!focusable || focusable.length === 0) return;
+        ) ?? []).filter(element => !element.hasAttribute('disabled') && element.getClientRects().length > 0);
+        if (focusable.length === 0) return;
         const first = focusable[0];
         const last = focusable[focusable.length - 1];
         if (e.shiftKey) {
@@ -79,13 +82,17 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, project })
         }
       }
     };
-    document.addEventListener('keydown', handleKeyDown);
     document.addEventListener('keydown', handleTrap);
     return () => {
-      document.removeEventListener('keydown', handleKeyDown);
       document.removeEventListener('keydown', handleTrap);
     };
-  }, [handleKeyDown, isOpen, onClose]);
+  }, [isOpen, onClose]);
+
+  useEffect(() => {
+    if (!isOpen) return;
+    document.addEventListener('keydown', handleKeyDown);
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  }, [handleKeyDown, isOpen]);
 
   if (!project) return null;
 
@@ -169,22 +176,11 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, project })
       </div>
     );
 
-    if (project.demoType === 'iframe' && project.demoUrl) {
-      return renderContent(
-        <iframe
-          src={project.demoUrl}
-          className="w-full h-full border-0"
-          title={`${project.title} Demo`}
-          allowFullScreen
-        />
-      );
-    }
-
     if (project.demoType === 'video' && project.demoUrl) {
       return renderContent(
         <video
           src={project.demoUrl}
-          className="w-full h-full object-cover"
+          className={`w-full h-full ${project.imageFit === 'contain' ? 'object-contain' : 'object-cover'}`}
           controls
           autoPlay
           muted
@@ -200,8 +196,19 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, project })
       return renderContent(
         <img
           src={project.image}
-          alt={project.title}
-          className="w-full h-full object-cover"
+          alt={`${project.title} interface screenshot`}
+          className={`w-full h-full ${project.imageFit === 'contain' ? 'object-contain' : 'object-cover'}`}
+        />
+      );
+    }
+
+    if (project.demoType === 'iframe' && project.demoUrl) {
+      return renderContent(
+        <iframe
+          src={project.demoUrl}
+          className="w-full h-full border-0"
+          title={`${project.title} Demo`}
+          allowFullScreen
         />
       );
     }
@@ -304,13 +311,12 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, project })
 
             {/* Content */}
             <div className="p-6 overflow-y-auto max-h-[calc(90vh-140px)]">
-              <section className="case-study-summary" aria-label="Project overview"><span className="case-study-kicker">THE PROJECT</span><h3>What it does</h3><p>{project.description}</p></section>
               {/* Demo Section */}
               <div className="mb-6">
                 <div className="flex items-center justify-between mb-4">
                   <h3 className="text-lg font-semibold flex items-center gap-2" style={{ color: 'var(--text-primary)' }}>
-                    <Play size={20} style={{ color: 'var(--primary-color)' }} />
-                    Project Demo
+                    {project.image ? <Eye size={20} style={{ color: 'var(--primary-color)' }} /> : <Play size={20} style={{ color: 'var(--primary-color)' }} />}
+                    {project.image ? 'Project screenshot' : 'Project demo'}
                     {zoom !== 1 && (
                       <span className="text-sm ml-2" style={{ color: 'var(--text-secondary)' }}>
                         (Zoom: {Math.round(zoom * 100)}%)
@@ -355,6 +361,9 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, project })
                   </div>
                 </div>
                 {renderDemoContent()}
+                {project.image && project.liveUrl && (
+                  <p className="mt-2 text-xs" style={{ color: 'var(--text-secondary)' }}>Screenshot preview · open the live demo to explore the project.</p>
+                )}
 
                 {/* Zoom Instructions */}
                 <div className="mt-3 text-xs text-center" style={{ color: 'var(--text-secondary)' }}>

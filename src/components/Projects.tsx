@@ -31,7 +31,9 @@ const Projects = () => {
     setIsProjectModalOpen(false);
   };
 
-  const featuredProjects = projects.filter((project) => project.featured && (!hideBeginnerProjects || !project.beginner));
+  const featuredProjects = projects
+    .filter((project) => project.featured && (!hideBeginnerProjects || !project.beginner))
+    .sort((a, b) => (a.featuredOrder ?? Number.MAX_SAFE_INTEGER) - (b.featuredOrder ?? Number.MAX_SAFE_INTEGER));
 
   return (
     <section id="projects" className="section" style={{ backgroundColor: 'var(--bg-primary)' }} aria-label="Featured engineering work" role="region" tabIndex={-1}>
@@ -43,7 +45,7 @@ const Projects = () => {
           </p>
         </motion.div>
 
-        <div className="mb-14 grid gap-6 md:grid-cols-2">
+        <div className="featured-project-grid mb-14 grid gap-x-6 gap-y-8 md:grid-cols-2 md:gap-x-8 md:gap-y-12">
           {featuredProjects.map((project, index) => (
             <motion.article
               key={project.title}
@@ -59,7 +61,7 @@ const Projects = () => {
                   <LazyImage
                     src={project.image}
                     alt={project.title}
-                    className="featured-project-image w-full object-cover object-top"
+                    className={`featured-project-image w-full object-cover object-top ${project.imageFit === 'contain' ? 'image-contain' : ''}`}
                     spinnerClassName="profile-spinner"
                     fallback={
                       <div className="featured-project-image flex items-center justify-center" style={{ background: fallbackGradientMap[project.fallbackGradient] || defaultFallbackGradient }}>
@@ -76,17 +78,17 @@ const Projects = () => {
 
               <div className="flex flex-1 flex-col p-5 sm:p-6">
                 <h3 className="mb-2 text-xl font-bold tracking-tight" style={{ color: 'var(--text-primary)' }}>{project.title}</h3>
-                <p className="featured-project-description mb-4 text-[15px] leading-relaxed" style={{ color: 'var(--text-secondary)' }}>{project.description}</p>
+                <p className="featured-project-description project-card-summary mb-4 text-[15px] leading-relaxed" style={{ color: 'var(--text-secondary)' }}>{project.description}</p>
 
                 <div className="mb-6 flex flex-wrap gap-2">
-                  {project.technologies.slice(0, 5).map((tech) => (
+                  {project.technologies.slice(0, 3).map((tech) => (
                     <span key={tech} className="rounded-md px-2.5 py-1 text-xs font-medium" style={{ backgroundColor: 'var(--tag-bg)', color: 'var(--text-secondary)' }}>
                       {tech}
                     </span>
                   ))}
-                  {project.technologies.length > 5 && (
+                  {project.technologies.length > 3 && (
                     <span className="rounded-md px-2.5 py-1 text-xs font-medium" style={{ backgroundColor: 'var(--tag-bg)', color: 'var(--text-secondary)' }}>
-                      +{project.technologies.length - 5}
+                      +{project.technologies.length - 3}
                     </span>
                   )}
                 </div>

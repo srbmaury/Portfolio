@@ -16,8 +16,8 @@ const Navbar: React.FC<NavbarProps> = ({ onOpenTerminal, showTerminal }) => {
 
   const navItems = [
     { name: 'About', href: '#about' },
-    { name: 'Projects', href: '#projects' },
     { name: 'Experience', href: '#experience' },
+    { name: 'Projects', href: '#projects' },
     { name: 'Toolkit', href: '#skills' },
     { name: 'GitHub', href: '#github' },
     { name: 'Contact', href: '#contact' },
@@ -60,14 +60,14 @@ const Navbar: React.FC<NavbarProps> = ({ onOpenTerminal, showTerminal }) => {
 
           <div className="flex items-center gap-2 md:hidden">
             <ThemeToggle />
-            <button type="button" onClick={() => setIsOpen(!isOpen)} className="flex h-11 w-11 items-center justify-center" style={{ color: 'var(--nav-text)' }} aria-label={isOpen ? 'Close navigation menu' : 'Open navigation menu'} aria-expanded={isOpen}>
+            <button type="button" onClick={() => setIsOpen(!isOpen)} className="flex h-11 w-11 items-center justify-center" style={{ color: 'var(--nav-text)' }} aria-label={isOpen ? 'Close navigation menu' : 'Open navigation menu'} aria-expanded={isOpen} aria-controls="mobile-navigation">
               {isOpen ? <X size={23} /> : <Menu size={23} />}
             </button>
           </div>
         </div>
 
         {isOpen && (
-          <div className="border-t pb-3 md:hidden" style={{ backgroundColor: 'var(--card-bg)', borderColor: 'var(--border-color)' }}>
+          <div id="mobile-navigation" className="border-t pb-3 md:hidden" style={{ backgroundColor: 'var(--card-bg)', borderColor: 'var(--border-color)' }}>
             {navItems.map((item) => (
               <button key={item.name} type="button" onClick={() => scrollToSection(item.href)} className="block min-h-11 w-full rounded-md px-3 py-2 text-left font-medium" style={{ color: 'var(--text-primary)' }}>{item.name}</button>
             ))}

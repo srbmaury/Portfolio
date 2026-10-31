@@ -2,7 +2,7 @@
   "projects": [
     {
       "title": "FreeEdit",
-      "description": "An open-source screen recording editor with timeline-based cuts, noise removal, captions, privacy masks, annotations, and zoom effects.",
+      "description": "A browser-based editor for shaping screen recordings and polishing their sound, captions, and visual details.",
       "fallbackIcon": "🎬",
       "fallbackGradient": "from-slate-700 to-slate-900",
       "technologies": [
@@ -25,11 +25,12 @@
       ],
       "liveUrl": "https://freeedit.srbmaury.com/",
       "githubUrl": "https://github.com/srbmaury/FreeEdit",
-      "featured": true
+      "featured": false,
+      "image": "/images/FreeEdit.webp"
     },
     {
       "title": "Repository LLD Generator",
-      "description": "Generate PlantUML class diagrams from Java repositories using AST parsing and source-aware relationship analysis.",
+      "description": "Understand unfamiliar Java codebases faster with UML diagrams generated from their source structure.",
       "fallbackIcon": "🧩",
       "fallbackGradient": "from-slate-600 to-blue-900",
       "technologies": [
@@ -52,11 +53,12 @@
       ],
       "liveUrl": "https://lldgenerator.srbmaury.com/",
       "githubUrl": "https://github.com/srbmaury/Repo-LLD-generator",
-      "featured": true
+      "featured": false,
+      "image": "/images/LLDGenerator.webp"
     },
     {
       "title": "DevFolioX",
-      "description": "A developer portfolio builder with resume import, role-specific layouts, publishing, and first-party analytics.",
+      "description": "Build and publish tailored developer portfolios from a profile you manage in one place.",
       "fallbackIcon": "🗂️",
       "fallbackGradient": "from-blue-600 to-slate-900",
       "technologies": [
@@ -79,11 +81,12 @@
       ],
       "liveUrl": "https://devfoliox.srbmaury.com/",
       "githubUrl": "https://github.com/srbmaury/Portfolio-Builder",
-      "featured": true
+      "featured": false,
+      "image": "/images/DevFolioX.webp"
     },
     {
       "title": "Evalcue AI",
-      "description": "An interview platform for practicing and assessing coding, system design, and debugging skills with structured feedback and evaluation.",
+      "description": "An interview practice and assessment platform for candidates and teams that need consistent, evidence-based feedback.",
       "image": "/images/EvalcueAI.webp",
       "fallbackIcon": "🤖",
       "fallbackGradient": "from-cyan-400 to-blue-500",
@@ -111,7 +114,8 @@
       "liveUrl": "https://evalcueai.com/",
       "featured": true,
       "demoType": "iframe",
-      "demoUrl": "https://evalcueai.com/"
+      "demoUrl": "https://evalcueai.com/",
+      "featuredOrder": 2
     },
     {
       "title": "YAML Data Visualizer",
@@ -140,9 +144,10 @@
       ],
       "liveUrl": "https://yaml-visualizer.netlify.app/",
       "githubUrl": "https://github.com/srbmaury/YAML-Visualizer",
-      "featured": false,
+      "featured": true,
       "demoType": "iframe",
-      "demoUrl": "https://yaml-visualizer.netlify.app/"
+      "demoUrl": "https://yaml-visualizer.netlify.app/",
+      "featuredOrder": 4
     },
     {
       "title": "Chess ML Coach",
@@ -172,9 +177,10 @@
       ],
       "liveUrl": "https://chess-ml-coach.onrender.com/",
       "githubUrl": "https://github.com/srbmaury/Chess-Coach",
-      "featured": false,
+      "featured": true,
       "demoType": "iframe",
-      "demoUrl": "https://chess-ml-coach.onrender.com/"
+      "demoUrl": "https://chess-ml-coach.onrender.com/",
+      "featuredOrder": 1
     },
     {
       "title": "Ecommerce Search Engine",
@@ -203,9 +209,10 @@
       ],
       "liveUrl": "https://ecommerce-search.onrender.com/",
       "githubUrl": "https://github.com/srbmaury/Ecommerce-Search",
-      "featured": false,
+      "featured": true,
       "demoType": "iframe",
-      "demoUrl": "https://ecommerce-search.onrender.com/"
+      "demoUrl": "https://ecommerce-search.onrender.com/",
+      "featuredOrder": 3
     },
     {
       "title": "ExitSense",
@@ -473,7 +480,9 @@
       ],
       "liveUrl": "https://india-startup-map.srbmaury.chatgpt.site/",
       "githubUrl": "https://github.com/srbmaury/India-Startup-Map",
-      "featured": false
+      "featured": false,
+      "image": "/images/projects/india-startup-map-live.webp",
+      "imageFit": "cover"
     },
     {
       "title": "Kindred Code",
@@ -492,7 +501,9 @@
       ],
       "liveUrl": "https://kindred-code-srbmaury.srbmaury.chatgpt.site/",
       "githubUrl": "https://github.com/srbmaury/kindred-code",
-      "featured": false
+      "featured": false,
+      "image": "/images/projects/kindred-code-live.webp",
+      "imageFit": "cover"
     },
     {
       "title": "PR Blast Radius",
@@ -512,7 +523,9 @@
         "Report findings with explicit evidence strength and coverage warnings."
       ],
       "githubUrl": "https://github.com/srbmaury/pr-blast-radius",
-      "featured": false
+      "featured": false,
+      "image": "/images/projects/pr-blast-radius-analysis.webp",
+      "imageFit": "cover"
     },
     {
       "title": "RecallLater",
@@ -530,7 +543,9 @@
         "Extract details on-device and schedule local reminders."
       ],
       "githubUrl": "https://github.com/srbmaury/RecallLater",
-      "featured": false
+      "featured": false,
+      "image": "/images/projects/recall-later-android.webp",
+      "imageFit": "contain"
     },
     {
       "title": "NEET",
@@ -543,7 +558,9 @@
         "Android"
       ],
       "githubUrl": "https://github.com/srbmaury/NEET",
-      "featured": false
+      "featured": false,
+      "image": "/images/projects/neet-android.webp",
+      "imageFit": "contain"
     }
   ]
 }

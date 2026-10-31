@@ -84,7 +84,7 @@ const CareerTimeline: React.FC<CareerTimelineProps> = ({ isOpen, onClose }) => {
         },
         {
           label: 'Explore More Games',
-          nextMilestone: 'game-dev',
+          nextMilestone: 'web-dev',
           description: 'Create more interactive games'
         }
       ]
@@ -115,7 +115,7 @@ const CareerTimeline: React.FC<CareerTimelineProps> = ({ isOpen, onClose }) => {
         },
         {
           label: 'Learn Backend Development',
-          nextMilestone: 'backend-dev',
+          nextMilestone: 'mern-projects',
           description: 'Focus on server-side development'
         }
       ]
@@ -172,7 +172,7 @@ const CareerTimeline: React.FC<CareerTimelineProps> = ({ isOpen, onClose }) => {
         },
         {
           label: 'Explore DevOps',
-          nextMilestone: 'devops-learning',
+          nextMilestone: 'advanced-projects',
           description: 'Learn infrastructure and deployment'
         }
       ]
@@ -204,7 +204,7 @@ const CareerTimeline: React.FC<CareerTimelineProps> = ({ isOpen, onClose }) => {
         },
         {
           label: 'Specialize in Frontend',
-          nextMilestone: 'frontend-specialist',
+          nextMilestone: 'salesforce-role',
           description: 'Become a frontend specialist'
         }
       ]
@@ -230,7 +230,7 @@ const CareerTimeline: React.FC<CareerTimelineProps> = ({ isOpen, onClose }) => {
         },
         {
           label: 'Explore Leadership',
-          nextMilestone: 'leadership-path',
+          nextMilestone: 'future-goals',
           description: 'Develop leadership and mentoring skills'
         }
       ]
@@ -261,7 +261,7 @@ const CareerTimeline: React.FC<CareerTimelineProps> = ({ isOpen, onClose }) => {
         },
         {
           label: 'Explore New Technologies',
-          nextMilestone: 'tech-exploration',
+          nextMilestone: 'future-goals',
           description: 'Learn emerging technologies'
         }
       ]
@@ -287,12 +287,12 @@ const CareerTimeline: React.FC<CareerTimelineProps> = ({ isOpen, onClose }) => {
       choices: [
         {
           label: 'Explore New Technologies',
-          nextMilestone: 'tech-exploration',
+          nextMilestone: 'future-goals',
           description: 'Learn emerging technologies like AI/ML'
         },
         {
           label: 'Focus on Architecture',
-          nextMilestone: 'architecture-focus',
+          nextMilestone: 'future-goals',
           description: 'Develop system design and architecture skills'
         }
       ]

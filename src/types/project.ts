@@ -2,6 +2,7 @@ export interface Project {
   title: string;
   description: string;
   image?: string;
+  imageFit?: 'cover' | 'contain';
   fallbackIcon: string;
   fallbackGradient: string;
   technologies: string[];
@@ -10,6 +11,7 @@ export interface Project {
   liveUrl?: string;
   githubUrl?: string;
   featured: boolean;
+  featuredOrder?: number;
   beginner?: boolean;
   demoType?: 'iframe' | 'video' | 'image';
   demoUrl?: string;

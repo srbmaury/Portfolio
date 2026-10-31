@@ -81,7 +81,7 @@ The frontend is static on Netlify and the Express API is deployed separately on 
 | `VITE_TO_EMAIL`, `VITE_TO_NAME` | Recipient details passed to the EmailJS template. |
 | `VITE_API_BASE_URL` | Required when Netlify and the Express API use different origins; set it to the public Render API URL. |
 | `OPENAI_API_KEY`, `GEMINI_API_KEY` | Server-side AI provider credentials for the career assistant. |
-| `GITHUB_TOKEN`, `UPSTASH_REDIS_REST_URL`, `UPSTASH_REDIS_REST_TOKEN` | Optional server-side GitHub and Redis configuration. |
+| `GITHUB_TOKEN`, `UPSTASH_REDIS_REST_URL`, `UPSTASH_REDIS_REST_TOKEN` | Optional server-side GitHub and Redis configuration. In-memory request limits remain active without Redis; Redis shares limits across instances. |
 | `CLIENT_ORIGIN`, `PORT` | Backend CORS origin and listening port. |
 
 ---

@@ -1,7 +1,9 @@
 import { motion } from 'framer-motion';
 import { useState } from 'react';
-import { ArrowLeft, ExternalLink, Github } from 'lucide-react';
+import { ArrowLeft, ExternalLink, Github, Info } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import ProjectModal from './ProjectModal';
+import { useModal } from '../hooks/useModal';
 import projectsData from '../config/projects.json';
 import type { Project } from '../types/project';
 import LazyImage from './LazyImage';
@@ -24,11 +26,28 @@ const categoryFor = (project: Project): Category => {
 
 const ProjectArchive = () => {
   const [category, setCategory] = useState<Category>('All');
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const { setIsProjectModalOpen } = useModal();
   const projects = (projectsData.projects as Project[]).filter(
     (project) => !project.featured && (!hideBeginnerProjects || !project.beginner)
   );
 
   const visibleProjects = projects.filter(project => category === 'All' || categoryFor(project) === category);
+  const availableCategories = categories.filter(item => item === 'All' || projects.some(project => categoryFor(project) === item));
+
+  const openProjectDetails = (project: Project) => {
+    trackProjectEvent('project_details_click', project.title);
+    setSelectedProject(project);
+    setIsModalOpen(true);
+    setIsProjectModalOpen(true);
+  };
+
+  const closeProjectDetails = () => {
+    setIsModalOpen(false);
+    setSelectedProject(null);
+    setIsProjectModalOpen(false);
+  };
 
   useRouteSeo({
     title: `Software Engineering Projects | ${profile.personalInfo.name}`,
@@ -72,10 +91,10 @@ const ProjectArchive = () => {
         </motion.div>
 
         <nav className="archive-filters" aria-label="Filter projects by category">
-          {categories.map(item => <button key={item} type="button" aria-pressed={category === item} className={category === item ? "active" : ""} onClick={() => setCategory(item)}>{item} <span>{item === "All" ? projects.length : projects.filter(p => categoryFor(p) === item).length}</span></button>)}
+          {availableCategories.map(item => <button key={item} type="button" aria-pressed={category === item} className={category === item ? "active" : ""} onClick={() => setCategory(item)}>{item} <span>{item === "All" ? projects.length : projects.filter(p => categoryFor(p) === item).length}</span></button>)}
         </nav>
         <p className="archive-count" aria-live="polite">Showing {visibleProjects.length} {visibleProjects.length === 1 ? "project" : "projects"}</p>
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {visibleProjects.length > 0 ? <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {visibleProjects.map((project, index) => (
             <motion.article
               key={project.title}
@@ -89,7 +108,7 @@ const ProjectArchive = () => {
                 <LazyImage
                   src={project.image}
                   alt={project.title}
-                  className="w-full h-36 object-cover object-top rounded-lg mb-5"
+                  className={`w-full h-36 object-cover object-top rounded-lg mb-5 ${project.imageFit === 'contain' ? 'image-contain' : ''}`}
                   fallback={
                     <div className="w-full h-36 rounded-lg mb-5 flex items-center justify-center text-5xl" style={{ background: fallbackGradientMap[project.fallbackGradient] || defaultFallbackGradient }}>
                       {project.fallbackIcon}
@@ -108,7 +127,10 @@ const ProjectArchive = () => {
                   <span key={tech} className="px-2 py-1 text-xs rounded-full" style={{ backgroundColor: 'var(--tag-bg)', color: 'var(--text-secondary)' }}>{tech}</span>
                 ))}
               </div>
-              <div className="flex gap-4">
+              <div className="mt-auto flex flex-wrap items-center gap-x-5 gap-y-2 border-t pt-3" style={{ borderColor: 'var(--border-color)' }}>
+                <button type="button" onClick={() => openProjectDetails(project)} className="min-h-11 inline-flex items-center gap-2 font-medium text-sm" style={{ color: 'var(--primary-color)' }}>
+                  <Info size={16} /> Project details
+                </button>
                 {project.liveUrl && <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" className="min-h-11 inline-flex items-center gap-2 font-medium text-sm" style={{ color: 'var(--primary-color)' }} onClick={() => trackProjectEvent('live_demo_click', project.title)} aria-label={`View ${project.title}`}>
                   <ExternalLink size={16} /> Live demo
                 </a>}
@@ -118,8 +140,9 @@ const ProjectArchive = () => {
               </div>
             </motion.article>
           ))}
-        </div>
+        </div> : <p className="rounded-xl border p-6 text-center" style={{ borderColor: 'var(--border-color)', color: 'var(--text-secondary)' }}>No projects in this category yet.</p>}
       </div>
+      <ProjectModal isOpen={isModalOpen} onClose={closeProjectDetails} project={selectedProject} />
     </section>
   );
 };

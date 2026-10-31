@@ -217,7 +217,11 @@ const Terminal: React.FC<TerminalProps> = ({ isOpen, onClose, onOpenCareerBot })
         if (timezone === 'local') {
           return `🕐 Local time: ${now.toLocaleString()}\n🌍 UTC: ${now.toUTCString()}`;
         } else {
-          return `🕐 Time in ${timezone}: ${now.toLocaleString('en-US', { timeZone: timezone })}\n💡 Try: time Asia/Kolkata, time America/New_York`;
+          try {
+            return `🕐 Time in ${timezone}: ${now.toLocaleString('en-US', { timeZone: timezone })}\n💡 Try: time Asia/Kolkata, time America/New_York`;
+          } catch {
+            return `Invalid timezone: ${timezone}\n💡 Try: time Asia/Kolkata, time America/New_York`;
+          }
         }
       },
       examples: ['time', 'time Asia/Kolkata'],
