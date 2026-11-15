@@ -3,9 +3,8 @@ import react from '@vitejs/plugin-react'
 import fs from 'node:fs'
 import path from 'node:path'
 import profile from './src/config/profile.json'
-import projectsData from './src/config/projects.json'
 
-import { getArchiveProjects, getProjectMetadata, homeMetadata, projectPublicUrl, socialImage } from './src/config/routeMetadata'
+import { getArchiveProjects, getFeaturedProjects, getProjectMetadata, homeMetadata, projectPublicUrl, socialImage } from './src/config/routeMetadata'
 
 const { personalInfo, experience } = profile
 
@@ -30,16 +29,14 @@ const projectFallbackMarkup = (hideBeginner: boolean) => `
   </main>
 `
 
-const homeFallbackMarkup = `
+const homeFallbackMarkup = (hideBeginner: boolean) => `
   <main>
     <h1>${escapeHtml(personalInfo.name)} — ${escapeHtml(personalInfo.professionalTitle)}</h1>
     <p>${escapeHtml(personalInfo.headline)}</p>
     <p>${escapeHtml(personalInfo.bio)}</p>
     <h2>Featured engineering work</h2>
     <ul>
-      ${projectsData.projects
-        .filter((project) => project.featured)
-        .slice(0, 5)
+      ${getFeaturedProjects(hideBeginner)
         .map((project) => `<li><a href="${escapeHtml(projectPublicUrl(project))}">${escapeHtml(project.title)}</a>: ${escapeHtml(project.description)}</li>`)
         .join('')}
     </ul>
@@ -86,7 +83,7 @@ const staticRouteMetadata = (hideBeginner: boolean) => ({
     const rootHtml = fs.readFileSync(path.join(outputDir, 'index.html'), 'utf8')
     const staticHomeHtml = rootHtml.replace(
       '<div id="root"></div>',
-      `<div id="root">${noScriptFallback(homeFallbackMarkup)}</div>`
+      `<div id="root">${noScriptFallback(homeFallbackMarkup(hideBeginner))}</div>`
     )
     const projectHtml = routeMetadata({
       html: rootHtml,

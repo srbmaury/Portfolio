@@ -1,6 +1,38 @@
 {
   "projects": [
     {
+      "title": "PR Blast Radius",
+      "description": "Analyze potential production impact of Java/Spring Boot pull requests using static code evidence, PostgreSQL dependencies, and OpenTelemetry traces.",
+      "fallbackIcon": "🛰️",
+      "fallbackGradient": "from-orange-600 to-slate-900",
+      "technologies": [
+        "Java",
+        "Spring Boot",
+        "PostgreSQL",
+        "OpenTelemetry",
+        "GitHub API"
+      ],
+      "highlights": [
+        "Inspect changed Java endpoints and types using source-aware static analysis.",
+        "Correlate PostgreSQL schema and runtime dependency evidence.",
+        "Report findings with explicit evidence strength and coverage warnings."
+      ],
+      "githubUrl": "https://github.com/srbmaury/pr-blast-radius",
+      "featured": true,
+      "systemFlow": [
+        "Read pull request changes",
+        "Trace code and data dependencies",
+        "Correlate runtime evidence",
+        "Report impact and coverage"
+      ],
+      "category": "Developer tools",
+      "image": "/images/projects/pr-blast-radius-sample.webp",
+      "imageFit": "contain",
+      "imageCaption": "Repository test fixture rendered in the PR Blast Radius dashboard.",
+      "featuredOrder": 1,
+      "detailsLabel": "View example report"
+    },
+    {
       "title": "FreeEdit",
       "description": "A browser-based editor for shaping screen recordings and polishing their sound, captions, and visual details.",
       "fallbackIcon": "🎬",
@@ -25,39 +57,138 @@
       ],
       "liveUrl": "https://freeedit.srbmaury.com/",
       "githubUrl": "https://github.com/srbmaury/FreeEdit",
-      "featured": false,
+      "featured": true,
       "image": "/images/FreeEdit.webp",
       "liveNote": "The hosted editor processes media on the server.",
-      "category": "Developer tools"
+      "category": "Developer tools",
+      "featuredOrder": 2
     },
     {
-      "title": "Repository LLD Generator",
-      "description": "Understand unfamiliar Java codebases faster with UML diagrams generated from their source structure.",
-      "fallbackIcon": "🧩",
-      "fallbackGradient": "from-slate-600 to-blue-900",
+      "title": "Evalcue AI",
+      "description": "An interview practice and assessment platform for candidates and teams that need consistent, evidence-based feedback.",
+      "image": "/images/EvalcueAI.webp",
+      "fallbackIcon": "🤖",
+      "fallbackGradient": "from-cyan-400 to-blue-500",
       "technologies": [
-        "Python",
-        "Java AST",
-        "PlantUML",
-        "Flask",
-        "Docker"
+        "React 19",
+        "Express 5",
+        "MongoDB",
+        "Redis",
+        "BullMQ",
+        "OpenAI",
+        "Gemini",
+        "Stripe"
       ],
       "highlights": [
-        "Parses Java source code to identify classes, interfaces, methods, fields, and inheritance relationships.",
-        "Generates PlantUML diagrams for repositories, modules, and subdirectories.",
-        "Provides a web interface to preview diagrams for public GitHub and GitLab repositories."
+        "Supports role-specific practice and candidate assessments across voice, coding, system design, and multi-file debugging workflows.",
+        "Provides hiring pipelines, weighted scorecards, evidence review, and human calibration controls.",
+        "Uses Redis and BullMQ for asynchronous evaluation, with billing, observability, and production deployment safeguards."
       ],
       "systemFlow": [
-        "Enter repository URL",
-        "Parse Java AST",
-        "Resolve relationships",
-        "Render class diagrams"
+        "Define role or goal",
+        "Generate assessment",
+        "Interview & evaluate",
+        "Review evidence"
       ],
-      "liveUrl": "https://lldgenerator.srbmaury.com/",
-      "githubUrl": "https://github.com/srbmaury/Repo-LLD-generator",
+      "liveUrl": "https://evalcueai.com/",
+      "featured": true,
+      "category": "AI & ML",
+      "featuredOrder": 3,
+      "githubUrl": "https://github.com/srbmaury/EvalcueAI"
+    },
+    {
+      "title": "Ecommerce Search Engine",
+      "description": "An e-commerce search engine combining full-text retrieval, caching, and machine-learning-based ranking for more relevant product results.",
+      "image": "/images/EcommerceSearch.webp",
+      "fallbackIcon": "🛒",
+      "fallbackGradient": "from-purple-400 to-pink-500",
+      "technologies": [
+        "Python",
+        "Flask",
+        "PostgreSQL",
+        "Redis",
+        "LightGBM",
+        "scikit-learn"
+      ],
+      "highlights": [
+        "Uses PostgreSQL full-text retrieval, Redis query/result caches, and cursor-based pagination for low-latency search.",
+        "Ranks results with LightGBM using popularity, relevance, freshness, category, price, and interaction features.",
+        "Includes personalization, event tracking, background retraining, and an A/B framework for ranking experiments."
+      ],
+      "systemFlow": [
+        "Search query",
+        "Retrieve catalog",
+        "Rank & personalize",
+        "Results"
+      ],
+      "liveUrl": "https://ecommerce-search.onrender.com/",
+      "githubUrl": "https://github.com/srbmaury/Ecommerce-Search",
+      "featured": true,
+      "category": "AI & ML",
+      "featuredOrder": 4
+    },
+    {
+      "title": "Chess ML Coach",
+      "description": "A chess coach that analyzes your games, identifies recurring mistakes, and creates personalized practice with Stockfish and machine learning.",
+      "image": "/images/ChessMLCoach.webp",
+      "fallbackIcon": "♞",
+      "fallbackGradient": "from-emerald-500 to-slate-800",
+      "technologies": [
+        "Python",
+        "FastAPI",
+        "React",
+        "Stockfish / WASM",
+        "PostgreSQL",
+        "Supabase",
+        "LightGBM"
+      ],
+      "highlights": [
+        "Runs Stockfish analysis in the browser for hosted workflows, with resumable checkpoints and shared analysis coordination.",
+        "Uses authenticated, isolated player data with PostgreSQL-backed persistence and adaptive spaced-repetition practice.",
+        "Combines engine-grounded coaching with player-specific modelling to identify mistake-prone positions and generate personal training."
+      ],
+      "systemFlow": [
+        "Sync Chess.com games",
+        "Analyze & checkpoint",
+        "Learn player patterns",
+        "Train adaptively"
+      ],
+      "liveUrl": "https://chess.srbmaury.com/",
+      "githubUrl": "https://github.com/srbmaury/Chess-Coach",
       "featured": false,
-      "image": "/images/LLDGenerator.webp",
-      "category": "Developer tools"
+      "liveNote": "Hosted features depend on deployment configuration. The repository also documents a local LightGBM workflow.",
+      "category": "AI & ML"
+    },
+    {
+      "title": "YAML Data Visualizer",
+      "description": "Explore large YAML files visually, compare changes, and collaborate on configurations without getting lost in nested structures.",
+      "image": "/images/YamlVisualizer.webp",
+      "fallbackIcon": "🌳",
+      "fallbackGradient": "from-blue-400 to-indigo-500",
+      "technologies": [
+        "React",
+        "Node.js",
+        "D3.js",
+        "MongoDB",
+        "JavaScript",
+        "CSS"
+      ],
+      "highlights": [
+        "Uses virtual rendering and schedules work across frames to keep large diagrams usable.",
+        "Supports real-time collaboration, delta-based versioning, diff comparison, and secure GitHub webhook integrations.",
+        "Regression tests in CI cover the YAML comparison workflow."
+      ],
+      "systemFlow": [
+        "Paste or import YAML",
+        "Explore diagram",
+        "Compare & collaborate",
+        "Save versions"
+      ],
+      "liveUrl": "https://yaml-visualizer.netlify.app/shared/cLqNv1m5bx",
+      "githubUrl": "https://github.com/srbmaury/YAML-Visualizer",
+      "featured": false,
+      "category": "Developer tools",
+      "liveNote": "Opens a shared example diagram."
     },
     {
       "title": "DevFolioX",
@@ -89,131 +220,80 @@
       "category": "Developer tools"
     },
     {
-      "title": "Evalcue AI",
-      "description": "An interview practice and assessment platform for candidates and teams that need consistent, evidence-based feedback.",
-      "image": "/images/EvalcueAI.webp",
-      "fallbackIcon": "🤖",
-      "fallbackGradient": "from-cyan-400 to-blue-500",
+      "title": "RecallLater",
+      "description": "A local-first mobile inbox for screenshots, PDFs, links, and text, with on-device extraction and reminders.",
+      "fallbackIcon": "📌",
+      "fallbackGradient": "from-emerald-600 to-slate-900",
       "technologies": [
-        "React 19",
-        "Express 5",
-        "MongoDB",
-        "Redis",
-        "BullMQ",
-        "OpenAI",
-        "Gemini",
-        "Stripe"
+        "React Native",
+        "Expo",
+        "SQLite",
+        "OCR"
       ],
       "highlights": [
-        "Supports role-specific practice and candidate assessments across voice, coding, system design, and multi-file debugging workflows.",
-        "Provides hiring pipelines, weighted scorecards, evidence review, and human calibration controls.",
-        "Uses Redis and BullMQ for asynchronous evaluation, with billing, observability, and production deployment safeguards."
+        "Collect shared content into device-private storage.",
+        "Extract details on-device and schedule local reminders."
       ],
-      "systemFlow": [
-        "Define role or goal",
-        "Generate assessment",
-        "Interview & evaluate",
-        "Review evidence"
-      ],
-      "liveUrl": "https://evalcueai.com/",
-      "featured": true,
-      "featuredOrder": 2,
-      "category": "AI & ML"
+      "githubUrl": "https://github.com/srbmaury/RecallLater",
+      "featured": false,
+      "image": "/images/projects/recall-later-android.webp",
+      "imageFit": "contain",
+      "category": "Mobile"
     },
     {
-      "title": "YAML Data Visualizer",
-      "description": "Explore large YAML files visually, compare changes, and collaborate on configurations without getting lost in nested structures.",
-      "image": "/images/YamlVisualizer.webp",
-      "fallbackIcon": "🌳",
-      "fallbackGradient": "from-blue-400 to-indigo-500",
-      "technologies": [
-        "React",
-        "Node.js",
-        "D3.js",
-        "MongoDB",
-        "JavaScript",
-        "CSS"
-      ],
-      "highlights": [
-        "Uses virtual rendering and schedules work across frames to keep large diagrams usable.",
-        "Supports real-time collaboration, delta-based versioning, diff comparison, and secure GitHub webhook integrations.",
-        "Regression tests in CI cover the YAML comparison workflow."
-      ],
-      "systemFlow": [
-        "Paste or import YAML",
-        "Explore diagram",
-        "Compare & collaborate",
-        "Save versions"
-      ],
-      "liveUrl": "https://yaml-visualizer.netlify.app/",
-      "githubUrl": "https://github.com/srbmaury/YAML-Visualizer",
-      "featured": true,
-      "featuredOrder": 4,
-      "category": "Developer tools"
-    },
-    {
-      "title": "Chess ML Coach",
-      "description": "A chess coach that analyzes your games, identifies recurring mistakes, and creates personalized practice with Stockfish and machine learning.",
-      "image": "/images/ChessMLCoach.webp",
-      "fallbackIcon": "♞",
-      "fallbackGradient": "from-emerald-500 to-slate-800",
+      "title": "Jobbot",
+      "description": "A job-search workflow that finds software engineering openings, ranks them against resume variants, prepares application forms for review, and tracks results.",
+      "fallbackIcon": "🔎",
+      "fallbackGradient": "from-slate-700 to-slate-900",
       "technologies": [
         "Python",
-        "FastAPI",
-        "React",
-        "Stockfish / WASM",
-        "PostgreSQL",
-        "Supabase",
-        "LightGBM"
+        "Playwright",
+        "MongoDB",
+        "ATS APIs"
       ],
       "highlights": [
-        "Runs Stockfish analysis in the browser for hosted workflows, with resumable checkpoints and shared analysis coordination.",
-        "Uses authenticated, isolated player data with PostgreSQL-backed persistence and adaptive spaced-repetition practice.",
-        "Combines engine-grounded coaching with player-specific modelling to identify mistake-prone positions and generate personal training."
+        "Normalizes job listings across applicant tracking systems and supports experience-range filtering and resume-aware ranking.",
+        "Uses browser automation to fill fields and read values back. Dry runs never submit, and fill-for-review lets the user approve submission.",
+        "Tests cover Greenhouse, Ashby, and Workday form fixtures, parallel execution, and live preview."
       ],
       "systemFlow": [
-        "Sync Chess.com games",
-        "Analyze & checkpoint",
-        "Learn player patterns",
-        "Train adaptively"
+        "Scan job sources",
+        "Rank against resume variants",
+        "Review prepared forms",
+        "Track applications"
       ],
-      "liveUrl": "https://chess-ml-coach.onrender.com/",
-      "githubUrl": "https://github.com/srbmaury/Chess-Coach",
-      "featured": true,
-      "featuredOrder": 1,
-      "liveNote": "Hosted features depend on deployment configuration. The repository also documents a local LightGBM workflow.",
-      "category": "AI & ML"
+      "githubUrl": "https://github.com/srbmaury/target-company-sde-scanner",
+      "featured": false,
+      "category": "Web & data"
     },
     {
-      "title": "Ecommerce Search Engine",
-      "description": "An e-commerce search engine combining full-text retrieval, caching, and machine-learning-based ranking for more relevant product results.",
-      "image": "/images/EcommerceSearch.webp",
-      "fallbackIcon": "🛒",
-      "fallbackGradient": "from-purple-400 to-pink-500",
+      "title": "Repository LLD Generator",
+      "description": "Understand unfamiliar Java codebases faster with UML diagrams generated from their source structure.",
+      "fallbackIcon": "🧩",
+      "fallbackGradient": "from-slate-600 to-blue-900",
       "technologies": [
         "Python",
+        "Java AST",
+        "PlantUML",
         "Flask",
-        "PostgreSQL",
-        "Redis",
-        "LightGBM",
-        "scikit-learn"
+        "Docker"
       ],
       "highlights": [
-        "Uses PostgreSQL full-text retrieval, Redis query/result caches, and cursor-based pagination for low-latency search.",
-        "Ranks results with LightGBM using popularity, relevance, freshness, category, price, and interaction features.",
-        "Includes personalization, event tracking, background retraining, and an A/B framework for ranking experiments."
+        "Parses Java source code to identify classes, interfaces, methods, fields, and inheritance relationships.",
+        "Generates PlantUML diagrams for repositories, modules, and subdirectories.",
+        "Provides a web interface to preview diagrams for public GitHub and GitLab repositories."
       ],
       "systemFlow": [
-        "Search query",
-        "Retrieve catalog",
-        "Rank & personalize",
-        "Results"
+        "Enter repository URL",
+        "Parse Java AST",
+        "Resolve relationships",
+        "Render class diagrams"
       ],
-      "liveUrl": "https://ecommerce-search.onrender.com/",
-      "githubUrl": "https://github.com/srbmaury/Ecommerce-Search",
-      "featured": true,
-      "featuredOrder": 3,
-      "category": "AI & ML"
+      "liveUrl": "https://lldgenerator.srbmaury.com/",
+      "githubUrl": "https://github.com/srbmaury/Repo-LLD-generator",
+      "featured": false,
+      "image": "/images/LLDGenerator.webp",
+      "category": "Developer tools"
     },
     {
       "title": "ExitSense",
@@ -502,57 +582,6 @@
       "image": "/images/projects/kindred-code-live.webp",
       "imageFit": "cover",
       "category": "Web & data"
-    },
-    {
-      "title": "PR Blast Radius",
-      "description": "Analyze potential production impact of Java/Spring Boot pull requests using static code evidence, PostgreSQL dependencies, and OpenTelemetry traces.",
-      "fallbackIcon": "🛰️",
-      "fallbackGradient": "from-orange-600 to-slate-900",
-      "technologies": [
-        "Java",
-        "Spring Boot",
-        "PostgreSQL",
-        "OpenTelemetry",
-        "GitHub API"
-      ],
-      "highlights": [
-        "Inspect changed Java endpoints and types using source-aware static analysis.",
-        "Correlate PostgreSQL schema and runtime dependency evidence.",
-        "Report findings with explicit evidence strength and coverage warnings."
-      ],
-      "githubUrl": "https://github.com/srbmaury/pr-blast-radius",
-      "featured": false,
-      "systemFlow": [
-        "Read pull request changes",
-        "Trace code and data dependencies",
-        "Correlate runtime evidence",
-        "Report impact and coverage"
-      ],
-      "category": "Developer tools",
-      "image": "/images/projects/pr-blast-radius-sample.webp",
-      "imageFit": "contain",
-      "imageCaption": "Repository test fixture rendered in the PR Blast Radius dashboard."
-    },
-    {
-      "title": "RecallLater",
-      "description": "A local-first mobile inbox for screenshots, PDFs, links, and text, with on-device extraction and reminders.",
-      "fallbackIcon": "📌",
-      "fallbackGradient": "from-emerald-600 to-slate-900",
-      "technologies": [
-        "React Native",
-        "Expo",
-        "SQLite",
-        "OCR"
-      ],
-      "highlights": [
-        "Collect shared content into device-private storage.",
-        "Extract details on-device and schedule local reminders."
-      ],
-      "githubUrl": "https://github.com/srbmaury/RecallLater",
-      "featured": false,
-      "image": "/images/projects/recall-later-android.webp",
-      "imageFit": "contain",
-      "category": "Mobile"
     },
     {
       "title": "NEET",

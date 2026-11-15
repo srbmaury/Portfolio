@@ -37,6 +37,11 @@ const projectRouteDescription =
   'Developer tools, web applications, mobile projects, and earlier work by Saurabh Maurya.'
 const projectRouteUrl = `${siteUrl}projects`
 const projectPublicUrl = (project: { liveUrl?: string; githubUrl?: string }) => project.liveUrl || project.githubUrl || ''
+export const getFeaturedProjects = (hideBeginner: boolean) =>
+  projectsData.projects
+    .filter(project => project.featured && (!hideBeginner || !project.beginner))
+    .sort((a, b) => (a.featuredOrder ?? Number.MAX_SAFE_INTEGER) - (b.featuredOrder ?? Number.MAX_SAFE_INTEGER))
+
 export const getArchiveProjects = (hideBeginner: boolean) =>
   projectsData.projects.filter(project => !project.featured && (!hideBeginner || !project.beginner))
 

@@ -3,7 +3,7 @@ import { ArrowRight, Eye, Github, Info } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import ProjectModal from './ProjectModal';
 import LazyImage from './LazyImage';
-import projectsData from '../config/projects.json';
+import { getFeaturedProjects } from '../config/routeMetadata';
 import type { Project } from '../types/project';
 import { useProjectDetails } from '../hooks/useProjectDetails';
 import { fallbackGradientMap, defaultFallbackGradient } from '../config/gradientMap';
@@ -12,12 +12,7 @@ import { trackProjectEvent } from '../utils/analytics';
 const hideBeginnerProjects = import.meta.env.VITE_HIDE_BEGINNER_PROJECTS === 'true';
 
 const Projects = () => {
-  const projects = projectsData.projects as Project[];
-
-  const featuredProjects = projects
-    .filter((project) => project.featured && (!hideBeginnerProjects || !project.beginner))
-    .sort((a, b) => (a.featuredOrder ?? Number.MAX_SAFE_INTEGER) - (b.featuredOrder ?? Number.MAX_SAFE_INTEGER));
-
+  const featuredProjects = getFeaturedProjects(hideBeginnerProjects) as Project[];
   const details = useProjectDetails(featuredProjects);
 
   return (
@@ -80,8 +75,8 @@ const Projects = () => {
                 </div>
 
                 <div className="featured-project-actions mt-auto flex flex-wrap items-center gap-x-5 gap-y-2 text-sm font-medium">
-                  <Link to={details.projectLink(project)} state={{ openedProject: true }} onClick={() => trackProjectEvent('project_details_click', project.title)} aria-label={`View ${project.title} project details`} className="inline-flex min-h-11 items-center gap-2" style={{ color: 'var(--primary-color)' }}>
-                    <Info size={16} /> Project details
+                  <Link to={details.projectLink(project)} state={{ openedProject: true }} onClick={() => trackProjectEvent('project_details_click', project.title)} aria-label={project.detailsLabel ? `${project.detailsLabel} for ${project.title}` : `View ${project.title} project details`} className="inline-flex min-h-11 items-center gap-2" style={{ color: 'var(--primary-color)' }}>
+                    <Info size={16} /> {project.detailsLabel ?? 'Project details'}
                   </Link>
                   {project.liveUrl && project.liveUrl !== project.githubUrl && (
                     <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-11 items-center gap-2" style={{ color: 'var(--primary-color)' }} onClick={() => trackProjectEvent('live_demo_click', project.title)}>

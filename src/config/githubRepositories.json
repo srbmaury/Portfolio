@@ -1,9 +1,9 @@
 [
   {
-    "name": "pr-blast-radius",
-    "description": "Analyze potential backend PR impact using Java code, PostgreSQL dependencies, and OpenTelemetry evidence.",
-    "html_url": "https://github.com/srbmaury/pr-blast-radius",
-    "language": "Java"
+    "name": "RecallLater",
+    "description": "A local-first mobile inbox with on-device text extraction, private storage, and reminders.",
+    "html_url": "https://github.com/srbmaury/RecallLater",
+    "language": "TypeScript"
   },
   {
     "name": "NEET",

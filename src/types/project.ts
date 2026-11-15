@@ -3,6 +3,7 @@ export interface Project {
   description: string;
   image?: string;
   imageCaption?: string;
+  detailsLabel?: string;
   imageFit?: 'cover' | 'contain';
   fallbackIcon: string;
   fallbackGradient: string;

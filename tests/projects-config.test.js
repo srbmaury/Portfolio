@@ -17,16 +17,16 @@ test('features Evalcue AI instead of the legacy Companion AI card', () => {
   assert.ok(project);
   assert.equal(project.featured, true);
   assert.equal(project.liveUrl, 'https://evalcueai.com/');
-  assert.equal(project.githubUrl, undefined);
+  assert.equal(project.githubUrl, 'https://github.com/srbmaury/EvalcueAI');
   assert.ok(project.highlights.length >= 3);
   assert.ok(project.systemFlow.length >= 4);
 });
 
-test('features Chess ML Coach with its product and repository links', () => {
+test('keeps Chess ML Coach in the archive at its current live URL', () => {
   const project = projectsByTitle.get('Chess ML Coach');
   assert.ok(project);
-  assert.equal(project.featured, true);
-  assert.equal(project.liveUrl, 'https://chess-ml-coach.onrender.com/');
+  assert.equal(project.featured, false);
+  assert.equal(project.liveUrl, 'https://chess.srbmaury.com/');
   assert.equal(project.githubUrl, 'https://github.com/srbmaury/Chess-Coach');
   assert.ok(project.highlights.length >= 3);
   assert.ok(project.systemFlow.length >= 4);
@@ -51,5 +51,16 @@ test('GitHub statistics enrich the same repositories shown on the homepage', () 
   ];
   const payload = buildGitHubStatsPayload({}, repoFixture);
   assert.deepEqual(payload.repos.map(repo => repo.name), selectedRepositories.map(repo => repo.name));
-  assert.equal(payload.repos.find(repo => repo.name === 'pr-blast-radius').stars, 1);
+  assert.equal(payload.repos.find(repo => repo.name === 'RecallLater').stars, 1);
+});
+
+test('features four projects and lists Jobbot with its public source in the archive', () => {
+  assert.deepEqual(projectsData.projects.filter(project => project.featured)
+    .sort((a, b) => a.featuredOrder - b.featuredOrder).map(project => project.title), [
+    'PR Blast Radius', 'FreeEdit', 'Evalcue AI', 'Ecommerce Search Engine',
+  ]);
+  assert.equal(projectsByTitle.get('YAML Data Visualizer').featured, false);
+  const jobbot = projectsByTitle.get('Jobbot');
+  assert.equal(jobbot.featured, false);
+  assert.equal(jobbot.githubUrl, 'https://github.com/srbmaury/target-company-sde-scanner');
 });
