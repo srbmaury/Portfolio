@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 interface LazyImageProps extends React.ImgHTMLAttributes<HTMLImageElement> {
     fallback?: React.ReactNode;
     spinnerClassName?: string;
+    fit?: 'cover' | 'contain';
 }
 
 const LazyImage: React.FC<LazyImageProps> = ({
@@ -11,35 +12,35 @@ const LazyImage: React.FC<LazyImageProps> = ({
     className = '',
     fallback = null,
     spinnerClassName = '',
+    fit = 'cover',
     ...props
 }) => {
-    const [loading, setLoading] = useState(true);
-    const [showFallback, setShowFallback] = useState(false);
+    const [status, setStatus] = useState<'loading' | 'loaded' | 'error'>('loading');
 
     return (
-        <div className={`relative ${className || 'w-full h-full'}`}>
-            <img
-                src={src}
-                alt={alt}
-                loading="lazy"
-                onLoad={() => setLoading(false)}
-                onError={e => {
-                    setLoading(false);
-                    setShowFallback(true);
-                    if (e.target instanceof HTMLImageElement) {
-                        e.target.style.display = 'none';
-                    }
-                }}
-                {...props}
-                className={`w-full h-full ${className.includes('image-contain') ? 'object-contain' : 'object-cover'} transition-transform duration-300 group-hover:scale-105`}
-                style={{ ...(props.style || {}) }}
-            />
-            {loading && (
-                <div className={`absolute inset-0 flex items-center justify-center bg-white/60 dark:bg-black/40 z-10 ${spinnerClassName}`}>
+        <div className={`relative overflow-hidden ${className || 'w-full h-full'}`}>
+            {status === 'error' ? fallback : (
+                <img
+                    {...props}
+                    src={src}
+                    alt={alt}
+                    loading={props.loading ?? 'lazy'}
+                    onLoad={(event) => {
+                        setStatus('loaded');
+                        props.onLoad?.(event);
+                    }}
+                    onError={(event) => {
+                        setStatus('error');
+                        props.onError?.(event);
+                    }}
+                    className={`w-full h-full ${fit === 'contain' ? 'object-contain' : 'object-cover object-top'} transition-transform duration-300 group-hover:scale-105`}
+                />
+            )}
+            {status === 'loading' && (
+                <div aria-hidden="true" className={`pointer-events-none absolute inset-0 flex items-center justify-center bg-white/60 dark:bg-black/40 ${spinnerClassName}`}>
                     <div className="spinner"></div>
                 </div>
             )}
-            {showFallback && fallback}
         </div>
     );
 };

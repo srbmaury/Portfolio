@@ -7,6 +7,8 @@ dotenv.config();
 const openai = process.env.OPENAI_API_KEY
   ? new OpenAI({
       apiKey: process.env.OPENAI_API_KEY,
+      timeout: 12_000,
+      maxRetries: 0,
     })
   : null;
 
@@ -40,7 +42,7 @@ export async function generateAIResponse(prompt) {
 
       throw new Error('No OpenAI response');
     } catch (err) {
-      errors.push(`OpenAI: ${err.message}`);
+      errors.push(`OpenAI: ${err.status ?? err.name ?? 'error'}`);
       console.warn('[AI] OpenAI failed, trying Gemini fallback');
     }
   } else {
@@ -52,8 +54,8 @@ export async function generateAIResponse(prompt) {
       console.log('[AI] Gemini attempt...');
 
       const model = genAI.getGenerativeModel({
-        model: process.env.GEMINI_MODEL || 'gemini-1.5-flash',
-      });
+        model: process.env.GEMINI_MODEL || 'gemini-3.5-flash-lite',
+      }, { timeout: 12_000 });
 
       const result = await model.generateContent(prompt);
       const response = result.response.text();
@@ -61,7 +63,7 @@ export async function generateAIResponse(prompt) {
 
       throw new Error('No Gemini response');
     } catch (err) {
-      errors.push(`Gemini: ${err.message}`);
+      errors.push(`Gemini: ${err.status ?? err.name ?? 'error'}`);
     }
   } else {
     errors.push('Gemini: GEMINI_API_KEY is not configured');

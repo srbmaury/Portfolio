@@ -2,6 +2,7 @@ export interface Project {
   title: string;
   description: string;
   image?: string;
+  imageCaption?: string;
   imageFit?: 'cover' | 'contain';
   fallbackIcon: string;
   fallbackGradient: string;
@@ -9,6 +10,8 @@ export interface Project {
   highlights?: string[];
   systemFlow?: string[];
   liveUrl?: string;
+  liveNote?: string;
+  category?: 'Developer tools' | 'AI & ML' | 'Web & data' | 'Mobile';
   githubUrl?: string;
   featured: boolean;
   featuredOrder?: number;

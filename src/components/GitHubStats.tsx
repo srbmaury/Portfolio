@@ -1,3 +1,4 @@
+import selectedRepositories from '../config/githubRepositories.json';
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { Github, GitFork, Star } from 'lucide-react';
@@ -11,46 +12,22 @@ interface GitHubStatsProps { username: string; className?: string; }
 
 // Deliberately excludes the featured projects above, so this section adds work
 // a visitor has not already seen rather than repeating the project cards.
-const selectedRepositoryNames = ['pr-blast-radius', 'NEET', 'kindred-code'];
-
-const selectedRepositoryFallbacks: GitHubRepository[] = [
-  {
-    name: 'pr-blast-radius',
-    description: 'Analyze potential backend PR impact using Java code, PostgreSQL dependencies, and OpenTelemetry evidence.',
-    html_url: 'https://github.com/srbmaury/pr-blast-radius',
-    language: 'Java',
-  },
-  {
-    name: 'NEET',
-    description: 'Android exam-prep app in Jetpack Compose with adaptive practice, mock tests, flashcards, photo solving, and optional cloud sync.',
-    html_url: 'https://github.com/srbmaury/NEET',
-    language: 'Kotlin',
-  },
-  {
-    name: 'kindred-code',
-    description: 'Finds developers with shared interests from public GitHub activity, with ranked matching, GitHub App auth, and rate-aware discovery.',
-    html_url: 'https://github.com/srbmaury/kindred-code',
-    language: 'TypeScript',
-  },
-];
-
 const GitHubStats: React.FC<GitHubStatsProps> = ({ username, className = '' }) => {
   const [data, setData] = useState<GitHubStatsResponse | null>(null);
   // Always render every selected repository: live data enriches a card with
   // stars/forks, but a repo the API response omits still shows its local copy.
-  const selectedRepos = selectedRepositoryNames.map((name) => {
-    const live = data?.repos.find((repo) => repo.name.toLowerCase() === name.toLowerCase());
-    const fallback = selectedRepositoryFallbacks.find((repo) => repo.name === name);
+  const selectedRepos = selectedRepositories.map<GitHubRepository>((fallback) => {
+    const live = data?.repos.find((repo) => repo.name.toLowerCase() === fallback.name.toLowerCase());
     // Curated description/language win: they describe what the project does,
     // while GitHub reports whichever language has the most bytes.
     return live ? { ...live, ...fallback, stars: live.stars, forks: live.forks } : fallback;
-  }).filter((repo): repo is GitHubRepository => Boolean(repo));
+  });
 
   useEffect(() => {
     let ignore = false;
     const load = async () => {
       try {
-        const response = await fetch(API_ENDPOINTS.githubStats(username));
+        const response = await fetch(API_ENDPOINTS.githubStats(username), { signal: AbortSignal.timeout(25_000) });
         if (!response.ok) throw new Error('GitHub request failed');
         const result = await response.json() as GitHubStatsResponse;
         if (!ignore) setData(result);

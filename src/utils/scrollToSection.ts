@@ -1,6 +1,6 @@
 /** Scroll to the visible section heading, accounting for the fixed navbar. */
 export function scrollToSection(hash: string, behavior: ScrollBehavior = 'smooth'): void {
-  const section = document.querySelector(hash);
+  const section = document.getElementById(hash.slice(1));
   if (!section) return;
   const heading = section.querySelector('h1, h2') ?? section;
   const navbar = document.querySelector('nav.fixed');

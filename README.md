@@ -28,7 +28,7 @@ Software Engineer at **Salesforce** specializing in scalable systems, observabil
 ## ✨ Portfolio Features
 
 ### 🤖 Intelligent Career Assistant
-Interactive chatbot trained on my experience and projects:
+Interactive chatbot grounded in my experience and projects:
 - Context-aware responses about skills, projects, and experience  
 - Powered by OpenAI (with Gemini fallback)
 - Regenerate responses for better answers
@@ -46,7 +46,7 @@ Interactive chatbot trained on my experience and projects:
 - **Ecommerce Search Engine** — ML-based product search with personalized ranking and A/B testing  
 - **Evalcue AI** — Adaptive interview practice and structured technical hiring with voice, coding, system-design, and debugging assessments; live at [evalcueai.com](https://evalcueai.com/)  
 - **Chess ML Coach** — Personalized chess training with Stockfish analysis, LightGBM mistake prediction, and adaptive puzzles  
-- **ExitSense** — Android app that detects when you're leaving home without GPS  
+- **ExitSense** — Android app that detects when you're leaving home using Wi-Fi and device signals, without continuous GPS tracking
 - **YAML Data Visualizer** — Interactive tree diagrams with D3.js, real-time collaboration, and versioning
 - **Developer Knowledge Base** — Notion-style knowledge platform with AI-powered answer generation  
 - **Hackathon Portal** — Full-stack event platform with RBAC and AI-based evaluation
@@ -54,7 +54,6 @@ Interactive chatbot trained on my experience and projects:
 ### 📈 GitHub Integration
 - Live GitHub statistics via API  
 - Direct repository links for public projects  
-- Contribution activity tracking  
 
 ---
 
@@ -68,11 +67,11 @@ Copy `.env.example` to `.env` for local development, then configure the values r
 
 ### Netlify frontend + Render API
 
-The frontend is static on Netlify and the Express API is deployed separately on Render. The build writes the prerendered `/projects` page as `projects.html`, and [`public/_redirects`](public/_redirects) force-rewrites `/projects/` to it, so both URLs return 200 without a redirect. [`public/404.html`](public/404.html) provides a noindex fallback for genuinely missing static files. Set `VITE_API_BASE_URL` in **Netlify** to the public Render API origin (without a trailing slash), then redeploy. Set `CLIENT_ORIGIN` in **Render** to a comma-separated list including `https://srbmaury.com` and the Netlify site URL. Keep `OPENAI_API_KEY`, `GEMINI_API_KEY`, `GITHUB_TOKEN`, and Upstash credentials on Render only—never set them as `VITE_` variables.
+The frontend is static on Netlify and the Express API is deployed separately on Render. The build writes the prerendered `/projects` page as `_pages/projects.html`. [`public/_redirects`](public/_redirects) rewrites both `/projects` and `/projects/` to it and redirects the old `/projects.html` URL to `/projects`. [`public/404.html`](public/404.html) provides a noindex fallback for genuinely missing static files. Set `VITE_API_BASE_URL` in **Netlify** to the public Render API origin (without a trailing slash), then redeploy. Set `CLIENT_ORIGIN` in **Render** to a comma-separated list including `https://srbmaury.com` and the Netlify site URL. Keep `OPENAI_API_KEY`, `GEMINI_API_KEY`, `GITHUB_TOKEN`, and Upstash credentials on Render only—never set them as `VITE_` variables.
 
 | Variable | Purpose |
 | --- | --- |
-| `VITE_SHOW_RESUME` | Set to `true` to replace the hero projects CTA with the resume viewer. |
+| `VITE_SHOW_RESUME` | Set to `true` to add a resume viewer button beside the hero actions. |
 | `VITE_RESUME_URL` | Public embed URL for the resume. For Google Drive, use the file's `/preview` URL. |
 | `VITE_SHOW_TERMINAL` | Set to `true` to show the interactive terminal. |
 | `VITE_HIDE_BEGINNER_PROJECTS` | Set to `true` to hide beginner projects from the archive and terminal. |
@@ -88,7 +87,7 @@ The frontend is static on Netlify and the Express API is deployed separately on 
 
 ## ⚡ Why This Portfolio Stands Out
 
-- Intelligent assistant trained on real project data (not a generic chatbot)  
+- Intelligent assistant grounded in the portfolio’s structured project data
 - Strong focus on performance, scalability, and system design  
 - Built with production-grade architecture and best practices  
 

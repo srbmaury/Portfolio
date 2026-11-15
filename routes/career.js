@@ -64,6 +64,32 @@ function generateCacheKey(question, conversationContext) {
   });
 }
 
+function findProjectAnswer(question) {
+  const words = value => value.toLowerCase().match(/[a-z0-9]+(?:\.[a-z0-9]+)*/g) ?? [];
+  const query = ` ${words(question).join(' ')} `;
+  const named = projects.projects.find(project => query.includes(` ${words(project.title).join(' ')} `));
+  const candidates = projects.projects.filter(project =>
+    (!query.includes(' featured ') || project.featured)
+    && project.technologies.some(technology => technology.split('/').some(part => {
+      const term = words(part).join(' ');
+      return term.length >= 4 && query.includes(` ${term} `);
+    }))
+  );
+  const project = named ?? (candidates.length === 1 ? candidates[0] : null);
+  if (!project) return null;
+
+  const links = [
+    project.liveUrl && `[Live project](${project.liveUrl})`,
+    project.githubUrl && `[Source code](${project.githubUrl})`,
+  ].filter(Boolean);
+
+  return [
+    `**${project.title}** — ${project.description}`,
+    `Stack: ${project.technologies.join(', ')}.`,
+    links.join(' · '),
+  ].filter(Boolean).join('\n\n');
+}
+
 router.post('/analyze-career', rateLimitMiddleware, async (req, res) => {
   try {
     const { question = '', conversationContext = '', regenerate = false } =
@@ -122,7 +148,15 @@ router.post('/analyze-career', rateLimitMiddleware, async (req, res) => {
           : ''
       );
 
-    const analysis = await generateAIResponse(prompt);
+    let analysis;
+    try {
+      analysis = await generateAIResponse(prompt);
+    } catch (providerError) {
+      console.warn('Career AI providers unavailable:', providerError.message);
+      const projectAnswer = findProjectAnswer(question);
+      if (projectAnswer) return res.json({ analysis: projectAnswer, cached: false, source: 'portfolio' });
+      return res.status(503).json({ error: 'Chatter is temporarily unavailable' });
+    }
 
     try {
       await setCareerCachedResponse(cacheKey, analysis);

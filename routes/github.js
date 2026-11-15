@@ -49,10 +49,8 @@ router.get('/github-stats/:username', githubRateLimitMiddleware, async (req, res
       return res.json({ ...cached, cached: true, stale: true });
     }
 
-    res.status(500).json({
-      error: 'Failed to load GitHub data',
-      details: err.message,
-    });
+    console.warn('GitHub data unavailable:', err.status ?? err.name);
+    res.status(503).json({ error: 'GitHub data is temporarily unavailable' });
   }
 });
 

@@ -26,7 +26,9 @@
       "liveUrl": "https://freeedit.srbmaury.com/",
       "githubUrl": "https://github.com/srbmaury/FreeEdit",
       "featured": false,
-      "image": "/images/FreeEdit.webp"
+      "image": "/images/FreeEdit.webp",
+      "liveNote": "The hosted editor processes media on the server.",
+      "category": "Developer tools"
     },
     {
       "title": "Repository LLD Generator",
@@ -54,7 +56,8 @@
       "liveUrl": "https://lldgenerator.srbmaury.com/",
       "githubUrl": "https://github.com/srbmaury/Repo-LLD-generator",
       "featured": false,
-      "image": "/images/LLDGenerator.webp"
+      "image": "/images/LLDGenerator.webp",
+      "category": "Developer tools"
     },
     {
       "title": "DevFolioX",
@@ -82,7 +85,8 @@
       "liveUrl": "https://devfoliox.srbmaury.com/",
       "githubUrl": "https://github.com/srbmaury/Portfolio-Builder",
       "featured": false,
-      "image": "/images/DevFolioX.webp"
+      "image": "/images/DevFolioX.webp",
+      "category": "Developer tools"
     },
     {
       "title": "Evalcue AI",
@@ -113,9 +117,8 @@
       ],
       "liveUrl": "https://evalcueai.com/",
       "featured": true,
-      "demoType": "iframe",
-      "demoUrl": "https://evalcueai.com/",
-      "featuredOrder": 2
+      "featuredOrder": 2,
+      "category": "AI & ML"
     },
     {
       "title": "YAML Data Visualizer",
@@ -132,9 +135,9 @@
         "CSS"
       ],
       "highlights": [
-        "Renders more than 5,000 nodes at 60fps using virtual rendering and frame scheduling.",
+        "Uses virtual rendering and schedules work across frames to keep large diagrams usable.",
         "Supports real-time collaboration, delta-based versioning, diff comparison, and secure GitHub webhook integrations.",
-        "Recent work improved diff correctness and added regression coverage to CI for the comparison workflow."
+        "Regression tests in CI cover the YAML comparison workflow."
       ],
       "systemFlow": [
         "Paste or import YAML",
@@ -145,9 +148,8 @@
       "liveUrl": "https://yaml-visualizer.netlify.app/",
       "githubUrl": "https://github.com/srbmaury/YAML-Visualizer",
       "featured": true,
-      "demoType": "iframe",
-      "demoUrl": "https://yaml-visualizer.netlify.app/",
-      "featuredOrder": 4
+      "featuredOrder": 4,
+      "category": "Developer tools"
     },
     {
       "title": "Chess ML Coach",
@@ -178,9 +180,9 @@
       "liveUrl": "https://chess-ml-coach.onrender.com/",
       "githubUrl": "https://github.com/srbmaury/Chess-Coach",
       "featured": true,
-      "demoType": "iframe",
-      "demoUrl": "https://chess-ml-coach.onrender.com/",
-      "featuredOrder": 1
+      "featuredOrder": 1,
+      "liveNote": "Hosted features depend on deployment configuration. The repository also documents a local LightGBM workflow.",
+      "category": "AI & ML"
     },
     {
       "title": "Ecommerce Search Engine",
@@ -210,13 +212,12 @@
       "liveUrl": "https://ecommerce-search.onrender.com/",
       "githubUrl": "https://github.com/srbmaury/Ecommerce-Search",
       "featured": true,
-      "demoType": "iframe",
-      "demoUrl": "https://ecommerce-search.onrender.com/",
-      "featuredOrder": 3
+      "featuredOrder": 3,
+      "category": "AI & ML"
     },
     {
       "title": "ExitSense",
-      "description": "An Android app that detects when you're leaving home and reminds you what to bring, using device sensors rather than GPS.",
+      "description": "An Android app that uses home Wi-Fi and device signals to detect departures and remind you what to bring, without continuous GPS tracking.",
       "image": "/images/ExitSense.webp",
       "fallbackIcon": "🚪",
       "fallbackGradient": "from-amber-400 to-orange-500",
@@ -225,7 +226,13 @@
         "Kotlin"
       ],
       "githubUrl": "https://github.com/srbmaury/ExitSense",
-      "featured": false
+      "featured": false,
+      "imageFit": "contain",
+      "highlights": [
+        "Uses home Wi-Fi identity as a departure signal and accounts for Android permission limits.",
+        "Keeps reminders local. Optional weather uses location when enabled."
+      ],
+      "category": "Mobile"
     },
     {
       "title": "Developer Knowledge Base",
@@ -259,8 +266,8 @@
       "liveUrl": "https://developer-knowledge-base.onrender.com/",
       "githubUrl": "https://github.com/srbmaury/Developer-Knowledge-Base",
       "featured": false,
-      "demoType": "iframe",
-      "demoUrl": "https://developer-knowledge-base.onrender.com/"
+      "liveNote": "Sign-in required.",
+      "category": "Developer tools"
     },
     {
       "title": "MERN Chat Application",
@@ -279,8 +286,7 @@
       "liveUrl": "https://mern-chat-app-xlr3.onrender.com/",
       "githubUrl": "https://github.com/srbmaury/MERN-Chat-App",
       "featured": false,
-      "demoType": "iframe",
-      "demoUrl": "https://mern-chat-app-xlr3.onrender.com/"
+      "category": "Web & data"
     },
     {
       "title": "Hackathon Portal",
@@ -296,35 +302,38 @@
         "JavaScript"
       ],
       "highlights": [
-        "Designed a role-based access-control system spanning six roles.",
+        "Designed access control for seven roles across the organization and individual hackathons.",
         "Automated evaluation workflows using AI APIs.",
         "Managed teams, submissions, ideas, participants, and scoring through the event lifecycle."
       ],
       "liveUrl": "https://hackathon-portal-sepia.vercel.app",
       "githubUrl": "https://github.com/srbmaury/Hackathon-Portal",
       "featured": false,
-      "demoType": "iframe",
-      "demoUrl": "https://hackathon-portal-sepia.vercel.app"
+      "category": "Web & data"
     },
     {
       "title": "Store Management System",
-      "description": "Track inventory, sales, and basic reports through a lightweight store management interface.",
+      "description": "Manage stores, staff, sales, inventory, and receipts across an authenticated dashboard.",
       "image": "/images/StoreManagement.webp",
       "fallbackIcon": "🏪",
       "fallbackGradient": "from-teal-400 to-green-500",
       "technologies": [
-        "JavaScript",
-        "HTML",
-        "CSS",
-        "Local Storage",
-        "Bootstrap"
+        "React",
+        "Vite",
+        "Salesforce Lightning Design System",
+        "Express",
+        "MongoDB",
+        "JWT",
+        "Tesseract.js"
       ],
       "liveUrl": "https://store-management-frontend-x0e2.onrender.com/",
       "githubUrl": "https://github.com/srbmaury/store-management",
       "featured": false,
       "beginner": true,
-      "demoType": "iframe",
-      "demoUrl": "https://store-management-frontend-x0e2.onrender.com/"
+      "highlights": [
+        "Separates administrator and staff permissions.",
+        "Extracts line items from uploaded receipts and tracks stock changes during sales."
+      ]
     },
     {
       "title": "Kanban Board",
@@ -333,21 +342,22 @@
       "fallbackIcon": "📋",
       "fallbackGradient": "from-sky-400 to-blue-600",
       "technologies": [
-        "JavaScript",
-        "HTML",
-        "CSS",
-        "Drag & Drop API"
+        "React",
+        "Vite",
+        "Tailwind CSS",
+        "Context API"
       ],
       "liveUrl": "https://saurabh-kanban-board.netlify.app/",
       "githubUrl": "https://github.com/srbmaury/saurabh-kanban-board",
       "featured": false,
       "beginner": true,
-      "demoType": "iframe",
-      "demoUrl": "https://saurabh-kanban-board.netlify.app/"
+      "highlights": [
+        "Groups tickets by status, priority, or assignee across boards."
+      ]
     },
     {
       "title": "Notes Application",
-      "description": "Create, edit, search, and organize notes with Markdown support.",
+      "description": "Create, edit, search, and star locally stored notes with HTML formatting.",
       "image": "/images/MagicNotes.webp",
       "fallbackIcon": "📝",
       "fallbackGradient": "from-yellow-400 to-orange-500",
@@ -355,15 +365,12 @@
         "JavaScript",
         "HTML",
         "CSS",
-        "Local Storage",
-        "Markdown"
+        "Local Storage"
       ],
       "liveUrl": "https://srbmaury.github.io/notes/",
       "githubUrl": "https://github.com/srbmaury/notes",
       "featured": false,
-      "beginner": true,
-      "demoType": "iframe",
-      "demoUrl": "https://srbmaury.github.io/notes/"
+      "beginner": true
     },
     {
       "title": "Quiz Application",
@@ -381,9 +388,7 @@
       "liveUrl": "https://srbmaury.github.io/quiz1/",
       "githubUrl": "https://github.com/srbmaury/quiz1",
       "featured": false,
-      "beginner": true,
-      "demoType": "iframe",
-      "demoUrl": "https://srbmaury.github.io/quiz1/"
+      "beginner": true
     },
     {
       "title": "Tic Tac Toe Game",
@@ -395,35 +400,28 @@
         "JavaScript",
         "HTML",
         "CSS",
-        "Game Logic",
-        "AI Algorithm"
+        "Minimax"
       ],
       "liveUrl": "https://tic-tac-toe-silk-sigma.vercel.app/",
       "githubUrl": "https://github.com/srbmaury/tic-tac-toe",
       "featured": false,
-      "beginner": true,
-      "demoType": "iframe",
-      "demoUrl": "https://tic-tac-toe-silk-sigma.vercel.app/"
+      "beginner": true
     },
     {
       "title": "Dictionary Application",
-      "description": "Look up definitions, pronunciations, and examples through a dictionary API.",
+      "description": "Look up Hindi translations of English words using a dictionary stored in the browser app.",
       "image": "/images/Dictionary.webp",
       "fallbackIcon": "📖",
       "fallbackGradient": "from-indigo-400 to-purple-500",
       "technologies": [
         "JavaScript",
         "HTML",
-        "CSS",
-        "API Integration",
-        "Responsive Design"
+        "CSS"
       ],
       "liveUrl": "https://srbmaury.github.io/dictionary/",
       "githubUrl": "https://github.com/srbmaury/dictionary",
       "featured": false,
-      "beginner": true,
-      "demoType": "iframe",
-      "demoUrl": "https://srbmaury.github.io/dictionary/"
+      "beginner": true
     },
     {
       "title": "Flappy Bird Game",
@@ -441,9 +439,7 @@
       "liveUrl": "https://srbmaury.github.io/flappyBird/",
       "githubUrl": "https://github.com/srbmaury/flappyBird",
       "featured": false,
-      "beginner": true,
-      "demoType": "iframe",
-      "demoUrl": "https://srbmaury.github.io/flappyBird/"
+      "beginner": true
     },
     {
       "title": "Codeforces Filter",
@@ -482,7 +478,8 @@
       "githubUrl": "https://github.com/srbmaury/India-Startup-Map",
       "featured": false,
       "image": "/images/projects/india-startup-map-live.webp",
-      "imageFit": "cover"
+      "imageFit": "cover",
+      "category": "Web & data"
     },
     {
       "title": "Kindred Code",
@@ -503,7 +500,8 @@
       "githubUrl": "https://github.com/srbmaury/kindred-code",
       "featured": false,
       "image": "/images/projects/kindred-code-live.webp",
-      "imageFit": "cover"
+      "imageFit": "cover",
+      "category": "Web & data"
     },
     {
       "title": "PR Blast Radius",
@@ -524,8 +522,16 @@
       ],
       "githubUrl": "https://github.com/srbmaury/pr-blast-radius",
       "featured": false,
-      "image": "/images/projects/pr-blast-radius-analysis.webp",
-      "imageFit": "cover"
+      "systemFlow": [
+        "Read pull request changes",
+        "Trace code and data dependencies",
+        "Correlate runtime evidence",
+        "Report impact and coverage"
+      ],
+      "category": "Developer tools",
+      "image": "/images/projects/pr-blast-radius-sample.webp",
+      "imageFit": "contain",
+      "imageCaption": "Repository test fixture rendered in the PR Blast Radius dashboard."
     },
     {
       "title": "RecallLater",
@@ -545,7 +551,8 @@
       "githubUrl": "https://github.com/srbmaury/RecallLater",
       "featured": false,
       "image": "/images/projects/recall-later-android.webp",
-      "imageFit": "contain"
+      "imageFit": "contain",
+      "category": "Mobile"
     },
     {
       "title": "NEET",
@@ -560,7 +567,8 @@
       "githubUrl": "https://github.com/srbmaury/NEET",
       "featured": false,
       "image": "/images/projects/neet-android.webp",
-      "imageFit": "contain"
+      "imageFit": "contain",
+      "category": "Mobile"
     }
   ]
 }

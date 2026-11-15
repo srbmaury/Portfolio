@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight, Eye, Github, Info } from 'lucide-react';
 import { Link } from 'react-router-dom';
@@ -6,34 +5,20 @@ import ProjectModal from './ProjectModal';
 import LazyImage from './LazyImage';
 import projectsData from '../config/projects.json';
 import type { Project } from '../types/project';
-import { useModal } from '../hooks/useModal';
+import { useProjectDetails } from '../hooks/useProjectDetails';
 import { fallbackGradientMap, defaultFallbackGradient } from '../config/gradientMap';
 import { trackProjectEvent } from '../utils/analytics';
 
 const hideBeginnerProjects = import.meta.env.VITE_HIDE_BEGINNER_PROJECTS === 'true';
 
 const Projects = () => {
-  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const { setIsProjectModalOpen } = useModal();
   const projects = projectsData.projects as Project[];
-
-  const handleProjectClick = (project: Project) => {
-    trackProjectEvent('project_details_click', project.title);
-    setSelectedProject(project);
-    setIsModalOpen(true);
-    setIsProjectModalOpen(true);
-  };
-
-  const closeModal = () => {
-    setIsModalOpen(false);
-    setSelectedProject(null);
-    setIsProjectModalOpen(false);
-  };
 
   const featuredProjects = projects
     .filter((project) => project.featured && (!hideBeginnerProjects || !project.beginner))
     .sort((a, b) => (a.featuredOrder ?? Number.MAX_SAFE_INTEGER) - (b.featuredOrder ?? Number.MAX_SAFE_INTEGER));
+
+  const details = useProjectDetails(featuredProjects);
 
   return (
     <section id="projects" className="section" style={{ backgroundColor: 'var(--bg-primary)' }} aria-label="Featured engineering work" role="region" tabIndex={-1}>
@@ -60,8 +45,9 @@ const Projects = () => {
                 {project.image ? (
                   <LazyImage
                     src={project.image}
+                    fit={project.imageFit}
                     alt={project.title}
-                    className={`featured-project-image w-full object-cover object-top ${project.imageFit === 'contain' ? 'image-contain' : ''}`}
+                    className="featured-project-image w-full"
                     spinnerClassName="profile-spinner"
                     fallback={
                       <div className="featured-project-image flex items-center justify-center" style={{ background: fallbackGradientMap[project.fallbackGradient] || defaultFallbackGradient }}>
@@ -94,9 +80,9 @@ const Projects = () => {
                 </div>
 
                 <div className="featured-project-actions mt-auto flex flex-wrap items-center gap-x-5 gap-y-2 text-sm font-medium">
-                  <button type="button" onClick={() => handleProjectClick(project)} className="inline-flex min-h-11 items-center gap-2" style={{ color: 'var(--primary-color)' }}>
+                  <Link to={details.projectLink(project)} state={{ openedProject: true }} onClick={() => trackProjectEvent('project_details_click', project.title)} aria-label={`View ${project.title} project details`} className="inline-flex min-h-11 items-center gap-2" style={{ color: 'var(--primary-color)' }}>
                     <Info size={16} /> Project details
-                  </button>
+                  </Link>
                   {project.liveUrl && project.liveUrl !== project.githubUrl && (
                     <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-11 items-center gap-2" style={{ color: 'var(--primary-color)' }} onClick={() => trackProjectEvent('live_demo_click', project.title)}>
                       <Eye size={16} /> Live demo
@@ -118,12 +104,12 @@ const Projects = () => {
             Looking for smaller experiments or earlier work? Browse the project archive.
           </p>
           <Link to="/projects" className="btn btn-secondary">
-            Browse all projects <ArrowRight size={18} />
+            Browse project archive <ArrowRight size={18} />
           </Link>
         </motion.div>
       </div>
 
-      <ProjectModal isOpen={isModalOpen} onClose={closeModal} project={selectedProject} />
+      <ProjectModal key={details.project?.title} isOpen={details.isOpen} onClose={details.closeDetails} project={details.project} />
     </section>
   );
 };

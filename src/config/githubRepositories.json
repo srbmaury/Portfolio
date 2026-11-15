@@ -1,0 +1,20 @@
+[
+  {
+    "name": "pr-blast-radius",
+    "description": "Analyze potential backend PR impact using Java code, PostgreSQL dependencies, and OpenTelemetry evidence.",
+    "html_url": "https://github.com/srbmaury/pr-blast-radius",
+    "language": "Java"
+  },
+  {
+    "name": "NEET",
+    "description": "Android exam preparation with adaptive practice, mock tests, flashcards, photo solving, and optional cloud sync.",
+    "html_url": "https://github.com/srbmaury/NEET",
+    "language": "Kotlin"
+  },
+  {
+    "name": "kindred-code",
+    "description": "Finds developers with shared interests from public GitHub activity, with ranked matching and GitHub App authentication.",
+    "html_url": "https://github.com/srbmaury/kindred-code",
+    "language": "TypeScript"
+  }
+]

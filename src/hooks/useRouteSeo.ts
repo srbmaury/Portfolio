@@ -1,67 +1,45 @@
 import { useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
+import { getProjectMetadata, homeMetadata } from '../config/routeMetadata';
 
-interface RouteSeoOptions {
-  title: string;
-  description: string;
-  canonicalPath: string;
-  structuredData?: Record<string, unknown>;
-}
-
-const siteUrl = 'https://srbmaury.com';
-
-const setMetaContent = (selector: string, content: string) => {
-  document.querySelector<HTMLMetaElement>(selector)?.setAttribute('content', content);
+const archiveMetadata = getProjectMetadata(import.meta.env.VITE_HIDE_BEGINNER_PROJECTS === 'true');
+const notFoundMetadata = {
+  ...homeMetadata,
+  title: 'Page not found | Saurabh Maurya',
+  description: 'This page could not be found.',
+  canonicalUrl: '',
+  structuredData: null,
 };
 
-const metaSelectors = [
-  'meta[name="description"]',
-  'meta[property="og:title"]',
-  'meta[property="og:description"]',
-  'meta[property="og:url"]',
-  'meta[name="twitter:title"]',
-  'meta[name="twitter:description"]',
-  'meta[name="twitter:url"]',
-];
+export const useRouteSeo = () => {
+  const { pathname } = useLocation();
 
-export const useRouteSeo = ({ title, description, canonicalPath, structuredData }: RouteSeoOptions) => {
   useEffect(() => {
-    const canonicalUrl = `${siteUrl}${canonicalPath}`;
-    const previousTitle = document.title;
-    const canonical = document.querySelector<HTMLLinkElement>('link[rel="canonical"]');
-    const previousCanonical = canonical?.href;
-    const previousMeta = new Map(
-      metaSelectors.map((selector) => [
-        selector,
-        document.querySelector<HTMLMetaElement>(selector)?.content,
-      ])
-    );
+    const home = pathname === '/';
+    const archive = pathname === '/projects' || pathname === '/projects/';
+    const { title, description, canonicalUrl, structuredData } =
+      home ? homeMetadata : archive ? archiveMetadata : notFoundMetadata;
 
     document.title = title;
-    canonical?.setAttribute('href', canonicalUrl);
-    setMetaContent('meta[name="description"]', description);
-    setMetaContent('meta[property="og:title"]', title);
-    setMetaContent('meta[property="og:description"]', description);
-    setMetaContent('meta[property="og:url"]', canonicalUrl);
-    setMetaContent('meta[name="twitter:title"]', title);
-    setMetaContent('meta[name="twitter:description"]', description);
-    setMetaContent('meta[name="twitter:url"]', canonicalUrl);
+    const canonical = document.querySelector<HTMLLinkElement>('link[rel="canonical"]');
+    canonical?.setAttribute('href', canonicalUrl || new URL(pathname, homeMetadata.canonicalUrl).href);
 
-    let routeStructuredData: HTMLScriptElement | undefined;
-    if (structuredData) {
-      routeStructuredData = document.createElement('script');
-      routeStructuredData.type = 'application/ld+json';
-      routeStructuredData.id = 'route-structured-data';
-      routeStructuredData.textContent = JSON.stringify(structuredData);
-      document.head.appendChild(routeStructuredData);
+    const tags = {
+      'name="description"': description,
+      'property="og:description"': description,
+      'name="twitter:description"': description,
+      'property="og:title"': title,
+      'name="twitter:title"': title,
+      'property="og:url"': canonical?.href ?? canonicalUrl,
+      'name="twitter:url"': canonical?.href ?? canonicalUrl,
+      'name="robots"': home || archive ? 'index, follow' : 'noindex',
+      'name="googlebot"': home || archive ? 'index, follow, max-image-preview:large' : 'noindex',
+    };
+    for (const [selector, value] of Object.entries(tags)) {
+      document.querySelector<HTMLMetaElement>(`meta[${selector}]`)?.setAttribute('content', value);
     }
 
-    return () => {
-      document.title = previousTitle;
-      if (previousCanonical) canonical?.setAttribute('href', previousCanonical);
-      previousMeta.forEach((content, selector) => {
-        if (content) setMetaContent(selector, content);
-      });
-      routeStructuredData?.remove();
-    };
-  }, [canonicalPath, description, structuredData, title]);
+    const schema = document.getElementById('route-structured-data');
+    if (schema) schema.textContent = structuredData ? JSON.stringify(structuredData) : '';
+  }, [pathname]);
 };

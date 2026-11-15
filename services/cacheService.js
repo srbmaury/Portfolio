@@ -9,6 +9,8 @@ const upstashRedis =
     ? new Redis({
         url: process.env.UPSTASH_REDIS_REST_URL,
         token: process.env.UPSTASH_REDIS_REST_TOKEN,
+        retry: false,
+        signal: () => AbortSignal.timeout(2500),
       })
     : null;
 
@@ -50,7 +52,7 @@ export async function getGithubCacheEntry(username) {
   if (!upstashRedis) return null;
 
   const key = username.toLowerCase();
-  return await upstashRedis.get(`portfolio:github:v3:${key}`);
+  return await upstashRedis.get(`portfolio:github:v4:${key}`);
 }
 
 export async function setGithubCacheEntry(username, payload) {
@@ -58,7 +60,7 @@ export async function setGithubCacheEntry(username, payload) {
 
   const key = username.toLowerCase();
 
-  await upstashRedis.set(`portfolio:github:v3:${key}`, payload, {
+  await upstashRedis.set(`portfolio:github:v4:${key}`, payload, {
     ex: 60 * 60 * 24 * 30,
   });
 }
