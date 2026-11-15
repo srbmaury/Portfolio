@@ -6,6 +6,8 @@ import { Terminal as TerminalIcon, X, HelpCircle, Play, Palette, Settings, Zap }
 import CareerTimeline from './CareerTimeline';
 import profile from '../config/profile.json';
 
+import type { Project } from '../types/project';
+
 const hideBeginnerProjects = import.meta.env.VITE_HIDE_BEGINNER_PROJECTS === 'true';
 
 interface TerminalProps {
@@ -319,7 +321,7 @@ const Terminal: React.FC<TerminalProps> = ({ isOpen, onClose, onOpenCareerBot })
   // Available sections
   const sections = ['about', 'skills', 'projects', 'contact', 'github'];
   // Centralized project data from projects.json
-  const visibleProjects = projectsConfig.projects.filter(
+  const visibleProjects = (projectsConfig.projects as Project[]).filter(
     (project) => !hideBeginnerProjects || !project.beginner
   );
   const projects = visibleProjects.map((project) => project.title);

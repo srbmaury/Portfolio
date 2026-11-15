@@ -4,14 +4,13 @@ import { useEffect, useState } from 'react';
 import { trackHeroEvent } from '../utils/analytics';
 import { scrollToSection } from '../utils/scrollToSection';
 import profile from '../config/profile.json';
-import projectsData from '../config/projects.json';
+import { getFeaturedProjects } from '../config/routeMetadata';
 import ResumeViewer from './ResumeViewer';
 
 const showResume = import.meta.env.VITE_SHOW_RESUME === 'true' && Boolean(import.meta.env.VITE_RESUME_URL);
 const ROTATION_MS = 6000;
-const featuredWork = projectsData.projects.filter(
-  (project) => project.featured && (project.liveUrl || project.githubUrl)
-).sort((a, b) => (a.featuredOrder ?? Number.MAX_SAFE_INTEGER) - (b.featuredOrder ?? Number.MAX_SAFE_INTEGER));
+const featuredWork = getFeaturedProjects(import.meta.env.VITE_HIDE_BEGINNER_PROJECTS === 'true')
+  .filter(project => project.liveUrl || project.githubUrl);
 export default function Hero() {
   const [isResumeOpen, setIsResumeOpen] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(0);

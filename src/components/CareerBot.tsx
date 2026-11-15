@@ -93,10 +93,12 @@ const CareerBot: React.FC<CareerBotProps> = ({ className = '', isOpen: externalI
       const conversationContext = messages
         .slice(-4) // Last 4 messages for context
         .map(msg => `${msg.role === 'user' ? 'User' : 'Assistant'}: ${msg.content}`)
-        .join('\n\n');
+        .join('\n\n')
+        .slice(-8000);
 
       const response = await fetch(API_ENDPOINTS.ANALYZE_CAREER, {
         method: 'POST',
+        signal: AbortSignal.timeout(40_000),
         headers: {
           'Content-Type': 'application/json',
         },
@@ -120,7 +122,7 @@ const CareerBot: React.FC<CareerBotProps> = ({ className = '', isOpen: externalI
       setMessages(prev => [...prev, { role: 'assistant', content: data.analysis }]);
     } catch (error) {
 
-      let errorMessage = `Sorry, ${profile.personalInfo.name}'s assistant encountered an error processing your request. Please try again or check your internet connection.`;
+      let errorMessage = 'Chatter is temporarily unavailable. You can still browse the [project archive](/projects) or [get in touch](/#contact).';
 
       if (error instanceof Error && error.message.startsWith('RATE_LIMIT:')) {
         const retryAfter = error.message.split(':')[1];
@@ -177,10 +179,12 @@ const CareerBot: React.FC<CareerBotProps> = ({ className = '', isOpen: externalI
         .slice(0, messageIndex)
         .slice(-4)
         .map(msg => `${msg.role === 'user' ? 'User' : 'Assistant'}: ${msg.content}`)
-        .join('\n\n');
+        .join('\n\n')
+        .slice(-8000);
 
       const response = await fetch(API_ENDPOINTS.ANALYZE_CAREER, {
         method: 'POST',
+        signal: AbortSignal.timeout(40_000),
         headers: {
           'Content-Type': 'application/json',
         },
@@ -211,7 +215,7 @@ const CareerBot: React.FC<CareerBotProps> = ({ className = '', isOpen: externalI
       ));
     } catch (error) {
 
-      let errorMessage = "Sorry, failed to regenerate response. Please try again.";
+      let errorMessage = 'Chatter is temporarily unavailable. Please try again shortly.';
 
       if (error instanceof Error && error.message.startsWith('RATE_LIMIT:')) {
         const retryAfter = error.message.split(':')[1];

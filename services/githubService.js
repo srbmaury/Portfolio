@@ -1,3 +1,4 @@
+import selectedRepositories from '../src/config/githubRepositories.json' with { type: 'json' };
 import dotenv from 'dotenv';
 
 dotenv.config();
@@ -76,17 +77,9 @@ function buildGitHubStatsPayload(user, repos) {
     0
   );
 
-  // Keep in sync with selectedRepositoryNames in src/components/GitHubStats.tsx,
-  // otherwise the client drops any repo missing from this payload.
-  const featuredRepositoryNames = [
-    'Repo-LLD-generator',
-    'NEET',
-    'kindred-code',
-  ];
-
   const repositoriesByName = new Map(repos.map((repo) => [repo.name.toLowerCase(), repo]));
-  const featuredRepos = featuredRepositoryNames
-    .map((name) => repositoriesByName.get(name.toLowerCase()))
+  const featuredRepos = selectedRepositories
+    .map(({ name }) => repositoriesByName.get(name.toLowerCase()))
     .filter(Boolean);
 
   const selectedRepos = featuredRepos.length > 0

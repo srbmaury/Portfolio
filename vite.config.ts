@@ -1,69 +1,12 @@
-import { defineConfig } from 'vite'
+import { defineConfig, loadEnv } from 'vite'
 import react from '@vitejs/plugin-react'
 import fs from 'node:fs'
 import path from 'node:path'
 import profile from './src/config/profile.json'
-import projectsData from './src/config/projects.json'
 
-const { personalInfo, experience, interests, skillCategories } = profile
-const siteUrl = `${personalInfo.portfolio.replace(/\/$/, '')}/`
-const socialImage = `${siteUrl}og-image.png`
-const seoDescription = `${personalInfo.name} is a ${personalInfo.professionalTitle} focused on distributed systems, developer tools, performance engineering, and AI-powered products.`
-const structuredProfile = {
-  '@context': 'https://schema.org',
-  '@graph': [
-    {
-      '@type': 'WebSite',
-      name: `${personalInfo.name} Portfolio`,
-      url: siteUrl,
-      description: seoDescription,
-      inLanguage: 'en',
-    },
-    {
-      '@type': 'ProfilePage',
-      mainEntity: {
-        '@type': 'Person',
-        name: personalInfo.name,
-        jobTitle: personalInfo.professionalTitle,
-        description: personalInfo.bio,
-        url: siteUrl,
-        image: socialImage,
-        email: `mailto:${personalInfo.email}`,
-        worksFor: { '@type': 'Organization', name: experience[0].company },
-        sameAs: [personalInfo.github, personalInfo.leetcode, personalInfo.codeforces, personalInfo.linkedin, personalInfo.twitter],
-        knowsAbout: [...interests, ...skillCategories.flatMap((category) => category.skills)],
-      },
-    },
-  ],
-}
+import { getArchiveProjects, getFeaturedProjects, getProjectMetadata, homeMetadata, projectPublicUrl, socialImage } from './src/config/routeMetadata'
 
-const projectRouteDescription =
-  'Earlier builds, focused utilities, and production-minded experiments by Saurabh Maurya across web, mobile, developer tools, and data visualization.'
-const projectRouteUrl = `${siteUrl}projects`
-const projectPublicUrl = (project: { liveUrl?: string; githubUrl?: string }) => project.liveUrl || project.githubUrl || ''
-const projectRouteStructuredData = {
-  '@context': 'https://schema.org',
-  '@type': 'CollectionPage',
-  name: 'Software Engineering Projects',
-  description: projectRouteDescription,
-  url: projectRouteUrl,
-  author: {
-    '@type': 'Person',
-    name: personalInfo.name,
-    url: siteUrl,
-  },
-  mainEntity: {
-    '@type': 'ItemList',
-    itemListElement: projectsData.projects
-      .filter((project) => !project.featured && !project.beginner)
-      .map((project, index) => ({
-        '@type': 'ListItem',
-        position: index + 1,
-        name: project.title,
-        url: projectPublicUrl(project),
-      })),
-  },
-}
+const { personalInfo, experience } = profile
 
 const escapeHtml = (value: string) =>
   value.replace(/[&<>'"]/g, (character) => ({
@@ -74,33 +17,30 @@ const escapeHtml = (value: string) =>
     '"': '&quot;',
   })[character]!)
 
-const projectFallbackMarkup = `
+const projectFallbackMarkup = (hideBeginner: boolean) => `
   <main>
     <h1>Software Engineering Projects by ${escapeHtml(personalInfo.name)}</h1>
-    <p>${escapeHtml(projectRouteDescription)}</p>
+    <p>${escapeHtml(getProjectMetadata(hideBeginner).description)}</p>
     <ul>
-      ${projectsData.projects
-        .filter((project) => !project.featured && !project.beginner)
+      ${getArchiveProjects(hideBeginner)
         .map((project) => `<li><a href="${escapeHtml(projectPublicUrl(project))}">${escapeHtml(project.title)}</a>: ${escapeHtml(project.description)}</li>`)
         .join('')}
     </ul>
   </main>
 `
 
-const homeFallbackMarkup = `
+const homeFallbackMarkup = (hideBeginner: boolean) => `
   <main>
     <h1>${escapeHtml(personalInfo.name)} — ${escapeHtml(personalInfo.professionalTitle)}</h1>
     <p>${escapeHtml(personalInfo.headline)}</p>
     <p>${escapeHtml(personalInfo.bio)}</p>
     <h2>Featured engineering work</h2>
     <ul>
-      ${projectsData.projects
-        .filter((project) => project.featured)
-        .slice(0, 5)
+      ${getFeaturedProjects(hideBeginner)
         .map((project) => `<li><a href="${escapeHtml(projectPublicUrl(project))}">${escapeHtml(project.title)}</a>: ${escapeHtml(project.description)}</li>`)
         .join('')}
     </ul>
-    <p><a href="/projects">Explore all software engineering projects</a></p>
+    <p><a href="/projects">Browse the project archive</a></p>
   </main>
 `
 
@@ -131,34 +71,29 @@ const routeMetadata = ({
   .replace(/(<meta name="twitter:title" content=")[^"]*(" \/>)/, `$1${escapeHtml(title)}$2`)
   .replace(/(<meta name="twitter:description"\s+content=")[^"]*(" \/>)/, `$1${escapeHtml(description)}$2`)
   .replace(
-    /<script type="application\/ld\+json">\s*[\s\S]*?\s*<\/script>/,
-    `<script type="application/ld+json">\n    ${JSON.stringify(structuredData)}\n  </script>`
+    /<script id="route-structured-data" type="application\/ld\+json">\s*[\s\S]*?\s*<\/script>/,
+    `<script id="route-structured-data" type="application/ld+json">\n    ${JSON.stringify(structuredData)}\n  </script>`
   )
   .replace('<div id="root"></div>', `<div id="root">${noScriptFallback(fallbackMarkup)}</div>`)
 
-const staticRouteMetadata = () => ({
+const staticRouteMetadata = (hideBeginner: boolean) => ({
   name: 'static-route-metadata',
   closeBundle() {
     const outputDir = path.resolve('dist')
     const rootHtml = fs.readFileSync(path.join(outputDir, 'index.html'), 'utf8')
     const staticHomeHtml = rootHtml.replace(
       '<div id="root"></div>',
-      `<div id="root">${noScriptFallback(homeFallbackMarkup)}</div>`
+      `<div id="root">${noScriptFallback(homeFallbackMarkup(hideBeginner))}</div>`
     )
     const projectHtml = routeMetadata({
       html: rootHtml,
-      title: `Software Engineering Projects | ${personalInfo.name}`,
-      description: projectRouteDescription,
-      canonicalUrl: projectRouteUrl,
-      structuredData: projectRouteStructuredData,
-      fallbackMarkup: projectFallbackMarkup,
+      ...getProjectMetadata(hideBeginner),
+      fallbackMarkup: projectFallbackMarkup(hideBeginner),
     })
 
     fs.writeFileSync(path.join(outputDir, 'index.html'), staticHomeHtml)
-    // projects.html, not projects/index.html: Netlify serves it at /projects with a 200, while a
-    // directory index makes /projects 301 to /projects/ and contradicts the slash-free canonical URL.
-    // public/_redirects keeps /projects/ at 200 for browsers that cached the old 301 to it.
-    fs.writeFileSync(path.join(outputDir, 'projects.html'), projectHtml)
+    fs.mkdirSync(path.join(outputDir, '_pages'), { recursive: true })
+    fs.writeFileSync(path.join(outputDir, '_pages', 'projects.html'), projectHtml)
   },
 })
 
@@ -171,19 +106,19 @@ const profileMetadata = () => ({
       .replaceAll('__PROFILE_COMPANY__', experience[0].company)
       .replaceAll('__PROFILE_HEADLINE__', personalInfo.headline)
       .replaceAll('__PROFILE_EMAIL__', personalInfo.email)
-      .replaceAll('__PROFILE_URL__', siteUrl)
-      .replaceAll('__PROFILE_DESCRIPTION__', seoDescription)
+      .replaceAll('__PROFILE_URL__', homeMetadata.canonicalUrl)
+      .replaceAll('__PROFILE_DESCRIPTION__', homeMetadata.description)
       .replaceAll('__PROFILE_IMAGE__', socialImage)
-      .replace('__PROFILE_STRUCTURED_DATA__', JSON.stringify(structuredProfile))
+      .replace('__PROFILE_STRUCTURED_DATA__', JSON.stringify(homeMetadata.structuredData))
   },
 })
 
 // https://vite.dev/config/
-export default defineConfig({
+export default defineConfig(({ mode }) => ({
   plugins: [
     profileMetadata(),
     react(),
-    staticRouteMetadata(),
+    staticRouteMetadata(loadEnv(mode, process.cwd()).VITE_HIDE_BEGINNER_PROJECTS === 'true'),
   ],
   build: {
     outDir: 'dist',
@@ -192,4 +127,4 @@ export default defineConfig({
   server: {
     port: 3000,
   },
-})
+}))

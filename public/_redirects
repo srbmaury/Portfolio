@@ -1,3 +1,3 @@
-# Browsers cached the old "/projects" -> "/projects/" 301, so "/projects/" must return the page
-# (200) rather than redirect back to "/projects", which would loop. Netlify matches this rule for both.
-/projects/  /projects.html  200!
+/projects.html  /projects  301!
+/projects       /_pages/projects.html  200!
+/projects/      /_pages/projects.html  200!

@@ -25,6 +25,7 @@ import { ThemeProvider } from './providers/ThemeProvider';
 import { ModalProvider } from './contexts/ModalContext';
 import profile from './config/profile.json';
 import { trackPageView } from './utils/analytics';
+import { useRouteSeo } from './hooks/useRouteSeo';
 import { scrollToSection } from './utils/scrollToSection';
 
 const showCustomCursor = import.meta.env.VITE_HIDE_CUSTOM_CURSOR !== 'true';
@@ -62,10 +63,14 @@ const CareerBotLoading = ({ onClose }: { onClose: () => void }) => (
 
 const RouteScrollManager = () => {
   const { pathname, hash } = useLocation();
+  useRouteSeo();
 
   useEffect(() => {
     const frame = window.requestAnimationFrame(() => {
-      if (hash) {
+      if (hash === '#main-content') {
+        document.getElementById('main-content')?.focus();
+        scrollToSection(hash, 'instant');
+      } else if (hash) {
         scrollToSection(hash);
       } else {
         window.scrollTo({ top: 0 });
@@ -102,11 +107,15 @@ function App() {
         <Router>
           <RouteScrollManager />
           <div className="App">
-            <a href="#main-content" className="skip-link">Skip to main content</a>
+            <a href="#main-content" className="skip-link" onClick={(event) => {
+              event.preventDefault();
+              document.getElementById('main-content')?.focus();
+              scrollToSection('#main-content', 'instant');
+            }}>Skip to main content</a>
             {showCustomCursor && <CustomCursor />}
             <ScrollProgress />
             <Navbar onOpenTerminal={handleOpenTerminal} showTerminal={showTerminal} />
-            <main id="main-content">
+            <main id="main-content" tabIndex={-1}>
               <Routes>
                 <Route path="/" element={
                   <>

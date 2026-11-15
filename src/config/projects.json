@@ -1,6 +1,38 @@
 {
   "projects": [
     {
+      "title": "PR Blast Radius",
+      "description": "Analyze potential production impact of Java/Spring Boot pull requests using static code evidence, PostgreSQL dependencies, and OpenTelemetry traces.",
+      "fallbackIcon": "🛰️",
+      "fallbackGradient": "from-orange-600 to-slate-900",
+      "technologies": [
+        "Java",
+        "Spring Boot",
+        "PostgreSQL",
+        "OpenTelemetry",
+        "GitHub API"
+      ],
+      "highlights": [
+        "Inspect changed Java endpoints and types using source-aware static analysis.",
+        "Correlate PostgreSQL schema and runtime dependency evidence.",
+        "Report findings with explicit evidence strength and coverage warnings."
+      ],
+      "githubUrl": "https://github.com/srbmaury/pr-blast-radius",
+      "featured": true,
+      "systemFlow": [
+        "Read pull request changes",
+        "Trace code and data dependencies",
+        "Correlate runtime evidence",
+        "Report impact and coverage"
+      ],
+      "category": "Developer tools",
+      "image": "/images/projects/pr-blast-radius-sample.webp",
+      "imageFit": "contain",
+      "imageCaption": "Repository test fixture rendered in the PR Blast Radius dashboard.",
+      "featuredOrder": 1,
+      "detailsLabel": "View example report"
+    },
+    {
       "title": "FreeEdit",
       "description": "A browser-based editor for shaping screen recordings and polishing their sound, captions, and visual details.",
       "fallbackIcon": "🎬",
@@ -25,64 +57,11 @@
       ],
       "liveUrl": "https://freeedit.srbmaury.com/",
       "githubUrl": "https://github.com/srbmaury/FreeEdit",
-      "featured": false,
-      "image": "/images/FreeEdit.webp"
-    },
-    {
-      "title": "Repository LLD Generator",
-      "description": "Understand unfamiliar Java codebases faster with UML diagrams generated from their source structure.",
-      "fallbackIcon": "🧩",
-      "fallbackGradient": "from-slate-600 to-blue-900",
-      "technologies": [
-        "Python",
-        "Java AST",
-        "PlantUML",
-        "Flask",
-        "Docker"
-      ],
-      "highlights": [
-        "Parses Java source code to identify classes, interfaces, methods, fields, and inheritance relationships.",
-        "Generates PlantUML diagrams for repositories, modules, and subdirectories.",
-        "Provides a web interface to preview diagrams for public GitHub and GitLab repositories."
-      ],
-      "systemFlow": [
-        "Enter repository URL",
-        "Parse Java AST",
-        "Resolve relationships",
-        "Render class diagrams"
-      ],
-      "liveUrl": "https://lldgenerator.srbmaury.com/",
-      "githubUrl": "https://github.com/srbmaury/Repo-LLD-generator",
-      "featured": false,
-      "image": "/images/LLDGenerator.webp"
-    },
-    {
-      "title": "DevFolioX",
-      "description": "Build and publish tailored developer portfolios from a profile you manage in one place.",
-      "fallbackIcon": "🗂️",
-      "fallbackGradient": "from-blue-600 to-slate-900",
-      "technologies": [
-        "Next.js",
-        "React",
-        "TypeScript",
-        "Supabase",
-        "PostgreSQL"
-      ],
-      "highlights": [
-        "Import a resume and GitHub projects into an editable portfolio workspace.",
-        "Create multiple targeted portfolio variants using the same shared profile.",
-        "Publish responsive portfolios and review first-party engagement analytics."
-      ],
-      "systemFlow": [
-        "Import profile",
-        "Customize portfolio",
-        "Publish",
-        "Review analytics"
-      ],
-      "liveUrl": "https://devfoliox.srbmaury.com/",
-      "githubUrl": "https://github.com/srbmaury/Portfolio-Builder",
-      "featured": false,
-      "image": "/images/DevFolioX.webp"
+      "featured": true,
+      "image": "/images/FreeEdit.webp",
+      "liveNote": "The hosted editor processes media on the server.",
+      "category": "Developer tools",
+      "featuredOrder": 2
     },
     {
       "title": "Evalcue AI",
@@ -113,74 +92,9 @@
       ],
       "liveUrl": "https://evalcueai.com/",
       "featured": true,
-      "demoType": "iframe",
-      "demoUrl": "https://evalcueai.com/",
-      "featuredOrder": 2
-    },
-    {
-      "title": "YAML Data Visualizer",
-      "description": "Explore large YAML files visually, compare changes, and collaborate on configurations without getting lost in nested structures.",
-      "image": "/images/YamlVisualizer.webp",
-      "fallbackIcon": "🌳",
-      "fallbackGradient": "from-blue-400 to-indigo-500",
-      "technologies": [
-        "React",
-        "Node.js",
-        "D3.js",
-        "MongoDB",
-        "JavaScript",
-        "CSS"
-      ],
-      "highlights": [
-        "Renders more than 5,000 nodes at 60fps using virtual rendering and frame scheduling.",
-        "Supports real-time collaboration, delta-based versioning, diff comparison, and secure GitHub webhook integrations.",
-        "Recent work improved diff correctness and added regression coverage to CI for the comparison workflow."
-      ],
-      "systemFlow": [
-        "Paste or import YAML",
-        "Explore diagram",
-        "Compare & collaborate",
-        "Save versions"
-      ],
-      "liveUrl": "https://yaml-visualizer.netlify.app/",
-      "githubUrl": "https://github.com/srbmaury/YAML-Visualizer",
-      "featured": true,
-      "demoType": "iframe",
-      "demoUrl": "https://yaml-visualizer.netlify.app/",
-      "featuredOrder": 4
-    },
-    {
-      "title": "Chess ML Coach",
-      "description": "A chess coach that analyzes your games, identifies recurring mistakes, and creates personalized practice with Stockfish and machine learning.",
-      "image": "/images/ChessMLCoach.webp",
-      "fallbackIcon": "♞",
-      "fallbackGradient": "from-emerald-500 to-slate-800",
-      "technologies": [
-        "Python",
-        "FastAPI",
-        "React",
-        "Stockfish / WASM",
-        "PostgreSQL",
-        "Supabase",
-        "LightGBM"
-      ],
-      "highlights": [
-        "Runs Stockfish analysis in the browser for hosted workflows, with resumable checkpoints and shared analysis coordination.",
-        "Uses authenticated, isolated player data with PostgreSQL-backed persistence and adaptive spaced-repetition practice.",
-        "Combines engine-grounded coaching with player-specific modelling to identify mistake-prone positions and generate personal training."
-      ],
-      "systemFlow": [
-        "Sync Chess.com games",
-        "Analyze & checkpoint",
-        "Learn player patterns",
-        "Train adaptively"
-      ],
-      "liveUrl": "https://chess-ml-coach.onrender.com/",
-      "githubUrl": "https://github.com/srbmaury/Chess-Coach",
-      "featured": true,
-      "demoType": "iframe",
-      "demoUrl": "https://chess-ml-coach.onrender.com/",
-      "featuredOrder": 1
+      "category": "AI & ML",
+      "featuredOrder": 3,
+      "githubUrl": "https://github.com/srbmaury/EvalcueAI"
     },
     {
       "title": "Ecommerce Search Engine",
@@ -210,13 +124,180 @@
       "liveUrl": "https://ecommerce-search.onrender.com/",
       "githubUrl": "https://github.com/srbmaury/Ecommerce-Search",
       "featured": true,
-      "demoType": "iframe",
-      "demoUrl": "https://ecommerce-search.onrender.com/",
-      "featuredOrder": 3
+      "category": "AI & ML",
+      "featuredOrder": 4
+    },
+    {
+      "title": "Chess ML Coach",
+      "description": "A chess coach that analyzes your games, identifies recurring mistakes, and creates personalized practice with Stockfish and machine learning.",
+      "image": "/images/ChessMLCoach.webp",
+      "fallbackIcon": "♞",
+      "fallbackGradient": "from-emerald-500 to-slate-800",
+      "technologies": [
+        "Python",
+        "FastAPI",
+        "React",
+        "Stockfish / WASM",
+        "PostgreSQL",
+        "Supabase",
+        "LightGBM"
+      ],
+      "highlights": [
+        "Runs Stockfish analysis in the browser for hosted workflows, with resumable checkpoints and shared analysis coordination.",
+        "Uses authenticated, isolated player data with PostgreSQL-backed persistence and adaptive spaced-repetition practice.",
+        "Combines engine-grounded coaching with player-specific modelling to identify mistake-prone positions and generate personal training."
+      ],
+      "systemFlow": [
+        "Sync Chess.com games",
+        "Analyze & checkpoint",
+        "Learn player patterns",
+        "Train adaptively"
+      ],
+      "liveUrl": "https://chess.srbmaury.com/",
+      "githubUrl": "https://github.com/srbmaury/Chess-Coach",
+      "featured": false,
+      "liveNote": "Hosted features depend on deployment configuration. The repository also documents a local LightGBM workflow.",
+      "category": "AI & ML"
+    },
+    {
+      "title": "YAML Data Visualizer",
+      "description": "Explore large YAML files visually, compare changes, and collaborate on configurations without getting lost in nested structures.",
+      "image": "/images/YamlVisualizer.webp",
+      "fallbackIcon": "🌳",
+      "fallbackGradient": "from-blue-400 to-indigo-500",
+      "technologies": [
+        "React",
+        "Node.js",
+        "D3.js",
+        "MongoDB",
+        "JavaScript",
+        "CSS"
+      ],
+      "highlights": [
+        "Uses virtual rendering and schedules work across frames to keep large diagrams usable.",
+        "Supports real-time collaboration, delta-based versioning, diff comparison, and secure GitHub webhook integrations.",
+        "Regression tests in CI cover the YAML comparison workflow."
+      ],
+      "systemFlow": [
+        "Paste or import YAML",
+        "Explore diagram",
+        "Compare & collaborate",
+        "Save versions"
+      ],
+      "liveUrl": "https://yaml-visualizer.netlify.app/shared/cLqNv1m5bx",
+      "githubUrl": "https://github.com/srbmaury/YAML-Visualizer",
+      "featured": false,
+      "category": "Developer tools",
+      "liveNote": "Opens a shared example diagram."
+    },
+    {
+      "title": "DevFolioX",
+      "description": "Build and publish tailored developer portfolios from a profile you manage in one place.",
+      "fallbackIcon": "🗂️",
+      "fallbackGradient": "from-blue-600 to-slate-900",
+      "technologies": [
+        "Next.js",
+        "React",
+        "TypeScript",
+        "Supabase",
+        "PostgreSQL"
+      ],
+      "highlights": [
+        "Import a resume and GitHub projects into an editable portfolio workspace.",
+        "Create multiple targeted portfolio variants using the same shared profile.",
+        "Publish responsive portfolios and review first-party engagement analytics."
+      ],
+      "systemFlow": [
+        "Import profile",
+        "Customize portfolio",
+        "Publish",
+        "Review analytics"
+      ],
+      "liveUrl": "https://devfoliox.srbmaury.com/",
+      "githubUrl": "https://github.com/srbmaury/Portfolio-Builder",
+      "featured": false,
+      "image": "/images/DevFolioX.webp",
+      "category": "Developer tools"
+    },
+    {
+      "title": "RecallLater",
+      "description": "A local-first mobile inbox for screenshots, PDFs, links, and text, with on-device extraction and reminders.",
+      "fallbackIcon": "📌",
+      "fallbackGradient": "from-emerald-600 to-slate-900",
+      "technologies": [
+        "React Native",
+        "Expo",
+        "SQLite",
+        "OCR"
+      ],
+      "highlights": [
+        "Collect shared content into device-private storage.",
+        "Extract details on-device and schedule local reminders."
+      ],
+      "githubUrl": "https://github.com/srbmaury/RecallLater",
+      "featured": false,
+      "image": "/images/projects/recall-later-android.webp",
+      "imageFit": "contain",
+      "category": "Mobile"
+    },
+    {
+      "title": "Jobbot",
+      "description": "A job-search workflow that finds software engineering openings, ranks them against resume variants, prepares application forms for review, and tracks results.",
+      "fallbackIcon": "🔎",
+      "fallbackGradient": "from-slate-700 to-slate-900",
+      "technologies": [
+        "Python",
+        "Playwright",
+        "MongoDB",
+        "ATS APIs"
+      ],
+      "highlights": [
+        "Normalizes job listings across applicant tracking systems and supports experience-range filtering and resume-aware ranking.",
+        "Uses browser automation to fill fields and read values back. Dry runs never submit, and fill-for-review lets the user approve submission.",
+        "Tests cover Greenhouse, Ashby, and Workday form fixtures, parallel execution, and live preview."
+      ],
+      "systemFlow": [
+        "Scan job sources",
+        "Rank against resume variants",
+        "Review prepared forms",
+        "Track applications"
+      ],
+      "githubUrl": "https://github.com/srbmaury/target-company-sde-scanner",
+      "featured": false,
+      "category": "Web & data"
+    },
+    {
+      "title": "Repository LLD Generator",
+      "description": "Understand unfamiliar Java codebases faster with UML diagrams generated from their source structure.",
+      "fallbackIcon": "🧩",
+      "fallbackGradient": "from-slate-600 to-blue-900",
+      "technologies": [
+        "Python",
+        "Java AST",
+        "PlantUML",
+        "Flask",
+        "Docker"
+      ],
+      "highlights": [
+        "Parses Java source code to identify classes, interfaces, methods, fields, and inheritance relationships.",
+        "Generates PlantUML diagrams for repositories, modules, and subdirectories.",
+        "Provides a web interface to preview diagrams for public GitHub and GitLab repositories."
+      ],
+      "systemFlow": [
+        "Enter repository URL",
+        "Parse Java AST",
+        "Resolve relationships",
+        "Render class diagrams"
+      ],
+      "liveUrl": "https://lldgenerator.srbmaury.com/",
+      "githubUrl": "https://github.com/srbmaury/Repo-LLD-generator",
+      "featured": false,
+      "image": "/images/LLDGenerator.webp",
+      "category": "Developer tools"
     },
     {
       "title": "ExitSense",
-      "description": "An Android app that detects when you're leaving home and reminds you what to bring, using device sensors rather than GPS.",
+      "description": "An Android app that uses home Wi-Fi and device signals to detect departures and remind you what to bring, without continuous GPS tracking.",
       "image": "/images/ExitSense.webp",
       "fallbackIcon": "🚪",
       "fallbackGradient": "from-amber-400 to-orange-500",
@@ -225,7 +306,13 @@
         "Kotlin"
       ],
       "githubUrl": "https://github.com/srbmaury/ExitSense",
-      "featured": false
+      "featured": false,
+      "imageFit": "contain",
+      "highlights": [
+        "Uses home Wi-Fi identity as a departure signal and accounts for Android permission limits.",
+        "Keeps reminders local. Optional weather uses location when enabled."
+      ],
+      "category": "Mobile"
     },
     {
       "title": "Developer Knowledge Base",
@@ -259,8 +346,8 @@
       "liveUrl": "https://developer-knowledge-base.onrender.com/",
       "githubUrl": "https://github.com/srbmaury/Developer-Knowledge-Base",
       "featured": false,
-      "demoType": "iframe",
-      "demoUrl": "https://developer-knowledge-base.onrender.com/"
+      "liveNote": "Sign-in required.",
+      "category": "Developer tools"
     },
     {
       "title": "MERN Chat Application",
@@ -279,8 +366,7 @@
       "liveUrl": "https://mern-chat-app-xlr3.onrender.com/",
       "githubUrl": "https://github.com/srbmaury/MERN-Chat-App",
       "featured": false,
-      "demoType": "iframe",
-      "demoUrl": "https://mern-chat-app-xlr3.onrender.com/"
+      "category": "Web & data"
     },
     {
       "title": "Hackathon Portal",
@@ -296,35 +382,38 @@
         "JavaScript"
       ],
       "highlights": [
-        "Designed a role-based access-control system spanning six roles.",
+        "Designed access control for seven roles across the organization and individual hackathons.",
         "Automated evaluation workflows using AI APIs.",
         "Managed teams, submissions, ideas, participants, and scoring through the event lifecycle."
       ],
       "liveUrl": "https://hackathon-portal-sepia.vercel.app",
       "githubUrl": "https://github.com/srbmaury/Hackathon-Portal",
       "featured": false,
-      "demoType": "iframe",
-      "demoUrl": "https://hackathon-portal-sepia.vercel.app"
+      "category": "Web & data"
     },
     {
       "title": "Store Management System",
-      "description": "Track inventory, sales, and basic reports through a lightweight store management interface.",
+      "description": "Manage stores, staff, sales, inventory, and receipts across an authenticated dashboard.",
       "image": "/images/StoreManagement.webp",
       "fallbackIcon": "🏪",
       "fallbackGradient": "from-teal-400 to-green-500",
       "technologies": [
-        "JavaScript",
-        "HTML",
-        "CSS",
-        "Local Storage",
-        "Bootstrap"
+        "React",
+        "Vite",
+        "Salesforce Lightning Design System",
+        "Express",
+        "MongoDB",
+        "JWT",
+        "Tesseract.js"
       ],
       "liveUrl": "https://store-management-frontend-x0e2.onrender.com/",
       "githubUrl": "https://github.com/srbmaury/store-management",
       "featured": false,
       "beginner": true,
-      "demoType": "iframe",
-      "demoUrl": "https://store-management-frontend-x0e2.onrender.com/"
+      "highlights": [
+        "Separates administrator and staff permissions.",
+        "Extracts line items from uploaded receipts and tracks stock changes during sales."
+      ]
     },
     {
       "title": "Kanban Board",
@@ -333,21 +422,22 @@
       "fallbackIcon": "📋",
       "fallbackGradient": "from-sky-400 to-blue-600",
       "technologies": [
-        "JavaScript",
-        "HTML",
-        "CSS",
-        "Drag & Drop API"
+        "React",
+        "Vite",
+        "Tailwind CSS",
+        "Context API"
       ],
       "liveUrl": "https://saurabh-kanban-board.netlify.app/",
       "githubUrl": "https://github.com/srbmaury/saurabh-kanban-board",
       "featured": false,
       "beginner": true,
-      "demoType": "iframe",
-      "demoUrl": "https://saurabh-kanban-board.netlify.app/"
+      "highlights": [
+        "Groups tickets by status, priority, or assignee across boards."
+      ]
     },
     {
       "title": "Notes Application",
-      "description": "Create, edit, search, and organize notes with Markdown support.",
+      "description": "Create, edit, search, and star locally stored notes with HTML formatting.",
       "image": "/images/MagicNotes.webp",
       "fallbackIcon": "📝",
       "fallbackGradient": "from-yellow-400 to-orange-500",
@@ -355,15 +445,12 @@
         "JavaScript",
         "HTML",
         "CSS",
-        "Local Storage",
-        "Markdown"
+        "Local Storage"
       ],
       "liveUrl": "https://srbmaury.github.io/notes/",
       "githubUrl": "https://github.com/srbmaury/notes",
       "featured": false,
-      "beginner": true,
-      "demoType": "iframe",
-      "demoUrl": "https://srbmaury.github.io/notes/"
+      "beginner": true
     },
     {
       "title": "Quiz Application",
@@ -381,9 +468,7 @@
       "liveUrl": "https://srbmaury.github.io/quiz1/",
       "githubUrl": "https://github.com/srbmaury/quiz1",
       "featured": false,
-      "beginner": true,
-      "demoType": "iframe",
-      "demoUrl": "https://srbmaury.github.io/quiz1/"
+      "beginner": true
     },
     {
       "title": "Tic Tac Toe Game",
@@ -395,35 +480,28 @@
         "JavaScript",
         "HTML",
         "CSS",
-        "Game Logic",
-        "AI Algorithm"
+        "Minimax"
       ],
       "liveUrl": "https://tic-tac-toe-silk-sigma.vercel.app/",
       "githubUrl": "https://github.com/srbmaury/tic-tac-toe",
       "featured": false,
-      "beginner": true,
-      "demoType": "iframe",
-      "demoUrl": "https://tic-tac-toe-silk-sigma.vercel.app/"
+      "beginner": true
     },
     {
       "title": "Dictionary Application",
-      "description": "Look up definitions, pronunciations, and examples through a dictionary API.",
+      "description": "Look up Hindi translations of English words using a dictionary stored in the browser app.",
       "image": "/images/Dictionary.webp",
       "fallbackIcon": "📖",
       "fallbackGradient": "from-indigo-400 to-purple-500",
       "technologies": [
         "JavaScript",
         "HTML",
-        "CSS",
-        "API Integration",
-        "Responsive Design"
+        "CSS"
       ],
       "liveUrl": "https://srbmaury.github.io/dictionary/",
       "githubUrl": "https://github.com/srbmaury/dictionary",
       "featured": false,
-      "beginner": true,
-      "demoType": "iframe",
-      "demoUrl": "https://srbmaury.github.io/dictionary/"
+      "beginner": true
     },
     {
       "title": "Flappy Bird Game",
@@ -441,9 +519,7 @@
       "liveUrl": "https://srbmaury.github.io/flappyBird/",
       "githubUrl": "https://github.com/srbmaury/flappyBird",
       "featured": false,
-      "beginner": true,
-      "demoType": "iframe",
-      "demoUrl": "https://srbmaury.github.io/flappyBird/"
+      "beginner": true
     },
     {
       "title": "Codeforces Filter",
@@ -482,7 +558,8 @@
       "githubUrl": "https://github.com/srbmaury/India-Startup-Map",
       "featured": false,
       "image": "/images/projects/india-startup-map-live.webp",
-      "imageFit": "cover"
+      "imageFit": "cover",
+      "category": "Web & data"
     },
     {
       "title": "Kindred Code",
@@ -503,49 +580,8 @@
       "githubUrl": "https://github.com/srbmaury/kindred-code",
       "featured": false,
       "image": "/images/projects/kindred-code-live.webp",
-      "imageFit": "cover"
-    },
-    {
-      "title": "PR Blast Radius",
-      "description": "Analyze potential production impact of Java/Spring Boot pull requests using static code evidence, PostgreSQL dependencies, and OpenTelemetry traces.",
-      "fallbackIcon": "🛰️",
-      "fallbackGradient": "from-orange-600 to-slate-900",
-      "technologies": [
-        "Java",
-        "Spring Boot",
-        "PostgreSQL",
-        "OpenTelemetry",
-        "GitHub API"
-      ],
-      "highlights": [
-        "Inspect changed Java endpoints and types using source-aware static analysis.",
-        "Correlate PostgreSQL schema and runtime dependency evidence.",
-        "Report findings with explicit evidence strength and coverage warnings."
-      ],
-      "githubUrl": "https://github.com/srbmaury/pr-blast-radius",
-      "featured": false,
-      "image": "/images/projects/pr-blast-radius-analysis.webp",
-      "imageFit": "cover"
-    },
-    {
-      "title": "RecallLater",
-      "description": "A local-first mobile inbox for screenshots, PDFs, links, and text, with on-device extraction and reminders.",
-      "fallbackIcon": "📌",
-      "fallbackGradient": "from-emerald-600 to-slate-900",
-      "technologies": [
-        "React Native",
-        "Expo",
-        "SQLite",
-        "OCR"
-      ],
-      "highlights": [
-        "Collect shared content into device-private storage.",
-        "Extract details on-device and schedule local reminders."
-      ],
-      "githubUrl": "https://github.com/srbmaury/RecallLater",
-      "featured": false,
-      "image": "/images/projects/recall-later-android.webp",
-      "imageFit": "contain"
+      "imageFit": "cover",
+      "category": "Web & data"
     },
     {
       "title": "NEET",
@@ -560,7 +596,8 @@
       "githubUrl": "https://github.com/srbmaury/NEET",
       "featured": false,
       "image": "/images/projects/neet-android.webp",
-      "imageFit": "contain"
+      "imageFit": "contain",
+      "category": "Mobile"
     }
   ]
 }

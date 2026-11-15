@@ -1,424 +1,159 @@
-import { useState, useEffect, useRef, useCallback } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { X, ExternalLink, Github, Eye, Play, ZoomIn, ZoomOut, RotateCcw } from 'lucide-react';
+import { useEffect, useRef, useState } from 'react';
+import { ExternalLink, Github, RotateCcw, X, ZoomIn, ZoomOut } from 'lucide-react';
 import type { ProjectModalProps } from '../types/project';
 import { trackProjectEvent } from '../utils/analytics';
 
-const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, project }) => {
+const ProjectModal = ({ isOpen, onClose, project }: ProjectModalProps) => {
+  const dialogRef = useRef<HTMLDialogElement>(null);
+  const closeRef = useRef<HTMLButtonElement>(null);
   const [zoom, setZoom] = useState(1);
-  const [rotation, setRotation] = useState(0);
-  const closeBtnRef = useRef<HTMLButtonElement>(null);
-  const modalRef = useRef<HTMLDivElement>(null);
+  const [imageFailed, setImageFailed] = useState(false);
 
-  const handleBackdropClick = (e: React.MouseEvent) => {
-    if (e.target === e.currentTarget) {
-      onClose();
-    }
-  };
-
-  const handleZoomIn = useCallback(() => {
-    setZoom(prev => Math.min(prev + 0.25, 3));
-  }, []);
-
-  const handleZoomOut = useCallback(() => {
-    setZoom(prev => Math.max(prev - 0.25, 0.5));
-  }, []);
-
-  const handleReset = useCallback(() => {
-    setZoom(1);
-    setRotation(0);
-  }, []);
-
-  const handleKeyDown = useCallback((e: KeyboardEvent) => {
-    if (!isOpen) return;
-
-    switch (e.key) {
-      case '=':
-      case '+':
-        e.preventDefault();
-        handleZoomIn();
-        break;
-      case '-':
-        e.preventDefault();
-        handleZoomOut();
-        break;
-      case '0':
-        e.preventDefault();
-        handleReset();
-        break;
-    }
-  }, [handleReset, handleZoomIn, handleZoomOut, isOpen]);
-
-  // Add keyboard event listeners and focus trap
   useEffect(() => {
-    if (!isOpen) return;
+    const dialog = dialogRef.current;
+    if (!dialog || !isOpen) return;
+
     const previousFocus = document.activeElement instanceof HTMLElement ? document.activeElement : null;
-    closeBtnRef.current?.focus();
-    return () => previousFocus?.focus();
+    const previousOverflow = document.body.style.overflow;
+    dialog.showModal();
+    closeRef.current?.focus();
+    document.body.style.overflow = 'hidden';
+
+    return () => {
+      dialog.close();
+      document.body.style.overflow = previousOverflow;
+      if (previousFocus?.isConnected && previousFocus !== document.body) previousFocus.focus();
+    };
   }, [isOpen]);
 
-  useEffect(() => {
-    if (!isOpen) return;
-    const handleTrap = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
-        onClose();
-      } else if (e.key === 'Tab') {
-        const focusable = Array.from(modalRef.current?.querySelectorAll<HTMLElement>(
-          'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
-        ) ?? []).filter(element => !element.hasAttribute('disabled') && element.getClientRects().length > 0);
-        if (focusable.length === 0) return;
-        const first = focusable[0];
-        const last = focusable[focusable.length - 1];
-        if (e.shiftKey) {
-          if (document.activeElement === first) {
-            e.preventDefault();
-            last.focus();
-          }
-        } else {
-          if (document.activeElement === last) {
-            e.preventDefault();
-            first.focus();
-          }
-        }
-      }
-    };
-    document.addEventListener('keydown', handleTrap);
-    return () => {
-      document.removeEventListener('keydown', handleTrap);
-    };
-  }, [isOpen, onClose]);
+  if (!isOpen || !project) return null;
 
-  useEffect(() => {
-    if (!isOpen) return;
-    document.addEventListener('keydown', handleKeyDown);
-    return () => document.removeEventListener('keydown', handleKeyDown);
-  }, [handleKeyDown, isOpen]);
-
-  if (!project) return null;
-
-  const renderDemoContent = () => {
-    // Calculate dimensions to fill available space when zoomed out
-    const containerWidth = 800; // Approximate modal width
-    const containerHeight = 384; // h-96 = 24rem = 384px
-
-    const demoStyle = {
-      transform: `scale(${zoom}) rotate(${rotation}deg)`,
-      transition: 'transform 0.2s ease-in-out',
-      width: zoom < 1 ? `${containerWidth / zoom}px` : '100%',
-      height: zoom < 1 ? `${containerHeight / zoom}px` : '100%',
-    };
-
-    // Zoom functionality for content scaling
-
-    const renderContent = (content: React.ReactNode) => (
-      <div className="w-full h-96 rounded-lg overflow-hidden relative" style={{ backgroundColor: 'var(--card-bg)' }}>
-        {/* Zoom Controls */}
-        <div className="absolute top-2 right-2 z-10 flex gap-2">
-          <button
-            onClick={handleZoomOut}
-            className="p-2 rounded-lg shadow-lg transition-colors"
-            style={{
-              backgroundColor: 'var(--card-bg)',
-              color: 'var(--text-primary)'
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.backgroundColor = 'var(--bg-secondary)';
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.backgroundColor = 'var(--card-bg)';
-            }}
-            title="Zoom Out (-)"
-          >
-            <ZoomOut size={16} />
-          </button>
-          <button
-            onClick={handleZoomIn}
-            className="p-2 rounded-lg shadow-lg transition-colors"
-            style={{
-              backgroundColor: 'var(--card-bg)',
-              color: 'var(--text-primary)'
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.backgroundColor = 'var(--bg-secondary)';
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.backgroundColor = 'var(--card-bg)';
-            }}
-            title="Zoom In (+)"
-          >
-            <ZoomIn size={16} />
-          </button>
-          <button
-            onClick={handleReset}
-            className="p-2 rounded-lg shadow-lg transition-colors"
-            style={{
-              backgroundColor: 'var(--card-bg)',
-              color: 'var(--text-primary)'
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.backgroundColor = 'var(--bg-secondary)';
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.backgroundColor = 'var(--card-bg)';
-            }}
-            title="Reset (0)"
-          >
-            <RotateCcw size={16} />
-          </button>
-        </div>
-
-        {/* Content Area */}
-        <div className="w-full h-full overflow-auto flex items-center justify-center">
-          <div style={demoStyle} className="origin-center">
-            {content}
-          </div>
-        </div>
-      </div>
-    );
-
-    if (project.demoType === 'video' && project.demoUrl) {
-      return renderContent(
-        <video
-          src={project.demoUrl}
-          className={`w-full h-full ${project.imageFit === 'contain' ? 'object-contain' : 'object-cover'}`}
-          controls
-          autoPlay
-          muted
-          loop
-        >
-          Your browser does not support the video tag.
-        </video>
-      );
-    }
-
-    // Default to project image or fallback
-    if (project.image) {
-      return renderContent(
-        <img
-          src={project.image}
-          alt={`${project.title} interface screenshot`}
-          className={`w-full h-full ${project.imageFit === 'contain' ? 'object-contain' : 'object-cover'}`}
-        />
-      );
-    }
-
-    if (project.demoType === 'iframe' && project.demoUrl) {
-      return renderContent(
-        <iframe
-          src={project.demoUrl}
-          className="w-full h-full border-0"
-          title={`${project.title} Demo`}
-          allowFullScreen
-        />
-      );
-    }
-
-    // Fallback for projects without images or demos
-    return renderContent(
-      <div className="w-full h-full flex items-center justify-center" style={{
-        background: 'linear-gradient(to bottom right, var(--bg-secondary), var(--bg-primary))'
-      }}>
-        <div className="text-center">
-          <div className="text-8xl mb-6 animate-pulse">{project.fallbackIcon}</div>
-          <h3 className="text-3xl font-bold mb-4" style={{ color: 'var(--text-primary)' }}>{project.title}</h3>
-          <p className="text-lg max-w-md mx-auto" style={{ color: 'var(--text-secondary)' }}>{project.description}</p>
-          <div className="mt-6 flex justify-center gap-4">
-            {project.liveUrl && <a
-              href={project.liveUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={() => trackProjectEvent('live_demo_click', project.title)}
-              className="inline-flex items-center gap-2 px-6 py-3 text-white rounded-lg transition-colors"
-              style={{ backgroundColor: 'var(--primary-color)' }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.backgroundColor = 'var(--secondary-color)';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.backgroundColor = 'var(--primary-color)';
-              }}
-            >
-              <ExternalLink size={20} />
-              Open live demo
-            </a>}
-            {project.githubUrl && <a
-              href={project.githubUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={() => trackProjectEvent('github_click', project.title)}
-              className="inline-flex items-center gap-2 px-6 py-3 text-white rounded-lg transition-colors"
-              style={{ backgroundColor: 'var(--bg-dark)' }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.backgroundColor = 'var(--github-bg)';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.backgroundColor = 'var(--bg-dark)';
-              }}
-            >
-              <Github size={20} />
-              View Code
-            </a>}
-          </div>
-        </div>
-      </div>
-    );
-  };
+  const zoomIn = () => setZoom(current => Math.min(3, current + 0.25));
+  const zoomOut = () => setZoom(current => Math.max(0.5, current - 0.25));
+  const hasImage = Boolean(project.image && !imageFailed);
 
   return (
-    <AnimatePresence>
-      {isOpen && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          className="fixed inset-0 z-50 flex items-center justify-center p-4 backdrop-blur-sm"
-          style={{ backgroundColor: 'rgba(0, 0, 0, 0.8)' }}
-          onClick={handleBackdropClick}
-          role="dialog"
-          aria-modal="true"
-          aria-label={project?.title ? `${project.title} Project Modal` : 'Project Modal'}
-        >
-          <motion.div
-            ref={modalRef}
-            initial={{ scale: 0.9, opacity: 0, y: 20 }}
-            animate={{ scale: 1, opacity: 1, y: 0 }}
-            exit={{ scale: 0.9, opacity: 0, y: 20 }}
-            transition={{ type: "spring", damping: 25, stiffness: 300 }}
-            className="case-study-modal rounded-xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-hidden"
-            style={{ backgroundColor: 'var(--card-bg)' }}
-          >
-            {/* Header */}
-            <div className="flex items-center justify-between p-6 border-b" style={{ borderColor: 'var(--border-color)' }}>
-              <div>
-                <h2 className="text-2xl font-bold" style={{ color: 'var(--text-primary)' }}>{project.title}</h2>
-                <p className="mt-1" style={{ color: 'var(--text-secondary)' }}>{project.description}</p>
-              </div>
-              <button
-                ref={closeBtnRef}
-                onClick={onClose}
-                className="p-2 rounded-lg transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400"
-                style={{ color: 'var(--text-primary)' }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.backgroundColor = 'var(--bg-secondary)';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.backgroundColor = 'transparent';
-                }}
-                aria-label="Close project modal"
-              >
-                <X size={24} />
-              </button>
-            </div>
+    <dialog
+      ref={dialogRef}
+      aria-labelledby="project-modal-title"
+      className="case-study-modal fixed inset-0 m-auto max-h-[90dvh] w-[calc(100%-2rem)] max-w-4xl overflow-hidden rounded-xl p-0 shadow-2xl backdrop:bg-black/75"
+      style={{ backgroundColor: 'var(--card-bg)', color: 'var(--text-primary)' }}
+      onCancel={event => {
+        event.preventDefault();
+        onClose();
+      }}
+      onClick={event => {
+        if (event.target === event.currentTarget) onClose();
+      }}
+      onKeyDown={event => {
+        if (!hasImage || event.ctrlKey || event.metaKey || event.altKey) return;
+        switch (event.key) {
+          case '+':
+          case '=':
+            event.preventDefault();
+            zoomIn();
+            break;
+          case '-':
+            event.preventDefault();
+            zoomOut();
+            break;
+          case '0':
+            event.preventDefault();
+            setZoom(1);
+            break;
+        }
+      }}
+    >
+      <div className="flex max-h-[90dvh] flex-col">
+        <header className="flex items-start justify-between gap-2 border-b p-4 sm:p-6" style={{ borderColor: 'var(--border-color)' }}>
+          <div>
+            <h2 id="project-modal-title" className="text-xl font-bold sm:text-2xl">{project.title}</h2>
+            <p className="mt-1 text-sm sm:text-base" style={{ color: 'var(--text-secondary)' }}>{project.description}</p>
+          </div>
+          <button ref={closeRef} type="button" onClick={onClose} aria-label="Close project modal" className="grid size-11 shrink-0 place-items-center rounded-lg hover:bg-[var(--tag-bg)]">
+            <X size={22} />
+          </button>
+        </header>
 
-            {/* Content */}
-            <div className="p-6 overflow-y-auto max-h-[calc(90vh-140px)]">
-              {/* Demo Section */}
-              <div className="mb-6">
-                <div className="flex items-center justify-between mb-4">
-                  <h3 className="text-lg font-semibold flex items-center gap-2" style={{ color: 'var(--text-primary)' }}>
-                    {project.image ? <Eye size={20} style={{ color: 'var(--primary-color)' }} /> : <Play size={20} style={{ color: 'var(--primary-color)' }} />}
-                    {project.image ? 'Project screenshot' : 'Project demo'}
-                    {zoom !== 1 && (
-                      <span className="text-sm ml-2" style={{ color: 'var(--text-secondary)' }}>
-                        (Zoom: {Math.round(zoom * 100)}%)
-                      </span>
-                    )}
-                  </h3>
-                  <div className="flex gap-2">
-                    {project.liveUrl && <a
-                      href={project.liveUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 px-3 py-1.5 text-white text-sm rounded-lg transition-colors"
-                      style={{ backgroundColor: 'var(--primary-color)' }}
-                      onClick={() => trackProjectEvent('live_demo_click', project.title)}
-                      onMouseEnter={(e) => {
-                        e.currentTarget.style.backgroundColor = 'var(--secondary-color)';
-                      }}
-                      onMouseLeave={(e) => {
-                        e.currentTarget.style.backgroundColor = 'var(--primary-color)';
-                      }}
-                    >
-                      <ExternalLink size={16} />
-                      Live Demo
-                    </a>}
-                    {project.githubUrl && <a
-                      href={project.githubUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 px-3 py-1.5 text-white text-sm rounded-lg transition-colors"
-                      style={{ backgroundColor: 'var(--bg-dark)' }}
-                      onClick={() => trackProjectEvent('github_click', project.title)}
-                      onMouseEnter={(e) => {
-                        e.currentTarget.style.backgroundColor = 'var(--github-bg)';
-                      }}
-                      onMouseLeave={(e) => {
-                        e.currentTarget.style.backgroundColor = 'var(--bg-dark)';
-                      }}
-                    >
-                      <Github size={16} />
-                      Code
-                    </a>}
-                  </div>
-                </div>
-                {renderDemoContent()}
-                {project.image && project.liveUrl && (
-                  <p className="mt-2 text-xs" style={{ color: 'var(--text-secondary)' }}>Screenshot preview · open the live demo to explore the project.</p>
+        <div className="min-h-0 space-y-6 overflow-auto overscroll-contain p-4 sm:p-6">
+          {(project.liveUrl || project.githubUrl) && (
+            <div>
+              <div className="flex flex-wrap gap-2">
+                {project.liveUrl && (
+                  <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" className="btn btn-primary" onClick={() => trackProjectEvent('live_demo_click', project.title)}>
+                    <ExternalLink size={16} /> Live demo
+                  </a>
                 )}
-
-                {/* Zoom Instructions */}
-                <div className="mt-3 text-xs text-center" style={{ color: 'var(--text-secondary)' }}>
-                  Use <kbd className="px-1 py-0.5 rounded text-xs" style={{ backgroundColor: 'var(--tag-bg)' }}>+</kbd> <kbd className="px-1 py-0.5 rounded text-xs" style={{ backgroundColor: 'var(--tag-bg)' }}>-</kbd> <kbd className="px-1 py-0.5 rounded text-xs" style={{ backgroundColor: 'var(--tag-bg)' }}>0</kbd> keys or buttons to zoom
-                </div>
+                {project.githubUrl && (
+                  <a href={project.githubUrl} target="_blank" rel="noopener noreferrer" className="btn btn-secondary" onClick={() => trackProjectEvent('github_click', project.title)}>
+                    <Github size={16} /> Source code
+                  </a>
+                )}
               </div>
-
-              {/* Technologies */}
-              {project.systemFlow && (
-                <div className="mb-6">
-                  <h3 className="text-lg font-semibold mb-3" style={{ color: 'var(--text-primary)' }}>How it works</h3>
-                  <ol className="flex flex-wrap items-center gap-2 text-sm" style={{ color: 'var(--text-secondary)' }}>
-                    {project.systemFlow.map((step, index) => (
-                      <li key={step} className="inline-flex items-center gap-2">
-                        {index > 0 && <span aria-hidden="true" style={{ color: 'var(--primary-color)' }}>→</span>}
-                        <span className="rounded-full px-3 py-1" style={{ backgroundColor: 'var(--tag-bg)' }}>{step}</span>
-                      </li>
-                    ))}
-                  </ol>
-                </div>
-              )}
-
-              <div className="mb-6">
-                <h3 className="text-lg font-semibold mb-3" style={{ color: 'var(--text-primary)' }}>Technology stack</h3>
-                <div className="flex flex-wrap gap-2">
-                  {project.technologies.map((tech, index) => (
-                    <span
-                      key={index}
-                      className="px-3 py-1 text-sm rounded-full font-medium"
-                      style={{ backgroundColor: 'var(--tag-bg)', color: 'var(--text-primary)' }}
-                    >
-                      {tech}
-                    </span>
-                  ))}
-                </div>
-              </div>
-
-              {/* Features/Details */}
-              <div>
-                <h3 className="text-lg font-semibold mb-3" style={{ color: 'var(--text-primary)' }}>Engineering decisions & implementation</h3>
-                <ul className="space-y-2" style={{ color: 'var(--text-secondary)' }}>
-                  {(project.highlights && project.highlights.length > 0 ? project.highlights : [project.description]).map((highlight) => (
-                    <li key={highlight} className="flex items-start gap-2">
-                      <div className="w-2 h-2 rounded-full mt-2 flex-shrink-0" style={{ backgroundColor: 'var(--primary-color)' }}></div>
-                      <span>{highlight}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
+              {project.liveNote && <p className="mt-2 text-sm" style={{ color: 'var(--text-secondary)' }}>{project.liveNote}</p>}
             </div>
-          </motion.div>
-        </motion.div>
-      )}
-    </AnimatePresence>
+          )}
+
+          {hasImage && (
+            <section>
+              <div className="mb-2 flex flex-wrap items-center justify-between gap-x-4">
+                <h3 className="text-lg font-semibold">Project screenshot</h3>
+                <div className="flex items-center gap-1" role="group" aria-label="Screenshot zoom">
+                  <button type="button" onClick={zoomOut} disabled={zoom === 0.5} aria-label="Zoom out" className="grid size-11 place-items-center rounded-lg hover:bg-[var(--tag-bg)] disabled:opacity-40"><ZoomOut size={18} /></button>
+                  <span className="min-w-11 text-center text-sm" aria-live="polite">{Math.round(zoom * 100)}%</span>
+                  <button type="button" onClick={zoomIn} disabled={zoom === 3} aria-label="Zoom in" className="grid size-11 place-items-center rounded-lg hover:bg-[var(--tag-bg)] disabled:opacity-40"><ZoomIn size={18} /></button>
+                  <button type="button" onClick={() => setZoom(1)} disabled={zoom === 1} aria-label="Reset zoom" className="grid size-11 place-items-center rounded-lg hover:bg-[var(--tag-bg)] disabled:opacity-40"><RotateCcw size={18} /></button>
+                </div>
+              </div>
+              <div className="max-h-[min(48dvh,25rem)] overflow-auto rounded-lg bg-[var(--bg-secondary)]" tabIndex={zoom > 1 ? 0 : undefined} aria-label="Screenshot viewer">
+                <img
+                  src={project.image}
+                  alt={`${project.title} interface screenshot`}
+                  onError={() => setImageFailed(true)}
+                  className="mx-auto block h-auto w-auto object-contain"
+                  style={{ maxWidth: `${zoom * 100}%`, maxHeight: `min(${48 * zoom}dvh, ${25 * zoom}rem)` }}
+                />
+              </div>
+              {project.imageCaption && <p className="mt-2 text-sm" style={{ color: 'var(--text-secondary)' }}>{project.imageCaption}</p>}
+            </section>
+          )}
+
+          {project.demoType === 'video' && project.demoUrl && <video src={project.demoUrl} className="w-full rounded-lg" controls />}
+          {imageFailed && <p className="text-sm" style={{ color: 'var(--text-secondary)' }}>The project screenshot could not load.</p>}
+
+          {project.systemFlow && (
+            <section>
+              <h3 className="mb-3 text-lg font-semibold">How it works</h3>
+              <ol className="flex flex-wrap gap-2 text-sm">
+                {project.systemFlow.map((step, index) => (
+                  <li key={step} className="inline-flex items-center gap-2">
+                    {index > 0 && <span aria-hidden="true" style={{ color: 'var(--primary-color)' }}>→</span>}
+                    <span className="rounded-full bg-[var(--tag-bg)] px-3 py-1">{step}</span>
+                  </li>
+                ))}
+              </ol>
+            </section>
+          )}
+
+          <section>
+            <h3 className="mb-3 text-lg font-semibold">Technology stack</h3>
+            <ul className="flex flex-wrap gap-2">
+              {project.technologies.map(tech => <li key={tech} className="rounded-full bg-[var(--tag-bg)] px-3 py-1 text-sm">{tech}</li>)}
+            </ul>
+          </section>
+
+          {Boolean(project.highlights?.length) && (
+            <section>
+              <h3 className="mb-3 text-lg font-semibold">Engineering decisions & implementation</h3>
+              <ul className="list-disc space-y-2 pl-5" style={{ color: 'var(--text-secondary)' }}>
+                {project.highlights?.map(highlight => <li key={highlight}>{highlight}</li>)}
+              </ul>
+            </section>
+          )}
+        </div>
+      </div>
+    </dialog>
   );
 };
 
-export default ProjectModal; 
+export default ProjectModal;
